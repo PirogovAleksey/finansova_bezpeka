@@ -14,6 +14,7 @@
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
 </head>
 <body>
 
@@ -49,15 +50,15 @@
 
     <div class="stats">
       <div class="stat-card">
-        <div class="stat-value">8</div>
+        <div class="stat-value">15</div>
         <div class="stat-label">Лекцій у курсі</div>
       </div>
       <div class="stat-card">
-        <div class="stat-value">1/8</div>
+        <div class="stat-value">0/15</div>
         <div class="stat-label">Пройдено</div>
       </div>
       <div class="stat-card">
-        <div class="stat-value">12 год</div>
+        <div class="stat-value">70 год</div>
         <div class="stat-label">Загальна тривалість</div>
       </div>
     </div>
@@ -65,41 +66,44 @@
     <div class="progress-section">
       <h2>Прогрес курсу</h2>
       <div class="progress-bar-bg">
-        <div class="progress-bar-fill"></div>
+        <div class="progress-bar-fill" style="width: 0%"></div>
       </div>
       <div class="progress-label">
-        <span>1 з 8 лекцій</span>
-        <span>12.5%</span>
+        <span>0 з 15 лекцій</span>
+        <span>0%</span>
       </div>
     </div>
 
-    <h2 class="section-title">Лекції</h2>
+    <div class="module-header">
+      <h2>Модуль 1. Технічні основи фінансової кібербезпеки</h2>
+      <p>Лекції 1-7: архітектура, вразливості, стандарти та захист платіжних систем</p>
+    </div>
     <div class="lectures">
 
       <a href="lecture.html?id=1" class="lecture-card">
         <div class="lecture-number">01</div>
-        <h3>Вступ до фінансової безпеки</h3>
-        <p>Основи фінансової грамотності, базові поняття та принципи захисту активів.</p>
+        <h3>Ландшафт кіберзагроз у фінансах</h3>
+        <p>Огляд сучасних кіберзагроз у фінансовому секторі, типи атак та їх наслідки.</p>
         <div class="lecture-meta">
-          <span>⏱ 1.5 год</span>
-          <span class="badge badge-done">Пройдено</span>
+          <span>⏱ 2 год</span>
+          <span class="badge badge-locked">Скоро</span>
         </div>
       </a>
 
       <a href="lecture.html?id=2" class="lecture-card">
         <div class="lecture-number">02</div>
-        <h3>Бюджетування та планування</h3>
-        <p>Як створити особистий бюджет, контролювати витрати та планувати фінансове майбутнє.</p>
+        <h3>Безпечна архітектура FinTech-систем</h3>
+        <p>Принципи побудови захищених веб-додатків для фінансового сектору.</p>
         <div class="lecture-meta">
-          <span>⏱ 1.5 год</span>
-          <span class="badge badge-new">Нова</span>
+          <span>⏱ 2 год</span>
+          <span class="badge badge-locked">Скоро</span>
         </div>
       </a>
 
       <a href="lecture.html?id=3" class="lecture-card">
         <div class="lecture-number">03</div>
-        <h3>Захист від шахрайства</h3>
-        <p>Типові схеми фінансового шахрайства та методи захисту від них.</p>
+        <h3>Автентифікація та контроль доступу</h3>
+        <p>Механізми автентифікації, авторизації та управління доступом у фінансових системах.</p>
         <div class="lecture-meta">
           <span>⏱ 2 год</span>
           <span class="badge badge-locked">Скоро</span>
@@ -108,50 +112,128 @@
 
       <a href="lecture.html?id=4" class="lecture-card">
         <div class="lecture-number">04</div>
-        <h3>Інвестиції та ризики</h3>
-        <p>Основи інвестування, оцінка ризиків та стратегії диверсифікації портфеля.</p>
+        <h3>Клієнтські атаки (XSS)</h3>
+        <p>Міжсайтовий скриптинг, CSRF та інші атаки на клієнтську частину веб-додатків.</p>
         <div class="lecture-meta">
-          <span>⏱ 1.5 год</span>
+          <span>⏱ 2 год</span>
           <span class="badge badge-locked">Скоро</span>
         </div>
       </a>
 
       <a href="lecture.html?id=5" class="lecture-card">
         <div class="lecture-number">05</div>
-        <h3>Кібербезпека у фінансах</h3>
-        <p>Захист онлайн-банкінгу, безпечні платежі та цифрова гігієна.</p>
+        <h3>Серверні вразливості та бази даних</h3>
+        <p>SQL-ін'єкції, серверні атаки та захист баз даних фінансових систем.</p>
         <div class="lecture-meta">
-          <span>⏱ 1.5 год</span>
+          <span>⏱ 2 год</span>
           <span class="badge badge-locked">Скоро</span>
         </div>
       </a>
 
       <a href="lecture.html?id=6" class="lecture-card">
         <div class="lecture-number">06</div>
-        <h3>Страхування та резерви</h3>
-        <p>Формування фінансової подушки безпеки та основи страхування.</p>
+        <h3>Стандартизація OWASP та аудит</h3>
+        <p>Стандарти OWASP, методологія аудиту безпеки та оцінка вразливостей.</p>
         <div class="lecture-meta">
-          <span>⏱ 1.5 год</span>
+          <span>⏱ 2 год</span>
           <span class="badge badge-locked">Скоро</span>
         </div>
       </a>
 
       <a href="lecture.html?id=7" class="lecture-card">
         <div class="lecture-number">07</div>
-        <h3>Податкова грамотність</h3>
-        <p>Основи оподаткування, податкові пільги та оптимізація податкового навантаження.</p>
+        <h3>Безпека платіжних систем</h3>
+        <p>PCI DSS, захист транзакцій, безпека карткових платежів та електронних гаманців.</p>
         <div class="lecture-meta">
-          <span>⏱ 1.5 год</span>
+          <span>⏱ 2 год</span>
           <span class="badge badge-locked">Скоро</span>
         </div>
       </a>
 
+    </div>
+
+    <div class="module-header">
+      <h2>Модуль 2. Стратегія, аналітика та управління ризиками</h2>
+      <p>Лекції 8-15: соціальна інженерія, AI, криптоактиви, форензика та національна стратегія</p>
+    </div>
+    <div class="lectures">
+
       <a href="lecture.html?id=8" class="lecture-card">
         <div class="lecture-number">08</div>
-        <h3>Фінансова стратегія</h3>
-        <p>Побудова довгострокової фінансової стратегії та досягнення фінансової незалежності.</p>
+        <h3>Соціальна інженерія та психологія шахрайства</h3>
+        <p>Методи соціальної інженерії, фішинг, вішинг та психологічні прийоми шахраїв.</p>
         <div class="lecture-meta">
-          <span>⏱ 1 год</span>
+          <span>⏱ 2 год</span>
+          <span class="badge badge-locked">Скоро</span>
+        </div>
+      </a>
+
+      <a href="lecture.html?id=9" class="lecture-card">
+        <div class="lecture-number">09</div>
+        <h3>Штучний інтелект у кібербезпеці</h3>
+        <p>Використання AI/ML для виявлення загроз, аномалій та автоматизації захисту.</p>
+        <div class="lecture-meta">
+          <span>⏱ 2 год</span>
+          <span class="badge badge-locked">Скоро</span>
+        </div>
+      </a>
+
+      <a href="lecture.html?id=10" class="lecture-card">
+        <div class="lecture-number">10</div>
+        <h3>Безпека криптоактивів</h3>
+        <p>Захист криптовалютних гаманців, смарт-контрактів та DeFi-протоколів.</p>
+        <div class="lecture-meta">
+          <span>⏱ 2 год</span>
+          <span class="badge badge-locked">Скоро</span>
+        </div>
+      </a>
+
+      <a href="lecture.html?id=11" class="lecture-card">
+        <div class="lecture-number">11</div>
+        <h3>AML та фінансовий моніторинг</h3>
+        <p>Протидія відмиванню коштів, KYC-процедури та системи фінансового моніторингу.</p>
+        <div class="lecture-meta">
+          <span>⏱ 2 год</span>
+          <span class="badge badge-locked">Скоро</span>
+        </div>
+      </a>
+
+      <a href="lecture.html?id=12" class="lecture-card">
+        <div class="lecture-number">12</div>
+        <h3>Цифрова форензика та реагування на інциденти</h3>
+        <p>Розслідування кіберінцидентів, збір цифрових доказів та процедури реагування.</p>
+        <div class="lecture-meta">
+          <span>⏱ 2 год</span>
+          <span class="badge badge-locked">Скоро</span>
+        </div>
+      </a>
+
+      <a href="lecture.html?id=13" class="lecture-card">
+        <div class="lecture-number">13</div>
+        <h3>Кібергігієна та захист кінцевого користувача</h3>
+        <p>Правила цифрової гігієни, захист персональних даних та безпечна поведінка онлайн.</p>
+        <div class="lecture-meta">
+          <span>⏱ 2 год</span>
+          <span class="badge badge-locked">Скоро</span>
+        </div>
+      </a>
+
+      <a href="lecture.html?id=14" class="lecture-card">
+        <div class="lecture-number">14</div>
+        <h3>Ризик-менеджмент та SOC</h3>
+        <p>Управління кіберризиками, побудова та функціонування центрів безпеки (SOC).</p>
+        <div class="lecture-meta">
+          <span>⏱ 2 год</span>
+          <span class="badge badge-locked">Скоро</span>
+        </div>
+      </a>
+
+      <a href="lecture.html?id=15" class="lecture-card">
+        <div class="lecture-number">15</div>
+        <h3>Національна стратегія фінансової кібербезпеки</h3>
+        <p>Державна політика, регулювання та стратегічні ініціативи у сфері фінансової кібербезпеки.</p>
+        <div class="lecture-meta">
+          <span>⏱ 2 год</span>
           <span class="badge badge-locked">Скоро</span>
         </div>
       </a>

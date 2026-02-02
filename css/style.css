@@ -20,7 +20,7 @@
   --sidebar-width: 280px;
 }
 
-body.dark {
+html.dark {
   --bg: #0c1222;
   --bg-sidebar: #151f32;
   --text: #f1f5f9;
@@ -258,7 +258,7 @@ main {
   height: 100%;
   background: linear-gradient(90deg, var(--accent), #3b82f6);
   border-radius: 100px;
-  width: 15%;
+  width: 0%;
   transition: width 0.6s ease;
 }
 
@@ -267,6 +267,27 @@ main {
   justify-content: space-between;
   margin-top: 8px;
   font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* --- Module Headers --- */
+.module-header {
+  margin-top: 40px;
+  margin-bottom: 24px;
+}
+
+.module-header:first-of-type {
+  margin-top: 0;
+}
+
+.module-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.module-header p {
+  font-size: 14px;
   color: var(--text-secondary);
 }
 
@@ -514,6 +535,34 @@ a.lecture-card {
 .lecture-content strong {
   font-weight: 600;
   color: var(--text);
+}
+
+.lecture-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 16px;
+  font-size: 14px;
+}
+
+.lecture-content th,
+.lecture-content td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.lecture-content th {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-bottom-width: 2px;
+}
+
+.lecture-content table code {
+  font-size: 13px;
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 .lecture-nav-bottom {
@@ -849,6 +898,19 @@ a.lecture-card {
 
 .btn-back:hover {
   background: var(--accent-hover);
+}
+
+/* --- Lecture Materials List --- */
+.lecture-materials {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lecture-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 20px 0 12px;
 }
 
 /* --- Mobile --- */
