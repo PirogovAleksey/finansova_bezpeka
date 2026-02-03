@@ -900,6 +900,34 @@ a.lecture-card {
   background: var(--accent-hover);
 }
 
+/* --- Lecture Locked State --- */
+.lecture-locked {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.lecture-locked-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.lecture-locked-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.lecture-locked-desc {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
 /* --- Lecture Materials List --- */
 .lecture-materials {
   display: flex;
