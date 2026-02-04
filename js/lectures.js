@@ -26,7 +26,22 @@ const lectures = [
     title: "Безпечна архітектура FinTech-систем",
     description: "Принципи побудови захищених веб-додатків для фінансового сектору.",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "У цій лекції ми розглянемо принципи побудови захищеної архітектури фінансових систем. Сучасні FinTech-додатки оперують мільйонами транзакцій та зберігають критично важливі дані клієнтів, тому архітектурні рішення безпеки є фундаментом надійності всієї системи.",
+    overviewExtra: "Ви дізнаєтесь про модель Zero Trust та її застосування у фінансах, принципи Secure SDLC та DevSecOps, особливості безпеки мікросервісної архітектури та контейнерів, а також best practices захисту API та інтеграцій з платіжними системами.",
+    topics: [
+      { title: "Принципи Zero Trust Architecture", desc: "Never trust, always verify; мікросегментація, identity-centric security, least privilege" },
+      { title: "Secure SDLC для FinTech", desc: "безпечний життєвий цикл розробки, DevSecOps, SAST/DAST, threat modeling" },
+      { title: "Безпека мікросервісної архітектури", desc: "контейнери, Kubernetes, service mesh, mTLS, secrets management" },
+      { title: "Захист API та інтеграцій", desc: "OAuth 2.0/OIDC, API Gateway, rate limiting, input validation, webhook security" }
+    ],
+    conspect: "conspects/lecture-2.html",
+    presentations: [
+      { title: "Тема 2.1 — Zero Trust Architecture", desc: "Принципи Zero Trust, мікросегментація, BeyondCorp", url: "slides/lecture-2-1.html" },
+      { title: "Тема 2.2 — Secure SDLC", desc: "DevSecOps, SAST/DAST, безпечна розробка", url: "slides/lecture-2-2.html" },
+      { title: "Тема 2.3 — Безпека мікросервісів", desc: "Контейнери, Kubernetes, service mesh, secrets", url: "slides/lecture-2-3.html" },
+      { title: "Тема 2.4 — Захист API", desc: "OAuth 2.0, API Gateway, rate limiting, валідація", url: "slides/lecture-2-4.html" }
+    ]
   },
   {
     id: 3,
