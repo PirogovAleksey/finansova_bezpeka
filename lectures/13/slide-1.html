@@ -59,6 +59,53 @@
       </div>
     </section>
     <section class="slide">
+      <h1>Ентропія пароля</h1>
+      <div class="highlight-box" style="margin-bottom: 1.2rem;">
+        <p><strong>Ентропія (H)</strong> = log₂(R^L), де R — розмір алфавіту, L — довжина пароля. Вимірюється в бітах.</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-box red"><div class="stat-value">28 біт</div><div class="stat-label">6 символів, лише малі літери (a-z)</div></div>
+        <div class="stat-box orange"><div class="stat-value">53 біт</div><div class="stat-label">8 символів, верхній + нижній + цифри</div></div>
+        <div class="stat-box green"><div class="stat-value">95 біт</div><div class="stat-label">16 символів, повний ASCII набір</div></div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Мінімум для безпеки: 60+ біт. Рекомендація: 80+ біт. Passphrase з 4-5 слів дає ~65 біт при словнику 7776 слів (Diceware).</p>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Порівняння менеджерів паролів</h1>
+      <div class="card-grid">
+        <div class="card accent-blue"><span class="card-icon">🌐</span><div class="card-title">Bitwarden</div><div class="card-text">Open-source, безкоштовний план, аудитований. Ідеальний для початку</div></div>
+        <div class="card accent-purple"><span class="card-icon">🔐</span><div class="card-title">1Password</div><div class="card-text">Найкращий UX, Travel Mode, Watchtower. $3/міс</div></div>
+        <div class="card accent-green"><span class="card-icon">🗄️</span><div class="card-title">KeePass</div><div class="card-text">Повністю офлайн, .kdbx файл. Максимальний контроль, мінімальна зручність</div></div>
+        <div class="card accent-orange"><span class="card-icon">🍎</span><div class="card-title">Apple / Google</div><div class="card-text">Вбудовані у ОС, зручні. Обмежені кросплатформністю та функціями</div></div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Критерій вибору: open-source аудит, E2E шифрування, підтримка TOTP, зручність синхронізації.</p>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Passkeys — майбутнє автентифікації</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">🔑</span><span class="il-text"><strong>Що це?</strong> — FIDO2 криптографічні ключі замість паролів. Приватний ключ на пристрої, публічний на сервері</span></div>
+        <div class="icon-list-item"><span class="il-icon">🛡️</span><span class="il-text"><strong>Phishing-proof</strong> — прив'язка до домену: passkey для google.com не спрацює на g00gle.com</span></div>
+        <div class="icon-list-item"><span class="il-icon">📱</span><span class="il-text"><strong>Біометрія</strong> — розблокування через Face ID / Touch ID / Windows Hello замість введення пароля</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔄</span><span class="il-text"><strong>Синхронізація</strong> — iCloud Keychain, Google Password Manager, 1Password зберігають passkeys між пристроями</span></div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Вже підтримують: Google, Apple, Microsoft, GitHub, Amazon, PayPal. До 2027 очікується масове впровадження.</p>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Інструменти моніторингу витоків</h1>
+      <div class="card-grid">
+        <div class="card accent-blue"><span class="card-icon">🔍</span><div class="card-title">Have I Been Pwned</div><div class="card-text">Безкоштовна перевірка email у 700+ витоках. API для автоматизації</div></div>
+        <div class="card accent-green"><span class="card-icon">🔔</span><div class="card-title">Firefox Monitor</div><div class="card-text">Інтеграція з HIBP, автоматичні сповіщення при нових витоках</div></div>
+        <div class="card accent-orange"><span class="card-icon">🌑</span><div class="card-title">Dark Web Monitoring</div><div class="card-text">1Password Watchtower, Bitwarden Reports — пошук паролів у dark web</div></div>
+        <div class="card accent-red"><span class="card-icon">⚡</span><div class="card-title">Дії при витоку</div><div class="card-text">1) Змінити пароль, 2) Увімкнути MFA, 3) Перевірити активні сесії, 4) Відкликати токени</div></div>
+      </div>
+    </section>
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

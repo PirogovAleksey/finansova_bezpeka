@@ -169,6 +169,140 @@
     </section>
 
     <section class="slide">
+      <h1>ASVS L1 / L2 / L3 порівняння</h1>
+      <h2>Що вимагає кожен рівень</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-blue">
+          <span class="card-icon">🟢</span>
+          <div class="card-title">L1: Opportunistic</div>
+          <div class="card-text">~130 вимог. Автоматизований SAST/DAST. Базовий input validation, HTTPS, password hashing. Достатньо для маркетингових сайтів</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🟡</span>
+          <div class="card-title">L2: Standard</div>
+          <div class="card-text">~230 вимог. Code review, threat modeling, MFA, session management, API security, secure SDLC. Стандарт для інтернет-банкінгу</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">🔴</span>
+          <div class="card-title">L3: Advanced</div>
+          <div class="card-text">~280 вимог. Повний пентест, HSM для ключів, anti-tampering, secure boot, повний threat model. Для core banking, SWIFT</div>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 1.2rem;">
+        <div class="stat-box blue">
+          <div class="stat-value">L1</div>
+          <div class="stat-label">автоматизація 80%</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">L2</div>
+          <div class="stat-label">ручна перевірка 60%</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">L3</div>
+          <div class="stat-label">експертний аудит 90%</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Security Requirements Template</h1>
+      <h2>Як формулювати вимоги з ASVS</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">V2.1</span>
+          <span class="il-text"><strong>Паролі:</strong> мінімум 8 символів, максимум 128, перевірка через Have I Been Pwned API, bcrypt/argon2 для хешування</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">V3.4</span>
+          <span class="il-text"><strong>Cookie:</strong> Secure, HttpOnly, SameSite=Strict, prefix __Host-, session timeout 15 хв для банкінгу</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">V4.2</span>
+          <span class="il-text"><strong>Доступ:</strong> deny by default, server-side enforcement, IDOR prevention через indirect references</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">V6.2</span>
+          <span class="il-text"><strong>Крипто:</strong> TLS 1.2+ обов'язково, AES-256-GCM для даних at rest, RSA-2048+ або ECDSA для підписів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">V13</span>
+          <span class="il-text"><strong>API:</strong> OAuth 2.0 + PKCE, rate limiting, schema validation, Content-Type enforcement</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Кожна вимога ASVS має ID (наприклад, V2.1.1) — зручно для трекінгу відповідності у Jira / Confluence.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>MASVS для мобільного банкінгу</h1>
+      <h2>Специфічні вимоги до мобільних фінансових додатків</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">🤖</span>
+            <div class="card-title">Android</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              EncryptedSharedPreferences<br>
+              Android Keystore (TEE/SE)<br>
+              Network Security Config<br>
+              SafetyNet / Play Integrity<br>
+              ProGuard / R8 обфускація
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">🍎</span>
+            <div class="card-title">iOS</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Keychain Services (kSecAttr)<br>
+              Secure Enclave для біометрії<br>
+              App Transport Security<br>
+              DeviceCheck / App Attest<br>
+              Swift code stripping
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>MASVS-RESILIENCE: обов'язковий для фінансів — jailbreak detection, debugger detection, reverse engineering protection.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Впровадження ASVS у проект</h1>
+      <h2>Покроковий план інтеграції</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Gap Analysis</div>
+          <div class="step-desc">Аудит поточного стану: які вимоги ASVS вже виконані, які ні. Чеклист у Excel/Jira</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Визначення рівня</div>
+          <div class="step-desc">Обрати L1/L2/L3 залежно від критичності системи та вимог регулятора</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Roadmap</div>
+          <div class="step-desc">Пріоритизувати вимоги за ризиком: критичні (auth, crypto) першими, nice-to-have останніми</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Автоматизація L1</div>
+          <div class="step-desc">SAST (SonarQube), DAST (OWASP ZAP), SCA (Snyk) інтегрувати у CI/CD pipeline</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Регулярний аудит</div>
+          <div class="step-desc">Щоквартальний перегляд відповідності, оновлення чеклиста при нових версіях ASVS</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

@@ -57,6 +57,48 @@
       <div class="highlight-box" style="margin-top: 1.5rem;">Україна довела: фінансова система може працювати навіть під <strong>безпрецедентним кібертиском</strong>, якщо є підготовка, координація та resilience</div>
     </section>
     <section class="slide">
+      <h1>Порівняння деструктивного malware</h1>
+      <div class="card-grid">
+        <div class="card accent-red"><span class="card-icon">💀</span><div class="card-title">WhisperGate (січень 2022)</div><div class="card-text">Маскується під ransomware, але знищує MBR та файли безповоротно. Атака на державні органи як «розвідка боєм»</div></div>
+        <div class="card accent-orange"><span class="card-icon">🔥</span><div class="card-title">HermeticWiper (лютий 2022)</div><div class="card-text">Використовує легітимний драйвер EaseUS для знищення даних. Розгорнуто через GPO за годину до вторгнення</div></div>
+        <div class="card accent-purple"><span class="card-icon">⚡</span><div class="card-title">CaddyWiper (березень 2022)</div><div class="card-text">Знищує дані та таблицю розділів. Простіший код, але швидше розгортання. Ціль — енергетика та фінсектор</div></div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1rem;"><strong>Спільне:</strong> усі три — wiper-атаки без можливості відновлення, атрибуція до Sandworm (GRU)</div>
+    </section>
+    <section class="slide">
+      <h1>Заходи підвищення стійкості</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">☁️</span><span class="il-text"><strong>Cloud-first стратегія</strong> — перенесення критичних систем у хмарні дата-центри за межами зони бойових дій</span></div>
+        <div class="icon-list-item"><span class="il-icon">💾</span><span class="il-text"><strong>Backup 3-2-1</strong> — три копії, два типи носіїв, одна копія offsite; тестування відновлення щомісяця</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔀</span><span class="il-text"><strong>Географічна розподіленість</strong> — дублювання дата-центрів у різних регіонах, автоматичний failover</span></div>
+        <div class="icon-list-item"><span class="il-icon">🛡️</span><span class="il-text"><strong>DDoS-захист</strong> — Cloudflare Project Galileo, AWS Shield, Google Project Shield для фінустанов</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔐</span><span class="il-text"><strong>Zero Trust Architecture</strong> — відмова від периметрової безпеки, мікросегментація, постійна верифікація</span></div>
+        <div class="icon-list-item"><span class="il-icon">📱</span><span class="il-text"><strong>Offline-можливості</strong> — забезпечення роботи платіжних терміналів та банкоматів при втраті зв'язку</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Міжнародна кібердопомога Україні</h1>
+      <div class="card-grid">
+        <div class="card accent-blue"><span class="card-icon">🇺🇸</span><div class="card-title">США (CISA, USAID)</div><div class="card-text">Технічна допомога, обладнання, навчання. $60M+ на кібербезпеку через USAID</div></div>
+        <div class="card accent-green"><span class="card-icon">🇪🇺</span><div class="card-title">ЄС (ENISA, EC3)</div><div class="card-text">Обмін розвідданими, спільне реагування на інциденти, інтеграція з EU CyCLONe</div></div>
+        <div class="card accent-orange"><span class="card-icon">🏢</span><div class="card-title">Microsoft (MSTIC)</div><div class="card-text">Безкоштовна міграція в Azure, threat intelligence, виявлення та аналіз wiper-malware</div></div>
+        <div class="card accent-purple"><span class="card-icon">☁️</span><div class="card-title">Google / Cloudflare</div><div class="card-text">Project Shield — DDoS-захист, Mandiant — incident response, хмарна інфраструктура</div></div>
+        <div class="card accent-red"><span class="card-icon">🇪🇪</span><div class="card-title">Естонія / Балтія</div><div class="card-text">Досвід e-governance, кібервправи, консультації з побудови кіберстійкості</div></div>
+        <div class="card accent-blue"><span class="card-icon">🏴</span><div class="card-title">Великобританія (NCSC)</div><div class="card-text">Threat intelligence sharing, навчання SOC-аналітиків, технічне обладнання</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Уроки для світової спільноти</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">🎯</span><span class="il-text"><strong>Кібератаки передують фізичним</strong> — wiper-атаки за години до ракетних ударів стали новим паттерном</span></div>
+        <div class="icon-list-item"><span class="il-icon">🤝</span><span class="il-text"><strong>Public-private partnership</strong> — координація держави, бізнесу та tech-компаній є критичною для виживання</span></div>
+        <div class="icon-list-item"><span class="il-icon">☁️</span><span class="il-text"><strong>Cloud = resilience</strong> — хмарна міграція рятує дані при фізичному знищенні інфраструктури</span></div>
+        <div class="icon-list-item"><span class="il-icon">🧑‍💻</span><span class="il-text"><strong>Кадри вирішують все</strong> — підготовлені фахівці — головний фактор стійкості, не лише технології</span></div>
+        <div class="icon-list-item"><span class="il-icon">📢</span><span class="il-text"><strong>Інформаційна гігієна</strong> — стійкість суспільства до дезінформації підсилює кіберзахист фінсектору</span></div>
+        <div class="icon-list-item"><span class="il-icon">🌍</span><span class="il-text"><strong>Солідарність</strong> — глобальна кібердопомога Україні створила модель колективної кібероборони</span></div>
+      </div>
+    </section>
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

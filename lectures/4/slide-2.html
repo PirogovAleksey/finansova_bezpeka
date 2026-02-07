@@ -200,7 +200,151 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. Діаграма потоку CSRF-атаки -->
+    <section class="slide">
+      <h1>Потік CSRF-атаки</h1>
+      <h2>Покрокова діаграма експлуатації</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Розвідка</div>
+          <div class="step-desc">Зловмисник аналізує форму переказу: URL, параметри, метод</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Підготовка</div>
+          <div class="step-desc">Створює HTML-сторінку з прихованою формою та auto-submit</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Доставка</div>
+          <div class="step-desc">Фішинг-лист, коментар на форумі або реклама з посиланням</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Виконання</div>
+          <div class="step-desc">Браузер жертви надсилає POST + cookie → банк виконує операцію</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Результат</div>
+          <div class="step-desc">Кошти переведено. Жертва дізнається лише з SMS-повідомлення</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Порівняння SameSite -->
+    <section class="slide">
+      <h1>SameSite Cookie — детальне порівняння</h1>
+      <div class="card-grid cols-3">
+        <div class="card accent-green">
+          <span class="card-icon">🔒</span>
+          <div class="card-title">Strict</div>
+          <div class="card-text" style="font-size: 0.9rem; line-height: 1.6;">
+            Cross-site навігація: ❌<br>
+            Cross-site POST: ❌<br>
+            Cross-site GET: ❌<br>
+            Top-level GET: ❌<br>
+            <strong>Використання:</strong> платіжні операції
+          </div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">⚖️</span>
+          <div class="card-title">Lax (default)</div>
+          <div class="card-text" style="font-size: 0.9rem; line-height: 1.6;">
+            Cross-site навігація: ❌<br>
+            Cross-site POST: ❌<br>
+            Cross-site GET: ❌<br>
+            Top-level GET: ✅<br>
+            <strong>Використання:</strong> загальна автентифікація
+          </div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">⚠️</span>
+          <div class="card-title">None + Secure</div>
+          <div class="card-text" style="font-size: 0.9rem; line-height: 1.6;">
+            Cross-site навігація: ✅<br>
+            Cross-site POST: ✅<br>
+            Cross-site GET: ✅<br>
+            Top-level GET: ✅<br>
+            <strong>Використання:</strong> виджети, OAuth
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Chrome з 2020 року встановлює SameSite=Lax за замовчуванням. Це зменшило CSRF-атаки на 90%+.</p>
+      </div>
+    </section>
+
+    <!-- 10. Clickjacking — шари атаки -->
+    <section class="slide">
+      <h1>Clickjacking — структура шарів</h1>
+      <h2>Візуалізація UI Redressing атаки</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">👁️</span>
+            <div class="card-title">Що бачить жертва</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Сторінка з грою або призом<br>
+              Кнопка «Забрати виграш»<br>
+              Привабливий дизайн<br>
+              Нічого підозрілого<br>
+              Довіряє своїм очам
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-purple" style="height: 100%;">
+            <span class="card-icon">🔍</span>
+            <div class="card-title">Що відбувається насправді</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              iframe bank.com (opacity: 0)<br>
+              z-index вищий за видиму сторінку<br>
+              Позиція = точно над кнопкою<br>
+              Клік потрапляє на «Підтвердити»<br>
+              Переказ 50,000 грн виконано
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Multi-step clickjacking: серія кліків для заповнення суми, IBAN і підтвердження переказу.</p>
+      </div>
+    </section>
+
+    <!-- 11. CSRF у фінансових транзакціях -->
+    <section class="slide">
+      <h1>CSRF у фінансових транзакціях</h1>
+      <h2>Критичні операції під загрозою</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">💸</span>
+          <div class="card-title">Переказ коштів</div>
+          <div class="card-text">Прихована форма POST /api/transfer з сумою та IBAN зловмисника</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">📱</span>
+          <div class="card-title">Додавання отримувача</div>
+          <div class="card-text">POST /api/beneficiary — додає рахунок зловмисника у «довірені»</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔓</span>
+          <div class="card-title">Зміна лімітів</div>
+          <div class="card-text">POST /api/limits — збільшення денного ліміту переказів</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📧</span>
+          <div class="card-title">Зміна контактів</div>
+          <div class="card-text">POST /api/profile — email/телефон зловмисника для 2FA і відновлення</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Захист: CSRF-токен + re-authentication (пароль/OTP) для критичних операцій + SameSite=Strict.</p>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

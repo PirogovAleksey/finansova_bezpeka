@@ -215,7 +215,162 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. Identity Lifecycle Stages -->
+    <section class="slide">
+      <h1>Етапи Identity Lifecycle</h1>
+      <h2>Повний цикл управління цифровою ідентичністю</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Provisioning</div>
+          <div class="step-desc">HR створює запис → автоматичне створення AD, email, доступ до АБС за шаблоном посади</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Authentication Setup</div>
+          <div class="step-desc">Реєстрація MFA (TOTP, FIDO2), видача корпоративного сертифіката, підписання NDA</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Access Governance</div>
+          <div class="step-desc">Щоквартальний перегляд дозволів, запити через ServiceNow з approval workflow</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Role Changes (Mover)</div>
+          <div class="step-desc">Переведення → автоматичне відкликання старих + надання нових дозволів за шаблоном</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-desc">Деактивація облікового запису протягом 30 хвилин, відкликання сертифікатів, архівація даних</div>
+          <div class="step-title">Deprovisioning (Leaver)</div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>SLA для deprovisioning у банку: максимум 30 хвилин після повідомлення HR. Orphaned accounts — критичний ризик PCI DSS.</p>
+      </div>
+    </section>
+
+    <!-- 9. SSO Protocols Comparison -->
+    <section class="slide">
+      <h1>Порівняння SSO-протоколів</h1>
+      <h2>Вибір протоколу для фінансової інфраструктури</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-blue">
+          <span class="card-icon">📄</span>
+          <div class="card-title">SAML 2.0</div>
+          <div class="card-text">
+            Формат: XML<br>
+            Транспорт: HTTP Redirect/POST<br>
+            Токен: Assertion<br>
+            Для: корпоративний B2B<br>
+            Зрілість: висока (2005+)
+          </div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🔑</span>
+          <div class="card-title">OIDC / OAuth 2.0</div>
+          <div class="card-text">
+            Формат: JSON/JWT<br>
+            Транспорт: REST API<br>
+            Токен: ID Token + Access Token<br>
+            Для: веб/мобільні, API<br>
+            Зрілість: сучасний (2014+)
+          </div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔐</span>
+          <div class="card-title">Kerberos</div>
+          <div class="card-text">
+            Формат: бінарний<br>
+            Транспорт: TCP/UDP<br>
+            Токен: Ticket (TGT/TGS)<br>
+            Для: Active Directory LAN<br>
+            Зрілість: legacy (1988+)
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Типовий банк: Kerberos для внутрішньої мережі + SAML для партнерів + OIDC для клієнтських додатків та Open Banking.</p>
+      </div>
+    </section>
+
+    <!-- 10. PAM Architecture -->
+    <section class="slide">
+      <h1>Архітектура PAM-рішення</h1>
+      <h2>Компоненти Privileged Access Management</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🔒</span>
+          <div class="card-title">Password Vault</div>
+          <div class="card-text">Централізоване зберігання root/admin паролів. AES-256 шифрування. Ніхто не знає пароль — лише vault</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🖥️</span>
+          <div class="card-title">Session Manager</div>
+          <div class="card-text">Проксі для SSH/RDP. Запис відео-сесій. Keystroke logging. Real-time моніторинг команд</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">⏰</span>
+          <div class="card-title">JIT/JEA Controller</div>
+          <div class="card-text">Just-In-Time: доступ на 2 год за запитом. Just-Enough-Admin: мінімальні необхідні привілеї</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔄</span>
+          <div class="card-title">Credential Rotation</div>
+          <div class="card-text">Автоматична зміна паролів після кожного check-in. Інтеграція з AD, DB, Linux, мережеве обладнання</div>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 1.2rem;">
+        <div class="stat-box red">
+          <div class="stat-value">$4.35M</div>
+          <div class="stat-label">середня вартість інциденту через привілейований доступ</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">90%</div>
+          <div class="stat-label">зниження ризику з впровадженням PAM</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Separation of Duties Matrix -->
+    <section class="slide">
+      <h1>Матриця розділення обов'язків</h1>
+      <h2>SoD-конфлікти у банківських операціях</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-red">
+          <span class="card-icon">🚫</span>
+          <div class="card-title">Конфлікт #1</div>
+          <div class="card-text">Створення платежу + Схвалення платежу<br><strong>Ризик:</strong> шахрайський переказ<br><strong>Контроль:</strong> dual authorization</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🚫</span>
+          <div class="card-title">Конфлікт #2</div>
+          <div class="card-text">Розробка коду + Деплой у production<br><strong>Ризик:</strong> backdoor у системі<br><strong>Контроль:</strong> CI/CD pipeline</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🚫</span>
+          <div class="card-title">Конфлікт #3</div>
+          <div class="card-text">Створення акаунту + Призначення привілеїв<br><strong>Ризик:</strong> phantom employee<br><strong>Контроль:</strong> approval workflow</div>
+        </div>
+      </div>
+      <div class="icon-list" style="margin-top: 1.2rem;">
+        <div class="icon-list-item">
+          <span class="il-icon">🏦</span>
+          <span class="il-text"><strong>SWIFT CSP:</strong> принцип 4-eyes — жодна критична операція без підтвердження другої особи</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📋</span>
+          <span class="il-text"><strong>PCI DSS Req 6.3.2:</strong> code review іншою особою перед release у payment-системах</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔍</span>
+          <span class="il-text"><strong>SOX Section 404:</strong> щорічний аудит SoD-контролів для публічних фінансових компаній</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

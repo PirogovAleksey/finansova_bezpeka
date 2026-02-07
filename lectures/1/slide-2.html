@@ -219,7 +219,192 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. Порівняльна таблиця типів атак -->
+    <section class="slide">
+      <h1>Порівняння типів атак</h1>
+      <h2>Вектор, складність та наслідки</h2>
+      <div class="card-grid">
+        <div class="card accent-orange">
+          <span class="card-icon">🎣</span>
+          <div class="card-title">Фішинг</div>
+          <div class="card-text" style="font-size: 0.9rem; line-height: 1.7;">
+            Складність: <strong>Низька</strong><br>
+            Час підготовки: години<br>
+            Збитки: до $50M (BEC)<br>
+            Захист: навчання + MFA
+          </div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">🔐</span>
+          <div class="card-title">Ransomware</div>
+          <div class="card-text" style="font-size: 0.9rem; line-height: 1.7;">
+            Складність: <strong>Середня</strong><br>
+            Час підготовки: дні-тижні<br>
+            Збитки: до $100M+<br>
+            Захист: бекапи + EDR
+          </div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🦠</span>
+          <div class="card-title">APT / Malware</div>
+          <div class="card-text" style="font-size: 0.9rem; line-height: 1.7;">
+            Складність: <strong>Висока</strong><br>
+            Час підготовки: місяці<br>
+            Збитки: до $1B+<br>
+            Захист: SIEM + Threat Intel
+          </div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🔗</span>
+          <div class="card-title">Supply Chain</div>
+          <div class="card-text" style="font-size: 0.9rem; line-height: 1.7;">
+            Складність: <strong>Дуже висока</strong><br>
+            Час підготовки: місяці-роки<br>
+            Збитки: до $10B+<br>
+            Захист: SBOM + аудит
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Kill Chain у ransomware -->
+    <section class="slide">
+      <h1>Kill Chain у Ransomware</h1>
+      <h2>Повний цикл ransomware-атаки на банк</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Вхід</div>
+          <div class="step-desc">Фішинг або RDP brute-force</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Закріплення</div>
+          <div class="step-desc">Cobalt Strike, бекдори</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Розвідка</div>
+          <div class="step-desc">Active Directory, мережева карта</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Ексфільтрація</div>
+          <div class="step-desc">Копіювання ТБ даних клієнтів</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Знищення бекапів</div>
+          <div class="step-desc">Видалення тіньових копій</div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-title">Шифрування</div>
+          <div class="step-desc">Одночасно всі системи</div>
+        </div>
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-title">Вимагання</div>
+          <div class="step-desc">Плати або дані в публічному доступі</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p><strong>LockBit, BlackCat, Cl0p</strong> — провідні групи ransomware, що атакують фінансовий сектор. Середній час від проникнення до шифрування — <strong>5 днів</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 10. Індикатори інсайдерських загроз -->
+    <section class="slide">
+      <h1>Індикатори інсайдерських загроз</h1>
+      <h2>Як розпізнати потенційного інсайдера</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">🚩</span>
+            <div class="card-title">Технічні індикатори</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Доступ у неробочий час<br>
+              Масове копіювання файлів<br>
+              Підключення зовнішніх носіїв<br>
+              Обхід DLP-систем<br>
+              Доступ до непрофільних систем
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">👤</span>
+            <div class="card-title">Поведінкові індикатори</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Незадоволення умовами праці<br>
+              Фінансові проблеми<br>
+              Підготовка до звільнення<br>
+              Спілкування з конкурентами<br>
+              Відмова від відпусток
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 1.2rem;">
+        <div class="stat-box red">
+          <div class="stat-value">85 днів</div>
+          <div class="stat-label">середній час виявлення інсайдера</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">$15.4M</div>
+          <div class="stat-label">середні збитки від інсайдерського інциденту</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Анатомія Supply Chain атаки -->
+    <section class="slide">
+      <h1>Анатомія Supply Chain атаки</h1>
+      <h2>Як зловмисники використовують довіру до постачальників</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Вибір постачальника</div>
+          <div class="step-desc">Менш захищена ланка</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Компрометація</div>
+          <div class="step-desc">Злом CI/CD або коду</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Впровадження</div>
+          <div class="step-desc">Бекдор в оновлення ПЗ</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Розповсюдження</div>
+          <div class="step-desc">Автооновлення у клієнтів</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Активація</div>
+          <div class="step-desc">Вибіркова атака на цілі</div>
+        </div>
+      </div>
+      <div class="icon-list" style="margin-top: 1.2rem;">
+        <div class="icon-list-item">
+          <span class="il-icon">☀️</span>
+          <span class="il-text"><strong>SolarWinds (2020)</strong> — бекдор у Orion Platform, 18,000 організацій</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📦</span>
+          <span class="il-text"><strong>Kaseya (2021)</strong> — REvil через MSP, 1,500+ компаній, $70M викуп</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📂</span>
+          <span class="il-text"><strong>MOVEit (2023)</strong> — Cl0p через трансфер файлів, банки, пенсійні фонди</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">📊</span>
       <h1>Ключові висновки</h1>

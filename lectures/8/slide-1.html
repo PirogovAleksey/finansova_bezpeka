@@ -163,6 +163,108 @@
     </section>
 
     <section class="slide">
+      <h1>Анатомія фішингового листа</h1>
+      <h2>Детальний розбір кожного елемента</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>From:</strong> — display name vs реальна адреса: «ПриватБанк &lt;support@privat-bank.com.ru&gt;»</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>Subject:</strong> — терміновість + страх: «Ваш рахунок буде заблоковано через 2 години!»</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Body:</strong> — логотип банку, загальне звернення, граматичні помилки, тиск на дію</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>CTA-кнопка:</strong> — «Підтвердити особу» → посилання на фейковий сайт з формою логіна</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">5️⃣</span>
+          <span class="il-text"><strong>Footer:</strong> — підроблені контакти, «відписатися» посилання для підтвердження email</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>URL-деобфускація: приклади</h1>
+      <h2>Як зловмисники маскують посилання</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🔤</span>
+          <div class="card-title">Typosquatting</div>
+          <div class="card-text">privatbank.ua → privattbank.ua, privetbank.ua, privatbаnk.ua (кирилична «а»)</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">📎</span>
+          <div class="card-title">Субдомен-спуфінг</div>
+          <div class="card-text">privatbank.ua.login-verify.com — домен належить зловмиснику</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔗</span>
+          <div class="card-title">URL-скорочувачі</div>
+          <div class="card-text">bit.ly/3xK9f2 → приховує справжній destination. Використовуйте unshorten.it</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🌐</span>
+          <div class="card-title">Homograph-атака</div>
+          <div class="card-text">IDN: xn--prvtbank-... виглядає як privatbank.ua у браузері (Unicode)</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>BEC-атаки: статистика</h1>
+      <h2>Business Email Compromise у цифрах</h2>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">$50B+</div>
+          <div class="stat-label">глобальні збитки від BEC за 2013-2023 (FBI IC3)</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">$125K</div>
+          <div class="stat-label">медіанна сума збитку за один інцидент BEC</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="stat-value">65%</div>
+          <div class="stat-label">компаній стикалися з BEC-спробами (Proofpoint)</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Фінсектор — ціль #1 для BEC. Типові сценарії: зміна реквізитів постачальника, «терміновий переказ від CEO», фальшивий рахунок-фактура від контрагента.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>AI-генерований фішинг</h1>
+      <h2>Нове покоління загроз</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🤖</span>
+          <span class="il-text"><strong>LLM-генеровані листи</strong> — бездоганна граматика, персоналізація, переклад на будь-яку мову</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🎙️</span>
+          <span class="il-text"><strong>Deepfake-голос</strong> — клонування голосу CEO за 3 секунди аудіо, реальний кейс: $243K переказ</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🎬</span>
+          <span class="il-text"><strong>Deepfake-відео</strong> — підробка Zoom-дзвінків з «CFO», кейс Arup: $25 млн збитку</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📈</span>
+          <span class="il-text"><strong>Масштабування</strong> — AI дозволяє створити 1000 унікальних spear-phishing листів за хвилини</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Традиційні ознаки фішингу (помилки, generic текст) зникають. Потрібні нові підходи: верифікація по іншому каналу, кодові слова.</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

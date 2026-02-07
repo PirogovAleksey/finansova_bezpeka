@@ -89,6 +89,146 @@
         </ol>
 
         <p><strong>Еволюція OWASP Top 10:</strong> список оновлюється кожні 3-4 роки на основі аналізу реальних інцидентів. У 2021 році Broken Access Control піднявся з 5-го на 1-ше місце, а Insecure Design та SSRF з'явились вперше, відображаючи зростання хмарних середовищ та складності архітектур.</p>
+
+        <h3>Зведена таблиця OWASP Top 10 (2021) з рейтингами ризику для фінансового сектору</h3>
+        <p>Наступна таблиця систематизує категорії OWASP Top 10, їх частоту у фінансових додатках (CWE Mapped), та типові приклади в банківських системах:</p>
+        <pre><code>┌──────┬──────────────────────────────────────┬────────────┬──────────────────────────────────────────────┐
+│  ID  │ Категорія                            │ Ризик ФС*  │ Приклад у фінансовому секторі                 │
+├──────┼──────────────────────────────────────┼────────────┼──────────────────────────────────────────────┤
+│ A01  │ Broken Access Control                │ CRITICAL   │ IDOR: /api/accounts/12345 → зміна ID         │
+│ A02  │ Cryptographic Failures               │ CRITICAL   │ PAN карток у БД без шифрування (PCI DSS!)     │
+│ A03  │ Injection                            │ CRITICAL   │ SQLi у формі пошуку транзакцій               │
+│ A04  │ Insecure Design                      │ HIGH       │ Відсутність ліміту на кількість переказів     │
+│ A05  │ Security Misconfiguration            │ HIGH       │ Відкрита сторінка /actuator/env з секретами   │
+│ A06  │ Vulnerable &amp; Outdated Components     │ HIGH       │ Log4Shell у middleware платіжного шлюзу       │
+│ A07  │ Identification &amp; Auth Failures       │ CRITICAL   │ Credential stuffing на сторінці логіну        │
+│ A08  │ Software &amp; Data Integrity Failures   │ HIGH       │ Компрометований npm-пакет у CI/CD            │
+│ A09  │ Logging &amp; Monitoring Failures        │ MEDIUM     │ Шахрайські транзакції без алертів             │
+│ A10  │ SSRF                                 │ HIGH       │ Доступ до cloud metadata через API            │
+└──────┴──────────────────────────────────────┴────────────┴──────────────────────────────────────────────┘
+* ФС = Фінансовий Сектор. Рейтинг враховує специфіку фінансових даних (PII, PAN, PCI DSS scope).
+</code></pre>
+
+        <h3>Приклад вразливого коду: A01 — Broken Access Control (IDOR)</h3>
+        <p>Insecure Direct Object Reference — зловмисник змінює ідентифікатор у запиті для доступу до чужого рахунку:</p>
+        <pre><code># Python Flask — ВРАЗЛИВИЙ КОД (Broken Access Control / IDOR)
+# Ендпоінт для перегляду балансу рахунку
+
+@app.route('/api/accounts/&lt;account_id&gt;/balance')
+@login_required
+def get_balance(account_id):
+    # ВРАЗЛИВІСТЬ: немає перевірки, чи account_id належить поточному користувачу!
+    # Зловмисник може змінити account_id у URL і побачити чужий баланс
+    account = Account.query.get(account_id)
+    return jsonify({"balance": account.balance, "currency": account.currency})
+
+# ─────────────────────────────────────────────
+# БЕЗПЕЧНИЙ КОД — з перевіркою авторизації
+# ─────────────────────────────────────────────
+@app.route('/api/accounts/&lt;account_id&gt;/balance')
+@login_required
+def get_balance_secure(account_id):
+    account = Account.query.get(account_id)
+
+    # Перевірка: чи рахунок належить поточному користувачу
+    if account.owner_id != current_user.id:
+        log_security_event("IDOR attempt", current_user.id, account_id)
+        abort(403, "Доступ заборонено")
+
+    return jsonify({"balance": account.balance, "currency": account.currency})
+</code></pre>
+
+        <h3>Приклад вразливого коду: A02 — Cryptographic Failures</h3>
+        <p>Зберігання карткових даних без належного шифрування — пряме порушення PCI DSS Requirement 3:</p>
+        <pre><code># Python — ВРАЗЛИВИЙ КОД (Cryptographic Failures)
+import hashlib
+
+def store_card(pan, cvv, expiry):
+    # ВРАЗЛИВІСТЬ 1: CVV взагалі не можна зберігати (PCI DSS Req 3.2)!
+    # ВРАЗЛИВІСТЬ 2: MD5 — зламаний алгоритм хешування
+    # ВРАЗЛИВІСТЬ 3: PAN без шифрування — порушення PCI DSS Req 3.4
+    db.execute("""
+        INSERT INTO cards (pan, pan_hash, cvv, expiry)
+        VALUES (%s, %s, %s, %s)
+    """, (pan, hashlib.md5(pan.encode()).hexdigest(), cvv, expiry))
+
+# ─────────────────────────────────────────────
+# БЕЗПЕЧНИЙ КОД — відповідність PCI DSS
+# ─────────────────────────────────────────────
+from cryptography.fernet import Fernet
+import hashlib, hmac, os
+
+def store_card_secure(pan, expiry):
+    # CVV НЕ зберігається (PCI DSS Req 3.2)
+    # PAN шифрується AES-256 (PCI DSS Req 3.4)
+    encryption_key = get_encryption_key_from_hsm()
+    fernet = Fernet(encryption_key)
+    encrypted_pan = fernet.encrypt(pan.encode())
+
+    # Truncated PAN для відображення (перші 6, останні 4)
+    masked_pan = pan[:6] + "******" + pan[-4:]
+
+    # HMAC-SHA256 для пошуку (замість MD5)
+    pan_hmac = hmac.new(HMAC_KEY, pan.encode(), hashlib.sha256).hexdigest()
+
+    db.execute("""
+        INSERT INTO cards (encrypted_pan, masked_pan, pan_hmac, expiry)
+        VALUES (%s, %s, %s, %s)
+    """, (encrypted_pan, masked_pan, pan_hmac, expiry))
+</code></pre>
+
+        <h3>Приклад вразливого коду: A03 — Injection (SQL)</h3>
+        <p>SQL-ін'єкція у формі пошуку транзакцій — одна з найнебезпечніших вразливостей у фінансових системах:</p>
+        <pre><code># Python — ВРАЗЛИВИЙ КОД (SQL Injection)
+@app.route('/api/transactions/search')
+@login_required
+def search_transactions():
+    date_from = request.args.get('from')
+    date_to = request.args.get('to')
+    amount = request.args.get('amount')
+
+    # ВРАЗЛИВІСТЬ: конкатенація користувацького вводу у SQL-запит!
+    # Атака: ?amount=0 OR 1=1 UNION SELECT card_number,cvv,null,null FROM cards--
+    query = f"""
+        SELECT id, description, amount, date FROM transactions
+        WHERE user_id = {current_user.id}
+        AND amount &gt; {amount}
+        AND date BETWEEN '{date_from}' AND '{date_to}'
+    """
+    results = db.execute(query)
+    return jsonify(results)
+
+# ─────────────────────────────────────────────
+# БЕЗПЕЧНИЙ КОД — параметризовані запити
+# ─────────────────────────────────────────────
+@app.route('/api/transactions/search')
+@login_required
+def search_transactions_secure():
+    date_from = request.args.get('from')
+    date_to = request.args.get('to')
+    amount = request.args.get('amount')
+
+    # Параметризований запит — SQL-ін'єкція неможлива
+    query = """
+        SELECT id, description, amount, date FROM transactions
+        WHERE user_id = %s
+        AND amount &gt; %s
+        AND date BETWEEN %s AND %s
+    """
+    results = db.execute(query, (current_user.id, amount, date_from, date_to))
+    return jsonify(results)
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Чому Broken Access Control піднявся з 5-го на 1-ше місце в OWASP Top 10 (2021)? Які фактори розвитку фінансових додатків сприяли цьому?</li>
+            <li>Поясніть, чому SQL-ін'єкція (A03) є особливо критичною для фінансових систем. Які наслідки може мати успішна SQLi-атака на базу даних інтернет-банкінгу?</li>
+            <li>Чим категорія A04 (Insecure Design) відрізняється від інших категорій OWASP Top 10? Чому вразливість проєктування неможливо виправити патчем або оновленням бібліотеки?</li>
+            <li>Як інцидент з Equifax (2017) пов'язаний з категорією A06 (Vulnerable and Outdated Components)? Які процеси повинні бути впроваджені у фінансовій організації для запобігання подібним випадкам?</li>
+            <li>Порівняйте вразливий та безпечний код для зберігання карткових даних. Які вимоги PCI DSS порушує вразливий код і як безпечна версія їх задовольняє?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 6.2 -->
@@ -119,6 +259,130 @@
         <p><strong>OWASP MASVS (Mobile Application Security Verification Standard)</strong> — аналог ASVS для мобільних додатків. Критично важливий для мобільного банкінгу: захист локального сховища (keychain, encrypted storage), certificate pinning, root/jailbreak detection, anti-tampering, безпечна міжпроцесна комунікація. Monobank, Приват24, ПУМБ Online та інші українські банківські додатки повинні відповідати MASVS Level 2 як мінімум.</p>
 
         <p><strong>Практичне використання ASVS у FinTech:</strong> команда безпеки обирає рівень ASVS відповідно до критичності додатку, адаптує вимоги під контекст (наприклад, додає PCI DSS-специфічні вимоги), створює чеклист для розробників та тестувальників, інтегрує перевірки ASVS у CI/CD pipeline (автоматизовані для L1, ручні для L2-L3).</p>
+
+        <h3>Чеклист верифікації ASVS: приклад для категорії V2 (Authentication)</h3>
+        <p>Наступна таблиця демонструє формат чеклисту ASVS з вимогами до автентифікації — три рівні верифікації відповідають різній критичності фінансових систем:</p>
+        <pre><code>┌──────────┬─────────────────────────────────────────────────────────┬─────┬─────┬─────┐
+│ Вимога   │ Опис                                                    │ L1  │ L2  │ L3  │
+├──────────┼─────────────────────────────────────────────────────────┼─────┼─────┼─────┤
+│ V2.1.1   │ Пароль користувача має бути мінімум 8 символів          │  ✓  │  ✓  │  ✓  │
+│ V2.1.2   │ Дозволити паролі довжиною до 128 символів               │  ✓  │  ✓  │  ✓  │
+│ V2.1.4   │ Відсутність обмежень на склад символів                  │  ✓  │  ✓  │  ✓  │
+│ V2.1.7   │ Перевірка паролів на відомі витоки (breached DB)        │  ✓  │  ✓  │  ✓  │
+│ V2.2.1   │ Anti-automation для автентифікації (rate limiting)       │  ✓  │  ✓  │  ✓  │
+│ V2.2.3   │ Сповіщення про невдалі спроби входу                     │     │  ✓  │  ✓  │
+│ V2.5.2   │ Безпечне відновлення паролю (не через email-посилання)   │     │  ✓  │  ✓  │
+│ V2.7.1   │ OTP з мінімум 6 цифр, час життя ≤ 5 хвилин             │     │  ✓  │  ✓  │
+│ V2.8.1   │ Використання hardware tokens (FIDO2/WebAuthn)           │     │     │  ✓  │
+│ V2.8.3   │ Resistance to phishing (hardware-bound credentials)     │     │     │  ✓  │
+│ V2.9.1   │ Криптографічні ключі для серверної автентифікації        │     │     │  ✓  │
+├──────────┼─────────────────────────────────────────────────────────┼─────┼─────┼─────┤
+│          │                    Рекомендації для FinTech:             │     │     │     │
+│          │  • L1 → Публічні сайти, інформаційні портали банку       │     │     │     │
+│          │  • L2 → Інтернет-банкінг, мобільні додатки               │     │     │     │
+│          │  • L3 → Core banking, SWIFT-інтерфейс, процесинг         │     │     │     │
+└──────────┴─────────────────────────────────────────────────────────┴─────┴─────┴─────┘
+✓ = вимога обов'язкова для цього рівня
+</code></pre>
+
+        <h3>Шаблон Security Requirements для банківського додатку на основі ASVS</h3>
+        <p>Цей шаблон демонструє, як ASVS-вимоги трансформуються у конкретні security requirements для нового банківського мобільного додатку:</p>
+        <pre><code># Security Requirements Document
+# Проєкт: Мобільний додаток "БанкОнлайн" v2.0
+# Рівень ASVS: L2 (Standard) — обробка фінансових даних
+# Додатковий compliance: PCI DSS v4.0, НБУ КР-ІБ
+# Дата: 2024-01-15
+
+# ═══════════════════════════════════════════════
+# АВТЕНТИФІКАЦІЯ (ASVS V2, MASVS-AUTH)
+# ═══════════════════════════════════════════════
+
+REQ-AUTH-001:
+  asvs_ref: V2.1.1, V2.1.7
+  priority: MUST
+  description: "Парольна політика: мінімум 10 символів, перевірка
+    проти бази скомпрометованих паролів (Have I Been Pwned API)"
+  test: "Автоматизований тест — спроба реєстрації зі слабким паролем"
+
+REQ-AUTH-002:
+  asvs_ref: V2.8.1
+  priority: MUST
+  description: "Багатофакторна автентифікація для всіх операцій
+    понад 500 UAH: TOTP або push-notification"
+  test: "Ручний тест — переказ 1000 UAH без MFA повинен блокуватися"
+
+REQ-AUTH-003:
+  asvs_ref: V2.2.1
+  priority: MUST
+  description: "Rate limiting: максимум 5 невдалих спроб логіну
+    за 15 хвилин, після чого блокування на 30 хвилин"
+  test: "Автоматизований тест — brute force з 10 спробами"
+
+# ═══════════════════════════════════════════════
+# УПРАВЛІННЯ СЕСІЯМИ (ASVS V3)
+# ═══════════════════════════════════════════════
+
+REQ-SESSION-001:
+  asvs_ref: V3.3.1
+  priority: MUST
+  description: "Таймаут сесії: 5 хвилин для фінансових операцій,
+    15 хвилин для перегляду, серверна інвалідація при logout"
+  test: "Ручний тест — спроба використання токена після logout"
+
+REQ-SESSION-002:
+  asvs_ref: V3.5.2
+  priority: MUST
+  description: "JWT з коротким TTL (15 хв), refresh token у
+    secure storage, ротація refresh token при кожному використанні"
+  test: "Автоматизований тест — replay атака з expired JWT"
+
+# ═══════════════════════════════════════════════
+# КРИПТОГРАФІЯ (ASVS V6, PCI DSS Req 3-4)
+# ═══════════════════════════════════════════════
+
+REQ-CRYPTO-001:
+  asvs_ref: V6.2.1
+  priority: MUST
+  description: "TLS 1.2+ для всіх з'єднань, certificate pinning
+    для критичних API endpoints (процесинг, автентифікація)"
+  test: "Автоматизований — SSLyze scan, ручний — MITM proxy test"
+
+REQ-CRYPTO-002:
+  asvs_ref: V6.4.1
+  priority: MUST
+  description: "Чутливі дані (PAN, CVV) шифруються AES-256-GCM,
+    ключі зберігаються в HSM, ротація ключів кожні 12 місяців"
+  test: "Code review — перевірка алгоритмів та key management"
+
+# ═══════════════════════════════════════════════
+# МОБІЛЬНА БЕЗПЕКА (MASVS)
+# ═══════════════════════════════════════════════
+
+REQ-MOBILE-001:
+  masvs_ref: MASVS-STORAGE-1
+  priority: MUST
+  description: "Критичні дані зберігаються лише в iOS Keychain /
+    Android Keystore, ніколи в SharedPreferences або UserDefaults"
+  test: "Ручний — аналіз файлової системи на jailbroken/rooted пристрої"
+
+REQ-MOBILE-002:
+  masvs_ref: MASVS-RESILIENCE-1
+  priority: SHOULD
+  description: "Виявлення root/jailbreak з подальшим обмеженням
+    функціональності (блокування платежів, попередження)"
+  test: "Ручний — запуск на rooted Android та jailbroken iOS"
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Порівняйте три рівні ASVS (L1, L2, L3). Який рівень є мінімально допустимим для системи інтернет-банкінгу і чому?</li>
+            <li>Як ASVS доповнює OWASP Top 10? Чому одного лише знання Top 10 недостатньо для побудови безпечного фінансового додатку?</li>
+            <li>Поясніть процес трансформації ASVS-вимог у конкретні security requirements для проєкту. Які атрибути повинна мати кожна вимога (пріоритет, спосіб тестування тощо)?</li>
+            <li>Чому MASVS є критично важливим для українських банківських мобільних додатків (monobank, Приват24)? Які специфічні загрози для мобільного банкінгу він адресує?</li>
+            <li>Як інтегрувати перевірки ASVS у CI/CD pipeline? Які вимоги можна автоматизувати (L1), а які потребують ручної верифікації (L2-L3)?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 6.3 -->
@@ -149,6 +413,216 @@
         </ol>
 
         <p><strong>Особливості пентесту фінансових систем:</strong> тестування лише на staging/pre-production середовищі (не на production з реальними даними клієнтів), погодження вікна тестування (щоб не вплинути на операції), обов'язкова NDA та договір з чіткими обмеженнями, наявність kill switch для екстреного зупинення тесту, залучення QSA (Qualified Security Assessor) для PCI DSS scope.</p>
+
+        <h3>Приклад: Nmap-сканування фінансової інфраструктури</h3>
+        <p>Nmap — основний інструмент для збору інформації про мережеву інфраструктуру під час фази Intelligence Gathering. Наступні команди демонструють типові сценарії розвідки при тестуванні фінансових систем:</p>
+        <pre><code># ═══════════════════════════════════════════════════════════════════
+# Nmap — мережева розвідка фінансової інфраструктури (PTES Phase 2)
+# УВАГА: виконувати ЛИШЕ в межах погодженого scope!
+# ═══════════════════════════════════════════════════════════════════
+
+# 1. Швидке сканування — виявлення активних хостів у мережі банку
+nmap -sn 10.10.0.0/24 -oN discovery_scan.txt
+# -sn = ping sweep (без сканування портів)
+# Результат: список "живих" хостів для подальшого аналізу
+
+# 2. Сканування портів веб-сервера інтернет-банкінгу
+nmap -sV -sC -p 80,443,8080,8443 banking-staging.example.com -oX web_scan.xml
+# -sV = визначення версій сервісів (Apache 2.4.51, nginx 1.21...)
+# -sC = запуск стандартних NSE-скриптів (перевірка SSL, HTTP-заголовків)
+# -oX = результат у XML для імпорту в інші інструменти
+
+# 3. Перевірка SSL/TLS конфігурації (PCI DSS Requirement 4)
+nmap --script ssl-enum-ciphers -p 443 banking-staging.example.com
+# Виявляє: слабкі cipher suites, підтримку TLS 1.0/1.1 (заборонено PCI DSS),
+# самопідписані сертифікати, закінчений термін дії
+
+# 4. Перевірка на відомі вразливості (Vulnerability Analysis phase)
+nmap --script vuln -p 443 banking-staging.example.com -oN vuln_scan.txt
+# NSE vuln scripts перевіряють: Heartbleed, ShellShock, SQL injection у HTTP,
+# відкриті директорії, default credentials
+
+# Приклад результату:
+# PORT    STATE SERVICE  VERSION
+# 443/tcp open  https    nginx 1.21.6
+# | ssl-enum-ciphers:
+# |   TLSv1.0:   ← УВАГА: TLS 1.0 має бути вимкнений (PCI DSS)
+# |   TLSv1.2:
+# |     ciphers:
+# |       TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 - A
+# |       TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 - A
+# |   TLSv1.3:
+# |     ciphers:
+# |       TLS_AES_256_GCM_SHA384 - A
+</code></pre>
+
+        <h3>Приклад: Burp Suite — послідовність тестування веб-додатку банку</h3>
+        <p>Burp Suite Professional — основний інструмент для ручного тестування веб-додатків. Наступний workflow демонструє типові кроки тестування інтернет-банкінгу:</p>
+        <pre><code># ═══════════════════════════════════════════════════════════════════
+# Burp Suite Professional — Workflow тестування інтернет-банкінгу
+# Відповідає OWASP Testing Guide (OTG) категоріям
+# ═══════════════════════════════════════════════════════════════════
+
+КРОК 1: НАЛАШТУВАННЯ (Setup)
+├── Налаштувати Burp Proxy (127.0.0.1:8080)
+├── Додати SSL-сертифікат Burp у довірені
+├── Налаштувати scope: *.banking-staging.example.com
+├── Вимкнути з scope: production URL, сторонні сервіси
+└── Увімкнути логування всіх запитів
+
+КРОК 2: MAPPING &amp; DISCOVERY (OTG-INFO)
+├── Spider/Crawl — автоматичне обходження додатку
+├── Manual browsing — ручний обхід усіх функцій:
+│   ├── Реєстрація / Логін / Відновлення паролю
+│   ├── Перегляд рахунків / Виписки
+│   ├── Платежі / Перекази / Шаблони
+│   └── Налаштування профілю / Зміна паролю
+├── Sitemap аналіз — виявлення прихованих ендпоінтів
+└── Intruder: directory brute-force (/admin, /actuator, /swagger)
+
+КРОК 3: АВТЕНТИФІКАЦІЯ (OTG-AUTHN)
+├── Brute-force resistance: надсилання 100+ запитів логіну
+│   └── Перевірка: чи є rate limiting, CAPTCHA, account lockout
+├── Password policy: спроба встановити слабкий пароль ("123456")
+├── Session tokens: аналіз ентропії через Burp Sequencer
+│   └── Мінімум 64 біти ентропії для фінансових додатків
+├── MFA bypass: спроба обійти OTP через replay, brute-force
+└── Authentication logic: тестування flow входу на race conditions
+
+КРОК 4: АВТОРИЗАЦІЯ (OTG-AUTHZ)
+├── IDOR: зміна account_id/transaction_id у запитах
+│   └── GET /api/accounts/MY_ID → GET /api/accounts/OTHER_ID
+├── Privilege escalation: зміна ролі в JWT-токені
+├── Force browsing: прямий доступ до admin-функцій
+└── HTTP method tampering: GET → PUT/DELETE на захищених ресурсах
+
+КРОК 5: INPUT VALIDATION (OTG-INPVAL)
+├── SQL Injection: sqlmap через Burp proxy для всіх параметрів
+├── XSS: Reflected/Stored у полях: опис платежу, ім'я одержувача
+├── Amount manipulation: від'ємні суми, дуже великі числа
+│   └── Переказ -1000 UAH = зарахування на рахунок?
+└── Business logic: подвійне підтвердження платежу (race condition)
+
+КРОК 6: ЗВІТНІСТЬ (Reporting)
+├── Кожна вразливість: опис, CVSS, screenshot, PoC, рекомендація
+├── Класифікація за OWASP Top 10 категоріями
+└── Executive Summary для менеджменту банку
+</code></pre>
+
+        <h3>Приклад: OWASP ZAP — автоматизоване сканування з командного рядка</h3>
+        <p>OWASP ZAP (Zed Attack Proxy) — безкоштовна альтернатива Burp Suite, яку можна інтегрувати в CI/CD pipeline для автоматичного тестування при кожному деплої:</p>
+        <pre><code># ═══════════════════════════════════════════════════════════════════
+# OWASP ZAP — автоматизоване DAST-сканування у CI/CD pipeline
+# ═══════════════════════════════════════════════════════════════════
+
+# 1. Швидке baseline-сканування (для кожного PR / merge request)
+docker run -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
+  -t https://banking-staging.example.com \
+  -r zap_baseline_report.html \
+  -l WARN \
+  -c zap_banking_rules.conf
+# Час: ~5 хвилин, перевіряє: заголовки безпеки, SSL, базові вразливості
+
+# 2. Повне активне сканування (щотижнева перевірка)
+docker run -t ghcr.io/zaproxy/zaproxy:stable zap-full-scan.py \
+  -t https://banking-staging.example.com \
+  -r zap_full_report.html \
+  -a \
+  -j \
+  -m 60
+# -a = включити всі alpha-скрипти
+# -j = AJAX spider для SPA (React/Angular банкінг)
+# -m 60 = максимум 60 хвилин
+
+# 3. API-сканування (для REST API банку за OpenAPI-специфікацією)
+docker run -t ghcr.io/zaproxy/zaproxy:stable zap-api-scan.py \
+  -t https://banking-staging.example.com/api/v2/openapi.json \
+  -f openapi \
+  -r zap_api_report.html
+# Автоматично тестує кожен ендпоінт API на: SQLi, XSS, SSRF,
+# path traversal, parameter tampering
+
+# 4. Інтеграція у GitLab CI/CD pipeline
+# .gitlab-ci.yml:
+# security_scan:
+#   stage: test
+#   script:
+#     - docker run ... zap-baseline.py ...
+#   artifacts:
+#     reports:
+#       zap: zap_baseline_report.html
+#   allow_failure: false  # Блокує merge при критичних вразливостях
+</code></pre>
+
+        <h3>Шаблон звіту з тестування на проникнення (Penetration Testing Report)</h3>
+        <p>Структурований звіт — обов'язковий результат кожного пентесту. Наступний шаблон відповідає вимогам PCI DSS та PTES:</p>
+        <pre><code># ═══════════════════════════════════════════════════════════════════
+# ШАБЛОН: Звіт з тестування на проникнення
+# Стандарт: PTES, OWASP Testing Guide v4
+# ═══════════════════════════════════════════════════════════════════
+
+1. EXECUTIVE SUMMARY (для керівництва банку)
+   ├── Загальний рівень ризику: ВИСОКИЙ / СЕРЕДНІЙ / НИЗЬКИЙ
+   ├── Кількість знайдених вразливостей за серйозністю:
+   │   Critical: 2 | High: 5 | Medium: 12 | Low: 8 | Info: 15
+   ├── Ключові знахідки (top-3 за ризиком)
+   └── Рекомендації першочергових дій
+
+2. SCOPE &amp; METHODOLOGY
+   ├── Тип тестування: Black-box / Grey-box / White-box
+   ├── Цільові системи: URL, IP-діапазони, мобільні додатки
+   ├── Період тестування: дати, робочі години
+   ├── Обмеження: виключені системи, заборонені техніки
+   ├── Методологія: OWASP Testing Guide v4, PTES
+   └── Інструменти: Burp Suite Pro, Nmap, sqlmap, OWASP ZAP, Metasploit
+
+3. FINDINGS (для кожної вразливості)
+   ├── ID: VULN-001
+   ├── Назва: SQL Injection in Transaction Search API
+   ├── OWASP Category: A03:2021 — Injection
+   ├── CVSS 3.1: 9.8 (Critical) — AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
+   ├── URL/Endpoint: POST /api/v2/transactions/search
+   ├── Параметр: "date_from"
+   ├── Опис: Параметр date_from у API пошуку транзакцій не
+   │   валідується належним чином, дозволяючи ін'єкцію SQL-коду...
+   ├── Proof of Concept:
+   │   curl -X POST https://target/api/v2/transactions/search \
+   │     -H "Authorization: Bearer [TOKEN]" \
+   │     -d '{"date_from": "2024-01-01' OR '1'='1"}'
+   ├── Вплив: Повний доступ до бази даних — PII клієнтів,
+   │   історія транзакцій, хеші паролів (147,000 записів)
+   ├── Скріншот: [findings/VULN-001-sqli-poc.png]
+   ├── Рекомендація: Використати параметризовані запити (prepared
+   │   statements). Впровадити WAF як тимчасовий virtual patch.
+   └── Пріоритет виправлення: НЕГАЙНО (24 години)
+
+4. RISK MATRIX
+   ├── Таблиця всіх вразливостей з CVSS, статусом, пріоритетом
+   └── Теплова карта (heatmap) за категоріями OWASP
+
+5. REMEDIATION ROADMAP
+   ├── Негайно (24-72 год): Critical — VULN-001, VULN-007
+   ├── Короткострокові (1-2 тижні): High — VULN-002..006
+   ├── Середньострокові (1 місяць): Medium — VULN-008..019
+   └── Довгострокові (наступний квартал): Low, архітектурні зміни
+
+6. APPENDICES
+   ├── A: Повний список усіх тестів (OTG checklist)
+   ├── B: Необроблені результати сканерів (Nmap, ZAP output)
+   ├── C: Скріншоти та PoC-код для кожної вразливості
+   └── D: Методика розрахунку CVSS для кожного finding
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Порівняйте Vulnerability Assessment, Penetration Testing та Red Team Assessment. У яких випадках кожен тип тестування є найбільш доречним для фінансової організації?</li>
+            <li>Опишіть сім фаз Penetration Testing Execution Standard (PTES). Чому фаза Pre-engagement є критичною для тестування фінансових систем з юридичної точки зору?</li>
+            <li>Як OWASP ZAP можна інтегрувати у CI/CD pipeline? Яка різниця між baseline scan та full scan, і коли варто використовувати кожен з них?</li>
+            <li>Які особливості пентесту фінансових систем відрізняють його від тестування звичайних веб-додатків? Чому тестування на production-середовищі банку є неприйнятним?</li>
+            <li>Який зміст повинен включати звіт з пентесту для фінансової установи? Чому Executive Summary є обов'язковою частиною звіту і на яку аудиторію він спрямований?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 6.4 -->
@@ -178,6 +652,171 @@
         <p><strong>SLA для виправлення вразливостей у фінансовому секторі:</strong> Critical (CVSS 9.0-10.0) — 24-72 години; High (7.0-8.9) — 7-14 днів; Medium (4.0-6.9) — 30 днів; Low (0.1-3.9) — 90 днів або наступний реліз.</p>
 
         <p><strong>Bug Bounty у фінансовому секторі.</strong> Програми bug bounty стають нормою для фінансових компаній: PayPal, Mastercard, Goldman Sachs, monobank мають публічні або приватні програми. Переваги: безперервне тестування тисячами дослідників, оплата лише за результат, виявлення вразливостей до зловмисників. Платформи: HackerOne, Bugcrowd, Intigriti. Важливо: чітко визначений scope (що можна тестувати), responsible disclosure policy, safe harbor для дослідників.</p>
+
+        <h3>Приклад: CVSS v3.1 — розрахунок та інтерпретація вектора</h3>
+        <p>Кожна вразливість оцінюється за допомогою CVSS-вектора. Розглянемо три типові вразливості у фінансовій системі з різними рівнями серйозності:</p>
+        <pre><code># ═══════════════════════════════════════════════════════════════════
+# CVSS v3.1 — Приклади розрахунку для фінансових систем
+# Калькулятор: https://www.first.org/cvss/calculator/3.1
+# ═══════════════════════════════════════════════════════════════════
+
+# ─── ПРИКЛАД 1: SQL Injection у API інтернет-банкінгу ─────────────
+Вектор: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
+Оцінка: 9.8 (Critical)
+
+Розшифровка метрик:
+┌─────────────────────────────┬────────────┬─────────────────────────────────┐
+│ Метрика                     │ Значення   │ Обґрунтування                   │
+├─────────────────────────────┼────────────┼─────────────────────────────────┤
+│ Attack Vector (AV)          │ Network    │ Атака через Інтернет            │
+│ Attack Complexity (AC)      │ Low        │ Не потребує спеціальних умов    │
+│ Privileges Required (PR)    │ None       │ Не потрібна автентифікація      │
+│ User Interaction (UI)       │ None       │ Без взаємодії з користувачем    │
+│ Scope (S)                   │ Unchanged  │ Вплив у межах компонента        │
+│ Confidentiality (C)         │ High       │ Витік усіх даних з БД           │
+│ Integrity (I)               │ High       │ Можлива модифікація даних       │
+│ Availability (A)            │ High       │ DROP TABLE = втрата сервісу     │
+└─────────────────────────────┴────────────┴─────────────────────────────────┘
+Висновок: негайне виправлення (SLA: 24 години)
+
+# ─── ПРИКЛАД 2: Stored XSS у полі "призначення платежу" ──────────
+Вектор: CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N
+Оцінка: 5.4 (Medium)
+
+Розшифровка:
+┌─────────────────────────────┬────────────┬─────────────────────────────────┐
+│ Attack Vector (AV)          │ Network    │ Атака через Інтернет            │
+│ Attack Complexity (AC)      │ Low        │ Просте впровадження скрипту     │
+│ Privileges Required (PR)    │ Low        │ Потрібен акаунт у системі       │
+│ User Interaction (UI)       │ Required   │ Жертва повинна відкрити сторінку│
+│ Scope (S)                   │ Changed    │ Вплив виходить за межі (браузер)│
+│ Confidentiality (C)         │ Low        │ Крадіжка сесійних cookies       │
+│ Integrity (I)               │ Low        │ Підміна відображуваних даних    │
+│ Availability (A)            │ None       │ Без впливу на доступність       │
+└─────────────────────────────┴────────────┴─────────────────────────────────┘
+Висновок: виправлення протягом 30 днів (SLA: Medium)
+
+# ─── ПРИКЛАД 3: IDOR — доступ до виписки чужого рахунку ──────────
+Вектор: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N
+Оцінка: 6.5 (Medium)
+
+Але! Environmental Score для банку буде вищим:
+- Modified Confidentiality (MC): High → банківська таємниця
+- Confidentiality Requirement (CR): High → фінансові дані
+Environmental Score: 7.7 (High) → SLA змінюється на 7-14 днів
+
+ВАЖЛИВО: Environmental Score дозволяє фінансовим організаціям
+підвищити пріоритет вразливостей, які торкаються чутливих даних,
+навіть якщо Base Score є помірним.
+</code></pre>
+
+        <h3>Процес Vulnerability Management: повний життєвий цикл</h3>
+        <p>Ефективне управління вразливостями — безперервний цикл. Наступна таблиця деталізує кожну фазу з конкретними інструментами та метриками для фінансового сектору:</p>
+        <pre><code>┌─────┬──────────────────┬──────────────────────────────────────────┬──────────────────────┐
+│ #   │ Фаза             │ Діяльність та інструменти                 │ Метрики (KPI)        │
+├─────┼──────────────────┼──────────────────────────────────────────┼──────────────────────┤
+│  1  │ DISCOVERY        │ • Автоматичне сканування: Qualys, Nessus │ Частота сканування:  │
+│     │ (Виявлення)      │ • SAST: SonarQube, Checkmarx, Semgrep   │ - Мережа: щотижня   │
+│     │                  │ • DAST: OWASP ZAP, Burp Enterprise      │ - Код: при кожному PR│
+│     │                  │ • SCA: Snyk, Dependabot (залежності)     │ - Повний пентест:    │
+│     │                  │ • Пентест: зовнішня команда (щорічно)    │   раз на рік         │
+│     │                  │ • Bug Bounty: безперервно                │                      │
+├─────┼──────────────────┼──────────────────────────────────────────┼──────────────────────┤
+│  2  │ TRIAGE &amp;         │ • CVSS Base Score розрахунок              │ Час тріажу:          │
+│     │ PRIORITIZATION   │ • Environmental Score (фін. контекст)    │ Critical: &lt; 4 год    │
+│     │ (Пріоритизація)  │ • Бізнес-контекст: PCI scope? PII?      │ High: &lt; 24 год       │
+│     │                  │ • Threat Intelligence: чи є exploit?     │ Medium: &lt; 72 год     │
+│     │                  │ • Risk Acceptance для false positives     │                      │
+├─────┼──────────────────┼──────────────────────────────────────────┼──────────────────────┤
+│  3  │ REMEDIATION      │ • Code fix (розробники)                  │ MTTR по серйозності: │
+│     │ (Виправлення)    │ • Configuration change (DevOps)          │ Critical: 24-72 год  │
+│     │                  │ • Patch management (оновлення)           │ High: 7-14 днів      │
+│     │                  │ • Virtual patching (WAF rules) — ТИМЧАС. │ Medium: 30 днів      │
+│     │                  │ • Compensating control якщо патч          │ Low: 90 днів         │
+│     │                  │   неможливий (legacy system)             │                      │
+├─────┼──────────────────┼──────────────────────────────────────────┼──────────────────────┤
+│  4  │ VERIFICATION     │ • Re-scan автоматичними сканерами        │ % вразливостей       │
+│     │ (Верифікація)    │ • Ручне re-testing для Critical/High     │ підтверджених як     │
+│     │                  │ • Regression testing (чи не зламали інше)│ виправлені: &gt;95%     │
+│     │                  │ • Перевірка virtual patch ефективності   │                      │
+├─────┼──────────────────┼──────────────────────────────────────────┼──────────────────────┤
+│  5  │ REPORTING        │ • Dashboard: Defect Dojo, Jira Security  │ Звітність:           │
+│     │ (Звітність)      │ • MTTR trend (середній час виправлення)  │ - Щотижня: CISO      │
+│     │                  │ • Відкриті вразливості за серйозністю    │ - Щомісяця: Board    │
+│     │                  │ • SLA compliance %                       │ - Щоквартально:      │
+│     │                  │ • Порівняння з попереднім періодом        │   регулятор (НБУ)    │
+├─────┼──────────────────┼──────────────────────────────────────────┼──────────────────────┤
+│  6  │ GOVERNANCE       │ • Оновлення політик та SLA               │ Зрілість процесу:    │
+│     │ (Управління)     │ • Навчання розробників (secure coding)   │ CMMI рівень ≥ 3      │
+│     │                  │ • Risk acceptance review (переогляд)     │ для фінансових       │
+│     │                  │ • Аудит процесу VM (внутрішній/зовнішній)│ організацій          │
+└─────┴──────────────────┴──────────────────────────────────────────┴──────────────────────┘
+</code></pre>
+
+        <h3>Приклад: Scope програми Bug Bounty для фінансової установи</h3>
+        <p>Чітко визначений scope — ключ до успішної bug bounty програми. Наступний приклад демонструє типову конфігурацію для банку:</p>
+        <pre><code># ═══════════════════════════════════════════════════════════════════
+# BUG BOUNTY PROGRAM — "УкрФінБанк" (приклад)
+# Платформа: HackerOne (приватна програма)
+# ═══════════════════════════════════════════════════════════════════
+
+SCOPE (дозволено тестувати):
+┌──────────────────────────────────────────┬────────────┬──────────────┐
+│ Актив                                    │ Тип        │ Макс. виплата│
+├──────────────────────────────────────────┼────────────┼──────────────┤
+│ online.ukrfinbank.example.com            │ Web App    │ $10,000      │
+│ api.ukrfinbank.example.com/v2/*          │ API        │ $10,000      │
+│ УкрФінБанк iOS App (App Store)           │ Mobile     │ $7,500       │
+│ УкрФінБанк Android App (Google Play)     │ Mobile     │ $7,500       │
+│ auth.ukrfinbank.example.com              │ Web App    │ $10,000      │
+│ open-banking.ukrfinbank.example.com      │ API (PSD2) │ $5,000       │
+└──────────────────────────────────────────┴────────────┴──────────────┘
+
+OUT OF SCOPE (заборонено):
+  ✗ Будь-які production бази даних або storage
+  ✗ Інфраструктура третіх сторін (CDN, платіжні процесори)
+  ✗ Фізичні атаки, соціальна інженерія співробітників
+  ✗ DDoS та інші атаки на доступність
+  ✗ Автоматизоване масове сканування без погодження
+  ✗ Доступ до реальних даних клієнтів
+
+ТАБЛИЦЯ ВИНАГОРОД:
+┌──────────────────────┬─────────────────────────────────┬──────────────┐
+│ Серйозність (CVSS)   │ Приклади вразливостей            │ Винагорода   │
+├──────────────────────┼─────────────────────────────────┼──────────────┤
+│ Critical (9.0-10.0)  │ RCE, SQLi з витоком PII/PAN,    │ $5,000-10,000│
+│                      │ обхід автентифікації, SSRF до    │              │
+│                      │ внутрішніх сервісів              │              │
+├──────────────────────┼─────────────────────────────────┼──────────────┤
+│ High (7.0-8.9)       │ IDOR на фінансових ендпоінтах,  │ $2,000-5,000 │
+│                      │ Stored XSS, privilege escalation │              │
+├──────────────────────┼─────────────────────────────────┼──────────────┤
+│ Medium (4.0-6.9)     │ Reflected XSS, CSRF на критичних│ $500-2,000   │
+│                      │ операціях, information disclosure│              │
+├──────────────────────┼─────────────────────────────────┼──────────────┤
+│ Low (0.1-3.9)        │ Missing headers, verbose errors, │ $100-500     │
+│                      │ clickjacking на некритичних стор.│              │
+└──────────────────────┴─────────────────────────────────┴──────────────┘
+
+RESPONSIBLE DISCLOSURE POLICY:
+  • Не розголошувати вразливість публічно до виправлення
+  • Банк зобов'язується відповісти протягом 2 робочих днів
+  • Виправлення Critical: 7 днів, High: 30 днів
+  • Safe Harbor: банк не переслідує дослідників, що діють
+    добросовісно в межах scope
+  • Дослідник отримує подяку у Hall of Fame (за бажанням)
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Поясніть структуру CVSS v3.1 вектора на прикладі SQL-ін'єкції (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H = 9.8). Що означає кожна метрика та чому саме такі значення обрані?</li>
+            <li>Чим Environmental Score відрізняється від Base Score у CVSS? Чому вразливість з Base Score 6.5 може отримати Environmental Score 7.7 у контексті банківської системи?</li>
+            <li>Опишіть повний життєвий цикл управління вразливостями (Vulnerability Management Lifecycle). Які KPI (ключові показники ефективності) слід відстежувати на кожному етапі?</li>
+            <li>Які SLA для виправлення вразливостей є типовими для фінансового сектору? Що відбувається, коли організація не може виправити Critical-вразливість у legacy-системі в межах SLA?</li>
+            <li>Які переваги та ризики програми Bug Bounty для фінансової установи? Чому чітке визначення scope та responsible disclosure policy є критично важливими?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Summary -->

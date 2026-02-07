@@ -52,6 +52,194 @@
           <li>Міжнародна співпраця: член FIRST (Forum of Incident Response and Security Teams), обмін даними з CERT інших країн.</li>
         </ul>
         <p><strong>Кіберполіція</strong> — розслідування кіберзлочинів, включно з фінансовим шахрайством, кардингом, фішингом. Взаємодія з Інтерполом та Європолом.</p>
+
+        <p><strong>Організаційна структура кіберзахисту фінансового сектору України:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Орган / Структура</th>
+              <th>Підпорядкування</th>
+              <th>Ключові функції</th>
+              <th>Роль у фін. секторі</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>НБУ (CSIRT фін. сектору)</td>
+              <td>Незалежний регулятор</td>
+              <td>Регулювання, нагляд, stress-testing</td>
+              <td>Пряме регулювання банків та НФУ</td>
+            </tr>
+            <tr>
+              <td>CERT-UA</td>
+              <td>Держспецзв'язку (SSSCIP)</td>
+              <td>Реагування на інциденти, алерти, IOC</td>
+              <td>Координація при кіберінцидентах</td>
+            </tr>
+            <tr>
+              <td>НКЦК (NCCC)</td>
+              <td>РНБО</td>
+              <td>Координація національної кібербезпеки</td>
+              <td>Стратегічне планування</td>
+            </tr>
+            <tr>
+              <td>Кіберполіція</td>
+              <td>МВС / Нацполіція</td>
+              <td>Розслідування кіберзлочинів</td>
+              <td>Фінансове шахрайство, кардинг</td>
+            </tr>
+            <tr>
+              <td>СБУ (Кібердепартамент)</td>
+              <td>Президент</td>
+              <td>Контррозвідка, APT-загрози</td>
+              <td>Державні кіберзагрози фін. сектору</td>
+            </tr>
+            <tr>
+              <td>Мінцифри</td>
+              <td>Кабінет Міністрів</td>
+              <td>Цифрова політика, Дія</td>
+              <td>Цифрові фінансові послуги</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Вимоги НБУ до кібербезпеки фінансових установ (Постанова №43):</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Категорія вимог</th>
+              <th>Ключові положення</th>
+              <th>Термін виконання</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Governance</td>
+              <td>Призначення CISO, затвердження політики ІБ правлінням</td>
+              <td>Постійно</td>
+            </tr>
+            <tr>
+              <td>Ризик-менеджмент</td>
+              <td>Оцінка ризиків ІБ щорічно, реєстр ризиків</td>
+              <td>Щорічно</td>
+            </tr>
+            <tr>
+              <td>Захист інформації</td>
+              <td>Шифрування, контроль доступу, сегментація мережі</td>
+              <td>Постійно</td>
+            </tr>
+            <tr>
+              <td>Incident reporting</td>
+              <td>Повідомлення НБУ протягом 24 годин про значні інциденти</td>
+              <td>24 години</td>
+            </tr>
+            <tr>
+              <td>BCP/DR</td>
+              <td>План безперервності, тестування щорічно</td>
+              <td>Щорічно</td>
+            </tr>
+            <tr>
+              <td>Awareness</td>
+              <td>Навчання персоналу з кібербезпеки</td>
+              <td>Щорічно</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Процес реагування CERT-UA на кіберінцидент у фінансовому секторі:</strong></p>
+<pre><code>
+  ═══════════════════════════════════════════════════════════════
+  CERT-UA: INCIDENT RESPONSE WORKFLOW (фінансовий сектор)
+  ═══════════════════════════════════════════════════════════════
+
+  1. ВИЯВЛЕННЯ ІНЦИДЕНТУ
+     │
+     ├── Банк/НФУ виявляє аномалію → повідомляє НБУ CSIRT
+     ├── CERT-UA отримує alert від FIRST/партнерів
+     └── SOC Держспецзв'язку виявляє загрозу на сенсорах
+     │
+  2. РЕЄСТРАЦІЯ ТА КЛАСИФІКАЦІЯ
+     │
+     ├── Severity: Critical / High / Medium / Low
+     ├── Category: malware / DDoS / phishing / data breach
+     └── Affected: кількість установ, тип систем
+     │
+  3. КООРДИНАЦІЯ РЕАГУВАННЯ
+     │
+     ├── CERT-UA → технічний аналіз, IOC extraction
+     ├── НБУ CSIRT → нотифікація банків, рекомендації
+     ├── СБУ → якщо state-sponsored APT
+     └── Кіберполіція → якщо кримінальний злочин
+     │
+  4. РОЗПОВСЮДЖЕННЯ IOC
+     │
+     ├── TLP:RED  → лише постраждала установа
+     ├── TLP:AMBER → фінансовий сектор
+     ├── TLP:GREEN → всі підписники
+     └── TLP:WHITE → публічний алерт на cert.gov.ua
+     │
+  5. ВІДНОВЛЕННЯ ТА POST-INCIDENT
+     │
+     ├── Допомога у remediation
+     ├── Lessons learned звіт
+     └── Оновлення detection rules для всього сектору
+
+  ═══════════════════════════════════════════════════════════════
+</code></pre>
+
+        <p><strong>Ключові законодавчі акти України у сфері кібербезпеки:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Нормативний акт</th>
+              <th>Рік</th>
+              <th>Основний зміст</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Закон «Про основні засади забезпечення кібербезпеки України»</td>
+              <td>2017</td>
+              <td>Базовий закон: визначення суб'єктів, об'єктів КІІ, повноваження органів</td>
+            </tr>
+            <tr>
+              <td>Стратегія кібербезпеки України</td>
+              <td>2021</td>
+              <td>Стратегічні цілі до 2025: захист КІІ, кадри, міжнародна співпраця</td>
+            </tr>
+            <tr>
+              <td>Постанова НБУ №43 (кіберзахист)</td>
+              <td>2019</td>
+              <td>Вимоги до кібербезпеки банків: governance, ризики, incident reporting</td>
+            </tr>
+            <tr>
+              <td>Закон «Про захист інформації в ІТС»</td>
+              <td>2005</td>
+              <td>Загальні вимоги до захисту інформації в інформаційних системах</td>
+            </tr>
+            <tr>
+              <td>Указ Президента «Про НКЦК»</td>
+              <td>2016</td>
+              <td>Створення Національного координаційного центру кібербезпеки при РНБО</td>
+            </tr>
+            <tr>
+              <td>Постанова КМУ про хмарні сервіси</td>
+              <td>2022</td>
+              <td>Дозвіл на міграцію КІІ у хмару під час воєнного стану</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Які основні функції НБУ як регулятора кібербезпеки фінансового сектору і чим CSIRT фінансового сектору відрізняється від CERT-UA за зоною відповідальності?</li>
+            <li>Опишіть процес реагування CERT-UA на кіберінцидент у фінансовому секторі. Які рівні TLP (Traffic Light Protocol) використовуються для обміну IOC?</li>
+            <li>Які ключові вимоги Постанови НБУ №43 до кібербезпеки банків? Протягом якого часу банк зобов'язаний повідомити НБУ про значний кіберінцидент?</li>
+            <li>Поясніть роль кожного органу в системі кіберзахисту України (НКЦК, CERT-UA, СБУ, Кіберполіція) та їх взаємодію при захисті фінансового сектору.</li>
+            <li>Як Закон «Про основні засади забезпечення кібербезпеки України» визначає об'єкти критичної інфраструктури фінансового сектору?</li>
+          </ol>
+        </div>
       </section>
 
       <section>
@@ -78,6 +266,195 @@
           <li>29 обов'язкових та 7 рекомендованих контролів: secure environment, access control, detection, incident response.</li>
           <li>Щорічна самооцінка з можливістю незалежного аудиту.</li>
         </ul>
+
+        <p><strong>Порівняльна таблиця NIS2 та DORA:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Параметр</th>
+              <th>NIS2 Directive</th>
+              <th>DORA Regulation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Тип акту</td>
+              <td>Директива (потребує імплементації в нац. законодавство)</td>
+              <td>Регламент (пряма дія в усіх країнах ЄС)</td>
+            </tr>
+            <tr>
+              <td>Сфера дії</td>
+              <td>Усі критичні сектори (енергетика, транспорт, фінанси, охорона здоров'я тощо)</td>
+              <td>Виключно фінансовий сектор (банки, страхові, інвестиційні, платіжні)</td>
+            </tr>
+            <tr>
+              <td>Набрання чинності</td>
+              <td>Жовтень 2024 (імплементація)</td>
+              <td>Січень 2025</td>
+            </tr>
+            <tr>
+              <td>Incident reporting</td>
+              <td>24 год — early warning; 72 год — повний звіт</td>
+              <td>4 год — initial; 24 год — intermediate; 1 міс — final</td>
+            </tr>
+            <tr>
+              <td>Тестування</td>
+              <td>Регулярні security assessments</td>
+              <td>Обов'язкове TLPT кожні 3 роки для системно важливих</td>
+            </tr>
+            <tr>
+              <td>Third-party risk</td>
+              <td>Supply chain security вимоги</td>
+              <td>Oversight Framework для критичних ICT-провайдерів</td>
+            </tr>
+            <tr>
+              <td>Штрафи</td>
+              <td>До 10 млн EUR або 2% глобального обороту</td>
+              <td>До 1% середньоденного глобального обороту за день порушення</td>
+            </tr>
+            <tr>
+              <td>Релевантність для України</td>
+              <td>Імплементація через Закон про кібербезпеку (євроінтеграція)</td>
+              <td>Орієнтир для регулювання НБУ фінансового сектору</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>SWIFT CSP: обов'язкові контролі за категоріями:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Категорія</th>
+              <th>Контролі</th>
+              <th>Приклади вимог</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Secure Your Environment</td>
+              <td>1.1 — 1.5</td>
+              <td>Обмеження інтернет-доступу, сегментація SWIFT зони, шифрування даних, захист ОС</td>
+            </tr>
+            <tr>
+              <td>2. Know and Limit Access</td>
+              <td>2.1 — 2.11</td>
+              <td>Принцип найменших привілеїв, MFA для SWIFT-операторів, управління паролями, контроль привілейованих акаунтів</td>
+            </tr>
+            <tr>
+              <td>3. Detect</td>
+              <td>6.1 — 6.5</td>
+              <td>Malware protection, software integrity, logging та моніторинг, database integrity</td>
+            </tr>
+            <tr>
+              <td>4. Respond</td>
+              <td>7.1 — 7.4</td>
+              <td>Incident response plan, security awareness training, penetration testing, scenario-based risk assessment</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Вимоги Basel III до операційної стійкості (кібербезпековий аспект):</strong></p>
+<pre><code>
+  ═══════════════════════════════════════════════════════════════
+  BASEL III / BCBS: OPERATIONAL RESILIENCE REQUIREMENTS
+  ═══════════════════════════════════════════════════════════════
+
+  Принципи операційної стійкості (BCBS d516):
+
+  1. GOVERNANCE
+     └── Board oversight over operational resilience
+     └── Визначення tolerance levels для disruption
+
+  2. OPERATIONAL RISK MANAGEMENT
+     └── Ідентифікація критичних операцій (Critical Operations)
+     └── Mapping of interconnections and dependencies
+     └── Фін. установи повинні визначити "impact tolerances"
+
+  3. BUSINESS CONTINUITY (BCP)
+     └── Severe but plausible scenarios (включно з кібератаками)
+     └── Recovery objectives: RTO &lt; 2 год для критичних систем
+     └── Тестування BCP щонайменше 1 раз на рік
+
+  4. ICT INCLUDING CYBER SECURITY
+     ├── Повний lifecycle management ІТ-активів
+     ├── Change management та patch management
+     ├── Incident response та forensics capabilities
+     └── Third-party / outsourcing risk management
+
+  5. THIRD-PARTY DEPENDENCY MANAGEMENT
+     ├── Due diligence при виборі провайдерів
+     ├── Contractual provisions для security та audit rights
+     └── Exit strategies та substitutability planning
+
+  ═══════════════════════════════════════════════════════════════
+  Для українських банків: НБУ імплементує аналогічні вимоги
+  через регуляторні акти з урахуванням Basel III принципів.
+  ═══════════════════════════════════════════════════════════════
+</code></pre>
+
+        <p><strong>Хронологія ключових європейських регуляцій кібербезпеки:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Рік</th>
+              <th>Регуляція / Подія</th>
+              <th>Значення для фінансового сектору</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2016</td>
+              <td>NIS1 Directive</td>
+              <td>Перша загальноєвропейська директива з кібербезпеки; фінанси — essential service</td>
+            </tr>
+            <tr>
+              <td>2018</td>
+              <td>GDPR (повна дія)</td>
+              <td>Захист персональних даних клієнтів; data breach notification 72 год</td>
+            </tr>
+            <tr>
+              <td>2019</td>
+              <td>PSD2 (Strong Customer Authentication)</td>
+              <td>Обов'язкова SCA для онлайн-платежів; Open Banking API security</td>
+            </tr>
+            <tr>
+              <td>2020</td>
+              <td>EBA Guidelines on ICT and Security Risk</td>
+              <td>Деталізовані вимоги до ІТ-ризиків банків</td>
+            </tr>
+            <tr>
+              <td>2022</td>
+              <td>NIS2 Directive (прийняття)</td>
+              <td>Розширена сфера, жорсткіші вимоги, вищі штрафи</td>
+            </tr>
+            <tr>
+              <td>2023</td>
+              <td>DORA (прийняття)</td>
+              <td>Спеціалізований фреймворк для цифрової стійкості фін. сектору</td>
+            </tr>
+            <tr>
+              <td>2024</td>
+              <td>NIS2 (імплементація)</td>
+              <td>Країни-члени ЄС мають адаптувати національне законодавство</td>
+            </tr>
+            <tr>
+              <td>2025</td>
+              <td>DORA (набрання чинності)</td>
+              <td>Повна відповідність вимогам для всіх фінансових установ ЄС</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>У чому принципова різниця між NIS2 (директива) та DORA (регламент) з точки зору юридичної сили та сфери застосування? Чому фінансовому сектору потрібен DORA на додаток до NIS2?</li>
+            <li>Опишіть вимоги DORA до incident reporting. Які терміни встановлені для initial notification, intermediate report та final report?</li>
+            <li>Які категорії обов'язкових контролів включає SWIFT Customer Security Programme? Чому MFA для SWIFT-операторів є критично важливим контролем?</li>
+            <li>Як вимоги Basel III до операційної стійкості пов'язані з кібербезпекою фінансових установ? Що таке «impact tolerances»?</li>
+            <li>Яким чином Україна адаптує своє законодавство до європейських стандартів кібербезпеки (NIS2, DORA) у контексті євроінтеграції?</li>
+          </ol>
+        </div>
       </section>
 
       <section>
@@ -97,6 +474,240 @@
           <li><strong>Міжнародна допомога</strong> — кібербезпекова підтримка від США (CISA), ЄС (ENISA), приватного сектору (Microsoft, Google, Cloudflare).</li>
           <li><strong>Обмін інформацією</strong> — посилена координація між CERT-UA, НБУ, банками та міжнародними партнерами.</li>
         </ul>
+
+        <p><strong>Хронологія ключових кібератак на Україну (2022):</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>Атака / Malware</th>
+              <th>Ціль</th>
+              <th>Наслідки</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>13-14 січня 2022</td>
+              <td>WhisperGate (wiper)</td>
+              <td>Державні установи, ІТ-компанії</td>
+              <td>Знищення MBR, defacement gov.ua сайтів</td>
+            </tr>
+            <tr>
+              <td>15 лютого 2022</td>
+              <td>Масовий DDoS</td>
+              <td>ПриватБанк, Ощадбанк, Міноборони</td>
+              <td>Тимчасова недоступність онлайн-банкінгу</td>
+            </tr>
+            <tr>
+              <td>23 лютого 2022</td>
+              <td>HermeticWiper + HermeticWizard</td>
+              <td>Фінансові та державні установи</td>
+              <td>Масове знищення даних напередодні вторгнення</td>
+            </tr>
+            <tr>
+              <td>24 лютого 2022</td>
+              <td>IsaacWiper, AcidRain</td>
+              <td>Держустанови, Viasat (супутниковий зв'язок)</td>
+              <td>Порушення комунікацій при початку вторгнення</td>
+            </tr>
+            <tr>
+              <td>14 березня 2022</td>
+              <td>CaddyWiper</td>
+              <td>Енергетичний сектор, фінансові установи</td>
+              <td>Спроба знищення даних, зупинена CERT-UA</td>
+            </tr>
+            <tr>
+              <td>Квітень 2022</td>
+              <td>Industroyer2</td>
+              <td>Енергетична інфраструктура</td>
+              <td>Спроба відключення електропостачання (невдала)</td>
+            </tr>
+            <tr>
+              <td>2022-2024</td>
+              <td>Систематичний phishing (UAC-0010, UAC-0056)</td>
+              <td>НБУ, банки, Держспецзв'язку</td>
+              <td>Збір облікових даних, розвідка</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Порівняння деструктивного malware, використаного проти України:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Характеристика</th>
+              <th>WhisperGate</th>
+              <th>HermeticWiper</th>
+              <th>CaddyWiper</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Дата виявлення</td>
+              <td>Січень 2022</td>
+              <td>23 лютого 2022</td>
+              <td>14 березня 2022</td>
+            </tr>
+            <tr>
+              <td>Тип</td>
+              <td>Fake ransomware / MBR wiper</td>
+              <td>Disk wiper (EaseUS driver)</td>
+              <td>Disk wiper (lightweight)</td>
+            </tr>
+            <tr>
+              <td>Механізм знищення</td>
+              <td>Перезапис MBR + файловий corruptor</td>
+              <td>Використання легітимного драйвера EaseUS для перезапису дисків</td>
+              <td>Перезапис файлів нулями, знищення partition table</td>
+            </tr>
+            <tr>
+              <td>Розповсюдження</td>
+              <td>Supply chain, Discord CDN</td>
+              <td>GPO в Active Directory (HermeticWizard)</td>
+              <td>GPO в Active Directory</td>
+            </tr>
+            <tr>
+              <td>Attribution</td>
+              <td>Sandworm / GRU (APT44)</td>
+              <td>Sandworm / GRU (APT44)</td>
+              <td>Sandworm / GRU (APT44)</td>
+            </tr>
+            <tr>
+              <td>Вплив на фін. сектор</td>
+              <td>Непрямий (держустанови)</td>
+              <td>Прямий (фінансові установи)</td>
+              <td>Прямий (фінансові установи)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Технічна структура HermeticWiper (спрощений аналіз):</strong></p>
+<pre><code>
+  ═══════════════════════════════════════════════════════════════
+  HermeticWiper: TECHNICAL ANALYSIS (simplified)
+  ═══════════════════════════════════════════════════════════════
+
+  1. INITIAL ACCESS
+     └── Compromised Active Directory → GPO deployment
+     └── Signed with certificate: "Hermetica Digital Ltd"
+         (stolen code-signing certificate from Cyprus company)
+
+  2. EXECUTION CHAIN
+     ├── Drops legitimate EaseUS driver (compressed in resources)
+     │   ├── empntdrv.sys — legitimate partition management driver
+     │   └── Used to gain raw disk access
+     ├── Disables VSS (Volume Shadow Copy Service)
+     │   └── Prevents recovery from shadow copies
+     └── Corrupts MBR, MFT, and filesystem structures
+
+  3. DISK DESTRUCTION
+     ├── Targets: MBR (Master Boot Record)
+     ├── Targets: MFT (Master File Table) on NTFS
+     ├── Overwrites with random data (not zeros)
+     └── Affects all connected drives
+
+  4. ANTI-RECOVERY
+     ├── Modifies boot configuration
+     ├── Crashes system after corruption
+     └── Machine becomes unbootable
+
+  DETECTION IOCs:
+  ├── SHA256: 1bc44eef75779e3ca1eefb8ff5a64807dbc942b1e4a2672d77b9f6928d292591
+  ├── File: empntdrv.sys (dropped driver)
+  ├── Service: created with random 4-char name
+  └── Signer: "Hermetica Digital Ltd"
+
+  ═══════════════════════════════════════════════════════════════
+</code></pre>
+
+        <p><strong>Заходи забезпечення стійкості фінансової системи під час війни:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Захід</th>
+              <th>Реалізація</th>
+              <th>Результат</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cloud migration</td>
+              <td>Постанова КМУ дозволила міграцію КІІ у хмару (AWS, Azure, GCP)</td>
+              <td>Захист від фізичного знищення серверів, безперервність роботи</td>
+            </tr>
+            <tr>
+              <td>DDoS protection</td>
+              <td>Cloudflare Project Galileo, Google Project Shield</td>
+              <td>Поглинання DDoS-атак до 1+ Tbps</td>
+            </tr>
+            <tr>
+              <td>Threat intelligence sharing</td>
+              <td>Посилена координація CERT-UA + CISA + ENISA + приватний сектор</td>
+              <td>Раннє виявлення та блокування атак</td>
+            </tr>
+            <tr>
+              <td>Резервне електропостачання</td>
+              <td>Генератори, Starlink для банківських відділень</td>
+              <td>Працездатність при блекаутах</td>
+            </tr>
+            <tr>
+              <td>Децентралізація</td>
+              <td>Розподіл ІТ-команд по регіонах, remote work</td>
+              <td>Стійкість при загрозі окупації</td>
+            </tr>
+            <tr>
+              <td>Кіберволонтери (IT Army)</td>
+              <td>Координація через Мінцифри, Telegram</td>
+              <td>Контрнаступальні кібероперації, DDoS на агресора</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Ключові уроки кібервійни для фінансового сектору:</strong></p>
+<pre><code>
+  ═══════════════════════════════════════════════════════════════
+  LESSONS LEARNED: CYBER WAR & FINANCIAL SECTOR (2022-2024)
+  ═══════════════════════════════════════════════════════════════
+
+  УРОК 1: CLOUD = RESILIENCE
+  ├── On-premise інфраструктура вразлива до фізичного знищення
+  ├── Cloud забезпечує geographic distribution та auto-failover
+  └── Регуляторні бар'єри для cloud потрібно знімати ЗАЗДАЛЕГІДЬ
+
+  УРОК 2: PREPARATION > REACTION
+  ├── Банки з зрілою ІБ (SOC, EDR, SIEM) — мінімальний вплив
+  ├── Банки без підготовки — серйозні disruptions
+  └── Інвестиції в кібербезпеку ДО кризи є критичними
+
+  УРОК 3: INTERNATIONAL COOPERATION IS ESSENTIAL
+  ├── CISA (США) — технічна допомога, threat intel
+  ├── Microsoft MSTIC — безкоштовні security tools
+  ├── Google Mandiant — incident response підтримка
+  └── Жодна країна не може захиститися сама
+
+  УРОК 4: PEOPLE > TECHNOLOGY
+  ├── Кваліфіковані фахівці CERT-UA зупинили Industroyer2
+  ├── SOC-аналітики виявляли wipers за хвилини
+  └── Awareness населення знизив ефективність phishing
+
+  УРОК 5: RESILIENCE > PREVENTION
+  ├── 100% запобігання неможливе
+  ├── Здатність швидко відновитися = ключова здатність
+  └── BCP/DR планування повинно включати war scenarios
+
+  ═══════════════════════════════════════════════════════════════
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Порівняйте три типи деструктивного malware (WhisperGate, HermeticWiper, CaddyWiper): які механізми знищення даних використовує кожен з них і чому вони є «wipers», а не «ransomware»?</li>
+            <li>Як міграція критичної інфраструктури у хмару (cloud migration) забезпечила стійкість фінансової системи України під час повномасштабного вторгнення? Які регуляторні рішення для цього знадобились?</li>
+            <li>Які міжнародні організації та приватні компанії надали кібербезпекову допомогу Україні? У чому полягала їхня роль?</li>
+            <li>Поясніть, чому урок «Resilience > Prevention» є ключовим для фінансового сектору в умовах кібервійни. Як BCP/DR планування має враховувати воєнні сценарії?</li>
+            <li>Як фінансова система України (СЕП, інтернет-банкінг, безготівкові платежі) зберегла безперервну роботу під час масованих кібератак 2022 року?</li>
+          </ol>
+        </div>
       </section>
 
       <section>
@@ -123,6 +734,252 @@
           <li>Обмін досвідом кібервійни як унікальна цінність України для глобальної кібербезпеки.</li>
         </ul>
         <p><strong>Цифрова трансформація з безпекою:</strong> розвиток цифрових фінансових послуг (Дія, e-гривня, Open Banking) з вбудованою безпекою (security by design). Баланс між інноваціями та захистом — ключовий виклик для фінансового сектору.</p>
+
+        <p><strong>Глобальний дефіцит кадрів у кібербезпеці:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Показник</th>
+              <th>Глобально</th>
+              <th>Європа</th>
+              <th>Україна (оцінка)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Кількість фахівців з кібербезпеки</td>
+              <td>~5.5 млн</td>
+              <td>~1.3 млн</td>
+              <td>~30-40 тис</td>
+            </tr>
+            <tr>
+              <td>Незаповнені вакансії</td>
+              <td>~3.5 млн</td>
+              <td>~350 тис</td>
+              <td>~5-10 тис</td>
+            </tr>
+            <tr>
+              <td>Дефіцит (% від потреби)</td>
+              <td>~39%</td>
+              <td>~21%</td>
+              <td>~20-25%</td>
+            </tr>
+            <tr>
+              <td>Середня зарплата (senior)</td>
+              <td>$120-180K (США)</td>
+              <td>€70-120K</td>
+              <td>$3-6K/міс</td>
+            </tr>
+            <tr>
+              <td>Найбільш дефіцитні ролі</td>
+              <td>Cloud security, AppSec</td>
+              <td>SOC analyst, pentester</td>
+              <td>CISO, SOC analyst, IR</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Дорожня карта технологічних пріоритетів кібербезпеки фінансового сектору:</strong></p>
+<pre><code>
+  ═══════════════════════════════════════════════════════════════
+  TECHNOLOGY PRIORITIES ROADMAP: ФІНАНСОВА КІБЕРБЕЗПЕКА УКРАЇНИ
+  ═══════════════════════════════════════════════════════════════
+
+  КОРОТКОСТРОКОВІ (2024-2025):
+  ├── Zero Trust Architecture — впровадження для критичних систем
+  │   ├── Identity-centric security (MFA, SSO, PAM)
+  │   ├── Micro-segmentation мережі
+  │   └── Continuous verification (never trust, always verify)
+  ├── EDR/XDR — повне покриття всіх endpoints
+  ├── Cloud Security Posture Management (CSPM)
+  └── Автоматизація SOC через SOAR playbooks
+
+  СЕРЕДНЬОСТРОКОВІ (2025-2027):
+  ├── AI/ML Threat Detection
+  │   ├── Anomaly detection для фінансових транзакцій
+  │   ├── User Behavior Analytics (UBA)
+  │   └── Automated incident triage
+  ├── DevSecOps — security в CI/CD pipeline
+  ├── API Security — захист Open Banking інтерфейсів
+  └── Threat Intelligence Platform — автоматизація IOC sharing
+
+  ДОВГОСТРОКОВІ (2027-2030):
+  ├── Post-Quantum Cryptography (PQC)
+  │   ├── NIST PQC стандарти: CRYSTALS-Kyber, CRYSTALS-Dilithium
+  │   ├── Crypto-agility: здатність швидко змінити алгоритми
+  │   └── Harvest now, decrypt later — загроза вже існує
+  ├── Autonomous SOC — AI-driven detection &amp; response
+  ├── Decentralized Identity (DID) для фінансових послуг
+  └── Quantum Key Distribution (QKD) для критичних каналів
+
+  ═══════════════════════════════════════════════════════════════
+</code></pre>
+
+        <p><strong>Міжнародна співпраця України у сфері кібербезпеки:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Партнер / Організація</th>
+              <th>Тип співпраці</th>
+              <th>Ключові напрямки</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>США (CISA, FBI, NSA)</td>
+              <td>Двостороння угода</td>
+              <td>Threat intelligence, технічна допомога, навчання, joint operations</td>
+            </tr>
+            <tr>
+              <td>ЄС (ENISA)</td>
+              <td>Євроінтеграція</td>
+              <td>Гармонізація законодавства, capacity building, участь у вправах</td>
+            </tr>
+            <tr>
+              <td>NATO CCDCOE (Естонія)</td>
+              <td>Партнерство</td>
+              <td>Locked Shields вправи, дослідження, обмін досвідом кібервійни</td>
+            </tr>
+            <tr>
+              <td>Великобританія (NCSC)</td>
+              <td>Двостороння угода</td>
+              <td>Захист КІІ, incident response, кадри</td>
+            </tr>
+            <tr>
+              <td>Естонія (RIA/CERT-EE)</td>
+              <td>Двостороння угода</td>
+              <td>e-Governance security, cloud backup, досвід e-Residency</td>
+            </tr>
+            <tr>
+              <td>FIRST</td>
+              <td>Членство (CERT-UA)</td>
+              <td>Глобальний обмін інформацією про інциденти між CERT-командами</td>
+            </tr>
+            <tr>
+              <td>Europol (EC3)</td>
+              <td>Співпраця</td>
+              <td>Розслідування кіберзлочинів, фінансове шахрайство</td>
+            </tr>
+            <tr>
+              <td>Microsoft, Google, Cloudflare</td>
+              <td>Приватний сектор</td>
+              <td>Безкоштовні security tools, DDoS protection, threat intel</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Вимоги безпеки до цифрової трансформації фінансових послуг:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Цифровий продукт</th>
+              <th>Security by Design вимоги</th>
+              <th>Ключові ризики</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>е-гривня (CBDC)</td>
+              <td>Криптографічний захист, privacy, офлайн-платежі, anti-counterfeiting</td>
+              <td>Double spending, privacy breach, systemic failure</td>
+            </tr>
+            <tr>
+              <td>Open Banking (PSD2-like)</td>
+              <td>OAuth 2.0 / OIDC, API gateway, rate limiting, consent management</td>
+              <td>Unauthorized API access, data leakage, TPP fraud</td>
+            </tr>
+            <tr>
+              <td>Дія (фінансові послуги)</td>
+              <td>Qualified Electronic Signature, BankID, biometric verification</td>
+              <td>Identity fraud, deepfakes, social engineering</td>
+            </tr>
+            <tr>
+              <td>Мобільний банкінг</td>
+              <td>Certificate pinning, root/jailbreak detection, secure enclave</td>
+              <td>Malware on device, MitM, SIM swapping</td>
+            </tr>
+            <tr>
+              <td>Криптоактиви (MiCA-like)</td>
+              <td>KYC/AML, cold storage, multi-sig wallets, audit trail</td>
+              <td>Exchange hack, rug pull, regulatory arbitrage</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Шляхи сертифікації для фахівців з фінансової кібербезпеки:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Сертифікація</th>
+              <th>Організація</th>
+              <th>Рівень</th>
+              <th>Фокус</th>
+              <th>Релевантність для фін. сектору</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CompTIA Security+</td>
+              <td>CompTIA</td>
+              <td>Entry</td>
+              <td>Загальна кібербезпека</td>
+              <td>Базовий рівень для всіх ІТ-фахівців банків</td>
+            </tr>
+            <tr>
+              <td>CEH (Certified Ethical Hacker)</td>
+              <td>EC-Council</td>
+              <td>Intermediate</td>
+              <td>Penetration testing</td>
+              <td>Red team, vulnerability assessment банківських систем</td>
+            </tr>
+            <tr>
+              <td>CISM (Certified Information Security Manager)</td>
+              <td>ISACA</td>
+              <td>Advanced</td>
+              <td>ІБ-менеджмент</td>
+              <td>CISO, ІБ-менеджери фінансових установ</td>
+            </tr>
+            <tr>
+              <td>CISSP (Certified Information Systems Security Professional)</td>
+              <td>(ISC)²</td>
+              <td>Advanced</td>
+              <td>Комплексна кібербезпека</td>
+              <td>Архітектори безпеки, senior security roles</td>
+            </tr>
+            <tr>
+              <td>CISA (Certified Information Systems Auditor)</td>
+              <td>ISACA</td>
+              <td>Advanced</td>
+              <td>ІТ-аудит</td>
+              <td>Аудит ІТ-систем банків, compliance</td>
+            </tr>
+            <tr>
+              <td>OSCP (Offensive Security Certified Professional)</td>
+              <td>OffSec</td>
+              <td>Advanced</td>
+              <td>Практичний pentesting</td>
+              <td>TLPT (DORA), red team операції</td>
+            </tr>
+            <tr>
+              <td>CCSP (Certified Cloud Security Professional)</td>
+              <td>(ISC)²</td>
+              <td>Advanced</td>
+              <td>Cloud security</td>
+              <td>Безпека хмарної інфраструктури банків</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Які ключові технологічні пріоритети кібербезпеки фінансового сектору України на короткострокову, середньострокову та довгострокову перспективу? Чому підготовка до post-quantum криптографії є актуальною вже зараз?</li>
+            <li>Опишіть глобальний дефіцит кадрів у кібербезпеці. Які ролі є найбільш дефіцитними для українського фінансового сектору і як цю проблему можна вирішити?</li>
+            <li>Які вимоги Security by Design необхідно враховувати при розробці е-гривні (CBDC)? Які основні ризики пов'язані з цифровою валютою центрального банку?</li>
+            <li>Порівняйте ключові міжнародні партнерства України у сфері кібербезпеки. Чому досвід кібервійни є унікальною цінністю України для глобальної кібербезпеки?</li>
+            <li>Які сертифікації рекомендовані для фахівців з фінансової кібербезпеки на різних рівнях кар'єри (entry, intermediate, advanced)? Як вимоги DORA до TLPT впливають на потребу в сертифікованих pentester-ах?</li>
+          </ol>
+        </div>
       </section>
 
       <section>

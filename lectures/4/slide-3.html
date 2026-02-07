@@ -195,7 +195,146 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. Cookie Security Attributes детально -->
+    <section class="slide">
+      <h1>Атрибути безпеки Cookie</h1>
+      <h2>Повний набір захисних прапорців</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔒</span>
+          <span class="il-text"><strong>HttpOnly</strong> — недоступний через document.cookie, захист від XSS-крадіжки</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔐</span>
+          <span class="il-text"><strong>Secure</strong> — передається лише через HTTPS, захист від MITM-перехоплення</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🌐</span>
+          <span class="il-text"><strong>SameSite=Strict</strong> — не надсилається при cross-site запитах, захист від CSRF</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⏰</span>
+          <span class="il-text"><strong>Max-Age / Expires</strong> — короткий TTL (15-30 хв) для сесійних cookie</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📍</span>
+          <span class="il-text"><strong>Domain / Path</strong> — обмеження scope, не встановлювати на кореневий домен</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏷️</span>
+          <span class="il-text"><strong>__Host- префікс</strong> — вимагає Secure + без Domain + Path=/ (найнадійніший)</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Ідеальний cookie: __Host-session=abc; Secure; HttpOnly; SameSite=Strict; Max-Age=1800; Path=/</p>
+      </div>
+    </section>
+
+    <!-- 9. Session Management Best Practices -->
+    <section class="slide">
+      <h1>Керування сесіями — найкращі практики</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Генерація ID</div>
+          <div class="step-desc">Криптографічно стійкий random (128+ біт ентропії)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Ротація</div>
+          <div class="step-desc">Новий session ID після login та зміни привілеїв</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Прив'язка</div>
+          <div class="step-desc">Binding до IP, User-Agent, fingerprint клієнта</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Таймаут</div>
+          <div class="step-desc">Idle timeout 15 хв, absolute timeout 8 годин</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Інвалідація</div>
+          <div class="step-desc">Server-side invalidation при logout, зміні пароля, підозрілій активності</div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>НБУ вимагає auto-logout через 5 хвилин бездіяльності для систем інтернет-банкінгу.</p>
+      </div>
+    </section>
+
+    <!-- 10. Formjacking Attack Flow -->
+    <section class="slide">
+      <h1>Формджекінг — потік атаки</h1>
+      <h2>Від компрометації CDN до крадіжки карток</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Компрометація</div>
+          <div class="step-desc">Зловмисник отримує доступ до CDN або стороннього скрипту</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Ін'єкція</div>
+          <div class="step-desc">Додає JS-скімер: перехоплення submit форми оплати</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Збір даних</div>
+          <div class="step-desc">Номер картки, CVV, ім'я → exfiltration на сервер зловмисника</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Маскування</div>
+          <div class="step-desc">Оригінальна форма працює нормально, жертва нічого не помічає</div>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 1.2rem;">
+        <div class="stat-box red">
+          <div class="stat-value">4,800+</div>
+          <div class="stat-label">сайтів атаковано Magecart щомісяця</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">$2.2M</div>
+          <div class="stat-label">середні збитки від інциденту</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Порівняння сховищ для токенів -->
+    <section class="slide">
+      <h1>Порівняння сховищ для токенів</h1>
+      <h2>Де найбезпечніше зберігати credentials?</h2>
+      <div class="card-grid">
+        <div class="card accent-green">
+          <span class="card-icon">🧠</span>
+          <div class="card-title">JS-змінна (пам'ять)</div>
+          <div class="card-text">Недоступна іншим вкладкам. Зникає при F5. Найбезпечніше для access token</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🍪</span>
+          <div class="card-title">HttpOnly Cookie</div>
+          <div class="card-text">Недоступний JS. Автоматично надсилається. Ідеально для refresh token</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">📦</span>
+          <div class="card-title">sessionStorage</div>
+          <div class="card-text">Ізольований по вкладці. Зникає при закритті. XSS все ще загроза</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">⚠️</span>
+          <div class="card-title">localStorage</div>
+          <div class="card-text">Персистентний, доступний JS. XSS = повна компрометація. НЕ для секретів</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Патерн BFF (Backend For Frontend): токени зберігаються на сервері, клієнт отримує лише session cookie.</p>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

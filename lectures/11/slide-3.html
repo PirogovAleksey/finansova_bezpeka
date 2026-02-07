@@ -130,6 +130,128 @@
     </section>
 
     <section class="slide">
+      <h1>Transaction Monitoring Rules</h1>
+      <h2>Приклади типових правил</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">💰</span>
+          <div class="card-title">Threshold Rule</div>
+          <div class="card-text">Одиночна операція > 400K грн — автоматичний alert та обов'язковий звіт</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">✂️</span>
+          <div class="card-title">Structuring Rule</div>
+          <div class="card-text">3+ операції нижче порогу від одного клієнта за 24 години — підозра на smurfing</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">⚡</span>
+          <div class="card-title">Rapid Movement</div>
+          <div class="card-text">Кошти переказуються протягом 30 хвилин після надходження — transit account</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📊</span>
+          <div class="card-title">Deviation Rule</div>
+          <div class="card-text">Оборот перевищує середній за 6 місяців на 300%+ — аномальна активність</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Типова система має 50-200 правил. Тюнінг порогів — баланс між виявленням та false positives.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>STR Filing Process</h1>
+      <h2>Процес подання підозрілого звіту</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Виявлення</div>
+          <div class="step-desc">TM-система генерує alert або працівник помічає підозрілу поведінку клієнта</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Розслідування</div>
+          <div class="step-desc">L1 аналітик перевіряє: KYC-профіль, історія транзакцій, зв'язки, open sources</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Ескалація</div>
+          <div class="step-desc">L2/MLRO підтверджує підозру, формує STR з описом підстав та доказами</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Подання</div>
+          <div class="step-desc">STR надсилається до ДСФМУ через захищений канал протягом 1 робочого дня</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Follow-up</div>
+          <div class="step-desc">Можливе зупинення операцій на 5 днів, надання додаткової інформації на запит FIU</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Risk Scoring Model</h1>
+      <h2>Комплексна оцінка ризику</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">👤</span>
+          <div class="card-title">Customer Risk (40%)</div>
+          <div class="card-text">PEP-статус, країна резидентства, вид діяльності, вік відносин з банком</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🌍</span>
+          <div class="card-title">Geography Risk (25%)</div>
+          <div class="card-text">FATF Grey/Black list, CPI < 40, offshore юрисдикції, зони конфліктів</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">💳</span>
+          <div class="card-title">Product Risk (15%)</div>
+          <div class="card-text">Private banking, кореспондентські рахунки, криптоактиви, готівкові операції</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">📊</span>
+          <div class="card-title">Transaction Risk (20%)</div>
+          <div class="card-text">Обсяг, частота, контрагенти, відповідність профілю, cash ratio</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Фінальний score: Low (1-30), Medium (31-60), High (61-80), Very High (81-100) — визначає рівень CDD та частоту моніторингу.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Виявлення структурування</h1>
+      <h2>Structuring Detection</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔢</span>
+          <span class="il-text"><strong>Агрегація:</strong> сума операцій одного клієнта за 1/7/30 днів перевищує поріг</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📐</span>
+          <span class="il-text"><strong>Proximity:</strong> операції на 90-99% від порогу (наприклад, 380-399K грн) — класичний smurfing</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏪</span>
+          <span class="il-text"><strong>Multi-branch:</strong> внесення готівки в різних відділеннях одного банку протягом дня</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">👥</span>
+          <span class="il-text"><strong>Coordinated:</strong> група пов'язаних осіб робить однакові операції одночасно</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏦</span>
+          <span class="il-text"><strong>Multi-bank:</strong> один клієнт дробить операції між кількома банками</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Structuring — окремий злочин навіть якщо кошти легальні. Покарання в Україні: штраф або позбавлення волі до 3 років.</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

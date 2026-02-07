@@ -155,6 +155,124 @@
     </section>
 
     <section class="slide">
+      <h1>HD Wallet: ієрархічна деривація ключів</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Seed</div>
+          <div class="step-desc">Seed phrase (BIP-39) генерує 512-біт master seed</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Master Key</div>
+          <div class="step-desc">HMAC-SHA512 створює master private key + chain code</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Derivation Path</div>
+          <div class="step-desc">BIP-44: m/44'/60'/0'/0/0 — мережа/акаунт/адреса</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Child Keys</div>
+          <div class="step-desc">Нескінченна кількість адрес з одного seed, кожна ізольована</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Перевага HD: один seed → мільйони адрес для різних блокчейнів. Резервне копіювання лише seed phrase.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Multisig vs MPC: порівняння</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">🔐</span>
+            <div class="card-title">Multisig (M-of-N)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              On-chain: видно кількість підписів<br>
+              Вищі gas fees (кілька підписів)<br>
+              Специфічний для блокчейну<br>
+              Gnosis Safe: стандарт Ethereum<br>
+              Прозорий та аудитований
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-purple" style="height: 100%;">
+            <span class="card-icon">🧩</span>
+            <div class="card-title">MPC (Multi-Party Computation)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Off-chain: виглядає як звичайний підпис<br>
+              Менші gas fees (один підпис)<br>
+              Працює з будь-яким блокчейном<br>
+              Fireblocks, Coinbase: корпоративний стандарт<br>
+              Гнучка ротація key shares
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Multisig = прозорість on-chain. MPC = універсальність та privacy. Обидва усувають single point of failure.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Архітектура апаратного гаманця</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔧</span>
+          <span class="il-text"><strong>Secure Element (SE)</strong> — ізольований чіп для зберігання приватних ключів (CC EAL5+/6+)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🖥️</span>
+          <span class="il-text"><strong>Trusted Display</strong> — екран керується SE, показує реальні дані транзакції</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">✍️</span>
+          <span class="il-text"><strong>Підпис всередині</strong> — приватний ключ ніколи не покидає пристрій, транзакція підписується на чіпі</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔄</span>
+          <span class="il-text"><strong>Firmware verification</strong> — цифровий підпис прошивки запобігає supply chain атакам</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Ledger (Secure Element) vs Trezor (open-source MCU). Компроміс: закритий чіп з більшим захистом vs відкритий код з прозорістю.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Безпека Seed Phrase: найкращі практики</h1>
+      <div class="card-grid">
+        <div class="card accent-green">
+          <span class="card-icon">🔩</span>
+          <div class="card-title">Металева пластина</div>
+          <div class="card-text">Cryptosteel, Billfodl: вогнетривкість до 1500°C, захист від води та корозії</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">✂️</span>
+          <div class="card-title">Shamir's Secret Sharing</div>
+          <div class="card-text">Розділити seed на 3 частини, будь-які 2 відновлюють повний (SLIP-39)</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🏦</span>
+          <div class="card-title">Географічне розділення</div>
+          <div class="card-text">Частини seed у різних локаціях: дім, банківський сейф, довірена особа</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">🚫</span>
+          <div class="card-title">Passphrase (25-те слово)</div>
+          <div class="card-text">Додатковий пароль до seed: навіть при крадіжці 24 слів кошти захищені</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>$5 wrench attack: фізичний примус. Рішення — decoy wallet (без passphrase) + основний wallet (з passphrase).</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

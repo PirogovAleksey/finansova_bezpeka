@@ -86,6 +86,70 @@
         <p>Серед найрезонансніших інцидентів останнього десятиліття — атака NotPetya (2017), яка почалася через компрометацію оновлень українського бухгалтерського ПЗ M.E.Doc і завдала глобальних збитків на суму понад $10 млрд. Постраждали десятки фінансових установ, логістичні компанії та виробничі підприємства по всьому світу. Цей випадок наочно продемонстрував ризики атак на ланцюг постачання (supply chain attacks) та їхній потенційний вплив на фінансову систему.</p>
 
         <p>Сучасні тренди кіберзагроз у фінансах включають зростання Ransomware-as-a-Service (RaaS), використання штучного інтелекту для генерації фішингових повідомлень та deepfake-шахрайства, а також масовану крадіжку криптовалют — лише у 2022 році було вкрадено $3.8 млрд у цифрових активах.</p>
+
+        <h3>Технічний приклад: Shodan-запити для пошуку вразливих фінансових систем</h3>
+        <p>Зловмисники активно використовують пошукові рушії на кшталт Shodan та Censys для знаходження незахищених фінансових систем, доступних з Інтернету. Нижче наведено типові запити, які ілюструють, як легко можна виявити вразливі системи:</p>
+        <pre><code># Пошук відкритих банкоматів та POS-терміналів у Shodan
+# УВАГА: використовуйте лише для навчальних цілей та з дозволу
+
+# Знайти ATM-контролери з відкритим портом
+shodan search "port:5900 country:UA bank"
+
+# Знайти незахищені SWIFT-інтерфейси (Alliance Lite2)
+shodan search "SWIFT" "port:443" "country:UA"
+
+# Знайти відкриті MongoDB з фінансовими даними (витоки)
+shodan search "mongodb" "port:27017" "financial"
+
+# Знайти вразливі VPN-шлюзи фінансових установ
+shodan search "ssl:\"National Bank\"" "port:443"
+</code></pre>
+
+        <h3>Технічний приклад: OSINT-розвідка фінансової установи</h3>
+        <p>Наступний набір команд демонструє, як аналітик або зловмисник може зібрати публічно доступну інформацію про фінансову організацію:</p>
+        <pre><code># OSINT — збір інформації про інфраструктуру банку
+# ------------------------------------------------
+
+# 1. DNS-розвідка: пошук піддоменів
+subfinder -d example-bank.com.ua -o subdomains.txt
+# Результат:
+# online.example-bank.com.ua
+# api.example-bank.com.ua
+# swift.example-bank.com.ua
+# vpn.example-bank.com.ua
+# mail.example-bank.com.ua
+
+# 2. Перевірка технологічного стеку (Wappalyzer CLI)
+wappalyzer https://online.example-bank.com.ua
+# Результат:
+# {
+#   "Web servers": ["nginx 1.18.0"],
+#   "JavaScript frameworks": ["React"],
+#   "Security": ["reCAPTCHA"],
+#   "CDN": ["Cloudflare"]
+# }
+
+# 3. Пошук витоків облікових даних у публічних breach-базах
+# (theHarvester — агрегатор email-адрес)
+theHarvester -d example-bank.com.ua -b all -l 200
+# Знайдено: 47 email-адрес, 12 піддоменів, 3 віртуальних хости
+
+# 4. Google Dorking — пошук конфіденційних документів
+# site:example-bank.com.ua filetype:pdf "конфіденційно"
+# site:example-bank.com.ua filetype:xlsx "клієнти"
+# site:example-bank.com.ua inurl:admin
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Чому фінансовий сектор є одним із найбільш атакованих — які саме фактори роблять його привабливою ціллю для зловмисників?</li>
+            <li>Опишіть діяльність групи Carbanak/FIN7: які методи вони використовували та яких збитків завдали?</li>
+            <li>Яким чином атака NotPetya 2017 року продемонструвала ризики атак на ланцюг постачання (supply chain) для фінансового сектору?</li>
+            <li>Що таке OSINT і які інструменти використовуються для розвідки фінансових установ? Як організація може захиститися від такої розвідки?</li>
+            <li>Які сучасні тренди кіберзагроз у фінансовому секторі ви можете назвати та чому модель RaaS є особливо небезпечною?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 1.2 -->
@@ -105,6 +169,157 @@
         <p><strong>Інсайдерські загрози.</strong> До 60% інцидентів безпеки у фінансовому секторі мають внутрішній компонент. Це може бути як навмисна крадіжка даних клієнтів незадоволеним співробітником, так і ненавмисне порушення через недбалість або необізнаність. Особливий ризик становлять привілейовані користувачі — адміністратори баз даних, системні адміністратори та співробітники з доступом до критичних систем.</p>
 
         <p><strong>Атаки на ланцюг постачання (Supply Chain).</strong> Компрометація сторонніх постачальників ПЗ та сервісів стає дедалі поширенішим вектором атаки. Інцидент SolarWinds (2020) показав, як один скомпрометований постачальник може надати доступ до тисяч організацій одночасно. У фінансовому секторі особливу небезпеку становлять атаки через сторонні API та бібліотеки з відкритим кодом.</p>
+
+        <h3>Технічний приклад: Аналіз заголовків фішингового листа</h3>
+        <p>Розглянемо типовий приклад фішингового листа, спрямованого на співробітника фінансового відділу. Аналіз email-заголовків дозволяє виявити підроблене повідомлення:</p>
+        <pre><code>Return-Path: &lt;alert@security-update-bank.com&gt;
+Received: from mail-evil.attacker.net (185.220.101.42)
+        by mail.example-bank.com.ua (Postfix)
+        with ESMTP id ABC123; Mon, 15 Jan 2024 09:23:11 +0200
+From: "ПриватБанк Security" &lt;security@privatbank.ua.com&gt;
+Reply-To: phishing-collect@protonmail.com
+To: o.kovalenko@example-bank.com.ua
+Subject: =?UTF-8?B?0KLQtdGA0LzRltC90L7QstC+?= оновлення безпеки
+Date: Mon, 15 Jan 2024 09:23:00 +0200
+MIME-Version: 1.0
+X-Mailer: PHPMailer 6.1.4
+Content-Type: multipart/mixed;
+        boundary="----=_NextPart_001"
+
+------=_NextPart_001
+Content-Type: text/html; charset=UTF-8
+
+&lt;html&gt;
+&lt;body&gt;
+Шановний співробітнику,&lt;br&gt;
+Терміново оновіть свої облікові дані для доступу до SWIFT.
+&lt;a href="https://privatbank-ua.com.evil.net/login"&gt;Натисніть тут&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+------=_NextPart_001
+Content-Type: application/vnd.ms-excel
+Content-Disposition: attachment; filename="Security_Update.xlsm"
+# ^^ Файл з макросами — потенційний дроппер шкідливого ПЗ
+</code></pre>
+
+        <p>Ключові ознаки фішингу, які можна виявити при аналізі:</p>
+        <pre><code># Аналіз заголовків фішингового листа (Python-скрипт)
+# ================================================
+
+import email
+from email import policy
+
+def analyze_phishing_headers(raw_email):
+    """Аналіз email-заголовків на ознаки фішингу"""
+    msg = email.message_from_string(raw_email, policy=policy.default)
+
+    indicators = []
+
+    # 1. Перевірка невідповідності From та Return-Path
+    from_addr = msg['From']           # "security@privatbank.ua.com"
+    return_path = msg['Return-Path']  # "alert@security-update-bank.com"
+    if from_addr != return_path:
+        indicators.append("SUSPICIOUS: From та Return-Path не співпадають")
+
+    # 2. Перевірка Reply-To на безкоштовні поштові сервіси
+    reply_to = msg['Reply-To']        # "phishing-collect@protonmail.com"
+    free_providers = ['protonmail.com', 'gmail.com', 'yahoo.com']
+    if any(p in reply_to for p in free_providers):
+        indicators.append("SUSPICIOUS: Reply-To вказує на безкоштовний сервіс")
+
+    # 3. Перевірка SPF/DKIM/DMARC
+    auth_results = msg.get('Authentication-Results', '')
+    if 'spf=fail' in auth_results or 'dkim=fail' in auth_results:
+        indicators.append("ALERT: SPF/DKIM перевірка не пройдена")
+
+    # 4. Перевірка домену на схожість (typosquatting)
+    # privatbank.ua.com vs privatbank.ua — підроблений домен!
+    if 'ua.com' in from_addr:
+        indicators.append("ALERT: Підозрілий домен (typosquatting)")
+
+    # 5. Перевірка наявності вкладень з макросами
+    for part in msg.walk():
+        filename = part.get_filename()
+        if filename and filename.endswith(('.xlsm', '.docm', '.pptm')):
+            indicators.append(f"ALERT: Вкладення з макросами: {filename}")
+
+    return indicators
+
+# Результат аналізу:
+# [
+#   "SUSPICIOUS: From та Return-Path не співпадають",
+#   "SUSPICIOUS: Reply-To вказує на безкоштовний сервіс",
+#   "ALERT: Підозрілий домен (typosquatting)",
+#   "ALERT: Вкладення з макросами: Security_Update.xlsm"
+# ]
+</code></pre>
+
+        <h3>Технічний приклад: Механізм kill-switch у ransomware (псевдокод)</h3>
+        <p>Деякі зразки ransomware містять механізм «аварійної зупинки» (kill-switch), який був випадково виявлений дослідником MalwareTech під час епідемії WannaCry. Нижче — спрощена схема роботи такого механізму:</p>
+        <pre><code># Псевдокод: механізм kill-switch у ransomware
+# =============================================
+# Це спрощена модель для навчальних цілей
+
+import requests
+import os
+import sys
+
+KILLSWITCH_DOMAIN = "www.iuqerfsodp9ifjaposdfjhgosurijfaewrwergwea.com"
+
+def check_killswitch():
+    """
+    Перевірка kill-switch домену.
+    Якщо домен зареєстрований і відповідає — зупинити виконання.
+    WannaCry використовував цей механізм як захист від аналізу в sandbox:
+    у sandbox HTTP-запити часто перенаправляються, тому домен "відповідає".
+    """
+    try:
+        response = requests.get(f"http://{KILLSWITCH_DOMAIN}", timeout=5)
+        if response.status_code == 200:
+            # Kill-switch активовано — домен відповідає
+            print("[*] Kill-switch активовано. Завершення роботи.")
+            sys.exit(0)  # &lt;-- Ransomware зупиняється!
+    except requests.ConnectionError:
+        # Домен не зареєстрований — продовжити шифрування
+        print("[!] Kill-switch не активний. Продовження...")
+        pass
+
+def ransomware_main():
+    check_killswitch()
+
+    # Генерація ключів шифрування
+    aes_key = generate_random_aes_key(256)
+    rsa_pub = fetch_rsa_public_key_from_c2()
+
+    # Шифрування файлів на диску
+    target_extensions = ['.docx', '.xlsx', '.pdf', '.sql', '.bak', '.mdb']
+    for root, dirs, files in os.walk("C:\\"):
+        for file in files:
+            if any(file.endswith(ext) for ext in target_extensions):
+                encrypt_file(os.path.join(root, file), aes_key)
+
+    # Шифрування AES-ключа за допомогою RSA (публічний ключ C2)
+    encrypted_key = rsa_encrypt(aes_key, rsa_pub)
+    send_to_c2(encrypted_key)
+
+    # Відображення вимоги викупу
+    display_ransom_note(bitcoin_address="bc1q...")
+
+# ВИСНОВОК: реєстрація kill-switch домену дослідником MalwareTech
+# зупинила глобальне поширення WannaCry у 2017 році
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Які ключові ознаки фішингового листа можна виявити при аналізі email-заголовків? Назвіть щонайменше 4 індикатори.</li>
+            <li>Поясніть різницю між звичайним фішингом, spear-phishing та Business Email Compromise (BEC). Чому BEC є особливо небезпечним для фінансового сектору?</li>
+            <li>Опишіть модель подвійного вимагання (double extortion) у сучасних ransomware-атаках. Чому традиційне резервне копіювання вже не є достатнім захистом?</li>
+            <li>Що таке kill-switch у контексті шкідливого ПЗ? Як випадкове виявлення kill-switch зупинило епідемію WannaCry?</li>
+            <li>Чому інсайдерські загрози становлять до 60% інцидентів у фінансовому секторі? Які заходи мінімізують цей ризик?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 1.3 -->
@@ -122,6 +337,124 @@
         <p><strong>Фаза 5-6 — Закріплення та латеральне переміщення.</strong> Встановлюються бекдори та RAT (Remote Access Trojans) для збереження доступу. Далі зловмисник рухається мережею (lateral movement), ескалюючи привілеї до рівня адміністратора домену. На цьому етапі відбувається вивчення внутрішніх банківських систем: системи переказів, SWIFT-термінали, бази даних клієнтів.</p>
 
         <p><strong>Фаза 7 — Дії на цілі (Actions on Objectives).</strong> Фінальна фаза — виконання основної мети атаки: маніпуляція SWIFT-повідомленнями для несанкціонованих переказів, ексфільтрація клієнтських даних, розгортання ransomware або знищення логів для приховування слідів. У випадку Carbanak зловмисники місяцями спостерігали за роботою операторів і потім імітували їхні дії для крадіжки коштів.</p>
+
+        <h3>Технічний приклад: Розвідка мережі за допомогою Nmap (Фаза 1)</h3>
+        <p>На фазі розвідки зловмисники використовують сканери мережі для визначення відкритих портів, сервісів та їхніх версій. Ось типовий сценарій сканування фінансової інфраструктури:</p>
+        <pre><code># Nmap — сканування зовнішнього периметру фінансової установи
+# =============================================================
+
+# 1. Швидке сканування найпоширеніших портів
+nmap -sS -T4 --top-ports 1000 203.0.113.0/24 -oN bank_scan.txt
+
+# 2. Детальне сканування з визначенням версій сервісів
+nmap -sV -sC -p 22,80,443,1433,3306,3389,8080,8443 203.0.113.10
+
+# Типовий результат сканування банківського веб-сервера:
+# PORT     STATE SERVICE       VERSION
+# 22/tcp   open  ssh           OpenSSH 7.9 (protocol 2.0)
+# 80/tcp   open  http          nginx 1.18.0
+# 443/tcp  open  ssl/https     nginx 1.18.0
+# | ssl-cert: Subject: CN=online.example-bank.com.ua
+# | Not valid after: 2024-06-15
+# 3389/tcp open  ms-wbt-server Microsoft Terminal Services
+# |_WARNING: RDP відкритий ззовні — критична вразливість!
+# 8443/tcp open  ssl/https     Apache Tomcat 9.0.41
+# |_http-title: Admin Console
+# |_WARNING: Адмін-панель доступна ззовні!
+
+# 3. Сканування на відомі вразливості (NSE-скрипти)
+nmap --script vuln -p 443 203.0.113.10
+
+# PORT    STATE SERVICE
+# 443/tcp open  https
+# | http-vuln-cve2021-41773: VULNERABLE
+# |   Apache Path Traversal (CVE-2021-41773)
+# |   State: VULNERABLE
+# |   Risk factor: Critical
+# |_  References: https://nvd.nist.gov/vuln/detail/CVE-2021-41773
+
+# 4. Сканування SWIFT-інфраструктури у внутрішній мережі
+# (після отримання початкового доступу)
+nmap -sS -p 48000-48100 10.10.50.0/24
+# PORT      STATE SERVICE
+# 48002/tcp open  swift-alliance   &lt;-- SWIFT Alliance Access
+# 48080/tcp open  swift-webstation &lt;-- SWIFT Web Platform
+</code></pre>
+
+        <h3>Технічний приклад: Виявлення C2-маяків (beacon) у мережевому трафіку</h3>
+        <p>Після закріплення у мережі зловмисники використовують C2-канали для отримання команд. Типовий beacon (маяк) відправляє регулярні HTTP/HTTPS-запити до сервера управління. Нижче наведено приклад логів SOC-аналітика, який виявив аномальну активність:</p>
+        <pre><code># ===== SOC Alert: Виявлення C2-beacon у мережі банку =====
+# Джерело: SIEM (Splunk / Elastic Security)
+# Час виявлення: 2024-01-20 03:47:22 UTC
+# Рівень загрози: CRITICAL
+
+# --- Підозрілі HTTP-запити з робочої станції бухгалтерії ---
+# Періодичні запити кожні 60±5 секунд (jitter) — ознака beacon
+
+timestamp=2024-01-20T03:41:15Z src=10.10.20.45 dst=185.156.73.91
+  method=POST url="/api/v2/update" user_agent="Mozilla/5.0"
+  bytes_sent=342 bytes_recv=18 interval=62s
+
+timestamp=2024-01-20T03:42:18Z src=10.10.20.45 dst=185.156.73.91
+  method=POST url="/api/v2/update" user_agent="Mozilla/5.0"
+  bytes_sent=338 bytes_recv=22 interval=63s
+
+timestamp=2024-01-20T03:43:16Z src=10.10.20.45 dst=185.156.73.91
+  method=POST url="/api/v2/update" user_agent="Mozilla/5.0"
+  bytes_sent=340 bytes_recv=4096 interval=58s
+  # ^^ Різке збільшення отриманих даних — передача команди!
+
+timestamp=2024-01-20T03:44:20Z src=10.10.20.45 dst=185.156.73.91
+  method=POST url="/api/v2/update" user_agent="Mozilla/5.0"
+  bytes_sent=15728 bytes_recv=18 interval=64s
+  # ^^ Різке збільшення відправлених даних — ексфільтрація!
+
+# --- Аналіз аномалій (Python / SOC Automation) ---
+import pandas as pd
+import numpy as np
+
+def detect_beacon(conn_log, threshold_regularity=0.8):
+    """
+    Виявлення C2-beacon за регулярністю з'єднань.
+    Beacon має характерний патерн: фіксований інтервал ± jitter.
+    """
+    df = pd.read_csv(conn_log)
+
+    # Групування за парою src-dst
+    for (src, dst), group in df.groupby(['src_ip', 'dst_ip']):
+        intervals = group['timestamp'].diff().dropna()
+
+        # Обчислення коефіцієнта варіації (CV)
+        cv = intervals.std() / intervals.mean()
+
+        # Beacon: CV &lt; 0.2 (дуже регулярні інтервали)
+        if cv &lt; 0.2 and len(intervals) &gt; 10:
+            print(f"[ALERT] Можливий C2 beacon:")
+            print(f"  Джерело: {src}")
+            print(f"  C2 сервер: {dst}")
+            print(f"  Середній інтервал: {intervals.mean():.1f}с")
+            print(f"  Коефіцієнт варіації: {cv:.3f}")
+            print(f"  Кількість з'єднань: {len(group)}")
+
+# Результат:
+# [ALERT] Можливий C2 beacon:
+#   Джерело: 10.10.20.45
+#   C2 сервер: 185.156.73.91
+#   Середній інтервал: 61.8с
+#   Коефіцієнт варіації: 0.041
+#   Кількість з'єднань: 847
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Перерахуйте 7 фаз моделі Cyber Kill Chain та поясніть, чому розрив ланцюга на ранніх етапах є більш ефективним, ніж на пізніх.</li>
+            <li>Яку інформацію може отримати зловмисник під час фази розвідки (Reconnaissance) за допомогою інструментів типу Nmap? Як організація може виявити таке сканування?</li>
+            <li>Що таке C2-канал (Command & Control) та за якими ознаками SOC-аналітик може виявити beacon-трафік у мережі?</li>
+            <li>Опишіть фази латерального переміщення та ескалації привілеїв на прикладі атаки Carbanak на банківську систему.</li>
+            <li>Яким чином зловмисники використовують watering hole атаки для проникнення у фінансові установи? Чому такий вектор атаки складно виявити?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 1.4 -->
@@ -139,6 +472,224 @@
         <p><strong>GDPR та захист персональних даних.</strong> Генеральний регламент захисту даних ЄС встановлює суворі вимоги до обробки персональних даних клієнтів фінансових установ. Штрафи за порушення сягають 4% річного глобального обороту або 20 млн євро. Обов'язкове повідомлення наглядового органу про витік даних протягом 72 годин. Клієнти мають право на видалення своїх даних (right to be forgotten) та переносимість даних між постачальниками послуг.</p>
 
         <p><strong>NIST Cybersecurity Framework.</strong> Фреймворк Національного інституту стандартів і технологій США побудований навколо п'яти ключових функцій: Identify (ідентифікація активів та ризиків), Protect (захист), Detect (виявлення), Respond (реагування) та Recover (відновлення). Широко адаптований у фінансовому секторі та інтегрується з іншими стандартами, зокрема ISO 27001/27002.</p>
+
+        <h3>Таблиця: Контрольний список відповідності PCI DSS v4.0</h3>
+        <p>Нижче наведено 12 основних вимог стандарту PCI DSS із поясненням та прикладами технічної реалізації у банківському середовищі:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>№</th>
+              <th>Вимога PCI DSS</th>
+              <th>Опис</th>
+              <th>Приклад реалізації</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Встановлення та підтримка мережевих засобів безпеки</td>
+              <td>Налаштування файрволів для захисту даних картки</td>
+              <td>Сегментація CDE (Cardholder Data Environment) за допомогою next-gen firewall</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Безпечна конфігурація системних компонентів</td>
+              <td>Заборона стандартних паролів та налаштувань</td>
+              <td>Hardening за CIS Benchmarks, відключення невикористовуваних сервісів</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Захист збережених даних облікових записів</td>
+              <td>Шифрування PAN (Primary Account Number)</td>
+              <td>AES-256 шифрування, токенізація номерів карток</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Захист даних картки при передачі</td>
+              <td>Шифрування передачі через відкриті мережі</td>
+              <td>TLS 1.2+, заборона SSL та ранніх версій TLS</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Захист від шкідливого ПЗ</td>
+              <td>Антивірус на всіх системах</td>
+              <td>EDR-рішення (CrowdStrike, Microsoft Defender for Endpoint)</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Розробка та підтримка безпечних систем</td>
+              <td>Безпечний SDLC, патч-менеджмент</td>
+              <td>SAST/DAST тестування, оновлення протягом 30 днів від випуску патча</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Обмеження доступу за принципом need-to-know</td>
+              <td>Мінімально необхідний доступ до даних</td>
+              <td>RBAC (Role-Based Access Control), щоквартальний перегляд прав</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>Ідентифікація та автентифікація доступу</td>
+              <td>Унікальні облікові записи, MFA</td>
+              <td>Багатофакторна автентифікація для всіх адміністраторів</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>Обмеження фізичного доступу</td>
+              <td>Контроль фізичного доступу до даних картки</td>
+              <td>Біометричний доступ до серверних кімнат, відеоспостереження</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>Журналювання та моніторинг</td>
+              <td>Відстеження доступу до мережевих ресурсів та даних</td>
+              <td>SIEM-система, зберігання логів мінімум 1 рік</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>Регулярне тестування безпеки</td>
+              <td>Сканування вразливостей, пентести</td>
+              <td>Щоквартальне ASV-сканування, щорічний пентест</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>Політика інформаційної безпеки</td>
+              <td>Підтримка політики ІБ для всього персоналу</td>
+              <td>Щорічне навчання, план реагування на інциденти</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Таблиця: Мапування NIST CSF на захист фінансової установи</h3>
+        <p>Фреймворк NIST CSF допомагає структурувати кібербезпеку навколо п'яти функцій. Нижче показано, як кожна функція застосовується у контексті банку:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Функція NIST CSF</th>
+              <th>Категорії</th>
+              <th>Приклади контролів у банку</th>
+              <th>Відповідні стандарти</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>IDENTIFY</strong> (Ідентифікація)</td>
+              <td>Управління активами, оцінка ризиків, бізнес-середовище</td>
+              <td>Інвентаризація всіх систем, що обробляють PAN; оцінка ризиків для SWIFT-інфраструктури; BIA (Business Impact Analysis)</td>
+              <td>ISO 27001 (A.8), PCI DSS (вим. 2, 12)</td>
+            </tr>
+            <tr>
+              <td><strong>PROTECT</strong> (Захист)</td>
+              <td>Контроль доступу, навчання, захист даних</td>
+              <td>MFA для доступу до core-banking; шифрування БД клієнтів; навчання персоналу з фішингу; мережева сегментація</td>
+              <td>PCI DSS (вим. 3, 4, 7, 8), SWIFT CSP</td>
+            </tr>
+            <tr>
+              <td><strong>DETECT</strong> (Виявлення)</td>
+              <td>Моніторинг, виявлення аномалій</td>
+              <td>SOC 24/7; SIEM-кореляція подій; виявлення аномальних транзакцій; мережевий IDS/IPS</td>
+              <td>PCI DSS (вим. 10, 11), Постанова НБУ №95</td>
+            </tr>
+            <tr>
+              <td><strong>RESPOND</strong> (Реагування)</td>
+              <td>Планування реагування, комунікація, аналіз</td>
+              <td>Incident Response Plan; повідомлення CERT-NBU протягом 4 годин; форензика скомпрометованих систем</td>
+              <td>GDPR (72 год), Постанова НБУ №95</td>
+            </tr>
+            <tr>
+              <td><strong>RECOVER</strong> (Відновлення)</td>
+              <td>Планування відновлення, комунікація</td>
+              <td>DR-план з RPO/RTO; резервне копіювання (правило 3-2-1); тестування відновлення щоквартально</td>
+              <td>ISO 22301, PCI DSS (вим. 12)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Технічний приклад: Перевірка відповідності PCI DSS (автоматизована)</h3>
+        <pre><code># Скрипт автоматизованої перевірки базових вимог PCI DSS
+# =====================================================
+# Використовується для self-assessment перед аудитом
+
+#!/bin/bash
+echo "=========================================="
+echo " PCI DSS v4.0 — Базова перевірка"
+echo " Дата: $(date '+%Y-%m-%d %H:%M')"
+echo "=========================================="
+
+# Вимога 1: Перевірка конфігурації файрвола
+echo -e "\n[Вимога 1] Мережеві засоби безпеки"
+iptables -L -n | grep -c "DROP" && echo "  OK: Правила DROP налаштовані" \
+  || echo "  FAIL: Відсутні правила блокування"
+
+# Вимога 2: Перевірка стандартних паролів
+echo -e "\n[Вимога 2] Безпечна конфігурація"
+# Перевірка, чи змінено стандартні паролі СУБД
+mysql -u root -proot -e "SELECT 1" 2>/dev/null \
+  && echo "  FAIL: Стандартний пароль MySQL root не змінено!" \
+  || echo "  OK: Стандартний пароль MySQL змінено"
+
+# Вимога 4: Перевірка TLS-конфігурації
+echo -e "\n[Вимога 4] Захист даних при передачі"
+nmap --script ssl-enum-ciphers -p 443 localhost 2>/dev/null | grep -q "TLSv1.0" \
+  && echo "  FAIL: TLS 1.0 все ще увімкнено!" \
+  || echo "  OK: TLS 1.0 вимкнено"
+
+nmap --script ssl-enum-ciphers -p 443 localhost 2>/dev/null | grep -q "TLSv1.2" \
+  && echo "  OK: TLS 1.2 підтримується" \
+  || echo "  WARN: TLS 1.2 не знайдено"
+
+# Вимога 5: Перевірка антивірусного захисту
+echo -e "\n[Вимога 5] Захист від шкідливого ПЗ"
+systemctl is-active clamav-daemon &>/dev/null \
+  && echo "  OK: Антивірус ClamAV активний" \
+  || echo "  FAIL: Антивірус не запущено"
+
+# Вимога 8: Перевірка парольної політики
+echo -e "\n[Вимога 8] Автентифікація"
+grep -q "minlen=12" /etc/security/pwquality.conf 2>/dev/null \
+  && echo "  OK: Мінімальна довжина пароля >= 12" \
+  || echo "  FAIL: Мінімальна довжина пароля менше 12 символів"
+
+# Вимога 10: Перевірка журналювання
+echo -e "\n[Вимога 10] Журналювання та моніторинг"
+systemctl is-active auditd &>/dev/null \
+  && echo "  OK: Auditd активний" \
+  || echo "  FAIL: Auditd не запущено"
+systemctl is-active rsyslog &>/dev/null \
+  && echo "  OK: Rsyslog активний" \
+  || echo "  FAIL: Rsyslog не запущено"
+
+echo -e "\n=========================================="
+echo " Перевірка завершена. Результати вище."
+echo "=========================================="
+
+# Приклад виводу:
+# [Вимога 1] Мережеві засоби безпеки
+#   OK: Правила DROP налаштовані
+# [Вимога 2] Безпечна конфігурація
+#   OK: Стандартний пароль MySQL змінено
+# [Вимога 4] Захист даних при передачі
+#   OK: TLS 1.0 вимкнено
+#   OK: TLS 1.2 підтримується
+# [Вимога 5] Захист від шкідливого ПЗ
+#   OK: Антивірус ClamAV активний
+# [Вимога 8] Автентифікація
+#   FAIL: Мінімальна довжина пароля менше 12 символів
+# [Вимога 10] Журналювання та моніторинг
+#   OK: Auditd активний
+#   OK: Rsyslog активний
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Назвіть 12 основних вимог стандарту PCI DSS та поясніть, чому цей стандарт є обов'язковим для всіх організацій, що обробляють дані платіжних карток.</li>
+            <li>Опишіть п'ять функцій NIST Cybersecurity Framework та наведіть приклади конкретних заходів безпеки для кожної функції у контексті банку.</li>
+            <li>Яку роль відіграє CERT-NBU та Постанова НБУ №95 у забезпеченні кібербезпеки українських банків? Які обов'язки покладаються на банки?</li>
+            <li>Порівняйте вимоги GDPR та українського законодавства щодо захисту персональних даних клієнтів фінансових установ. У чому полягає принцип «right to be forgotten»?</li>
+            <li>Що таке SWIFT Customer Security Programme (CSP) і які події стали причиною його створення? Які обов'язкові контролі він передбачає?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Summary -->

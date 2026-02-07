@@ -166,6 +166,121 @@
     </section>
 
     <section class="slide">
+      <h1>Приклади Adversarial-атак</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">💳</span>
+            <div class="card-title">Evasion у Fraud Detection</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Розбити $10K на 47 транзакцій<br>
+              Додати легітимні покупки між fraud<br>
+              Імітувати нормальний час доби<br>
+              Використати «довірений» merchant
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">🔍</span>
+            <div class="card-title">Model Extraction через API</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              50K запитів до scoring API<br>
+              Аналіз відповідей: score + причина<br>
+              Побудова surrogate моделі<br>
+              Тестування evasion на копії
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Реальний кейс: злочинна група витратила 3 місяці на reverse engineering fraud-моделі банку через API, потім провела $2M fraud.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Техніки Model Poisoning</h1>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">💉</span>
+          <div class="card-title">Data Poisoning</div>
+          <div class="card-text">Впровадження шкідливих зразків у навчальні дані: fraud-транзакції маркуються як легітимні</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🚪</span>
+          <div class="card-title">Backdoor Attack</div>
+          <div class="card-text">Тригер у input (конкретний merchant + час) = модель завжди пропускає fraud</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔧</span>
+          <div class="card-title">Model Tampering</div>
+          <div class="card-text">Несанкціонована зміна ваг моделі у production через supply chain compromise</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🛡️</span>
+          <div class="card-title">Захист</div>
+          <div class="card-text">Data validation, model signing, integrity monitoring, canary transactions</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>AI Governance Framework</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Inventory</div>
+          <div class="step-desc">Реєстр усіх AI/ML моделей: ціль, дані, ризик, відповідальний власник</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Risk Assessment</div>
+          <div class="step-desc">Класифікація моделей за рівнем ризику: low / medium / high / critical</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Validation</div>
+          <div class="step-desc">Незалежна валідація: accuracy, fairness, robustness, explainability тести</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Monitoring</div>
+          <div class="step-desc">Production моніторинг: drift detection, performance degradation, bias alerts</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Audit Trail</div>
+          <div class="step-desc">Повний аудит: версії моделей, дані навчання, рішення, зміни для регулятора</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>EU AI Act: рівні ризику</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🚫</span>
+          <span class="il-text"><strong>Неприйнятний ризик (заборонено)</strong> — social scoring, маніпулятивний AI, масове біометричне стеження у реальному часі</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔴</span>
+          <span class="il-text"><strong>Високий ризик</strong> — credit scoring, fraud detection, HR-системи. Вимоги: human oversight, XAI, аудит, документація</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🟡</span>
+          <span class="il-text"><strong>Обмежений ризик</strong> — чатботи, deepfake-генератори. Вимога: прозорість, маркування AI-контенту</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🟢</span>
+          <span class="il-text"><strong>Мінімальний ризик</strong> — спам-фільтри, рекомендації, ігри. Без обов'язкових вимог</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Штрафи до 35M EUR або 7% глобального обороту. Фінансовий сектор: більшість AI-систем = high-risk категорія.</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

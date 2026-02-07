@@ -82,6 +82,57 @@
       </div>
     </section>
     <section class="slide">
+      <h1>Розрахунок ALE — практичний приклад</h1>
+      <div class="highlight-box"><strong>Сценарій:</strong> Ransomware-атака на банківську систему онлайн-платежів</div>
+      <div class="steps" style="margin-top: 1.5rem;">
+        <div class="step"><div class="step-num">1</div><div class="step-title">Asset Value</div><div class="step-desc">Система обробляє $50M транзакцій/рік</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">SLE = $3M</div><div class="step-desc">Простій 3 дні + відновлення + штрафи + репутація</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">ARO = 0.15</div><div class="step-desc">15% ймовірність на рік (галузева статистика)</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">ALE = $450K</div><div class="step-desc">$3M x 0.15 = $450K очікуваних збитків на рік</div></div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1rem;">Контроль за $200K/рік, що знижує ARO до 0.03 → новий ALE = $90K. <strong>ROI = 80%</strong></div>
+    </section>
+    <section class="slide">
+      <h1>Матриця ризиків 5x5</h1>
+      <div class="highlight-box" style="font-size: 0.9rem; line-height: 1.6; text-align: center;">
+        <strong>Ймовірність \ Вплив</strong><br><br>
+        <span style="display: inline-block; width: 100%; text-align: left; font-family: monospace;">
+        5 Майже певний &nbsp;| <span style="color: var(--accent-orange);">Medium</span> | <span style="color: var(--accent-red, #e74c3c);">High</span> | <span style="color: var(--accent-red, #e74c3c);">High</span> | <span style="color: var(--accent-red, #e74c3c);">Critical</span> | <span style="color: var(--accent-red, #e74c3c);">Critical</span><br>
+        4 Ймовірний &nbsp;&nbsp;&nbsp;&nbsp;| <span style="color: var(--accent-green);">Low</span> | <span style="color: var(--accent-orange);">Medium</span> | <span style="color: var(--accent-red, #e74c3c);">High</span> | <span style="color: var(--accent-red, #e74c3c);">High</span> | <span style="color: var(--accent-red, #e74c3c);">Critical</span><br>
+        3 Можливий &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span style="color: var(--accent-green);">Low</span> | <span style="color: var(--accent-orange);">Medium</span> | <span style="color: var(--accent-orange);">Medium</span> | <span style="color: var(--accent-red, #e74c3c);">High</span> | <span style="color: var(--accent-red, #e74c3c);">High</span><br>
+        2 Малоймовірний &nbsp;| <span style="color: var(--accent-green);">Low</span> | <span style="color: var(--accent-green);">Low</span> | <span style="color: var(--accent-orange);">Medium</span> | <span style="color: var(--accent-orange);">Medium</span> | <span style="color: var(--accent-red, #e74c3c);">High</span><br>
+        1 Рідкісний &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span style="color: var(--accent-green);">Low</span> | <span style="color: var(--accent-green);">Low</span> | <span style="color: var(--accent-green);">Low</span> | <span style="color: var(--accent-orange);">Medium</span> | <span style="color: var(--accent-orange);">Medium</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Мінім. &nbsp;Незнач. Помірн. Значний Катастр.
+        </span>
+      </div>
+      <div class="icon-list" style="margin-top: 1rem;">
+        <div class="icon-list-item"><span class="il-icon">🔴</span><span class="il-text"><strong>Critical (20-25)</strong> — негайна ескалація на правління, план дій протягом 24 год</span></div>
+        <div class="icon-list-item"><span class="il-icon">🟡</span><span class="il-text"><strong>Medium (6-12)</strong> — план мітигації протягом 30 днів, моніторинг</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Опції обробки ризиків — деталі</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">🛡️</span><span class="il-text"><strong>Mitigate (Зниження)</strong> — впровадити MFA, WAF, шифрування, навчання. Знижує ймовірність або вплив. Найпоширеніший вибір (~60% рішень)</span></div>
+        <div class="icon-list-item"><span class="il-icon">📄</span><span class="il-text"><strong>Transfer (Передача)</strong> — кіберстрахування (покриття $1-10M), MSSP-контракт. Передає фінансовий ризик. Не знімає відповідальності!</span></div>
+        <div class="icon-list-item"><span class="il-icon">✅</span><span class="il-text"><strong>Accept (Прийняття)</strong> — формальне рішення risk owner з документацією. Тільки якщо residual risk менше за appetite. Потребує підпису керівника</span></div>
+        <div class="icon-list-item"><span class="il-icon">🚫</span><span class="il-text"><strong>Avoid (Уникнення)</strong> — відмова від ризикової діяльності: не зберігати PAN, не використовувати legacy-систему. Радикальне рішення</span></div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1rem;">Для кожного ризику може бути <strong>комбінація стратегій</strong>: mitigate + transfer (знизити + застрахувати залишок)</div>
+    </section>
+    <section class="slide">
+      <h1>Оцінка залишкового ризику</h1>
+      <div class="highlight-box"><strong>Residual Risk = Inherent Risk - Control Effectiveness</strong><br>Залишковий ризик має бути в межах risk appetite, інакше потрібні додаткові заходи</div>
+      <div class="card-grid" style="margin-top: 1.5rem;">
+        <div class="card accent-red"><span class="card-icon">🔴</span><div class="card-title">Inherent Risk</div><div class="card-text">Ransomware на сервер БД<br>Ймовірність: 4/5<br>Вплив: 5/5<br><strong>Рівень: 20 (Critical)</strong></div></div>
+        <div class="card accent-blue"><span class="card-icon">🛡️</span><div class="card-title">Контролі</div><div class="card-text">EDR, сегментація мережі, backup 3-2-1, MFA, awareness<br><strong>Ефективність: 70%</strong></div></div>
+        <div class="card accent-green"><span class="card-icon">✅</span><div class="card-title">Residual Risk</div><div class="card-text">Ймовірність: 2/5<br>Вплив: 3/5<br><strong>Рівень: 6 (Medium)</strong><br>В межах appetite</div></div>
+      </div>
+      <div class="icon-list" style="margin-top: 1rem;">
+        <div class="icon-list-item"><span class="il-icon">📋</span><span class="il-text">Документувати прийняття залишкового ризику з підписом <strong>risk owner</strong> та датою перегляду</span></div>
+      </div>
+    </section>
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

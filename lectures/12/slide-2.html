@@ -62,6 +62,64 @@
       </div>
     </section>
     <section class="slide">
+      <h1>Інструменти forensic imaging</h1>
+      <h2>Професійні засоби створення криміналістичних копій</h2>
+      <div class="card-grid">
+        <div class="card accent-blue"><span class="card-icon">💾</span><div class="card-title">FTK Imager</div><div class="card-text">Безкоштовний. Створення E01/DD образів, preview файлів, hash verification, memory capture</div></div>
+        <div class="card accent-green"><span class="card-icon">🐧</span><div class="card-title">dc3dd / dcfldd</div><div class="card-text">Linux CLI: покращений dd з вбудованим хешуванням, split output, progress bar</div></div>
+        <div class="card accent-orange"><span class="card-icon">🔧</span><div class="card-title">Tableau / Falcon</div><div class="card-text">Апаратні write-blockers + imaging станції. Швидкість до 25 GB/хв, автоматичне хешування</div></div>
+        <div class="card accent-purple"><span class="card-icon">☁️</span><div class="card-title">KAPE / Velociraptor</div><div class="card-text">Тріажний збір артефактів без повного imaging. Ідеально для remote та enterprise</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Пріоритет волатильних даних</h1>
+      <h2>Що збирати НЕГАЙНО до вимкнення системи</h2>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-title">Мережеві з'єднання</div><div class="step-desc">netstat -anob: активні C2 сесії, lateral movement, DNS requests</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Запущені процеси</div><div class="step-desc">tasklist, Process Explorer: malware PID, parent-child relations, command line</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">RAM dump</div><div class="step-desc">WinPmem, Magnet RAM Capture: повний дамп оперативної пам'яті для Volatility</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Logged-in users</div><div class="step-desc">query user, who: активні сесії, RDP connections, scheduled tasks</div></div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Порядок критичний: кожна дія на живій системі змінює пам'ять. Фіксуйте все ДО containment.</p>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Форма Chain of Custody</h1>
+      <h2>Обов'язкові поля документування доказу</h2>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">📋</span><span class="il-text"><strong>Case ID / Evidence ID</strong> — унікальний ідентифікатор справи та кожного окремого доказу</span></div>
+        <div class="icon-list-item"><span class="il-icon">📅</span><span class="il-text"><strong>Дата/час збору</strong> — точний час з таймзоною, фіксація при вилученні</span></div>
+        <div class="icon-list-item"><span class="il-icon">👤</span><span class="il-text"><strong>Хто зібрав</strong> — ПІБ, посада, підпис аналітика, який вилучив доказ</span></div>
+        <div class="icon-list-item"><span class="il-icon">#️⃣</span><span class="il-text"><strong>Hash оригіналу</strong> — SHA-256 обчислений на місці збору, до будь-яких маніпуляцій</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔄</span><span class="il-text"><strong>Журнал передачі</strong> — кожна передача: від кого → кому, дата, час, причина, підписи обох сторін</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔒</span><span class="il-text"><strong>Умови зберігання</strong> — опис сейфу/сховища, контроль доступу, антистатична упаковка</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Хмарна форензика</h1>
+      <h2>Виклики збору доказів у cloud-середовищах</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">⚠️</span>
+            <div class="card-title">Виклики</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Немає фізичного доступу<br>Shared infrastructure<br>Обмежена retention логів<br>Юрисдикція даних<br>Ефемерні контейнери</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">✅</span>
+            <div class="card-title">Рішення</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">API для snapshot дисків<br>CloudTrail / Activity Log<br>Centralized log export<br>SLA з провайдером<br>Container forensics tools</div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>AWS: EBS Snapshot + CloudTrail. Azure: Disk Snapshot + Activity Log. GCP: Disk Clone + Audit Logs.</p>
+      </div>
+    </section>
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

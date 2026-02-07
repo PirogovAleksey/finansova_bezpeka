@@ -67,6 +67,52 @@
       </div>
     </section>
     <section class="slide">
+      <h1>Організаційна структура CSIRT</h1>
+      <h2>Повна модель команди реагування на інциденти</h2>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-title">Керівництво</div><div class="step-desc">CISO → IR Director → Incident Manager. Стратегічні рішення, бюджет, зв'язок з Board</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Операційний рівень</div><div class="step-desc">SOC (24/7 моніторинг), Forensics Team, Threat Intel, Malware Analysis</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Підтримка</div><div class="step-desc">IT Operations (containment), Legal (compliance), HR (insider), PR (communications)</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Зовнішні</div><div class="step-desc">CERT-UA, правоохоронці, зовнішні IR-консультанти, threat intel sharing communities</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Шаблон Lessons Learned</h1>
+      <h2>Структура post-incident review документа</h2>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">📋</span><span class="il-text"><strong>Опис інциденту</strong> — тип, severity, вектор атаки, скомпрометовані системи та дані</span></div>
+        <div class="icon-list-item"><span class="il-icon">📅</span><span class="il-text"><strong>Timeline</strong> — хронологія: initial compromise → detection → containment → eradication → recovery</span></div>
+        <div class="icon-list-item"><span class="il-icon">✅</span><span class="il-text"><strong>Що спрацювало</strong> — ефективні контролі, швидкі рішення, успішні процедури</span></div>
+        <div class="icon-list-item"><span class="il-icon">❌</span><span class="il-text"><strong>Що не спрацювало</strong> — gaps у detection, затримки в комунікації, відсутні інструменти</span></div>
+        <div class="icon-list-item"><span class="il-icon">🎯</span><span class="il-text"><strong>Action items</strong> — конкретні дії з відповідальними, дедлайнами та метриками успіху</span></div>
+        <div class="icon-list-item"><span class="il-icon">💰</span><span class="il-text"><strong>Фінансовий вплив</strong> — прямі збитки, витрати на реагування, втрачений прибуток, штрафи</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Кіберстрахування: огляд</h1>
+      <h2>Ринок та ключові аспекти для фінансового сектору</h2>
+      <div class="card-grid">
+        <div class="card accent-blue"><span class="card-icon">📊</span><div class="card-title">Ринок</div><div class="card-text">Глобальний ринок: $14B+ (2024). Зростання 25% щорічно. Премії зросли після хвилі ransomware</div></div>
+        <div class="card accent-green"><span class="card-icon">📝</span><div class="card-title">Вимоги</div><div class="card-text">MFA обов'язково, EDR на всіх ендпоінтах, регулярні бекапи, security awareness training</div></div>
+        <div class="card accent-orange"><span class="card-icon">⚠️</span><div class="card-title">Виключення</div><div class="card-text">Acts of war, known unpatched vulns, insider fraud, відсутність базових контролів</div></div>
+        <div class="card accent-red"><span class="card-icon">💡</span><div class="card-title">Тренд</div><div class="card-text">Страховики вимагають Incident Response Retainer та доказ проведення tabletop exercises</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Метрики інцидентів: Dashboard</h1>
+      <h2>Ключові показники ефективності IR</h2>
+      <div class="stat-row">
+        <div class="stat-box blue"><div class="stat-value">MTTD</div><div class="stat-label">Mean Time to Detect — час від компрометації до виявлення</div></div>
+        <div class="stat-box orange"><div class="stat-value">MTTR</div><div class="stat-label">Mean Time to Respond — час від алерту до containment</div></div>
+        <div class="stat-box green"><div class="stat-value">MTTC</div><div class="stat-label">Mean Time to Contain — час повної ізоляції загрози</div></div>
+      </div>
+      <div class="icon-list" style="margin-top: 1.2rem;">
+        <div class="icon-list-item"><span class="il-icon">📈</span><span class="il-text"><strong>Інциденти за типом</strong> — розподіл: phishing, malware, insider, DDoS, ransomware по місяцях</span></div>
+        <div class="icon-list-item"><span class="il-icon">📉</span><span class="il-text"><strong>False positive rate</strong> — % хибних алертів: цільовий показник менше 30% для зрілого SOC</span></div>
+        <div class="icon-list-item"><span class="il-icon">💰</span><span class="il-text"><strong>Вартість інциденту</strong> — прямі витрати + час аналітиків + business impact по кожному кейсу</span></div>
+      </div>
+    </section>
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

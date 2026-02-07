@@ -203,7 +203,145 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. JWT Structure Detail -->
+    <section class="slide">
+      <h1>JWT — детальна структура</h1>
+      <h2>Розбір реального токена банківського API</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">H</div>
+          <div class="step-title">Header (Base64)</div>
+          <div class="step-desc">{"alg": "RS256", "typ": "JWT", "kid": "bank-key-2025"} — алгоритм + ідентифікатор ключа</div>
+        </div>
+        <div class="step">
+          <div class="step-num">P</div>
+          <div class="step-title">Payload (Base64)</div>
+          <div class="step-desc">{"sub": "user-123", "role": "operator", "branch": "kyiv-01", "exp": 1735689600, "iss": "auth.bank.ua"}</div>
+        </div>
+        <div class="step">
+          <div class="step-num">S</div>
+          <div class="step-title">Signature</div>
+          <div class="step-desc">RS256(base64(header) + "." + base64(payload), private_key) — цифровий підпис сервера</div>
+        </div>
+      </div>
+      <div class="card-grid" style="margin-top: 1.2rem;">
+        <div class="card accent-blue">
+          <span class="card-icon">📋</span>
+          <div class="card-title">Registered Claims</div>
+          <div class="card-text">iss (issuer), sub (subject), exp (expiry), iat (issued at), aud (audience), jti (unique ID)</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🏦</span>
+          <div class="card-title">Custom Claims</div>
+          <div class="card-text">role, branch, permissions, transaction_limit — бізнес-логіка банку</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. OAuth 2.0 Grant Types Comparison -->
+    <section class="slide">
+      <h1>OAuth 2.0 — порівняння Grant Types</h1>
+      <div class="card-grid">
+        <div class="card accent-green">
+          <span class="card-icon">📱</span>
+          <div class="card-title">Authorization Code + PKCE</div>
+          <div class="card-text">Для: SPA, мобільні додатки<br>Безпека: найвища<br>Використання: основний flow для Open Banking</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🖥️</span>
+          <div class="card-title">Client Credentials</div>
+          <div class="card-text">Для: сервер-сервер (M2M)<br>Безпека: висока (немає користувача)<br>Використання: API платежів, внутрішні мікросервіси</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔄</span>
+          <div class="card-title">Refresh Token</div>
+          <div class="card-text">Для: оновлення access token<br>Безпека: rotation обов'язкова<br>Використання: тривалі сесії без повторного логіну</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🏧</span>
+          <div class="card-title">Device Authorization</div>
+          <div class="card-text">Для: IoT, POS, Smart TV<br>Безпека: середня (out-of-band)<br>Використання: пристрої без клавіатури</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Deprecated: Implicit Grant (токен в URL) та Resource Owner Password (передача пароля клієнту) — ЗАБОРОНЕНІ для фінансових систем.</p>
+      </div>
+    </section>
+
+    <!-- 10. Token Lifecycle -->
+    <section class="slide">
+      <h1>Життєвий цикл токена</h1>
+      <h2>Від видачі до відкликання</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Issuance (видача)</div>
+          <div class="step-desc">Після автентифікації: access token (5-15 хв) + refresh token (24 год)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Validation (перевірка)</div>
+          <div class="step-desc">Кожен запит: підпис, exp, iss, aud, scope — якщо невалідний → 401</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Refresh (оновлення)</div>
+          <div class="step-desc">Access token expired → refresh token → нова пара токенів (rotation)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Revocation (відкликання)</div>
+          <div class="step-desc">Logout, зміна пароля, підозріла активність → token blacklist / Redis TTL</div>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 1.2rem;">
+        <div class="stat-box blue">
+          <div class="stat-value">5-15 хв</div>
+          <div class="stat-label">TTL access token у банкінгу</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">24 год</div>
+          <div class="stat-label">TTL refresh token (max)</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">1 раз</div>
+          <div class="stat-label">Refresh token використовується одноразово</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Session Fixation Attacks -->
+    <section class="slide">
+      <h1>Session Fixation та інші атаки на сесії</h1>
+      <h2>Вектори атак та захист у фінансових системах</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">📌</span>
+          <div class="card-title">Session Fixation</div>
+          <div class="card-text">Зловмисник нав'язує відомий session ID жертві до логіну. Захист: регенерація ID після автентифікації</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🕵️</span>
+          <div class="card-title">Session Hijacking</div>
+          <div class="card-text">Перехоплення cookie через XSS, мережевий сніфінг. Захист: HttpOnly, Secure, TLS everywhere</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔁</span>
+          <div class="card-title">Session Replay</div>
+          <div class="card-text">Повторне використання перехопленого токена. Захист: nonce, timestamp binding, короткий TTL</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🌐</span>
+          <div class="card-title">CSRF</div>
+          <div class="card-text">Примусовий запит від імені жертви. Захист: SameSite=Strict, anti-CSRF token, re-auth для критичних дій</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Банківська вимога: для переказів > 10K грн — повторна автентифікація (step-up auth) навіть при активній сесії.</p>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

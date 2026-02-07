@@ -207,7 +207,123 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. Параметризовані запити у 3 мовах -->
+    <section class="slide">
+      <h1>Параметризовані запити: 3 мови</h1>
+      <h2>Практичні приклади безпечного коду</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-blue">
+          <span class="card-icon">🐍</span>
+          <div class="card-title">Python (psycopg2)</div>
+          <div class="card-text">cursor.execute(<br>"SELECT * FROM accounts WHERE id = %s",<br>(user_id,))<br><br>Параметр %s — НІКОЛИ f-string!</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">☕</span>
+          <div class="card-title">Java (JDBC)</div>
+          <div class="card-text">PreparedStatement ps = conn.prepareStatement(<br>"SELECT * FROM accounts WHERE id = ?");<br>ps.setInt(1, userId);<br><br>Параметр ? — типобезпечний</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🟢</span>
+          <div class="card-title">Node.js (pg)</div>
+          <div class="card-text">pool.query(<br>'SELECT * FROM accounts WHERE id = $1',<br>[userId])<br><br>Параметр $1 — масив значень</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Одне правило для всіх мов: SQL-запит і дані ЗАВЖДИ передаються окремо. Жодної конкатенації.</p>
+      </div>
+    </section>
+
+    <!-- 9. WAF правила -->
+    <section class="slide">
+      <h1>WAF: приклади правил</h1>
+      <h2>Типові правила для захисту фінансових API</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🚫</span>
+          <span class="il-text"><strong>SQLi сигнатури:</strong> блокування UNION SELECT, OR 1=1, WAITFOR DELAY, '; DROP TABLE</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📏</span>
+          <span class="il-text"><strong>Rate limiting:</strong> max 100 запитів/хв на IP, max 10 невдалих логінів за 5 хв</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🌍</span>
+          <span class="il-text"><strong>Geo-blocking:</strong> блокування трафіку з країн без клієнтів, whitelist для API партнерів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>Anomaly scoring:</strong> кожна підозріла ознака додає бали, поріг = блокування</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🩹</span>
+          <span class="il-text"><strong>Virtual patching:</strong> custom правило для конкретної CVE до патчу додатку</span>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>ModSecurity CRS, AWS WAF Managed Rules, Cloudflare OWASP Ruleset — готові набори правил для старту.</p>
+      </div>
+    </section>
+
+    <!-- 10. Database Hardening Checklist -->
+    <section class="slide">
+      <h1>Database Hardening: чекліст</h1>
+      <h2>Обов'язкові кроки для production БД</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🔑</span>
+          <div class="card-title">Автентифікація</div>
+          <div class="card-text">Змінити default паролі<br>Унікальний DB user/сервіс<br>Заборонити remote root login<br>Certificate-based auth</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🚫</span>
+          <div class="card-title">Вимкнути зайве</div>
+          <div class="card-text">xp_cmdshell (MSSQL)<br>LOAD_FILE, INTO OUTFILE (MySQL)<br>dblink, COPY (PostgreSQL)<br>UTL_HTTP (Oracle)</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🌐</span>
+          <div class="card-title">Мережа</div>
+          <div class="card-text">БД тільки у private subnet<br>Firewall: тільки app-сервери<br>Заборонити 0.0.0.0 binding<br>TLS для всіх з'єднань</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🔄</span>
+          <div class="card-title">Оновлення</div>
+          <div class="card-text">Патчі безпеки — щомісячно<br>CIS Benchmarks — базова лінія<br>Automated compliance scan<br>Vulnerability assessment</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Defense in Depth архітектура -->
+    <section class="slide">
+      <h1>Defense in Depth: архітектура</h1>
+      <h2>Багатошарова модель захисту фінансової системи</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Edge (CDN/WAF)</div>
+          <div class="step-desc">DDoS захист, WAF правила, rate limiting, geo-blocking</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">API Gateway</div>
+          <div class="step-desc">Автентифікація, авторизація, input validation, schema validation</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Application</div>
+          <div class="step-desc">Prepared statements, ORM, business logic validation, output encoding</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Database</div>
+          <div class="step-desc">Least privilege, RLS, encryption, audit logging, hardening</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Принцип: компрометація одного шару НЕ дає доступу до даних. Кожен шар — незалежний бар'єр.</p>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

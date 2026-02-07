@@ -79,6 +79,60 @@
       </div>
     </section>
     <section class="slide">
+      <h1>ISO 27005 vs NIST RMF — порівняння</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">📘</span>
+            <div class="card-title">ISO 27005</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Міжнародний стандарт<br>Фокус на ISMS (ISO 27001)<br>Гнучкий, адаптивний<br>6 етапів: Context → Monitor<br>Популярний в ЄС та Україні</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">🏛️</span>
+            <div class="card-title">NIST RMF (SP 800-37)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Стандарт уряду США<br>Фокус на федеральних системах<br>Більш директивний<br>7 етапів: Prepare → Monitor<br>Обов'язковий для US Gov</div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1rem;">Обидва фреймворки сумісні. Багато організацій використовують елементи обох залежно від регуляторних вимог</div>
+    </section>
+    <section class="slide">
+      <h1>Модель FAIR — покрокова оцінка</h1>
+      <div class="highlight-box"><strong>FAIR</strong> (Factor Analysis of Information Risk) — єдина міжнародна модель кількісної оцінки кіберризиків у грошовому вираженні</div>
+      <div class="steps" style="margin-top: 1.5rem;">
+        <div class="step"><div class="step-num">1</div><div class="step-title">Сценарій</div><div class="step-desc">Визначити актив, загрозу та наслідки</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">TEF</div><div class="step-desc">Threat Event Frequency — частота спроб атак</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Vulnerability</div><div class="step-desc">Ймовірність успіху атаки з урахуванням контролів</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">LEF</div><div class="step-desc">Loss Event Frequency = TEF x Vulnerability</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-title">Loss Magnitude</div><div class="step-desc">Прямі та непрямі збитки у грошах</div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-title">Risk ($)</div><div class="step-desc">Monte Carlo симуляція: діапазон збитків (5-95 перцентиль)</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Приклад Risk Appetite Statement</h1>
+      <div class="highlight-box" style="font-size: 0.95rem; line-height: 1.8;">
+        <strong>Заява про схильність до ризику (приклад банку):</strong><br><br>
+        "Банк готовий прийняти кіберризики, що не перевищують <strong>1% річного доходу</strong> ($5M) у сукупності. Жоден окремий інцидент не повинен спричинити збитки понад <strong>$2M</strong>. Ризики, пов'язані з даними клієнтів, мають найнижчу толерантність."
+      </div>
+      <div class="icon-list" style="margin-top: 1rem;">
+        <div class="icon-list-item"><span class="il-icon">📋</span><span class="il-text"><strong>Затверджується</strong> — наглядовою радою та правлінням щорічно</span></div>
+        <div class="icon-list-item"><span class="il-icon">📏</span><span class="il-text"><strong>Каскадується</strong> — у конкретні risk tolerance для кожного підрозділу</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔄</span><span class="il-text"><strong>Переглядається</strong> — при зміні бізнес-стратегії або після значних інцидентів</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Шаблон реєстру ризиків</h1>
+      <div class="card-grid">
+        <div class="card accent-blue"><span class="card-icon">🆔</span><div class="card-title">ID та опис</div><div class="card-text">R-014: Несанкціонований доступ до бази даних клієнтів через SQL-ін'єкцію</div></div>
+        <div class="card accent-red"><span class="card-icon">📊</span><div class="card-title">Оцінка</div><div class="card-text">Ймовірність: Висока (4/5)<br>Вплив: Критичний (5/5)<br>Рівень: 20 — Критичний</div></div>
+        <div class="card accent-green"><span class="card-icon">🛡️</span><div class="card-title">Контролі</div><div class="card-text">WAF, параметризовані запити, регулярний pentest, моніторинг DB-активності</div></div>
+        <div class="card accent-orange"><span class="card-icon">📝</span><div class="card-title">План обробки</div><div class="card-text">Стратегія: Mitigate<br>Owner: CTO<br>Дедлайн: Q2 2025<br>Статус: В процесі</div></div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1rem;">Реєстр переглядається <strong>щоквартально</strong> та після кожного значного інциденту. Мінімум — <strong>top-20 ризиків</strong></div>
+    </section>
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

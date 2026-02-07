@@ -94,6 +94,139 @@
         <p><strong>Біометрична автентифікація у банкінгу.</strong> Біометрія активно впроваджується у фінансовому секторі. ПриватБанк використовує Face ID для підтвердження транзакцій, monobank — відбиток пальця. Mastercard тестує оплату з розпізнаванням обличчя на касах. Важливі аспекти: біометричні дані не можна замінити (на відміну від пароля, відбиток пальця не змінити після витоку), тому вони повинні зберігатися лише локально на пристрої або у зашифрованому вигляді. Liveness detection запобігає атакам з фотографіями та масками.</p>
 
         <p><strong>Passwordless-автентифікація</strong> — майбутнє фінансової автентифікації. Стандарт Passkeys (FIDO Alliance + Apple/Google/Microsoft) дозволяє входити в акаунт без пароля, використовуючи біометрію пристрою або PIN. Ключі синхронізуються між пристроями через хмару (iCloud Keychain, Google Password Manager). Банки поступово впроваджують passkeys: у 2024 році кілька великих фінансових установ (Paypal, Kayak) запустили підтримку passkeys для входу.</p>
+
+        <h3>Технічний приклад: Хешування паролів за допомогою bcrypt</h3>
+        <p>Фінансові системи ніколи не зберігають паролі у відкритому вигляді. Замість цього використовується адаптивне хешування (bcrypt, Argon2), яке навмисно повільне для ускладнення brute-force атак:</p>
+        <pre><code># Python — хешування паролів за допомогою bcrypt
+import bcrypt
+
+# Реєстрація: хешування пароля перед збереженням у БД
+password = "SuperSecure_Passphrase_2024!".encode('utf-8')
+salt = bcrypt.gensalt(rounds=12)  # cost factor 12 ≈ 250ms на хеш
+hashed = bcrypt.hashpw(password, salt)
+print(f"Хеш для збереження в БД: {hashed}")
+# Результат: $2b$12$LJ3m4ys3Lg...  (60 символів)
+
+# Автентифікація: перевірка введеного пароля
+user_input = "SuperSecure_Passphrase_2024!".encode('utf-8')
+if bcrypt.checkpw(user_input, hashed):
+    print("Автентифікація успішна")
+else:
+    print("Невірний пароль")
+
+# ВАЖЛИВО для фінансових систем:
+# - rounds=12+ (мінімум для банківських додатків)
+# - Argon2id рекомендований OWASP як сучасна альтернатива
+# - Ніколи не використовуйте MD5/SHA-256 без salt для паролів
+</code></pre>
+
+        <h3>Технічний приклад: Генерація TOTP-кодів (Time-based One-Time Password)</h3>
+        <p>TOTP — основа більшості MFA-рішень у банківських додатках. Алгоритм генерує 6-значний код кожні 30 секунд на основі спільного секрету та поточного часу (RFC 6238):</p>
+        <pre><code># Python — генерація та перевірка TOTP за допомогою pyotp
+import pyotp
+import qrcode
+
+# 1. Сервер генерує секрет при реєстрації MFA
+secret = pyotp.random_base32()  # e.g., 'JBSWY3DPEHPK3PXP'
+print(f"Секрет (зберігається на сервері зашифровано): {secret}")
+
+# 2. Генерація QR-коду для сканування додатком (Google Authenticator)
+totp = pyotp.TOTP(secret)
+provisioning_uri = totp.provisioning_uri(
+    name="user@privatbank.ua",
+    issuer_name="PrivatBank Online"
+)
+print(f"URI для QR-коду: {provisioning_uri}")
+# otpauth://totp/PrivatBank%20Online:user%40privatbank.ua?secret=JBSWY3DPEHPK3PXP&issuer=PrivatBank%20Online
+
+# 3. Генерація поточного OTP (на стороні клієнта)
+current_otp = totp.now()
+print(f"Поточний OTP: {current_otp}")  # e.g., "482931"
+
+# 4. Верифікація на сервері (з допуском ±1 інтервал для clock skew)
+is_valid = totp.verify(current_otp, valid_window=1)
+print(f"Код дійсний: {is_valid}")  # True
+
+# Параметри безпеки для фінансових систем:
+# - interval=30 (стандарт, менше — безпечніше, але незручно)
+# - digits=6 (мінімум, деякі банки використовують 8)
+# - algorithm=SHA-1 (стандарт), SHA-256 для підвищеної безпеки
+</code></pre>
+
+        <h3>Технічний приклад: Потік реєстрації WebAuthn (FIDO2)</h3>
+        <p>WebAuthn забезпечує фішинг-стійку автентифікацію, прив'язуючи credential до конкретного домену. Нижче наведено спрощений потік реєстрації:</p>
+        <pre><code>// JavaScript (браузер) — реєстрація WebAuthn credential
+
+// Крок 1: Сервер генерує challenge та параметри
+// GET /api/webauthn/register/options
+const registrationOptions = {
+  challenge: new Uint8Array([/* 32 випадкових байти від сервера */]),
+  rp: {
+    name: "PrivatBank Online",
+    id: "privatbank.ua"           // Origin binding — захист від фішингу!
+  },
+  user: {
+    id: new Uint8Array([/* user ID */]),
+    name: "user@privatbank.ua",
+    displayName: "Іван Петренко"
+  },
+  pubKeyCredParams: [
+    { alg: -7,  type: "public-key" },  // ES256 (ECDSA)
+    { alg: -257, type: "public-key" }  // RS256 (RSA)
+  ],
+  authenticatorSelection: {
+    authenticatorAttachment: "cross-platform",  // YubiKey, etc.
+    userVerification: "required",               // Біометрія обов'язкова
+    residentKey: "required"                     // Discoverable credential (Passkey)
+  },
+  timeout: 60000,
+  attestation: "direct"  // Запитати attestation від автентикатора
+};
+
+// Крок 2: Браузер викликає WebAuthn API
+const credential = await navigator.credentials.create({
+  publicKey: registrationOptions
+});
+
+// Крок 3: Відправка credential на сервер для збереження
+// credential.response містить:
+//   - clientDataJSON  (challenge, origin, type)
+//   - attestationObject (публічний ключ, attestation)
+const response = await fetch('/api/webauthn/register/verify', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    id: credential.id,
+    rawId: btoa(String.fromCharCode(...new Uint8Array(credential.rawId))),
+    response: {
+      clientDataJSON: btoa(String.fromCharCode(
+        ...new Uint8Array(credential.response.clientDataJSON)
+      )),
+      attestationObject: btoa(String.fromCharCode(
+        ...new Uint8Array(credential.response.attestationObject)
+      ))
+    },
+    type: credential.type
+  })
+});
+
+// Сервер перевіряє:
+// 1. challenge збігається з виданим
+// 2. origin === "https://privatbank.ua" (захист від фішингу)
+// 3. Підпис attestation валідний
+// 4. Зберігає публічний ключ для подальшої автентифікації
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Які три фактори автентифікації існують і чому для фінансових систем рекомендується комбінувати щонайменше два з них?</li>
+            <li>Чому NIST SP 800-63B відмовився від вимоги примусової зміни паролів кожні 90 днів? Яку альтернативну стратегію пропонує стандарт?</li>
+            <li>У чому полягає перевага FIDO2/WebAuthn перед TOTP з точки зору захисту від фішингових атак? Поясніть механізм origin binding.</li>
+            <li>Що таке MFA fatigue attack і яким чином банківські додатки можуть захиститися від цього типу атаки?</li>
+            <li>Чому біометричні дані повинні зберігатися локально на пристрої, а не на центральному сервері? Які ризики виникають при централізованому зберіганні біометрії?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 3.2 -->
@@ -135,6 +268,183 @@
           <li><strong>Concurrent session control</strong> — обмеження кількості одночасних сесій. Якщо оператор банку вже увійшов з одного робочого місця, вхід з іншого повинен або блокуватися, або завершити попередню сесію.</li>
           <li><strong>Binding до контексту</strong> — прив'язка сесії до IP-адреси, User-Agent, fingerprint пристрою. Зміна цих параметрів вимагає повторної автентифікації.</li>
         </ul>
+
+        <h3>Технічний приклад: Структура JWT-токена</h3>
+        <p>JWT складається з трьох частин у форматі Base64URL, розділених крапками. Нижче наведено реальний приклад декодованого токена фінансового додатку:</p>
+        <pre><code># Структура JWT: header.payload.signature
+
+# ==================== HEADER (Base64URL) ====================
+# eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImZpbi0yMDI0LTAxIn0
+{
+  "alg": "RS256",          // Алгоритм підпису (RSA + SHA-256)
+  "typ": "JWT",            // Тип токена
+  "kid": "fin-2024-01"     // Key ID — ідентифікатор ключа для ротації
+}
+
+# ==================== PAYLOAD (Base64URL) ====================
+# eyJzdWIiOiJ1c2VyXzEyMzQ1Iiwi... (скорочено)
+{
+  "sub": "user_12345",               // Subject — ID користувача
+  "iss": "https://auth.bank.ua",     // Issuer — хто видав токен
+  "aud": "https://api.bank.ua",      // Audience — для кого призначений
+  "iat": 1706180400,                 // Issued At — час видачі (Unix timestamp)
+  "exp": 1706181300,                 // Expiration — час закінчення (+15 хв)
+  "jti": "a1b2c3d4-uuid",            // JWT ID — унікальний ідентифікатор
+  "roles": ["cashier"],              // Ролі користувача
+  "branch_id": "kyiv-001",           // Відділення (кастомний claim)
+  "tx_limit": 50000,                 // Ліміт транзакцій у грн
+  "scope": "read:accounts write:transactions"
+}
+
+# ==================== SIGNATURE ====================
+# RSA-SHA256(
+#   base64url(header) + "." + base64url(payload),
+#   privateKey
+# )
+# Сервер перевіряє підпис відповідним публічним ключем
+
+# УВАГА: payload НЕ зашифрований, лише закодований в Base64!
+# Будь-хто може декодувати: echo "eyJzdWIi..." | base64 -d
+# Ніколи не зберігайте конфіденційні дані (пароль, ПІН) у payload
+</code></pre>
+
+        <h3>Технічний приклад: OAuth 2.0 Authorization Code Flow з PKCE</h3>
+        <p>Цей потік використовується для безпечної авторизації у Open Banking (PSD2), коли фінтех-додаток отримує доступ до банківського акаунту клієнта:</p>
+        <pre><code># Python — OAuth 2.0 Authorization Code Flow з PKCE
+# Сценарій: FinTech-додаток отримує доступ до рахунків через Open Banking API
+
+import hashlib
+import base64
+import secrets
+import requests
+
+# ===== Крок 1: Генерація PKCE параметрів (клієнтський додаток) =====
+code_verifier = secrets.token_urlsafe(64)  # 43-128 символів
+# e.g., "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk..."
+
+code_challenge = base64.urlsafe_b64encode(
+    hashlib.sha256(code_verifier.encode()).digest()
+).rstrip(b'=').decode()
+# S256 хеш verifier — сервер перевірить пізніше
+
+# ===== Крок 2: Перенаправлення користувача на Authorization Server =====
+auth_url = (
+    "https://auth.bank.ua/oauth2/authorize?"
+    "response_type=code"
+    "&client_id=fintech_app_001"
+    "&redirect_uri=https://app.fintech.ua/callback"
+    "&scope=accounts:read transactions:read"
+    "&state=xYz789_anti_csrf_token"       # Захист від CSRF
+    f"&code_challenge={code_challenge}"
+    "&code_challenge_method=S256"
+)
+# Користувач автентифікується у банку та надає згоду
+
+# ===== Крок 3: Банк перенаправляє назад з authorization code =====
+# GET https://app.fintech.ua/callback?code=AUTH_CODE_abc123&state=xYz789...
+authorization_code = "AUTH_CODE_abc123"
+
+# ===== Крок 4: Обмін code на access token (server-to-server) =====
+token_response = requests.post(
+    "https://auth.bank.ua/oauth2/token",
+    data={
+        "grant_type": "authorization_code",
+        "code": authorization_code,
+        "redirect_uri": "https://app.fintech.ua/callback",
+        "client_id": "fintech_app_001",
+        "client_secret": "CLIENT_SECRET_KEEP_SAFE",
+        "code_verifier": code_verifier  # Сервер перевіряє: SHA256(verifier) == challenge
+    }
+)
+
+tokens = token_response.json()
+# {
+#   "access_token": "eyJhbGciOiJSUzI1NiIs...",   (JWT, 15 хв)
+#   "refresh_token": "dGhpcyBpcyBhIHJlZnJl...",  (opaque, 24 год)
+#   "token_type": "Bearer",
+#   "expires_in": 900,
+#   "scope": "accounts:read transactions:read"
+# }
+
+# ===== Крок 5: Використання access token для доступу до API =====
+accounts = requests.get(
+    "https://api.bank.ua/v1/accounts",
+    headers={"Authorization": f"Bearer {tokens['access_token']}"}
+)
+print(accounts.json())
+# [{"iban": "UA213223130000026007233566001", "balance": 15420.50, ...}]
+</code></pre>
+
+        <h3>Технічний приклад: Безпечна конфігурація сесійних cookie</h3>
+        <p>Для інтернет-банкінгу критично важливо правильно налаштувати атрибути cookie сесії. Нижче наведено приклад для Express.js (Node.js):</p>
+        <pre><code>// Node.js (Express) — безпечна конфігурація сесії для банківського додатку
+const express = require('express');
+const session = require('express-session');
+const RedisStore = require('connect-redis').default;
+const redis = require('redis');
+
+const app = express();
+const redisClient = redis.createClient({ url: 'redis://localhost:6379' });
+
+app.use(session({
+  store: new RedisStore({ client: redisClient }),  // Зберігання в Redis, не в пам'яті
+  name: '__Host-session',   // Префікс __Host- — додатковий захист (тільки HTTPS, без домену)
+  secret: process.env.SESSION_SECRET,  // З env-змінної, мінімум 256 біт ентропії
+  resave: false,
+  saveUninitialized: false,
+
+  cookie: {
+    httpOnly: true,       // Недоступний для JavaScript (захист від XSS)
+    secure: true,         // Тільки через HTTPS
+    sameSite: 'strict',   // Захист від CSRF — cookie не надсилається з інших сайтів
+    maxAge: 15 * 60 * 1000,  // 15 хвилин для інтернет-банкінгу
+    path: '/',
+    domain: undefined     // __Host- cookie не може мати domain
+  },
+
+  // Генерація криптографічно стійкого session ID
+  genid: () => require('crypto').randomBytes(32).toString('hex'),
+
+  // Регенерація session ID після автентифікації (захист від session fixation)
+  rolling: true  // Оновлювати maxAge при кожному запиті
+}));
+
+// Захист від session fixation — нова сесія після логіну
+app.post('/login', async (req, res) => {
+  const user = await authenticate(req.body.username, req.body.password);
+  if (user) {
+    req.session.regenerate((err) => {  // КРИТИЧНО: новий session ID
+      req.session.userId = user.id;
+      req.session.role = user.role;
+      req.session.ip = req.ip;         // Binding до IP
+      req.session.ua = req.get('User-Agent');  // Binding до User-Agent
+      res.json({ success: true });
+    });
+  }
+});
+
+// Middleware перевірки контексту сесії
+app.use((req, res, next) => {
+  if (req.session.userId) {
+    if (req.session.ip !== req.ip || req.session.ua !== req.get('User-Agent')) {
+      req.session.destroy();  // Контекст змінився — примусовий вихід
+      return res.status(401).json({ error: 'Session context changed' });
+    }
+  }
+  next();
+});
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Чому payload JWT-токена не можна вважати конфіденційним, і які дані категорично заборонено зберігати у payload фінансового токена?</li>
+            <li>Опишіть атаку Algorithm Confusion (RS256 → HS256) на JWT. Яким чином сервер повинен захищатися від цієї вразливості?</li>
+            <li>У чому полягає роль PKCE (Proof Key for Code Exchange) у OAuth 2.0? Від яких атак він захищає і чому це критично для мобільних банківських додатків?</li>
+            <li>Поясніть, чому JWT-токени не мають вбудованого механізму відкликання (revocation). Які стратегії використовуються для вирішення цієї проблеми у фінансових системах?</li>
+            <li>Для чого використовуються атрибути HttpOnly, Secure та SameSite=Strict у cookie сесії інтернет-банкінгу? Від яких конкретних атак захищає кожен з них?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 3.3 -->
@@ -174,6 +484,227 @@
           <li>Тестування політик як звичайного коду — unit-тести для правил авторизації.</li>
           <li>Decoupling — зміна політик без перерозгортання сервісів.</li>
         </ul>
+
+        <h3>Технічний приклад: Визначення RBAC-політики</h3>
+        <p>Нижче наведено приклад конфігурації RBAC для банківської системи, де ролі визначаються декларативно з ієрархією та обмеженнями:</p>
+        <pre><code># YAML — визначення RBAC-політик для банківської системи
+# Файл: rbac-policy.yaml
+
+roles:
+  # Базова роль — касир відділення
+  cashier:
+    description: "Касир банківського відділення"
+    permissions:
+      - accounts:read            # Перегляд рахунків клієнтів
+      - transactions:create      # Створення транзакцій
+      - transactions:read        # Перегляд транзакцій
+    constraints:
+      max_transaction_amount: 50000     # Ліміт 50 000 грн
+      allowed_hours: "08:00-20:00"      # Тільки в робочий час
+      branch_scope: "own_branch"        # Лише своє відділення
+
+  # Старший касир — успадковує дозволи касира
+  senior_cashier:
+    inherits: cashier                   # Ієрархічний RBAC
+    permissions:
+      - transactions:cancel             # Скасування транзакцій
+      - cashier:supervise               # Нагляд за касирами
+    constraints:
+      max_transaction_amount: 200000    # Підвищений ліміт
+
+  # Менеджер відділення
+  branch_manager:
+    inherits: senior_cashier
+    permissions:
+      - credits:approve                 # Схвалення кредитів
+      - reports:generate                # Генерація звітів
+      - employees:manage                # Управління персоналом відділення
+    constraints:
+      max_credit_amount: 1000000
+      branch_scope: "own_branch"
+
+  # Аудитор — лише читання, без права на операції
+  auditor:
+    permissions:
+      - accounts:read
+      - transactions:read
+      - credits:read
+      - reports:read
+      - audit_logs:read                 # Доступ до журналів аудиту
+    constraints:
+      branch_scope: "all_branches"      # Усі відділення
+      read_only: true                   # Жодних модифікацій
+
+# Конфліктуючі ролі (Separation of Duties)
+mutually_exclusive:
+  - [cashier, auditor]                  # Касир не може бути аудитором
+  - [credits:approve, credits:create]   # Той, хто створює, не схвалює
+
+# Призначення ролей
+assignments:
+  - user: "ivanov@bank.ua"
+    roles: [cashier]
+    branch: "kyiv-001"
+  - user: "petrenko@bank.ua"
+    roles: [branch_manager]
+    branch: "kyiv-001"
+</code></pre>
+
+        <h3>Технічний приклад: ABAC-правило на мові Rego (Open Policy Agent)</h3>
+        <p>OPA дозволяє описувати складні політики авторизації як код. Нижче наведено приклад ABAC-політики для фінансової системи:</p>
+        <pre><code># Rego (Open Policy Agent) — ABAC-політика для банківської системи
+# Файл: policy/financial_access.rego
+
+package bank.authz
+
+import future.keywords.if
+import future.keywords.in
+
+# За замовчуванням — доступ заборонено
+default allow := false
+
+# Правило: менеджер може схвалювати кредити у робочий час з корпоративної мережі
+allow if {
+    input.action == "approve_credit"
+    input.subject.department == "credit_department"
+    input.subject.position in ["manager", "senior_manager"]
+
+    # Сума кредиту не перевищує ліміт для посади
+    input.resource.amount <= position_limit[input.subject.position]
+
+    # Тільки в робочий час (09:00 - 18:00)
+    current_hour := time.clock(time.now_ns())[0]
+    current_hour >= 9
+    current_hour < 18
+
+    # Тільки з корпоративної мережі
+    net.cidr_contains("10.0.0.0/8", input.context.ip_address)
+
+    # Клієнт належить до відділення менеджера
+    input.resource.client_branch == input.subject.branch_id
+}
+
+# Ліміти за посадою (у грн)
+position_limit := {
+    "manager": 1000000,        # 1 млн грн
+    "senior_manager": 5000000, # 5 млн грн
+}
+
+# Правило: аудитор може переглядати будь-які дані цілодобово
+allow if {
+    input.action == "read"
+    input.subject.role == "auditor"
+    input.subject.has_valid_certificate == true
+}
+
+# Правило: блокування доступу з країн під санкціями
+deny if {
+    input.context.geo_country in ["RU", "BY", "KP", "IR"]
+}
+
+# Фінальне рішення: allow AND NOT deny
+authorized if {
+    allow
+    not deny
+}
+
+# ------- Тестування політики (OPA unit test) -------
+# Файл: policy/financial_access_test.rego
+
+# test_manager_can_approve_credit_in_working_hours
+test_allow_credit_approval if {
+    authorized with input as {
+        "action": "approve_credit",
+        "subject": {
+            "department": "credit_department",
+            "position": "manager",
+            "branch_id": "kyiv-001",
+            "has_valid_certificate": true
+        },
+        "resource": {
+            "amount": 500000,
+            "client_branch": "kyiv-001"
+        },
+        "context": {
+            "ip_address": "10.1.5.42",
+            "geo_country": "UA"
+        }
+    }
+}
+</code></pre>
+
+        <h3>Порівняння моделей авторизації: RBAC, ABAC, ReBAC</h3>
+        <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse: collapse; margin: 1em 0;">
+          <thead>
+            <tr style="background: var(--accent-light);">
+              <th>Критерій</th>
+              <th>RBAC</th>
+              <th>ABAC</th>
+              <th>ReBAC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Основа рішення</strong></td>
+              <td>Роль користувача</td>
+              <td>Атрибути суб'єкта, об'єкта, контексту</td>
+              <td>Відносини між сутностями</td>
+            </tr>
+            <tr>
+              <td><strong>Гнучкість</strong></td>
+              <td>Низька — жорсткі ролі</td>
+              <td>Висока — динамічні правила</td>
+              <td>Висока — граф відносин</td>
+            </tr>
+            <tr>
+              <td><strong>Масштабованість</strong></td>
+              <td>Role explosion у великих організаціях</td>
+              <td>Складність політик зростає</td>
+              <td>Добре масштабується (Google Zanzibar)</td>
+            </tr>
+            <tr>
+              <td><strong>Складність впровадження</strong></td>
+              <td>Проста</td>
+              <td>Середня — висока</td>
+              <td>Висока</td>
+            </tr>
+            <tr>
+              <td><strong>Контекстні рішення</strong></td>
+              <td>Ні (тільки роль)</td>
+              <td>Так (час, IP, геолокація...)</td>
+              <td>Частково (через відносини)</td>
+            </tr>
+            <tr>
+              <td><strong>Аудит</strong></td>
+              <td>Простий — хто має яку роль</td>
+              <td>Складний — треба аналізувати правила</td>
+              <td>Середній — граф відносин</td>
+            </tr>
+            <tr>
+              <td><strong>Приклад у фінансах</strong></td>
+              <td>Касир, менеджер, аудитор</td>
+              <td>Кредит до 1 млн у робочий час з офісу</td>
+              <td>Менеджер бачить лише своїх клієнтів</td>
+            </tr>
+            <tr>
+              <td><strong>Інструменти</strong></td>
+              <td>Keycloak, Active Directory</td>
+              <td>OPA, AWS IAM, XACML</td>
+              <td>OpenFGA, SpiceDB, Ory Keto</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Що таке «role explosion» у моделі RBAC і чому ця проблема є особливо гострою для великих банків з розгалуженою мережею відділень?</li>
+            <li>Наведіть приклад ABAC-політики для фінансової системи, яка враховує щонайменше чотири атрибути (суб'єкт, об'єкт, дія, контекст).</li>
+            <li>Як модель ReBAC на основі Google Zanzibar вирішує проблему авторизації у корпоративному банкінгу, де CFO, бухгалтер та менеджер мають різні рівні доступу до рахунків?</li>
+            <li>У чому переваги підходу Policy-as-Code порівняно з налаштуванням авторизації через графічний інтерфейс? Як це допомагає проходити аудит?</li>
+            <li>Порівняйте RBAC та ABAC: у яких сценаріях фінансового сектору кожна з моделей є більш доцільною?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 3.4 -->
@@ -212,6 +743,245 @@
         </ul>
 
         <p><strong>Periodic Access Review (рекапітуляція доступу)</strong> — регулярний (щоквартальний або щорічний) перегляд усіх наданих доступів. Менеджери та власники систем підтверджують або відкликають доступ для кожного користувача. Це вимога регуляторів (PCI DSS Requirement 7, SOX, НБУ) та ефективний спосіб виявлення orphaned accounts та надлишкових привілеїв.</p>
+
+        <h3>Технічний приклад: SCIM-провізіонінг через REST API</h3>
+        <p>Протокол SCIM (RFC 7644) автоматизує управління ідентичностями між HR-системою та корпоративними сервісами. Нижче наведено типові операції:</p>
+        <pre><code># SCIM 2.0 — автоматичний provisioning при прийомі на роботу
+# HR-система створює запис → SCIM автоматично створює акаунти
+
+# ===== Крок 1: Створення нового користувача (Joiner) =====
+# POST https://iam.bank.ua/scim/v2/Users
+# Content-Type: application/scim+json
+# Authorization: Bearer &lt;scim_service_token&gt;
+
+{
+  "schemas": ["urn:ietf:params:scim:schemas:core:2.0:User",
+               "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"],
+  "userName": "kovalenko@bank.ua",
+  "name": {
+    "givenName": "Олена",
+    "familyName": "Коваленко"
+  },
+  "emails": [
+    { "value": "kovalenko@bank.ua", "type": "work", "primary": true }
+  ],
+  "active": true,
+  "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+    "employeeNumber": "EMP-2024-0847",
+    "department": "Credit Department",
+    "manager": {
+      "$ref": "https://iam.bank.ua/scim/v2/Users/mgr-001",
+      "value": "mgr-001",
+      "displayName": "Петренко Ігор"
+    },
+    "division": "Київське відділення №1"
+  },
+  "roles": [
+    { "value": "credit_analyst", "type": "default" }
+  ]
+}
+
+# Відповідь: 201 Created
+# IAM автоматично створює: AD-акаунт, email, доступ до банківської системи
+
+# ===== Крок 2: Зміна посади (Mover) — PATCH =====
+# PATCH https://iam.bank.ua/scim/v2/Users/user-847
+{
+  "schemas": ["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+  "Operations": [
+    {
+      "op": "replace",
+      "path": "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department",
+      "value": "Risk Management"
+    },
+    {
+      "op": "remove",
+      "path": "roles[value eq \"credit_analyst\"]"
+    },
+    {
+      "op": "add",
+      "path": "roles",
+      "value": [{ "value": "risk_analyst", "type": "default" }]
+    }
+  ]
+}
+# Старі ролі відкликано, нові надано автоматично
+
+# ===== Крок 3: Звільнення (Leaver) — деактивація =====
+# PATCH https://iam.bank.ua/scim/v2/Users/user-847
+{
+  "schemas": ["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+  "Operations": [
+    { "op": "replace", "path": "active", "value": false }
+  ]
+}
+# Усі акаунти та доступи блоковано протягом хвилин, не днів
+</code></pre>
+
+        <h3>Технічний приклад: Конфігурація PAM з записом сесій</h3>
+        <p>Привілейований доступ у фінансових системах має бути контрольованим — кожна дія адміністратора записується для аудиту:</p>
+        <pre><code># HashiCorp Vault — конфігурація PAM для банківської інфраструктури
+# Файл: vault-pam-config.hcl
+
+# ===== Динамічні credentials для бази даних =====
+# Vault генерує тимчасові облікові дані для кожної сесії
+resource "vault_database_secret_backend_role" "db_admin" {
+  backend             = "database"
+  name                = "prod-db-admin"
+  db_name             = "core-banking-db"
+
+  # Тимчасові credentials з обмеженим TTL
+  default_ttl         = "1h"        # 1 година за замовчуванням
+  max_ttl             = "4h"        # Максимум 4 години
+  creation_statements = [
+    "CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';",
+    "GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA banking TO \"{{name}}\";",
+    "ALTER ROLE \"{{name}}\" SET log_statement = 'all';"  # Логувати ВСІ SQL-запити
+  ]
+  revocation_statements = [
+    "DROP ROLE IF EXISTS \"{{name}}\";"  # Автоматичне видалення після TTL
+  ]
+}
+
+# ===== Політика JIT (Just-in-Time) доступу =====
+# Адміністратор запитує доступ → менеджер схвалює → доступ на 2 години
+path "database/creds/prod-db-admin" {
+  capabilities = ["read"]
+
+  # Обов'язкове підтвердження другою особою
+  required_parameters = ["reason", "ticket_id"]
+  control_group {
+    factor "manager_approval" {
+      identity {
+        group_names = ["db-managers"]
+        approvals   = 1
+      }
+    }
+    ttl = "4h"  # Час на схвалення
+  }
+}
+
+# ===== Запис сесій (Session Recording) =====
+# Усі SSH-сесії до production записуються
+resource "boundary_target" "prod_database" {
+  name        = "core-banking-prod"
+  type        = "ssh"
+  scope_id    = boundary_scope.banking_prod.id
+
+  # Запис кожної команди та її виводу
+  enable_session_recording = true
+  storage_bucket_id        = boundary_storage_bucket.audit.id
+
+  # Обмеження сесії
+  session_max_seconds       = 7200   # Максимум 2 години
+  session_connection_limit  = 1      # Одне з'єднання за сесію
+
+  # Injection — автоматичне додавання банера
+  injected_application_credential_source_ids = [
+    boundary_credential_library_vault.prod_db.id
+  ]
+}
+
+# ===== Аудит: кожна дія логується =====
+audit "file" {
+  type = "file"
+  options {
+    file_path = "/var/log/vault/audit.log"
+    format    = "json"
+    log_raw   = false   # Не логувати чутливі дані у відкритому вигляді
+    hmac_accessor = true
+  }
+}
+# Приклад запису: {"time":"2024-01-15T14:23:01Z","type":"response",
+#   "auth":{"accessor":"hmac-sha256:abc...","entity_id":"user-123"},
+#   "request":{"path":"database/creds/prod-db-admin",
+#     "data":{"reason":"Оновлення схеми БД","ticket_id":"JIRA-4521"}}}
+</code></pre>
+
+        <h3>Технічний приклад: Матриця розділення обов'язків (SoD)</h3>
+        <p>Матриця SoD визначає конфліктуючі ролі та дозволи, які не можуть бути призначені одній особі. Нижче наведено приклад для банківської системи:</p>
+        <pre><code># Матриця розділення обов'язків (Separation of Duties) для банку
+# X = конфлікт (ролі не можуть бути в однієї особи одночасно)
+# - = допустимо
+
+# ┌───────────────────┬──────────┬──────────┬──────────┬──────────┬───────────┬──────────┐
+# │                   │ Створення│ Схвалення│ Виконання│  Аудит   │ Управління│ Адмін    │
+# │                   │ платежів │ платежів │ платежів │ операцій │ клієнтами │ системи  │
+# ├───────────────────┼──────────┼──────────┼──────────┼──────────┼───────────┼──────────┤
+# │ Створення платежів│    -     │    X     │    X     │    X     │     -     │    X     │
+# │ Схвалення платежів│    X     │    -     │    X     │    X     │     -     │    X     │
+# │ Виконання платежів│    X     │    X     │    -     │    X     │     -     │    X     │
+# │ Аудит операцій    │    X     │    X     │    X     │    -     │     X     │    X     │
+# │ Управління клієнт.│    -     │    -     │    -     │    X     │     -     │    -     │
+# │ Адмін системи     │    X     │    X     │    X     │    X     │     -     │    -     │
+# └───────────────────┴──────────┴──────────┴──────────┴──────────┴───────────┴──────────┘
+
+# Реалізація SoD-перевірки в коді (Python)
+from typing import Set, Dict, Tuple
+
+# Визначення конфліктуючих пар ролей
+SOD_CONFLICTS: Set[Tuple[str, str]] = {
+    ("payment_creator", "payment_approver"),       # Створювач ≠ схвалювач
+    ("payment_creator", "payment_executor"),        # Створювач ≠ виконавець
+    ("payment_approver", "payment_executor"),       # Схвалювач ≠ виконавець
+    ("payment_creator", "auditor"),                 # Операціоніст ≠ аудитор
+    ("payment_approver", "auditor"),
+    ("payment_executor", "auditor"),
+    ("system_admin", "payment_creator"),            # Адмін ≠ операціоніст
+    ("system_admin", "payment_approver"),
+    ("system_admin", "payment_executor"),
+    ("system_admin", "auditor"),
+    ("auditor", "client_manager"),                  # Аудитор ≠ менеджер клієнтів
+}
+
+def check_sod_violation(user_roles: Set[str], new_role: str) -> list:
+    """Перевірка порушення розділення обов'язків при призначенні нової ролі."""
+    violations = []
+    for existing_role in user_roles:
+        pair = tuple(sorted([existing_role, new_role]))
+        if pair in {tuple(sorted(c)) for c in SOD_CONFLICTS}:
+            violations.append(
+                f"Конфлікт SoD: '{existing_role}' та '{new_role}' "
+                f"не можуть бути призначені одній особі"
+            )
+    return violations
+
+# Приклад використання
+user_roles = {"payment_creator", "client_manager"}
+new_role = "payment_approver"
+
+violations = check_sod_violation(user_roles, new_role)
+if violations:
+    for v in violations:
+        print(f"ЗАБОРОНЕНО: {v}")
+    # ЗАБОРОНЕНО: Конфлікт SoD: 'payment_creator' та 'payment_approver'
+    # не можуть бути призначені одній особі
+else:
+    print(f"Роль '{new_role}' може бути призначена")
+
+# Динамічне SoD: перевірка на рівні транзакцій
+def check_dynamic_sod(transaction_id: str, action: str, user_id: str) -> bool:
+    """Переказ понад 100 000 грн потребує підтвердження іншою особою."""
+    tx = get_transaction(transaction_id)
+    if tx.amount > 100000 and action == "approve":
+        if tx.created_by == user_id:
+            raise PermissionError(
+                f"Dual control: користувач {user_id} створив транзакцію "
+                f"і не може її схвалити (сума {tx.amount} грн > 100 000 грн)"
+            )
+    return True
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Опишіть три фази життєвого циклу ідентичності (Joiner-Mover-Leaver). Яка фаза є найбільш ризикованою для фінансових установ і чому?</li>
+            <li>Що таке privilege creep і як механізм Periodic Access Review допомагає його виявити? Які регуляторні вимоги зобов'язують проводити рекапітуляцію доступу?</li>
+            <li>Поясніть принцип Just-in-Time (JIT) Access у контексті PAM. Чому постійний root-доступ до production-середовища банку є неприйнятним?</li>
+            <li>У чому різниця між статичним та динамічним розділенням обов'язків (SoD)? Наведіть приклад кожного типу для банківської системи переказів.</li>
+            <li>Як атака на Bangladesh Bank (2016) вплинула на вимоги SWIFT щодо dual authorization? Які заходи SoD могли б запобігти цій атаці?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Summary -->

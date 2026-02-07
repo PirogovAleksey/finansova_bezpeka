@@ -219,7 +219,158 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. Container Security Layers -->
+    <section class="slide">
+      <h1>Шари безпеки контейнерів</h1>
+      <h2>Defense in Depth для контейнерного середовища</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Base Image</div>
+          <div class="step-desc">Мінімальний образ (Alpine, Distroless) — менша поверхня атаки</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Build</div>
+          <div class="step-desc">Multi-stage build, no secrets, non-root USER, COPY замість ADD</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Scan</div>
+          <div class="step-desc">Trivy/Clair сканують CVE у кожному шарі образу перед push</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Sign</div>
+          <div class="step-desc">Cosign/Notary підписують образ — тільки підписані деплояться</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Runtime</div>
+          <div class="step-desc">Read-only FS, seccomp profiles, AppArmor/SELinux політики</div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>Distroless-образи Google містять тільки додаток — без shell, без package manager. Зловмисник не зможе встановити інструменти.</p>
+      </div>
+    </section>
+
+    <!-- 9. Service Mesh Architecture -->
+    <section class="slide">
+      <h1>Архітектура Service Mesh</h1>
+      <h2>Data Plane + Control Plane</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">📡</span>
+            <div class="card-title">Data Plane</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Envoy sidecar proxy<br>
+              Перехоплює весь трафік<br>
+              mTLS шифрування<br>
+              Load balancing<br>
+              Збір телеметрії
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-purple" style="height: 100%;">
+            <span class="card-icon">🧠</span>
+            <div class="card-title">Control Plane</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Istiod (Pilot, Citadel, Galley)<br>
+              Розподіл сертифікатів<br>
+              Конфігурація політик<br>
+              Service discovery<br>
+              Управління трафіком
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Sidecar-проксі додається до кожного pod автоматично. Розробникам не потрібно змінювати код — безпека прозора.</p>
+      </div>
+    </section>
+
+    <!-- 10. Secrets Management Flow -->
+    <section class="slide">
+      <h1>Secrets Management: потік роботи</h1>
+      <h2>Від створення до ротації секретів</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Створення</div>
+          <div class="step-desc">Vault генерує секрет або отримує від адміністратора</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Шифрування</div>
+          <div class="step-desc">AES-256-GCM шифрування у сховищі (Seal/Unseal)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Політики</div>
+          <div class="step-desc">ACL визначає: який сервіс може читати які секрети</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Інжекція</div>
+          <div class="step-desc">Sidecar або init-container інжектує секрет у pod при старті</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Ротація</div>
+          <div class="step-desc">Автоматична ротація за розкладом (30-90 днів) без downtime</div>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 1.2rem;">
+        <div class="stat-box blue">
+          <div class="stat-value">0</div>
+          <div class="stat-label">секретів у коді</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">30 днів</div>
+          <div class="stat-label">макс. термін життя</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">аудит доступу</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Kubernetes Security -->
+    <section class="slide">
+      <h1>Kubernetes Security: повний чеклист</h1>
+      <h2>Критичні налаштування для FinTech-кластера</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🔒</span>
+          <div class="card-title">RBAC</div>
+          <div class="card-text">Role-Based Access Control. Мінімальні права для кожного ServiceAccount та оператора</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🌐</span>
+          <div class="card-title">Network Policies</div>
+          <div class="card-text">Default deny ingress/egress. Явно дозволити тільки необхідні з'єднання між подами</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📋</span>
+          <div class="card-title">Admission Controllers</div>
+          <div class="card-text">OPA Gatekeeper перевіряє кожен ресурс перед створенням: no root, no hostPath, limits</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🛡️</span>
+          <div class="card-title">Runtime Security</div>
+          <div class="card-text">Falco моніторить syscalls у реальному часі: shell у контейнері, зміна файлів, мережа</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>CIS Kubernetes Benchmark містить 200+ перевірок. Для FinTech потрібен рівень відповідності не менше 95%.</p>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

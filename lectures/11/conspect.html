@@ -87,6 +87,116 @@
           <li><strong>Crypto ML</strong> — mixing services (Tornado Cash), chain hopping (конвертація між блокчейнами), privacy coins (Monero, Zcash), peer-to-peer обмін.</li>
           <li><strong>Money mules</strong> — рекрутування людей (часто через фейкові вакансії) для переказу коштів через їх рахунки. Mule часто не усвідомлює незаконність дій.</li>
         </ul>
+
+        <p><strong>Схема руху коштів при відмиванні (текстова діаграма):</strong></p>
+<pre><code>
+  ┌─────────────────────────────────────────────────────────────────┐
+  │                СХЕМА ВІДМИВАННЯ КОШТІВ                         │
+  └─────────────────────────────────────────────────────────────────┘
+
+  ЗЛОЧИННА ДІЯЛЬНІСТЬ (наркоторгівля, корупція, шахрайство)
+          │
+          ▼
+  ┌───────────────────┐
+  │  1. PLACEMENT     │   Готівка → фінансова система
+  │  (Розміщення)     │   • Smurfing (дроблення сум)
+  │                   │   • Казино, автомийки, ресторани
+  │                   │   • Купівля цінностей за готівку
+  └────────┬──────────┘
+           │
+           ▼
+  ┌───────────────────┐
+  │  2. LAYERING      │   Заплутування сліду
+  │  (Розшарування)   │   • Міжнародні перекази
+  │                   │   • Shell companies (фіктивні фірми)
+  │                   │   • Крипто-міксери, chain hopping
+  │                   │   • Trade-based ML
+  └────────┬──────────┘
+           │
+           ▼
+  ┌───────────────────┐
+  │  3. INTEGRATION   │   «Чисті» кошти в легальній економіці
+  │  (Інтеграція)     │   • Нерухомість, luxury товари
+  │                   │   • Інвестиції у бізнес
+  │                   │   • Фальшиві кредити / контракти
+  └───────────────────┘
+</code></pre>
+
+        <p><strong>Порівняльна таблиця етапів відмивання коштів:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Етап</th>
+              <th>Мета</th>
+              <th>Типові методи</th>
+              <th>Red Flags (індикатори)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Placement</strong></td>
+              <td>Ввести готівку у фінансову систему</td>
+              <td>Smurfing, cash-intensive бізнеси, купівля цінностей</td>
+              <td>Часті готівкові внески трохи нижче порогу; клієнт використовує кілька філій; невідповідність обсягів до профілю</td>
+            </tr>
+            <tr>
+              <td><strong>Layering</strong></td>
+              <td>Приховати джерело через складні ланцюги</td>
+              <td>Wire transfers, shell companies, offshore, криптоміксери</td>
+              <td>Численні перекази без економічної мети; транзакції з високоризиковими юрисдикціями; round-tripping</td>
+            </tr>
+            <tr>
+              <td><strong>Integration</strong></td>
+              <td>Легалізувати «очищені» кошти</td>
+              <td>Нерухомість, бізнес-інвестиції, фальшиві контракти</td>
+              <td>Купівля нерухомості без кредиту; раптове зростання статків; незрозумілі «консультаційні» платежі</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Приклад Trade-Based Money Laundering (маніпуляція інвойсами):</strong></p>
+<pre><code>
+  ═══════════════════════════════════════════════════════════
+  TRADE-BASED ML: Over-invoicing (завищення вартості)
+  ═══════════════════════════════════════════════════════════
+
+  Реальна угода:
+    Товар: 1000 одиниць електроніки
+    Реальна ціна: $10 / одиниця
+    Реальна вартість: $10,000
+
+  Маніпульований інвойс:
+    Товар: 1000 одиниць електроніки
+    Заявлена ціна: $100 / одиниця      ← завищення x10
+    Заявлена вартість: $100,000
+
+  Рух коштів:
+    Компанія A (країна X) ──── $100,000 ────► Компанія B (країна Y)
+         │                                          │
+         │  Реальний товар = $10,000                │
+         │  «Зайві» $90,000 = відмиті кошти         │
+         │                                          │
+         └──── $90,000 повертається ────────────────┘
+               через третю shell company
+
+  ═══════════════════════════════════════════════════════════
+  Under-invoicing (заниження вартості) працює навпаки:
+    Товар реально коштує $100,000
+    Інвойс на $10,000
+    Різниця $90,000 передається неофіційно (готівка, крипта)
+  ═══════════════════════════════════════════════════════════
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Назвіть три етапи відмивання коштів та поясніть, чому саме етап Placement вважається найбільш вразливим для виявлення?</li>
+            <li>Що таке «smurfing» (structuring) і чому фінансові установи повинні звертати увагу на транзакції, що знаходяться трохи нижче порогу звітності?</li>
+            <li>Поясніть механізм Trade-Based Money Laundering на прикладі over-invoicing. Які індикатори можуть свідчити про маніпуляцію інвойсами?</li>
+            <li>Яку роль відіграють криптовалюти у сучасних схемах відмивання коштів? Назвіть основні методи Crypto ML.</li>
+            <li>Хто такі «money mules» і чому їх складно виявити? Які соціальні інженерні прийоми використовуються для їх рекрутування?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 11.2 -->
@@ -110,6 +220,254 @@
         </ul>
 
         <p><strong>Ongoing monitoring</strong> — KYC не є одноразовою процедурою. Фінансова установа повинна регулярно оновлювати інформацію про клієнта, моніторити транзакції на відповідність профілю та реагувати на зміни ризик-профілю (зміна юрисдикції, різке збільшення обсягів).</p>
+
+        <p><strong>Workflow процесу KYC-верифікації:</strong></p>
+<pre><code>
+  ┌──────────────────────────────────────────────────────────────────┐
+  │               KYC VERIFICATION WORKFLOW                         │
+  └──────────────────────────────────────────────────────────────────┘
+
+  Клієнт подає заявку на відкриття рахунку
+          │
+          ▼
+  ┌───────────────────────────┐
+  │ 1. ІДЕНТИФІКАЦІЯ          │
+  │    • ПІБ, дата народження │
+  │    • Адреса проживання    │
+  │    • ІПН / паспортні дані │
+  │    • Контактна інформація │
+  └────────────┬──────────────┘
+               │
+               ▼
+  ┌───────────────────────────┐
+  │ 2. ВЕРИФІКАЦІЯ            │
+  │    • Перевірка документів │     ┌───────────────────┐
+  │    • Біометрія / liveness │────►│ Автоматизована    │
+  │    • Перевірка адреси     │     │ перевірка (OCR,   │
+  │    • Cross-referencing    │     │ facial recognition)│
+  └────────────┬──────────────┘     └───────────────────┘
+               │
+               ▼
+  ┌───────────────────────────┐
+  │ 3. СКРИНІНГ               │
+  │    • PEP-списки           │     Результат:
+  │    • Санкційні списки     │────► HIT / NO HIT
+  │    • Adverse media        │
+  │    • Кримінальні бази     │
+  └────────────┬──────────────┘
+               │
+               ▼
+  ┌───────────────────────────┐
+  │ 4. RISK ASSESSMENT        │
+  │    • Risk score клієнта   │────► Low / Medium / High
+  │    • Визначення рівня CDD │
+  │    • SDD / CDD / EDD      │
+  └────────────┬──────────────┘
+               │
+               ▼
+  ┌───────────────────────────┐     ┌──────────────────────┐
+  │ 5. РІШЕННЯ                │     │ High Risk:           │
+  │    • Approve              │     │  → EDD + Senior      │
+  │    • Reject               │     │    Management Approval│
+  │    • Escalate to EDD      │     └──────────────────────┘
+  └───────────────────────────┘
+</code></pre>
+
+        <p><strong>Порівняння рівнів Customer Due Diligence:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Параметр</th>
+              <th>SDD (спрощена)</th>
+              <th>Standard CDD</th>
+              <th>EDD (посилена)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Коли застосовується</strong></td>
+              <td>Низький ризик: малі суми, рахунки з обмеженнями</td>
+              <td>Більшість клієнтів</td>
+              <td>PEP, високоризикові юрисдикції, складні структури</td>
+            </tr>
+            <tr>
+              <td><strong>Ідентифікація</strong></td>
+              <td>Базова (ПІБ, дата народження)</td>
+              <td>Повна (ПІБ, адреса, ІПН, beneficial owner)</td>
+              <td>Розширена + джерело коштів та багатства</td>
+            </tr>
+            <tr>
+              <td><strong>Верифікація</strong></td>
+              <td>Мінімальна або відкладена</td>
+              <td>Паспорт/ID + підтвердження адреси</td>
+              <td>Декілька джерел + незалежне підтвердження</td>
+            </tr>
+            <tr>
+              <td><strong>Моніторинг</strong></td>
+              <td>Базовий автоматичний</td>
+              <td>Регулярний перегляд</td>
+              <td>Посилений ongoing + частіші перевірки</td>
+            </tr>
+            <tr>
+              <td><strong>Затвердження</strong></td>
+              <td>Автоматичне або рядовий працівник</td>
+              <td>Compliance officer</td>
+              <td>Senior management</td>
+            </tr>
+            <tr>
+              <td><strong>Періодичність оновлення</strong></td>
+              <td>Кожні 3-5 років</td>
+              <td>Кожні 1-3 роки</td>
+              <td>Щорічно або частіше</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Псевдокод PEP-скринінгу клієнта:</strong></p>
+<pre><code>
+# PEP Screening System — псевдокод перевірки клієнта
+# проти списків політично значущих осіб
+
+def screen_customer_pep(customer):
+    """
+    Перевірка клієнта проти PEP-списків та санкційних баз.
+    Повертає результат скринінгу та рекомендований рівень CDD.
+    """
+    results = {
+        "pep_match": False,
+        "sanctions_match": False,
+        "adverse_media": False,
+        "risk_level": "standard",
+        "required_cdd": "CDD"
+    }
+
+    # Крок 1: Fuzzy matching проти PEP-баз
+    # (допуск на різне написання, транслітерацію)
+    pep_databases = ["world_check", "dow_jones", "open_sanctions"]
+
+    for db in pep_databases:
+        matches = fuzzy_search(
+            name=customer.full_name,
+            date_of_birth=customer.dob,
+            country=customer.nationality,
+            database=db,
+            threshold=0.85    # 85% similarity threshold
+        )
+
+        if matches:
+            results["pep_match"] = True
+            results["pep_details"] = matches
+            break
+
+    # Крок 2: Перевірка санкційних списків
+    sanctions_lists = ["OFAC_SDN", "EU_SANCTIONS", "UN_SANCTIONS", "RNBO_UA"]
+
+    for slist in sanctions_lists:
+        if exact_or_fuzzy_match(customer, slist):
+            results["sanctions_match"] = True
+            results["sanctions_list"] = slist
+            # Санкційний HIT = автоматична ескалація
+            results["risk_level"] = "prohibited"
+            results["action"] = "REJECT — sanctions match"
+            return results
+
+    # Крок 3: Adverse media screening
+    media_hits = search_adverse_media(
+        name=customer.full_name,
+        keywords=["відмивання", "корупція", "шахрайство",
+                  "money laundering", "fraud", "bribery"]
+    )
+    if media_hits:
+        results["adverse_media"] = True
+
+    # Крок 4: Визначення рівня CDD
+    if results["pep_match"]:
+        results["risk_level"] = "high"
+        results["required_cdd"] = "EDD"
+        results["action"] = "Потрібне затвердження Senior Management"
+    elif results["adverse_media"]:
+        results["risk_level"] = "medium-high"
+        results["required_cdd"] = "EDD"
+    else:
+        results["risk_level"] = "standard"
+        results["required_cdd"] = "CDD"
+
+    return results
+</code></pre>
+
+        <p><strong>Матриця ризик-скорингу при онбордингу клієнта:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Фактор ризику</th>
+              <th>Низький ризик (1 бал)</th>
+              <th>Середній ризик (2 бали)</th>
+              <th>Високий ризик (3 бали)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Тип клієнта</strong></td>
+              <td>Фізична особа, найманий працівник</td>
+              <td>ФОП, мале підприємство</td>
+              <td>PEP, складна корпоративна структура, траст</td>
+            </tr>
+            <tr>
+              <td><strong>Юрисдикція</strong></td>
+              <td>Країна ЄС, низький ризик FATF</td>
+              <td>Країна з помірним ризиком</td>
+              <td>FATF Grey/Black list, офшор</td>
+            </tr>
+            <tr>
+              <td><strong>Продукт/послуга</strong></td>
+              <td>Звичайний рахунок, депозит</td>
+              <td>Міжнародні перекази, торгове фінансування</td>
+              <td>Private banking, кореспондентський рахунок</td>
+            </tr>
+            <tr>
+              <td><strong>Канал відносин</strong></td>
+              <td>Особисте звернення у відділення</td>
+              <td>Онлайн з верифікацією</td>
+              <td>Дистанційно, через посередника</td>
+            </tr>
+            <tr>
+              <td><strong>Очікуваний обсяг</strong></td>
+              <td>&lt; 50,000 грн/міс</td>
+              <td>50,000–500,000 грн/міс</td>
+              <td>&gt; 500,000 грн/міс</td>
+            </tr>
+          </tbody>
+        </table>
+<pre><code>
+# Розрахунок ризик-скору клієнта
+# Шкала: 5–7 = Low, 8–11 = Medium, 12–15 = High
+
+def calculate_risk_score(customer):
+    score = 0
+    score += rate_customer_type(customer.type)         # 1-3
+    score += rate_jurisdiction(customer.country)        # 1-3
+    score += rate_product(customer.product_type)        # 1-3
+    score += rate_channel(customer.onboarding_channel)  # 1-3
+    score += rate_volume(customer.expected_turnover)    # 1-3
+
+    if score <= 7:
+        return {"score": score, "level": "LOW",    "cdd": "SDD"}
+    elif score <= 11:
+        return {"score": score, "level": "MEDIUM", "cdd": "Standard CDD"}
+    else:
+        return {"score": score, "level": "HIGH",   "cdd": "EDD"}
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Опишіть основні етапи KYC-верифікації клієнта при відкритті рахунку у банку. Яка роль кожного етапу у запобіганні відмиванню коштів?</li>
+            <li>Порівняйте три рівні Customer Due Diligence (SDD, CDD, EDD). У яких випадках застосовується кожен рівень?</li>
+            <li>Хто такі PEP (Politically Exposed Persons) і чому вони потребують посиленої перевірки? Чи означає статус PEP автоматичну відмову в обслуговуванні?</li>
+            <li>Поясніть принцип роботи ризик-скорингу при онбордингу клієнта. Які фактори впливають на загальний ризик-скор?</li>
+            <li>Чому KYC є ongoing-процесом, а не одноразовою процедурою? Які зміни в профілі клієнта можуть вимагати переоцінки ризику?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 11.3 -->
@@ -134,6 +492,313 @@
         </ul>
 
         <p><strong>Метрики ефективності AML:</strong> SAR/STR filing rate, investigation closure time, false positive rate, regulatory findings, training completion rate.</p>
+
+        <p><strong>Приклади правил Transaction Monitoring (псевдокод):</strong></p>
+<pre><code>
+# ═══════════════════════════════════════════════════════════
+# AML Transaction Monitoring Rules — псевдокод
+# ═══════════════════════════════════════════════════════════
+
+# ПРАВИЛО 1: Structuring (Smurfing) Detection
+# Виявлення дроблення сум для уникнення порогу звітності
+# Поріг в Україні: 400,000 грн
+
+def detect_structuring(customer_id, period_days=7):
+    """
+    Виявляє серію транзакцій трохи нижче порогу,
+    що разом перевищують поріг звітності.
+    """
+    THRESHOLD = 400_000    # грн — поріг обов'язкового звітування
+    NEAR_THRESHOLD = 350_000  # 87.5% від порогу
+
+    transactions = get_transactions(
+        customer_id=customer_id,
+        period=f"last_{period_days}_days",
+        type="cash_deposit"
+    )
+
+    # Фільтр: транзакції в діапазоні 50%-99% від порогу
+    suspicious = [t for t in transactions
+                  if THRESHOLD * 0.5 <= t.amount < THRESHOLD]
+
+    total = sum(t.amount for t in suspicious)
+
+    if len(suspicious) >= 3 and total > THRESHOLD:
+        return Alert(
+            rule="STRUCTURING_001",
+            severity="HIGH",
+            description=f"{len(suspicious)} транзакцій на суму "
+                        f"{total:,.0f} грн за {period_days} днів. "
+                        f"Підозра на smurfing.",
+            customer_id=customer_id,
+            transactions=suspicious
+        )
+
+# ПРАВИЛО 2: Rapid Movement of Funds
+# Кошти надійшли і одразу переказані далі
+
+def detect_rapid_movement(customer_id, hours=24):
+    """
+    Виявляє ситуації, коли кошти надходять на рахунок
+    і швидко переказуються (pass-through activity).
+    """
+    incoming = get_transactions(customer_id, type="credit",
+                                period=f"last_{hours}_hours")
+    outgoing = get_transactions(customer_id, type="debit",
+                                period=f"last_{hours}_hours")
+
+    total_in = sum(t.amount for t in incoming)
+    total_out = sum(t.amount for t in outgoing)
+
+    # Якщо >80% надходжень відразу переказано
+    if total_in > 100_000 and total_out / total_in > 0.8:
+        return Alert(
+            rule="RAPID_MOVEMENT_002",
+            severity="MEDIUM",
+            description=f"Надійшло {total_in:,.0f} грн, "
+                        f"переказано {total_out:,.0f} грн "
+                        f"протягом {hours} годин.",
+            customer_id=customer_id
+        )
+
+# ПРАВИЛО 3: Незвична активність відносно профілю
+
+def detect_profile_deviation(customer_id):
+    """
+    Порівнює поточну активність з історичним профілем клієнта.
+    """
+    profile = get_customer_profile(customer_id)
+    current_month = get_monthly_stats(customer_id, "current")
+
+    # Відхилення більше ніж у 3 рази від середнього
+    if current_month.total_volume > profile.avg_monthly_volume * 3:
+        return Alert(
+            rule="PROFILE_DEVIATION_003",
+            severity="MEDIUM",
+            description=f"Обсяг операцій {current_month.total_volume:,.0f} грн "
+                        f"перевищує середній ({profile.avg_monthly_volume:,.0f} грн) "
+                        f"у {current_month.total_volume / profile.avg_monthly_volume:.1f} разів.",
+            customer_id=customer_id
+        )
+</code></pre>
+
+        <p><strong>Структура STR (Suspicious Transaction Report):</strong></p>
+<pre><code>
+  ═══════════════════════════════════════════════════════════
+  ПОВІДОМЛЕННЯ ПРО ПІДОЗРІЛУ ФІНАНСОВУ ОПЕРАЦІЮ
+  (Suspicious Transaction Report — STR)
+  ═══════════════════════════════════════════════════════════
+
+  ┌─────────────────────────────────────────────────────────┐
+  │ РОЗДІЛ 1: ІНФОРМАЦІЯ ПРО СУБ'ЄКТА ЗВІТУВАННЯ           │
+  ├─────────────────────────────────────────────────────────┤
+  │ • Назва фінансової установи                            │
+  │ • Код ЄДРПОУ                                           │
+  │ • Відповідальний працівник (Compliance Officer)        │
+  │ • Дата та номер повідомлення                           │
+  └─────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────┐
+  │ РОЗДІЛ 2: ІНФОРМАЦІЯ ПРО КЛІЄНТА                       │
+  ├─────────────────────────────────────────────────────────┤
+  │ • ПІБ / Назва юридичної особи                          │
+  │ • ІПН / ЄДРПОУ                                         │
+  │ • Дата народження / реєстрації                         │
+  │ • Адреса, контакти                                     │
+  │ • Дата встановлення ділових відносин                    │
+  │ • Тип рахунку, номер рахунку                           │
+  │ • PEP-статус (так / ні)                                │
+  └─────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────┐
+  │ РОЗДІЛ 3: ДЕТАЛІ ПІДОЗРІЛОЇ ОПЕРАЦІЇ                   │
+  ├─────────────────────────────────────────────────────────┤
+  │ • Дата та час операції                                 │
+  │ • Тип операції (переказ, внесення готівки тощо)        │
+  │ • Сума та валюта                                       │
+  │ • Контрагент (отримувач / відправник)                  │
+  │ • Канал (відділення, онлайн, банкомат)                 │
+  │ • Призначення платежу                                  │
+  └─────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────┐
+  │ РОЗДІЛ 4: ПІДСТАВИ ДЛЯ ПІДОЗРИ                        │
+  ├─────────────────────────────────────────────────────────┤
+  │ • Опис підозрілої поведінки / патерну                   │
+  │ • Спрацьовані правила моніторингу (rule ID)            │
+  │ • Індикатори з типологій ДСФМУ                         │
+  │ • Результати внутрішнього розслідування                │
+  │ • Супровідні документи (додатки)                       │
+  └─────────────────────────────────────────────────────────┘
+
+  Термін подання: протягом 1 робочого дня з моменту виявлення
+  Отримувач: ДСФМУ (Держфінмоніторинг)
+  Заборона: Tipping off — не повідомляти клієнта про STR!
+</code></pre>
+
+        <p><strong>Таблиця порогових операцій в Україні:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Тип операції</th>
+              <th>Поріг</th>
+              <th>Вимога</th>
+              <th>Термін звітування</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Фінансова операція (загальний поріг)</td>
+              <td>400,000 грн</td>
+              <td>Обов'язкове повідомлення ДСФМУ</td>
+              <td>Протягом 1 робочого дня</td>
+            </tr>
+            <tr>
+              <td>Переказ за кордон</td>
+              <td>400,000 грн</td>
+              <td>Повідомлення + ідентифікація контрагента</td>
+              <td>Протягом 1 робочого дня</td>
+            </tr>
+            <tr>
+              <td>Операції з готівкою</td>
+              <td>400,000 грн</td>
+              <td>Обов'язкова ідентифікація</td>
+              <td>Протягом 1 робочого дня</td>
+            </tr>
+            <tr>
+              <td>Підозрілі операції (STR)</td>
+              <td>Будь-яка сума</td>
+              <td>Повідомлення при наявності підозри</td>
+              <td>Протягом 1 робочого дня</td>
+            </tr>
+            <tr>
+              <td>Операції з PEP</td>
+              <td>Будь-яка сума</td>
+              <td>EDD + повідомлення</td>
+              <td>Протягом 1 робочого дня</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>SQL/Python-приклад виявлення structuring (smurfing):</strong></p>
+<pre><code>
+-- ═══════════════════════════════════════════════════════════
+-- SQL: Виявлення structuring (smurfing) у базі транзакцій
+-- Пошук клієнтів, що дроблять суми для уникнення порогу
+-- ═══════════════════════════════════════════════════════════
+
+-- Знаходимо клієнтів з підозрілими патернами готівкових внесків
+SELECT
+    c.customer_id,
+    c.full_name,
+    COUNT(t.id) AS num_transactions,
+    SUM(t.amount) AS total_amount,
+    AVG(t.amount) AS avg_amount,
+    MAX(t.amount) AS max_amount,
+    MIN(t.amount) AS min_amount,
+    DATEDIFF(MAX(t.transaction_date), MIN(t.transaction_date)) AS span_days
+FROM transactions t
+JOIN customers c ON t.customer_id = c.customer_id
+WHERE
+    t.transaction_type = 'CASH_DEPOSIT'
+    AND t.amount BETWEEN 200000 AND 399999    -- 50%-99.9% від порогу 400K
+    AND t.transaction_date >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+GROUP BY c.customer_id, c.full_name
+HAVING
+    COUNT(t.id) >= 3                          -- мінімум 3 транзакції
+    AND SUM(t.amount) > 400000                -- разом перевищують поріг
+ORDER BY total_amount DESC;
+
+-- Результат (приклад):
+-- ┌─────────────┬──────────────┬─────┬───────────┬─────────┐
+-- │ customer_id │ full_name    │ cnt │ total     │ avg     │
+-- ├─────────────┼──────────────┼─────┼───────────┼─────────┤
+-- │ 10234       │ Іваненко О.В.│  5  │ 1,850,000 │ 370,000 │
+-- │ 10567       │ Петренко С.І.│  4  │ 1,520,000 │ 380,000 │
+-- │ 10891       │ Коваленко Д. │  3  │   990,000 │ 330,000 │
+-- └─────────────┴──────────────┴─────┴───────────┴─────────┘
+</code></pre>
+
+<pre><code>
+# ═══════════════════════════════════════════════════════════
+# Python: Аналіз транзакцій для виявлення smurfing-патернів
+# ═══════════════════════════════════════════════════════════
+
+import pandas as pd
+from datetime import datetime, timedelta
+
+def detect_smurfing(transactions_df, threshold=400_000,
+                    window_days=7, min_count=3):
+    """
+    Виявлення structuring (smurfing) у DataFrame транзакцій.
+
+    Parameters:
+        transactions_df: DataFrame з колонками
+            [customer_id, amount, date, type]
+        threshold: поріг обов'язкового звітування (грн)
+        window_days: період аналізу (днів)
+        min_count: мінімальна кількість транзакцій для алерту
+    """
+    # Фільтруємо: готівкові внески в діапазоні 50-99% порогу
+    cash_deposits = transactions_df[
+        (transactions_df['type'] == 'CASH_DEPOSIT') &
+        (transactions_df['amount'] >= threshold * 0.5) &
+        (transactions_df['amount'] < threshold)
+    ].copy()
+
+    alerts = []
+    cutoff_date = datetime.now() - timedelta(days=window_days)
+
+    # Групуємо за клієнтом у часовому вікні
+    recent = cash_deposits[cash_deposits['date'] >= cutoff_date]
+    grouped = recent.groupby('customer_id').agg(
+        count=('amount', 'count'),
+        total=('amount', 'sum'),
+        avg_amount=('amount', 'mean'),
+        max_amount=('amount', 'max'),
+        dates=('date', list)
+    ).reset_index()
+
+    # Підозрілі: >=3 транзакцій з загальною сумою > порогу
+    suspicious = grouped[
+        (grouped['count'] >= min_count) &
+        (grouped['total'] > threshold)
+    ]
+
+    for _, row in suspicious.iterrows():
+        alerts.append({
+            'customer_id': row['customer_id'],
+            'alert_type': 'STRUCTURING',
+            'severity': 'HIGH',
+            'num_transactions': row['count'],
+            'total_amount': row['total'],
+            'avg_amount': row['avg_amount'],
+            'description': (
+                f"Виявлено {row['count']} готівкових внесків "
+                f"на загальну суму {row['total']:,.0f} грн "
+                f"(середня: {row['avg_amount']:,.0f} грн) "
+                f"за останні {window_days} днів. "
+                f"Кожна транзакція нижче порогу {threshold:,} грн."
+            )
+        })
+
+    return pd.DataFrame(alerts)
+
+# Приклад використання:
+# alerts_df = detect_smurfing(transactions_df)
+# print(f"Знайдено {len(alerts_df)} підозрілих випадків structuring")
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Поясніть різницю між rule-based та ML-based системами transaction monitoring. Які переваги та недоліки кожного підходу?</li>
+            <li>Що таке STR (Suspicious Transaction Report)? Які обов'язкові розділи має містити повідомлення про підозрілу операцію?</li>
+            <li>Що таке «tipping off» і чому він заборонений? Які наслідки може мати розголошення факту подання STR клієнту?</li>
+            <li>Опишіть алгоритм виявлення structuring (smurfing). Які параметри транзакцій слід аналізувати для ідентифікації цієї схеми?</li>
+            <li>Що таке false positive у контексті AML-моніторингу? Чому високий рівень false positives є проблемою і як ML-підходи допомагають його зменшити?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 11.4 -->
@@ -164,6 +829,285 @@
           <li><strong>Суб'єкти первинного фінмоніторингу</strong> — банки, страхові компанії, платіжні системи, криптобіржі, нотаріуси, ріелтори, бухгалтери — всі зобов'язані проводити KYC та подавати STR.</li>
           <li><strong>Порогові операції</strong> — 400,000 грн: обов'язкове повідомлення ДСФМУ незалежно від підозри. Для готівки також є окремі пороги.</li>
         </ul>
+
+        <p><strong>40 рекомендацій FATF (зведена таблиця за категоріями):</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Категорія</th>
+              <th>Рекомендації</th>
+              <th>Ключові вимоги</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>A. AML/CFT Політики та координація</strong></td>
+              <td>Рек. 1-2</td>
+              <td>Risk-Based Approach; національна координація та співпраця між органами</td>
+            </tr>
+            <tr>
+              <td><strong>B. Відмивання коштів та конфіскація</strong></td>
+              <td>Рек. 3-4</td>
+              <td>Криміналізація ML; конфіскація та тимчасові заходи щодо активів</td>
+            </tr>
+            <tr>
+              <td><strong>C. Фінансування тероризму</strong></td>
+              <td>Рек. 5-8</td>
+              <td>Криміналізація TF; цільові фінансові санкції; NPO (некомерційні організації)</td>
+            </tr>
+            <tr>
+              <td><strong>D. Превентивні заходи</strong></td>
+              <td>Рек. 9-23</td>
+              <td>CDD/KYC, record keeping, PEP, correspondent banking, wire transfers, нові технології, DNFBP (визначені нефінансові установи)</td>
+            </tr>
+            <tr>
+              <td><strong>E. Прозорість юридичних осіб</strong></td>
+              <td>Рек. 24-25</td>
+              <td>Прозорість beneficial ownership юридичних осіб та трастів</td>
+            </tr>
+            <tr>
+              <td><strong>F. Повноваження компетентних органів</strong></td>
+              <td>Рек. 26-35</td>
+              <td>FIU (фінрозвідка), правоохоронні органи, нагляд, санкції за порушення, STR</td>
+            </tr>
+            <tr>
+              <td><strong>G. Міжнародне співробітництво</strong></td>
+              <td>Рек. 36-40</td>
+              <td>Взаємна правова допомога, екстрадиція, міжнародний обмін інформацією</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Ключові вимоги Закону 361-IX (Україна):</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Вимога</th>
+              <th>Опис</th>
+              <th>Відповідальність за порушення</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Ідентифікація та верифікація</strong></td>
+              <td>Обов'язкова ідентифікація клієнтів, їх представників та beneficial owners при встановленні ділових відносин або проведенні разових операцій на суму ≥ 400,000 грн</td>
+              <td>Штраф від 1,000 до 74,000 НМДГ</td>
+            </tr>
+            <tr>
+              <td><strong>Належна перевірка (CDD)</strong></td>
+              <td>SDD, CDD або EDD залежно від рівня ризику. EDD обов'язкова для PEP та клієнтів з високоризикових юрисдикцій</td>
+              <td>Штраф + можливе відкликання ліцензії</td>
+            </tr>
+            <tr>
+              <td><strong>Повідомлення ДСФМУ</strong></td>
+              <td>Порогові операції (≥ 400,000 грн) та підозрілі операції (будь-яка сума) — протягом 1 робочого дня</td>
+              <td>Штраф від 5,000 до 74,000 НМДГ</td>
+            </tr>
+            <tr>
+              <td><strong>Зупинення операцій</strong></td>
+              <td>Можливість зупинки операції на 2 робочі дні (до 30 днів за рішенням ДСФМУ) при наявності підозри</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>Зберігання документів</strong></td>
+              <td>Не менше 5 років після завершення ділових відносин</td>
+              <td>Штраф від 1,000 до 37,000 НМДГ</td>
+            </tr>
+            <tr>
+              <td><strong>Внутрішні процедури</strong></td>
+              <td>Обов'язкове призначення відповідального працівника (Compliance Officer), внутрішні правила фінмоніторингу, навчання персоналу</td>
+              <td>Штраф + приписи регулятора</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Workflow звітування до Держфінмоніторингу (ДСФМУ):</strong></p>
+<pre><code>
+  ┌──────────────────────────────────────────────────────────────┐
+  │       WORKFLOW ЗВІТУВАННЯ ДО ДСФМУ                          │
+  └──────────────────────────────────────────────────────────────┘
+
+  СУТО ПЕРВИННОГО ФІНАНСОВОГО МОНІТОРИНГУ (банк, страхова тощо)
+  ════════════════════════════════════════════════════════════════
+
+  Транзакція здійснюється
+          │
+          ├──── Чи перевищує 400,000 грн? ──► ТАК ──┐
+          │                                          │
+          │     Чи є підозра в ML/TF? ──────► ТАК ──┤
+          │                                          │
+          ▼                                          ▼
+     Ні підозри і                          Формування
+     нижче порогу                          повідомлення
+          │                                     │
+          ▼                                     ▼
+     Стандартне                      ┌──────────────────────┐
+     обслуговування                  │ Compliance Officer   │
+                                     │ перевіряє та підписує│
+                                     └──────────┬───────────┘
+                                                │
+                                                ▼
+                                     ┌──────────────────────┐
+                                     │ Подання через        │
+                                     │ систему ІС ДСФМУ     │
+                                     │ (протягом 1 роб. дня)│
+                                     └──────────┬───────────┘
+                                                │
+  ════════════════════════════════════════════════════════════════
+  ДЕРЖФІНМОНІТОРИНГ (ДСФМУ) — FIU УКРАЇНИ
+  ════════════════════════════════════════════════════════════════
+                                                │
+                                                ▼
+                                     ┌──────────────────────┐
+                                     │ Отримання та         │
+                                     │ реєстрація STR       │
+                                     └──────────┬───────────┘
+                                                │
+                                                ▼
+                                     ┌──────────────────────┐
+                                     │ Аналіз та            │
+                                     │ розслідування         │
+                                     │ • Перехресний аналіз  │
+                                     │ • Мережевий аналіз    │
+                                     │ • Запити до інших FIU │
+                                     └──────────┬───────────┘
+                                                │
+                                    ┌───────────┼───────────┐
+                                    ▼           ▼           ▼
+                             ┌──────────┐ ┌──────────┐ ┌──────────┐
+                             │Закриття  │ │Передача  │ │Зупинення │
+                             │(немає    │ │правоохо- │ │операцій  │
+                             │ підстав) │ │ронцям    │ │(до 30 дн)│
+                             └──────────┘ └──────────┘ └──────────┘
+</code></pre>
+
+        <p><strong>Приклад санкційного скринінгу (псевдокод):</strong></p>
+<pre><code>
+# ═══════════════════════════════════════════════════════════
+# Sanctions Screening Engine — псевдокод
+# Перевірка контрагентів проти санкційних списків
+# ═══════════════════════════════════════════════════════════
+
+import re
+from difflib import SequenceMatcher
+
+class SanctionsScreener:
+    """
+    Система санкційного скринінгу для перевірки клієнтів
+    та контрагентів проти міжнародних санкційних списків.
+    """
+
+    SANCTIONS_LISTS = {
+        "OFAC_SDN":    "US Office of Foreign Assets Control",
+        "EU_SANCTIONS": "European Union Consolidated List",
+        "UN_SANCTIONS": "United Nations Security Council",
+        "RNBO_UA":     "РНБО України — санкційний список",
+        "UK_SANCTIONS": "UK HM Treasury Sanctions"
+    }
+
+    def __init__(self, similarity_threshold=0.85):
+        self.threshold = similarity_threshold
+        self.lists = self._load_all_lists()
+
+    def screen_entity(self, entity):
+        """
+        Перевірка юридичної або фізичної особи.
+        Повертає список збігів (hits) або порожній список.
+        """
+        hits = []
+
+        for list_name, entries in self.lists.items():
+            for entry in entries:
+                # Exact match
+                if self._normalize(entity.name) == \
+                   self._normalize(entry.name):
+                    hits.append(Hit(
+                        list=list_name,
+                        entry=entry,
+                        match_type="EXACT",
+                        score=1.0
+                    ))
+                    continue
+
+                # Fuzzy match (для різних написань, транслітерацій)
+                score = self._fuzzy_score(entity.name, entry.name)
+                if score >= self.threshold:
+                    hits.append(Hit(
+                        list=list_name,
+                        entry=entry,
+                        match_type="FUZZY",
+                        score=score
+                    ))
+
+                # Перевірка альтернативних імен (aliases)
+                for alias in entry.aliases:
+                    alias_score = self._fuzzy_score(
+                        entity.name, alias
+                    )
+                    if alias_score >= self.threshold:
+                        hits.append(Hit(
+                            list=list_name,
+                            entry=entry,
+                            match_type="ALIAS",
+                            score=alias_score
+                        ))
+
+        return self._deduplicate(hits)
+
+    def screen_transaction(self, transaction):
+        """
+        Перевірка всіх учасників транзакції.
+        """
+        results = {
+            "sender": self.screen_entity(transaction.sender),
+            "receiver": self.screen_entity(transaction.receiver),
+            "transaction_id": transaction.id,
+            "blocked": False
+        }
+
+        # Якщо хоча б один учасник у санкційному списку
+        if results["sender"] or results["receiver"]:
+            results["blocked"] = True
+            results["action"] = (
+                "ЗАБЛОКУВАТИ транзакцію. "
+                "Повідомити Compliance Officer та ДСФМУ."
+            )
+
+        return results
+
+    def _normalize(self, name):
+        """Нормалізація імені: lowercase, видалення спец. символів."""
+        return re.sub(r'[^a-zA-Zа-яА-ЯіїєґІЇЄҐ\s]', '',
+                      name.lower().strip())
+
+    def _fuzzy_score(self, name1, name2):
+        """Розрахунок подібності між двома іменами."""
+        return SequenceMatcher(
+            None,
+            self._normalize(name1),
+            self._normalize(name2)
+        ).ratio()
+
+# Приклад використання:
+# screener = SanctionsScreener(similarity_threshold=0.85)
+# hits = screener.screen_entity(Entity(name="Іванов Іван Іванович"))
+# if hits:
+#     print(f"УВАГА: Знайдено {len(hits)} збігів у санкційних списках!")
+#     for hit in hits:
+#         print(f"  - {hit.list}: {hit.entry.name} "
+#               f"(score: {hit.score:.2f}, type: {hit.match_type})")
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Назвіть основні категорії 40 рекомендацій FATF. Чому Risk-Based Approach (RBA) є фундаментальним принципом сучасного AML?</li>
+            <li>Що таке FATF Grey List та Black List? Які наслідки для країни та її фінансових установ має потрапляння на Grey List?</li>
+            <li>Опишіть основні вимоги Закону 361-IX щодо ідентифікації клієнтів та порогових операцій. Яка відповідальність передбачена за порушення?</li>
+            <li>Яку роль виконує Держфінмоніторинг (ДСФМУ) у системі фінансового моніторингу України? Опишіть процес від подання STR до прийняття рішення.</li>
+            <li>Поясніть принцип роботи санкційного скринінгу. Чому використовується fuzzy matching і які проблеми виникають при скринінгу імен різними мовами та транслітераціями?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Summary -->

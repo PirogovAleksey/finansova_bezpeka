@@ -93,6 +93,129 @@
         </ol>
 
         <p><strong>Практична реалізація у банку:</strong> Замість того щоб довіряти всьому трафіку з корпоративної мережі, кожен запит оператора до системи SWIFT перевіряється: валідність JWT-токена, відповідність ролі, стан робочої станції (антивірус оновлений, диск зашифрований), час доби (операції лише в робочий час), геолокація. Навіть авторизований оператор не зможе виконати переказ з незахищеного пристрою або в неробочий час без додаткового підтвердження.</p>
+
+        <h3>Технічний приклад: Політика умовного доступу Zero Trust (псевдокод)</h3>
+        <p>Наступний приклад демонструє логіку Policy Engine, який приймає рішення про доступ на основі багатьох факторів контексту — типова реалізація для фінансових систем:</p>
+        <pre><code># Zero Trust Policy Engine — pseudocode
+# Перевірка кожного запиту до критичних фінансових ресурсів
+
+def evaluate_access_request(request):
+    user = request.identity
+    device = request.device_context
+    resource = request.target_resource
+    risk_score = calculate_risk_score(request)
+
+    # 1. Верифікація ідентичності (Identity verification)
+    if not user.is_authenticated:
+        return DENY("Автентифікація обов'язкова")
+
+    if not user.mfa_verified:
+        return CHALLENGE("Потрібна багатофакторна автентифікація")
+
+    # 2. Перевірка стану пристрою (Device posture check)
+    if device.os_version &lt; MINIMUM_OS_VERSION:
+        return DENY("ОС пристрою застаріла")
+
+    if not device.disk_encrypted:
+        return DENY("Диск повинен бути зашифрований")
+
+    if not device.antivirus_up_to_date:
+        return DENY("Антивірус не оновлений")
+
+    if device.is_jailbroken or device.is_rooted:
+        return DENY("Скомпрометований пристрій")
+
+    # 3. Контекстні перевірки (Contextual checks)
+    if resource.classification == "SWIFT_TERMINAL":
+        if not is_business_hours(request.timestamp):
+            return DENY("Доступ до SWIFT лише в робочий час")
+
+        if user.location not in ALLOWED_OFFICE_LOCATIONS:
+            return DENY("Доступ лише з офісних локацій")
+
+    # 4. Оцінка ризику (Risk-based evaluation)
+    if risk_score &gt; HIGH_RISK_THRESHOLD:
+        log_alert("High-risk access attempt", request)
+        return CHALLENGE("Додаткова верифікація через керівника")
+
+    if risk_score &gt; MEDIUM_RISK_THRESHOLD:
+        return CHALLENGE("Потрібна повторна автентифікація")
+
+    # 5. Перевірка привілеїв (Least Privilege check)
+    if not user.has_role(resource.required_role):
+        return DENY("Недостатньо прав")
+
+    # Доступ дозволено — але з обмеженим часом сесії
+    grant_access(user, resource, session_ttl="15m")
+    log_access("Access granted", request)
+    return ALLOW
+</code></pre>
+
+        <h3>Технічний приклад: Kubernetes NetworkPolicy для мікросегментації</h3>
+        <p>Мікросегментація — ключовий елемент Zero Trust. Ця NetworkPolicy у Kubernetes обмежує доступ до платіжного сервісу лише з авторизованих компонентів:</p>
+        <pre><code># network-policy-payment-service.yaml
+# Мікросегментація: тільки API Gateway може звертатися до payment-service
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: payment-service-zero-trust
+  namespace: fintech-production
+spec:
+  podSelector:
+    matchLabels:
+      app: payment-service
+      tier: critical
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Дозволити вхідний трафік ТІЛЬКИ з API Gateway
+    - from:
+        - podSelector:
+            matchLabels:
+              app: api-gateway
+              role: trusted-proxy
+      ports:
+        - protocol: TCP
+          port: 8443
+  egress:
+    # Дозволити вихід тільки до бази даних та banking-gateway
+    - to:
+        - podSelector:
+            matchLabels:
+              app: postgres
+              tier: data
+      ports:
+        - protocol: TCP
+          port: 5432
+    - to:
+        - podSelector:
+            matchLabels:
+              app: banking-gateway
+      ports:
+        - protocol: TCP
+          port: 9443
+    # Дозволити DNS-резолюцію
+    - to:
+        - namespaceSelector: {}
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>У чому полягає фундаментальна відмінність Zero Trust Architecture від традиційної периметрової моделі безпеки? Чому периметровий підхід неефективний для сучасних FinTech-систем?</li>
+            <li>Поясніть принцип "Assume Breach" та як він впливає на проєктування архітектури безпеки фінансової системи.</li>
+            <li>Яку роль відіграють Policy Engine та Policy Enforcement Point у Zero Trust Architecture? Наведіть приклад їхньої взаємодії при обробці запиту до SWIFT-терміналу.</li>
+            <li>Як модель BeyondCorp від Google вплинула на розвиток Zero Trust? Які ключові елементи цієї моделі можна застосувати у банківській інфраструктурі?</li>
+            <li>Опишіть, як принцип мікросегментації реалізується на практиці у Kubernetes за допомогою NetworkPolicy. Чому default deny є критично важливим для фінансових систем?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 2.2 -->
@@ -124,6 +247,181 @@
         </ul>
 
         <p><strong>Threat Modeling на практиці.</strong> Для нової функції «P2P-перекази» команда проводить сесію threat modeling: малює data flow diagram, визначає trust boundaries (мобільний додаток — недовірена зона, API — напівдовірена, база даних — довірена), застосовує STRIDE до кожного компонента. Результат: список загроз з пріоритетами та контрзаходами, які стають частиною backlog розробки.</p>
+
+        <h3>Технічний приклад: Безпечний Dockerfile для FinTech-сервісу</h3>
+        <p>Multi-stage збірка дозволяє зменшити поверхню атаки контейнера, залишаючи лише необхідні для роботи файли. Запуск від імені непривілейованого користувача — обов'язкова практика:</p>
+        <pre><code># Dockerfile — безпечна збірка платіжного мікросервісу
+# Multi-stage build: мінімізація поверхні атаки
+
+# ============ Stage 1: Build ============
+FROM node:20-alpine AS builder
+WORKDIR /build
+
+# Копіюємо лише файли залежностей для кешування шарів
+COPY package.json package-lock.json ./
+RUN npm ci --only=production --ignore-scripts
+
+COPY src/ ./src/
+COPY tsconfig.json ./
+RUN npm run build
+
+# ============ Stage 2: Production ============
+# Використовуємо distroless — мінімальний образ без shell, пакетного менеджера
+FROM gcr.io/distroless/nodejs20-debian12:nonroot
+
+# Метадані для сканерів безпеки
+LABEL maintainer="security-team@fintech.example"
+LABEL security.scan="required"
+
+WORKDIR /app
+
+# Копіюємо лише production-артефакти
+COPY --from=builder /build/dist ./dist
+COPY --from=builder /build/node_modules ./node_modules
+
+# Запуск від непривілейованого користувача (UID 65534 = nobody)
+USER 65534:65534
+
+# Health check для Kubernetes liveness probe
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
+  CMD ["node", "dist/healthcheck.js"]
+
+# Не використовуємо ENV для секретів — вони інжектуються через Vault
+EXPOSE 8443
+
+CMD ["dist/server.js"]
+</code></pre>
+
+        <h3>Технічний приклад: Конфігурація SAST у CI/CD Pipeline</h3>
+        <p>Інтеграція інструментів статичного аналізу безпеки у CI/CD pipeline — ключовий елемент DevSecOps. Ось приклад GitHub Actions workflow з кількома рівнями перевірок:</p>
+        <pre><code># .github/workflows/security-pipeline.yml
+# DevSecOps pipeline для FinTech-додатку
+
+name: Security Pipeline
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # 1. Перевірка на секрети у коді
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan for secrets (truffleHog)
+        run: |
+          docker run --rm -v "$PWD:/repo" \
+            trufflesecurity/trufflehog:latest \
+            filesystem /repo --fail --only-verified
+
+  # 2. SAST — статичний аналіз коду
+  sast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Semgrep SAST
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: >-
+            p/owasp-top-ten
+            p/javascript
+            p/typescript
+            p/nodejs
+            p/sql-injection
+          generateSarif: "1"
+      - name: Upload SARIF to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
+
+  # 3. Перевірка залежностей на відомі вразливості
+  dependency-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Snyk dependency scan
+        uses: snyk/actions/node@master
+        with:
+          args: --severity-threshold=high
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  # 4. Сканування Docker-образу
+  container-scan:
+    runs-on: ubuntu-latest
+    needs: [sast, dependency-scan]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t payment-service:${{ github.sha }} .
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: payment-service:${{ github.sha }}
+          severity: CRITICAL,HIGH
+          exit-code: "1"
+</code></pre>
+
+        <h3>Технічний приклад: Спрощена модель загроз STRIDE для P2P-переказу</h3>
+        <p>Threat Modeling за методологією STRIDE систематично аналізує кожен компонент системи. Ось приклад документації загроз для функції P2P-переказу:</p>
+        <pre><code># STRIDE Threat Model: P2P-переказ (спрощений приклад)
+# =====================================================
+
+# Компонент: Mobile App → API Gateway → Payment Service → Database
+
+┌──────────────┐     ┌─────────────┐     ┌─────────────────┐     ┌──────────┐
+│  Mobile App  │────▶│ API Gateway │────▶│ Payment Service │────▶│ Database │
+│  (untrusted) │     │(semi-trusted)│     │   (trusted)     │     │(trusted) │
+└──────────────┘     └─────────────┘     └─────────────────┘     └──────────┘
+    Trust Boundary 1      Trust Boundary 2         Trust Boundary 3
+
+# STRIDE-аналіз для компонента "Mobile App → API Gateway":
+#
+# [S] Spoofing (Підробка ідентичності):
+#     Загроза: Зловмисник підробляє запит від імені іншого користувача
+#     Контрзахід: OAuth 2.0 + PKCE, certificate pinning
+#     Пріоритет: КРИТИЧНИЙ
+#
+# [T] Tampering (Підміна даних):
+#     Загроза: MITM-атака змінює суму або одержувача переказу
+#     Контрзахід: TLS 1.3 + certificate pinning, підпис запиту
+#     Пріоритет: КРИТИЧНИЙ
+#
+# [R] Repudiation (Відмова від авторства):
+#     Загроза: Користувач заперечує здійснення переказу
+#     Контрзахід: Цифровий підпис транзакції, audit logging
+#     Пріоритет: ВИСОКИЙ
+#
+# [I] Information Disclosure (Витік інформації):
+#     Загроза: Перехоплення даних картки/рахунку
+#     Контрзахід: Шифрування в транзиті (TLS), маскування PAN
+#     Пріоритет: КРИТИЧНИЙ
+#
+# [D] Denial of Service (Відмова в обслуговуванні):
+#     Загроза: Масові запити блокують сервіс переказів
+#     Контрзахід: Rate limiting, CAPTCHA, queue-based processing
+#     Пріоритет: ВИСОКИЙ
+#
+# [E] Elevation of Privilege (Підвищення привілеїв):
+#     Загроза: Звичайний користувач отримує admin-доступ
+#     Контрзахід: RBAC, перевірка ролей на кожному endpoint
+#     Пріоритет: КРИТИЧНИЙ
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Назвіть основні фази Secure SDLC та поясніть, які конкретні практики безпеки застосовуються на кожній фазі у FinTech-розробці.</li>
+            <li>Чим DevSecOps відрізняється від традиційного підходу до безпеки ПЗ? Які переваги надає автоматизація перевірок безпеки в CI/CD pipeline?</li>
+            <li>Поясніть різницю між SAST та DAST. На якому етапі CI/CD pipeline доцільно використовувати кожен з цих підходів і чому?</li>
+            <li>Опишіть методологію STRIDE для threat modeling. Як би ви застосували її для аналізу безпеки нової функції переказу коштів у мобільному банкінгу?</li>
+            <li>Чому multi-stage Docker build та запуск від непривілейованого користувача є важливими практиками безпеки для контейнеризованих FinTech-додатків?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 2.3 -->
@@ -157,6 +455,227 @@
         </ol>
 
         <p><strong>Приклад архітектури безпеки FinTech-платформи:</strong> API Gateway (Kong/AWS API Gateway) на вході обробляє автентифікацію та rate limiting. Далі запит потрапляє в service mesh (Istio), де mTLS шифрує комунікацію. Кожен сервіс запускається в Kubernetes з Restricted pod security та Network Policies. Секрети (API-ключі платіжних систем, credentials до баз) зберігаються у Vault та інжектуються при старті контейнера. Весь трафік логується та відправляється в SIEM для аналізу.</p>
+
+        <h3>Технічний приклад: Kubernetes NetworkPolicy — Default Deny та правила доступу</h3>
+        <p>У безпечному Kubernetes-кластері для фінансових систем спочатку забороняється весь трафік (default deny), а потім явно дозволяються лише необхідні з'єднання:</p>
+        <pre><code># 1. Default Deny — заборонити ВСЕ в namespace fintech-prod
+# Це базовий принцип Zero Trust на мережевому рівні
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: fintech-prod
+spec:
+  podSelector: {}    # Застосовується до ВСІХ подів у namespace
+  policyTypes:
+    - Ingress
+    - Egress
+
+---
+# 2. Дозволити payment-service звертатися тільки до своєї бази даних
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: payment-to-database
+  namespace: fintech-prod
+spec:
+  podSelector:
+    matchLabels:
+      app: payment-service
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: payment-db
+              tier: database
+      ports:
+        - protocol: TCP
+          port: 5432
+    # DNS resolution
+    - to:
+        - namespaceSelector: {}
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+
+---
+# 3. Дозволити вхідний трафік до payment-service тільки з api-gateway
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-gateway-to-payment
+  namespace: fintech-prod
+spec:
+  podSelector:
+    matchLabels:
+      app: payment-service
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: api-gateway
+      ports:
+        - protocol: TCP
+          port: 8443
+
+---
+# 4. Pod Security — Restricted profile для фінансових workloads
+apiVersion: v1
+kind: Pod
+metadata:
+  name: payment-service
+  namespace: fintech-prod
+spec:
+  securityContext:
+    runAsNonRoot: true           # Заборонити root
+    runAsUser: 65534             # nobody user
+    fsGroup: 65534
+    seccompProfile:
+      type: RuntimeDefault       # Обмежити системні виклики
+  containers:
+    - name: payment
+      image: registry.example.com/payment:v2.1.0@sha256:abc123...
+      securityContext:
+        allowPrivilegeEscalation: false   # Заборонити підвищення привілеїв
+        readOnlyRootFilesystem: true      # Read-only файлова система
+        capabilities:
+          drop: ["ALL"]                   # Видалити ВСІ Linux capabilities
+      resources:
+        limits:
+          memory: "512Mi"
+          cpu: "500m"
+</code></pre>
+
+        <h3>Технічний приклад: Istio mTLS та політика авторизації</h3>
+        <p>Service Mesh (Istio) забезпечує автоматичне шифрування та взаємну автентифікацію між сервісами. Ось конфігурація для строгого mTLS та обмеження доступу:</p>
+        <pre><code># istio-mtls-strict.yaml
+# Увімкнення строгого mTLS для всього namespace
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: strict-mtls
+  namespace: fintech-prod
+spec:
+  mtls:
+    mode: STRICT    # Тільки зашифрований трафік, plaintext заборонено
+
+---
+# Політика авторизації: тільки конкретні сервіси можуть викликати payment-service
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: payment-service-access
+  namespace: fintech-prod
+spec:
+  selector:
+    matchLabels:
+      app: payment-service
+  action: ALLOW
+  rules:
+    # Правило 1: API Gateway може викликати endpoints для платежів
+    - from:
+        - source:
+            principals:
+              - "cluster.local/ns/fintech-prod/sa/api-gateway"
+      to:
+        - operation:
+            methods: ["POST"]
+            paths: ["/api/v1/payments", "/api/v1/payments/confirm"]
+    # Правило 2: Audit Service може читати історію транзакцій
+    - from:
+        - source:
+            principals:
+              - "cluster.local/ns/fintech-prod/sa/audit-service"
+      to:
+        - operation:
+            methods: ["GET"]
+            paths: ["/api/v1/payments/*"]
+
+---
+# За замовчуванням — заборонити все інше
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: deny-all-default
+  namespace: fintech-prod
+spec:
+  {}    # Пуста специфікація = deny all за замовчуванням
+</code></pre>
+
+        <h3>Технічний приклад: Управління секретами з HashiCorp Vault</h3>
+        <p>Vault забезпечує безпечне зберігання та автоматичну ротацію секретів. Ось приклад інтеграції з Kubernetes через Vault Agent Injector:</p>
+        <pre><code># vault-secrets-deployment.yaml
+# Інжектування секретів з Vault в контейнер без зберігання у Kubernetes Secrets
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service
+  namespace: fintech-prod
+spec:
+  template:
+    metadata:
+      annotations:
+        # Vault Agent Injector annotations
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "payment-service"
+
+        # Інжектувати credentials бази даних
+        vault.hashicorp.com/agent-inject-secret-db-creds: "database/creds/payment-db"
+        vault.hashicorp.com/agent-inject-template-db-creds: |
+          {{- with secret "database/creds/payment-db" -}}
+          DB_HOST=payment-db.fintech-prod.svc
+          DB_USERNAME={{ .Data.username }}
+          DB_PASSWORD={{ .Data.password }}
+          {{- end -}}
+
+        # Інжектувати API-ключ платіжного шлюзу
+        vault.hashicorp.com/agent-inject-secret-api-key: "secret/data/payment/gateway-key"
+        vault.hashicorp.com/agent-inject-template-api-key: |
+          {{- with secret "secret/data/payment/gateway-key" -}}
+          PAYMENT_GATEWAY_KEY={{ .Data.data.key }}
+          {{- end -}}
+    spec:
+      serviceAccountName: payment-service
+      containers:
+        - name: payment
+          image: registry.example.com/payment:v2.1.0
+          # Секрети доступні як файли в /vault/secrets/
+          # Vault Agent автоматично оновлює їх при ротації
+
+---
+# Vault Policy — обмеження доступу до секретів
+# vault policy write payment-service - &lt;&lt;EOF
+# Дозволити читання тільки своїх секретів
+# path "database/creds/payment-db" {
+#   capabilities = ["read"]
+# }
+# path "secret/data/payment/gateway-key" {
+#   capabilities = ["read"]
+# }
+# Заборонити доступ до секретів інших сервісів
+# path "secret/data/user-service/*" {
+#   capabilities = ["deny"]
+# }
+# EOF
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Які основні виклики безпеки створює мікросервісна архітектура порівняно з монолітною? Як розширена поверхня атаки впливає на стратегію захисту FinTech-платформи?</li>
+            <li>Поясніть принцип роботи mTLS у Service Mesh. Чому взаємна автентифікація між сервісами є критично важливою для фінансових систем?</li>
+            <li>Опишіть стратегію "default deny" для Kubernetes NetworkPolicies. Як правильно побудувати набір мережевих політик для кластера з платіжними сервісами?</li>
+            <li>Чому зберігання секретів у змінних середовища або ConfigMaps є небезпечним? Які переваги надає використання HashiCorp Vault з автоматичною ротацією?</li>
+            <li>Які рівні Pod Security Standards визначені в Kubernetes та який з них є обов'язковим для фінансових workloads? Поясніть ключові обмеження рівня Restricted.</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 2.4 -->
@@ -205,6 +724,291 @@
           <li>Використовуйте whitelist для enum-полів (currency IN ['UAH', 'USD', 'EUR'])</li>
           <li>Санітизуйте рядки перед використанням у SQL, HTML, shell commands</li>
         </ul>
+
+        <h3>Технічний приклад: OAuth 2.0 Authorization Code Flow з PKCE</h3>
+        <p>PKCE (Proof Key for Code Exchange) захищає мобільні та SPA-додатки від перехоплення authorization code. Ось повний потік автентифікації для FinTech-додатку:</p>
+        <pre><code># OAuth 2.0 Authorization Code Flow з PKCE
+# Реалізація на Python для мобільного банківського додатку
+
+import hashlib
+import base64
+import secrets
+import requests
+
+class FinTechOAuthClient:
+    """OAuth 2.0 клієнт для мобільного банкінгу з PKCE"""
+
+    def __init__(self):
+        self.auth_server = "https://auth.fintech-bank.example"
+        self.client_id = "mobile-banking-app"
+        self.redirect_uri = "bankapp://oauth/callback"
+        self.scopes = "read:balance transfer:p2p read:transactions"
+
+    # Крок 1: Генерація PKCE code_verifier та code_challenge
+    def generate_pkce_pair(self):
+        # Криптографічно стійкий випадковий рядок (43-128 символів)
+        code_verifier = secrets.token_urlsafe(64)
+
+        # SHA-256 хеш verifier → base64url-encoded challenge
+        digest = hashlib.sha256(code_verifier.encode()).digest()
+        code_challenge = base64.urlsafe_b64encode(digest).rstrip(b'=').decode()
+
+        return code_verifier, code_challenge
+
+    # Крок 2: Формування URL для авторизації
+    def build_authorization_url(self, code_challenge, state):
+        params = {
+            "response_type": "code",
+            "client_id": self.client_id,
+            "redirect_uri": self.redirect_uri,
+            "scope": self.scopes,
+            "state": state,                          # CSRF protection
+            "code_challenge": code_challenge,
+            "code_challenge_method": "S256",          # SHA-256
+            "acr_values": "urn:mace:incommon:iap:silver"  # MFA required
+        }
+        return f"{self.auth_server}/authorize?" + "&amp;".join(
+            f"{k}={v}" for k, v in params.items()
+        )
+
+    # Крок 3: Обмін authorization code на токени
+    def exchange_code_for_tokens(self, auth_code, code_verifier):
+        response = requests.post(
+            f"{self.auth_server}/token",
+            data={
+                "grant_type": "authorization_code",
+                "code": auth_code,
+                "redirect_uri": self.redirect_uri,
+                "client_id": self.client_id,
+                "code_verifier": code_verifier    # Сервер перевіряє PKCE
+            },
+            headers={"Content-Type": "application/x-www-form-urlencoded"}
+        )
+
+        tokens = response.json()
+        # Відповідь:
+        # {
+        #   "access_token": "eyJhbGciOiJSUzI1NiIs...",
+        #   "token_type": "Bearer",
+        #   "expires_in": 900,        ← 15 хвилин для фінансових операцій
+        #   "refresh_token": "dGhpcyBpcyBhIHJlZnJlc2g...",
+        #   "scope": "read:balance transfer:p2p read:transactions",
+        #   "id_token": "eyJhbGciOiJSUzI1NiIs..."
+        # }
+        return tokens
+
+    # Крок 4: Використання access token для API-запиту
+    def get_balance(self, access_token):
+        response = requests.get(
+            "https://api.fintech-bank.example/v1/accounts/balance",
+            headers={
+                "Authorization": f"Bearer {access_token}",
+                "X-Request-ID": secrets.token_hex(16),  # Tracing
+                "X-Client-Version": "2.5.0"
+            }
+        )
+        return response.json()
+</code></pre>
+
+        <h3>Технічний приклад: Rate Limiting Middleware (Node.js / Express)</h3>
+        <p>Диференційоване обмеження кількості запитів — критичний захист для фінансових API. Різні типи операцій потребують різних лімітів:</p>
+        <pre><code>// rate-limiter.js — Диференційований Rate Limiting для FinTech API
+// Різні ліміти для різних типів операцій
+
+const rateLimit = require('express-rate-limit');
+const RedisStore = require('rate-limit-redis');
+const Redis = require('ioredis');
+
+// Redis для розподіленого rate limiting (кілька інстансів API)
+const redis = new Redis({
+  host: process.env.REDIS_HOST,
+  port: 6379,
+  tls: { rejectUnauthorized: true },  // TLS обов'язковий
+  password: process.env.REDIS_PASSWORD
+});
+
+// Загальний ліміт: 100 запитів на хвилину на клієнта
+const generalLimiter = rateLimit({
+  store: new RedisStore({ sendCommand: (...args) =&gt; redis.call(...args) }),
+  windowMs: 60 * 1000,      // 1 хвилина
+  max: 100,                  // Максимум 100 запитів
+  standardHeaders: true,     // RateLimit-* headers (RFC draft)
+  legacyHeaders: false,
+  keyGenerator: (req) =&gt; {
+    // Ключ: authenticated user ID або IP для анонімних
+    return req.user?.id || req.ip;
+  },
+  handler: (req, res) =&gt; {
+    // Логування для виявлення можливих атак
+    logger.warn('Rate limit exceeded', {
+      userId: req.user?.id,
+      ip: req.ip,
+      path: req.path,
+      userAgent: req.get('User-Agent')
+    });
+    res.status(429).json({
+      error: 'TOO_MANY_REQUESTS',
+      message: 'Перевищено ліміт запитів. Спробуйте пізніше.',
+      retryAfter: res.getHeader('Retry-After')
+    });
+  }
+});
+
+// Суворий ліміт для фінансових операцій: 5 на хвилину
+const transferLimiter = rateLimit({
+  store: new RedisStore({ sendCommand: (...args) =&gt; redis.call(...args) }),
+  windowMs: 60 * 1000,
+  max: 5,                    // Лише 5 переказів на хвилину
+  keyGenerator: (req) =&gt; `transfer:${req.user.id}`,
+  handler: (req, res) =&gt; {
+    // Для фінансових операцій — обов'язкове сповіщення безпеки
+    securityAlert.notify({
+      type: 'TRANSFER_RATE_LIMIT',
+      userId: req.user.id,
+      ip: req.ip,
+      timestamp: new Date().toISOString()
+    });
+    res.status(429).json({
+      error: 'TRANSFER_LIMIT_EXCEEDED',
+      message: 'Занадто багато спроб переказу. Зверніться до підтримки.'
+    });
+  }
+});
+
+// Суворий ліміт для автентифікації: захист від brute-force
+const authLimiter = rateLimit({
+  store: new RedisStore({ sendCommand: (...args) =&gt; redis.call(...args) }),
+  windowMs: 15 * 60 * 1000, // 15 хвилин
+  max: 5,                    // 5 спроб входу за 15 хвилин
+  keyGenerator: (req) =&gt; `auth:${req.body.email || req.ip}`,
+  skipSuccessfulRequests: true  // Успішні входи не рахуються
+});
+
+// Застосування у Express
+const app = require('express')();
+
+app.use('/api/', generalLimiter);
+app.use('/api/v1/transfers', transferLimiter);
+app.use('/api/v1/auth/login', authLimiter);
+</code></pre>
+
+        <h3>Технічний приклад: Input Validation для фінансових операцій (Python)</h3>
+        <p>Строга валідація вхідних даних — остання лінія оборони. Кожне поле перевіряється на тип, діапазон та безпечність значення:</p>
+        <pre><code># input_validation.py — Валідація фінансових операцій
+# Використання Pydantic для строгої типізації та перевірки
+
+from pydantic import BaseModel, Field, validator, constr
+from decimal import Decimal
+from enum import Enum
+from typing import Optional
+import re
+from datetime import datetime
+
+class Currency(str, Enum):
+    """Дозволені валюти — whitelist підхід"""
+    UAH = "UAH"
+    USD = "USD"
+    EUR = "EUR"
+
+class TransferRequest(BaseModel):
+    """Модель запиту P2P-переказу з повною валідацією"""
+
+    # IBAN — строгий формат (UA + 2 цифри + 25 символів)
+    sender_iban: constr(pattern=r'^UA\d{2}[A-Z0-9]{25}$')
+    recipient_iban: constr(pattern=r'^UA\d{2}[A-Z0-9]{25}$')
+
+    # Сума: від 0.01 до 500,000 (максимум для P2P)
+    amount: Decimal = Field(
+        gt=Decimal('0'),
+        le=Decimal('500000'),
+        decimal_places=2,
+        description="Сума переказу"
+    )
+
+    currency: Currency
+
+    # Призначення платежу: тільки безпечні символи, до 140 знаків
+    description: constr(
+        max_length=140,
+        pattern=r'^[a-zA-Zа-яА-ЯіІїЇєЄґҐ0-9\s\.,\-:;()]+$'
+    )
+
+    # Ідемпотентний ключ — для захисту від дублювання
+    idempotency_key: constr(pattern=r'^[a-f0-9\-]{36}$')
+
+    @validator('recipient_iban')
+    def sender_and_recipient_must_differ(cls, v, values):
+        """Відправник і одержувач не можуть бути одним рахунком"""
+        if 'sender_iban' in values and v == values['sender_iban']:
+            raise ValueError('Відправник і одержувач не можуть збігатися')
+        return v
+
+    @validator('description')
+    def sanitize_description(cls, v):
+        """Додаткова санітизація від SQL injection та XSS"""
+        # Заборонити підозрілі патерни
+        dangerous_patterns = [
+            r'(?i)(select|insert|update|delete|drop|union|exec)',
+            r'(&lt;script|javascript:|on\w+=)',
+            r'(--|;|\/\*|\*\/)',
+        ]
+        for pattern in dangerous_patterns:
+            if re.search(pattern, v):
+                raise ValueError('Заборонені символи у призначенні платежу')
+        return v.strip()
+
+    class Config:
+        # Заборонити зайві поля (захист від mass assignment)
+        extra = 'forbid'
+        # Приклад валідного запиту
+        schema_extra = {
+            "example": {
+                "sender_iban": "UA213223130000026007233566001",
+                "recipient_iban": "UA213223130000026007233566002",
+                "amount": "1500.00",
+                "currency": "UAH",
+                "description": "Оплата за послуги",
+                "idempotency_key": "550e8400-e29b-41d4-a716-446655440000"
+            }
+        }
+
+# Використання у FastAPI endpoint
+from fastapi import FastAPI, HTTPException, Depends
+
+app = FastAPI()
+
+@app.post("/api/v1/transfers")
+async def create_transfer(
+    transfer: TransferRequest,    # Pydantic автоматично валідує
+    current_user = Depends(get_authenticated_user)
+):
+    # Додаткова бізнес-валідація
+    if transfer.amount &gt; current_user.daily_limit:
+        raise HTTPException(
+            status_code=400,
+            detail="Перевищено денний ліміт переказів"
+        )
+
+    # Перевірка BOLA: чи належить sender_iban поточному користувачу
+    if transfer.sender_iban not in current_user.accounts:
+        raise HTTPException(
+            status_code=403,
+            detail="Рахунок не належить поточному користувачу"
+        )
+
+    return await payment_service.process_transfer(transfer)
+</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Що таке BOLA (Broken Object Level Authorization) і чому ця вразливість є найпоширенішою в API фінансових систем? Наведіть приклад атаки та контрзаходу.</li>
+            <li>Поясніть, як OAuth 2.0 Authorization Code Flow з PKCE захищає мобільний банківський додаток. Чому Implicit Flow вважається небезпечним?</li>
+            <li>Чому rate limiting повинен бути диференційованим для різних типів API-операцій у FinTech? Які ліміти доцільно встановити для операцій перегляду балансу, переказів та автентифікації?</li>
+            <li>Опишіть механізм захисту webhooks у фінансових інтеграціях. Яку роль відіграють HMAC-підпис, IP whitelisting та replay protection?</li>
+            <li>Чому Input Validation повинна виконуватися на рівні кожного сервісу, навіть якщо API Gateway та WAF вже перевіряють запити? Наведіть приклад ситуації, коли покладання лише на WAF є недостатнім.</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Summary -->

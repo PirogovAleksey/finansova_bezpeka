@@ -86,6 +86,200 @@
         <p><strong>Multisig (мультипідпис)</strong> — для підписання транзакції потрібно M з N ключів (наприклад, 2 з 3). Використовується корпоративними treasury, DAO, біржами для захисту від компрометації одного ключа. Gnosis Safe — найпопулярніше рішення для Ethereum multisig.</p>
 
         <p><strong>MPC (Multi-Party Computation)</strong> — сучасна альтернатива multisig: приватний ключ розділяється на частини (shares), які ніколи не збираються разом. Кожна сторона підписує свою частину, і лише комбінація shares утворює валідний підпис. Переваги: сумісність з будь-яким блокчейном, менший gas cost, гнучкість у зміні схеми підписання.</p>
+
+        <h3>Порівняльна таблиця типів гаманців</h3>
+        <table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%; margin:1em 0;">
+          <thead>
+            <tr style="background:var(--accent-light);">
+              <th>Тип гаманця</th>
+              <th>Приклади</th>
+              <th>Безпека</th>
+              <th>Зручність</th>
+              <th>Ризики</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Hot wallet</strong></td>
+              <td>MetaMask, Trust Wallet, Exodus</td>
+              <td>Низька-середня</td>
+              <td>Висока</td>
+              <td>Malware, фішинг, keyloggers</td>
+            </tr>
+            <tr>
+              <td><strong>Cold wallet (hardware)</strong></td>
+              <td>Ledger Nano X, Trezor Model T</td>
+              <td>Висока</td>
+              <td>Середня</td>
+              <td>Фізична втрата, supply chain атаки</td>
+            </tr>
+            <tr>
+              <td><strong>Paper wallet</strong></td>
+              <td>Bitaddress.org (офлайн)</td>
+              <td>Висока (якщо правильно створено)</td>
+              <td>Низька</td>
+              <td>Знищення, витік при друці</td>
+            </tr>
+            <tr>
+              <td><strong>Custodial</strong></td>
+              <td>Binance, Coinbase, Kraken</td>
+              <td>Залежить від біржі</td>
+              <td>Дуже висока</td>
+              <td>Злом біржі, банкрутство (FTX)</td>
+            </tr>
+            <tr>
+              <td><strong>Multisig</strong></td>
+              <td>Gnosis Safe, Electrum multisig</td>
+              <td>Дуже висока</td>
+              <td>Низька</td>
+              <td>Складність координації ключів</td>
+            </tr>
+            <tr>
+              <td><strong>MPC</strong></td>
+              <td>Fireblocks, ZenGo</td>
+              <td>Дуже висока</td>
+              <td>Висока</td>
+              <td>Залежність від провайдера MPC</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Технічний приклад: BIP-39 мнемонічна фраза та HD-гаманець (ієрархічна деривація ключів)</h3>
+        <p>Стандарт BIP-39 визначає генерацію мнемонічної фрази з ентропії, а BIP-32/BIP-44 — ієрархічну деривацію ключів з одного seed. Нижче показано, як з однієї seed-фрази можна отримати необмежену кількість адрес:</p>
+<pre><code># Процес деривації ключів у HD-гаманці (BIP-39 / BIP-32 / BIP-44)
+# ==================================================================
+
+# Крок 1: Генерація ентропії (128 біт для 12 слів, 256 біт для 24 слів)
+Ентропія (128 біт): 0c1e24e5917779d297e14d45f14e1a1a
+
+# Крок 2: Обчислення контрольної суми (SHA-256, перші 4 біти для 128-біт ентропії)
+SHA-256(ентропія) → перші 4 біти = checksum
+
+# Крок 3: Конвертація у мнемонічну фразу (кожне слово = 11 біт, зі словника 2048 слів)
+Мнемоніка (12 слів):
+  "army van defense carry jealous true garbage claim echo media make crunch"
+
+# Крок 4: Мнемоніка → Seed (PBKDF2-HMAC-SHA512, 2048 ітерацій)
+PBKDF2(mnemonic, "mnemonic" + passphrase, 2048, SHA-512)
+→ Seed (512 біт): 5b56c417303faa3fcba7e57400e120a0...
+
+# Крок 5: Seed → Master Key (HMAC-SHA512)
+HMAC-SHA512(key="Bitcoin seed", data=seed)
+→ Master Private Key (256 біт) + Master Chain Code (256 біт)
+
+# Крок 6: Деривація за шляхом BIP-44
+# Формат: m / purpose' / coin_type' / account' / change / address_index
+#
+# Ethereum:  m/44'/60'/0'/0/0  → перша адреса
+#            m/44'/60'/0'/0/1  → друга адреса
+# Bitcoin:   m/44'/0'/0'/0/0   → перша адреса
+# (апостроф ' означає hardened derivation — додатковий захист)
+
+m/44'/60'/0'/0/0 → Private Key → Public Key → Ethereum Address 0xAb5801a7...
+m/44'/60'/0'/0/1 → Private Key → Public Key → Ethereum Address 0x1f9840a8...
+m/44'/60'/0'/0/2 → Private Key → Public Key → Ethereum Address 0xdAC17F95...</code></pre>
+
+        <h3>Технічний приклад: Створення гаманця за допомогою ethers.js</h3>
+        <p>Бібліотека ethers.js дозволяє програмно генерувати гаманці, працювати з мнемонічними фразами та підписувати транзакції. Нижче — типовий сценарій створення HD-гаманця:</p>
+<pre><code>// Створення та використання Ethereum HD-гаманця (ethers.js v6)
+// =============================================================
+const { ethers } = require("ethers");
+
+// 1. Створення нового випадкового HD-гаманця з мнемонічною фразою
+const wallet = ethers.Wallet.createRandom();
+console.log("Мнемонічна фраза:", wallet.mnemonic.phrase);
+// Результат: "army van defense carry jealous true garbage claim echo media make crunch"
+console.log("Шлях деривації:", wallet.mnemonic.path);
+// Результат: "m/44'/60'/0'/0/0"
+console.log("Приватний ключ:", wallet.privateKey);
+// Результат: "0x4c0883a69102937d623..."
+console.log("Адреса:", wallet.address);
+// Результат: "0xAb5801a7D398351b8bE11C439..."
+
+// ⚠️ УВАГА: мнемонічну фразу та приватний ключ НІКОЛИ не зберігати у коді!
+// Використовувати environment variables або hardware security modules (HSM)
+
+// 2. Відновлення гаманця зі seed-фрази
+const mnemonic = "army van defense carry jealous true garbage claim echo media make crunch";
+const restoredWallet = ethers.Wallet.fromPhrase(mnemonic);
+console.log("Відновлена адреса:", restoredWallet.address);
+
+// 3. Деривація кількох адрес з однієї seed-фрази
+const hdNode = ethers.HDNodeWallet.fromPhrase(mnemonic);
+for (let i = 0; i &lt; 5; i++) {
+  const child = hdNode.deriveChild(i);
+  console.log(`Адреса ${i}: ${child.address}`);
+}
+// Адреса 0: 0xAb5801a7D398351b8bE11C439...
+// Адреса 1: 0x1f9840a85d5aF5bf1D1762F925...
+// Адреса 2: 0xdAC17F958D2ee523a2206206994...
+// Адреса 3: 0x6B175474E89094C44Da98b954E...
+// Адреса 4: 0xA0b86991c6218b36c1d19D4a2e...
+
+// 4. Підписання транзакції (без відправки)
+const tx = {
+  to: "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
+  value: ethers.parseEther("0.1"),   // 0.1 ETH
+  gasLimit: 21000n,
+};
+const signedTx = await wallet.signTransaction(tx);
+console.log("Підписана транзакція:", signedTx);</code></pre>
+
+        <h3>Технічний приклад: Multisig транзакція (Gnosis Safe)</h3>
+        <p>Multisig-гаманець вимагає підтвердження від кількох власників перед виконанням транзакції. Ось як виглядає потік 2-з-3 multisig:</p>
+<pre><code>// Потік Multisig транзакції (2-з-3, Gnosis Safe SDK)
+// ===================================================
+const { SafeFactory, SafeAccountConfig } = require("@safe-global/protocol-kit");
+
+// Крок 1: Створення Safe (multisig гаманця) з 3 власниками, поріг = 2
+const safeAccountConfig = {
+  owners: [
+    "0xOwnerA_CFO_address...",     // CFO компанії
+    "0xOwnerB_CTO_address...",     // CTO компанії
+    "0xOwnerC_Auditor_address..."  // Зовнішній аудитор
+  ],
+  threshold: 2  // Потрібно 2 з 3 підписів
+};
+const safeSdk = await SafeFactory.create({ ethAdapter });
+const safe = await safeSdk.deploySafe({ safeAccountConfig });
+console.log("Safe адреса:", await safe.getAddress());
+
+// Крок 2: CFO ініціює транзакцію (переказ 10 ETH)
+const txData = {
+  to: "0xRecipient_address...",
+  value: ethers.parseEther("10").toString(),
+  data: "0x"
+};
+const safeTx = await safe.createTransaction({ transactions: [txData] });
+
+// Крок 3: CFO підписує (1-й підпис)
+const signedByCFO = await safe.signTransaction(safeTx);
+// Статус: 1/2 підписів ✓
+
+// Крок 4: CTO перевіряє деталі та підписує (2-й підпис)
+const signedByCTO = await safe.signTransaction(signedByCFO);
+// Статус: 2/2 підписів ✓✓ — поріг досягнуто!
+
+// Крок 5: Будь-хто з власників виконує транзакцію
+const executeTxResponse = await safe.executeTransaction(signedByCTO);
+console.log("Tx hash:", executeTxResponse.hash);
+// Транзакцію виконано on-chain
+
+// Якщо один з ключів скомпрометовано:
+// - Зловмисник має лише 1 з 3 ключів
+// - Не може виконати жодної транзакції (потрібно 2)
+// - Решта власників можуть замінити скомпрометований ключ</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Порівняйте hot wallet та cold wallet з точки зору безпеки та зручності. У яких сценаріях доцільно використовувати кожен тип?</li>
+            <li>Поясніть процес деривації ключів у HD-гаманці (BIP-32/BIP-39/BIP-44). Чому одна seed-фраза може генерувати необмежену кількість адрес?</li>
+            <li>Що означає принцип «not your keys, not your coins»? Наведіть реальні приклади, коли custodial зберігання призвело до втрати коштів.</li>
+            <li>Як працює схема multisig (M-з-N)? Яку перевагу дає 2-з-3 multisig порівняно із звичайним одиночним ключем для корпоративного treasury?</li>
+            <li>Порівняйте multisig та MPC (Multi-Party Computation) підходи до управління ключами. Які переваги MPC над класичним multisig?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 10.2 -->
@@ -111,6 +305,285 @@
           <li><strong>Bug bounty</strong> — Immunefi, HackerOne для безперервного тестування community. Виплати до $10 млн за критичні вразливості.</li>
           <li><strong>Використання перевірених бібліотек</strong> — OpenZeppelin Contracts як стандарт для ERC-20, ERC-721, access control.</li>
         </ul>
+
+        <h3>Технічний приклад: Вразливість Reentrancy (паттерн The DAO)</h3>
+        <p>Reentrancy — найвідоміша вразливість смарт-контрактів, яка дозволяє зловмисному контракту повторно викликати функцію жертви до оновлення балансу. Саме ця вразливість була використана у зломі The DAO (2016, $60 млн):</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+// ❌ ВРАЗЛИВИЙ КОНТРАКТ — паттерн The DAO
+// ========================================
+contract VulnerableVault {
+    mapping(address =&gt; uint256) public balances;
+
+    function deposit() external payable {
+        balances[msg.sender] += msg.value;
+    }
+
+    function withdraw() external {
+        uint256 amount = balances[msg.sender];
+        require(amount &gt; 0, "No balance");
+
+        // ❌ ПОМИЛКА: спочатку відправляємо ETH...
+        (bool success, ) = msg.sender.call{value: amount}("");
+        require(success, "Transfer failed");
+
+        // ❌ ...і лише ПОТІМ оновлюємо баланс
+        // Зловмисний контракт може повторно викликати withdraw()
+        // до того, як баланс буде обнулено!
+        balances[msg.sender] = 0;
+    }
+}
+
+// 🔴 КОНТРАКТ ЗЛОВМИСНИКА
+contract Attacker {
+    VulnerableVault public vault;
+    uint256 public attackCount;
+
+    constructor(address _vault) {
+        vault = VulnerableVault(_vault);
+    }
+
+    function attack() external payable {
+        // Крок 1: Вносимо 1 ETH
+        vault.deposit{value: 1 ether}();
+        // Крок 2: Запускаємо withdraw — спрацює receive()
+        vault.withdraw();
+    }
+
+    // Ця функція викликається автоматично при отриманні ETH
+    receive() external payable {
+        if (address(vault).balance &gt;= 1 ether) {
+            attackCount++;
+            // Повторний виклик withdraw() ДО оновлення балансу!
+            vault.withdraw();  // reentrancy!
+        }
+    }
+    // Результат: зловмисник вносить 1 ETH, виводить ВСЕ ETH з контракту
+}
+
+// ✅ БЕЗПЕЧНИЙ КОНТРАКТ — паттерн Checks-Effects-Interactions
+// ============================================================
+contract SecureVault {
+    mapping(address =&gt; uint256) public balances;
+
+    function deposit() external payable {
+        balances[msg.sender] += msg.value;
+    }
+
+    function withdraw() external {
+        uint256 amount = balances[msg.sender];
+        require(amount &gt; 0, "No balance");
+
+        // ✅ Checks: перевірка виконана вище
+        // ✅ Effects: СПОЧАТКУ оновлюємо стан
+        balances[msg.sender] = 0;
+
+        // ✅ Interactions: і лише ПОТІМ взаємодіємо із зовнішнім контрактом
+        (bool success, ) = msg.sender.call{value: amount}("");
+        require(success, "Transfer failed");
+        // Тепер reentrancy не працює — баланс вже 0
+    }
+}
+
+// ✅ АЛЬТЕРНАТИВА: використання ReentrancyGuard від OpenZeppelin
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+contract GuardedVault is ReentrancyGuard {
+    mapping(address =&gt; uint256) public balances;
+
+    function withdraw() external nonReentrant {
+        // Модифікатор nonReentrant блокує повторний вхід
+        uint256 amount = balances[msg.sender];
+        require(amount &gt; 0);
+        balances[msg.sender] = 0;
+        (bool success, ) = msg.sender.call{value: amount}("");
+        require(success);
+    }
+}</code></pre>
+
+        <h3>Технічний приклад: Integer Overflow та SafeMath</h3>
+        <p>У Solidity версій до 0.8.0 арифметичні операції не перевіряли переповнення. Це дозволяло зловмисникам маніпулювати балансами:</p>
+<pre><code>// Integer Overflow/Underflow — вразливість у Solidity &lt; 0.8.0
+// =============================================================
+
+// ❌ ВРАЗЛИВИЙ КОНТРАКТ (Solidity &lt; 0.8.0)
+pragma solidity ^0.7.0;
+
+contract VulnerableToken {
+    mapping(address =&gt; uint256) public balances;
+
+    function transfer(address to, uint256 amount) external {
+        // ❌ Якщо balances[msg.sender] = 0 і amount = 1:
+        // 0 - 1 = 2^256 - 1 = 115792089237316195423570985008687...
+        // Замість помилки — астрономічний баланс!
+        balances[msg.sender] -= amount;  // UNDERFLOW!
+        balances[to] += amount;
+
+        // ❌ Ще приклад overflow:
+        // uint256 max = type(uint256).max;  // 2^256 - 1
+        // max + 1 = 0   ← overflow, «обнуляє» баланс
+    }
+}
+
+// ✅ ЗАХИСТ: бібліотека SafeMath (для Solidity &lt; 0.8.0)
+import "@openzeppelin/contracts/math/SafeMath.sol";
+
+contract SafeToken {
+    using SafeMath for uint256;
+    mapping(address =&gt; uint256) public balances;
+
+    function transfer(address to, uint256 amount) external {
+        // ✅ SafeMath перевіряє overflow/underflow і відкидає транзакцію
+        balances[msg.sender] = balances[msg.sender].sub(amount); // revert якщо underflow
+        balances[to] = balances[to].add(amount);                 // revert якщо overflow
+    }
+}
+
+// ✅ Solidity 0.8.0+ — автоматична перевірка (SafeMath більше не потрібний)
+pragma solidity ^0.8.0;
+
+contract ModernToken {
+    mapping(address =&gt; uint256) public balances;
+
+    function transfer(address to, uint256 amount) external {
+        // Автоматичний revert при overflow/underflow
+        balances[msg.sender] -= amount;  // безпечно з 0.8.0+
+        balances[to] += amount;          // безпечно з 0.8.0+
+    }
+
+    // ⚠️ УВАГА: unchecked {} блоки обходять цей захист!
+    // Використовувати unchecked тільки для оптимізації gas
+    // коли overflow неможливий за логікою програми
+    function unsafeIncrement(uint256 x) pure external returns (uint256) {
+        unchecked { return x + 1; }  // ← overflow можливий!
+    }
+}</code></pre>
+
+        <h3>Технічний приклад: Вразливість Access Control</h3>
+        <p>Відсутність або неправильна реалізація контролю доступу дозволяє будь-кому викликати привілейовані функції контракту:</p>
+<pre><code>// Access Control — критична вразливість смарт-контрактів
+// ======================================================
+
+// ❌ ВРАЗЛИВИЙ КОНТРАКТ — відсутня перевірка доступу
+contract VulnerableDAO {
+    mapping(address =&gt; uint256) public balances;
+    address public owner;
+    bool public paused;
+
+    constructor() { owner = msg.sender; }
+
+    // ❌ Будь-хто може викликати mint та створити собі токени!
+    function mint(address to, uint256 amount) external {
+        balances[to] += amount;
+    }
+
+    // ❌ Будь-хто може поставити контракт на паузу!
+    function pause() external {
+        paused = true;
+    }
+
+    // ❌ Будь-хто може змінити власника!
+    function setOwner(address newOwner) external {
+        owner = newOwner;
+    }
+}
+
+// ✅ БЕЗПЕЧНИЙ КОНТРАКТ — з OpenZeppelin AccessControl
+import "@openzeppelin/contracts/access/AccessControl.sol";
+
+contract SecureDAO is AccessControl {
+    mapping(address =&gt; uint256) public balances;
+
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
+
+    bool public paused;
+
+    constructor() {
+        // Засновник отримує роль адміністратора
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(MINTER_ROLE, msg.sender);
+        _grantRole(PAUSER_ROLE, msg.sender);
+    }
+
+    // ✅ Тільки адреси з MINTER_ROLE можуть створювати токени
+    function mint(address to, uint256 amount) external onlyRole(MINTER_ROLE) {
+        balances[to] += amount;
+    }
+
+    // ✅ Тільки адреси з PAUSER_ROLE можуть ставити на паузу
+    function pause() external onlyRole(PAUSER_ROLE) {
+        paused = true;
+    }
+
+    // ✅ Передача ролей через стандартний механізм AccessControl
+    // grantRole(), revokeRole(), renounceRole()
+}</code></pre>
+
+        <h3>Чек-лист аудиту безпеки смарт-контрактів</h3>
+        <table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%; margin:1em 0;">
+          <thead>
+            <tr style="background:var(--accent-light);">
+              <th>Категорія</th>
+              <th>Перевірка</th>
+              <th>Інструменти</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Reentrancy</strong></td>
+              <td>Checks-Effects-Interactions паттерн, ReentrancyGuard</td>
+              <td>Slither, Mythril</td>
+            </tr>
+            <tr>
+              <td><strong>Overflow/Underflow</strong></td>
+              <td>Solidity 0.8+ або SafeMath, перевірка unchecked блоків</td>
+              <td>Slither, Securify</td>
+            </tr>
+            <tr>
+              <td><strong>Access Control</strong></td>
+              <td>onlyOwner / AccessControl для всіх привілейованих функцій</td>
+              <td>Slither, ручний аудит</td>
+            </tr>
+            <tr>
+              <td><strong>Front-running</strong></td>
+              <td>Commit-reveal схеми, приватний mempool (Flashbots)</td>
+              <td>Tenderly simulation</td>
+            </tr>
+            <tr>
+              <td><strong>Oracle</strong></td>
+              <td>TWAP замість spot price, Chainlink Data Feeds</td>
+              <td>Ручний аудит, fuzzing</td>
+            </tr>
+            <tr>
+              <td><strong>Unchecked calls</strong></td>
+              <td>Перевірка return values для call, send, delegatecall</td>
+              <td>Slither, Mythril</td>
+            </tr>
+            <tr>
+              <td><strong>Upgradability</strong></td>
+              <td>Proxy storage collision, ініціалізація в proxy</td>
+              <td>OpenZeppelin Upgrades Plugin</td>
+            </tr>
+            <tr>
+              <td><strong>Gas &amp; DoS</strong></td>
+              <td>Unbounded loops, block gas limit DoS</td>
+              <td>Hardhat Gas Reporter</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Поясніть механізм атаки reentrancy на прикладі The DAO. Чому паттерн Checks-Effects-Interactions запобігає цій вразливості?</li>
+            <li>Що таке integer overflow/underflow у контексті смарт-контрактів? Як Solidity 0.8+ вирішує цю проблему і чому блок unchecked{} може бути небезпечним?</li>
+            <li>Чому публічність коду смарт-контрактів одночасно є і перевагою (прозорість), і ризиком (вразливості видно всім)? Як це впливає на безпеку?</li>
+            <li>Назвіть основні етапи аудиту безпеки смарт-контракту. Які автоматизовані інструменти (Slither, Mythril) доповнюють ручний аудит?</li>
+            <li>Порівняйте підходи до access control: простий onlyOwner vs рольова модель OpenZeppelin AccessControl. У яких сценаріях доцільний кожен підхід?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 10.3 -->
@@ -139,6 +612,269 @@
           <li>Wormhole (2022) — $320 млн: вразливість у верифікації підписів.</li>
           <li>Nomad Bridge (2022) — $190 млн: помилка в ініціалізації, що дозволила будь-кому вивести кошти.</li>
         </ul>
+
+        <h3>Технічний приклад: Flash Loan атака (псевдокод)</h3>
+        <p>Flash loan атака використовує безкоштовний кредит без застави для маніпуляції цінами та вилучення коштів з протоколів. Вся атака відбувається в одній atomic транзакції:</p>
+<pre><code>// Flash Loan атака — псевдокод типової атаки
+// =============================================
+// Мета: маніпуляція ціни токена на DEX для вилучення коштів з lending протоколу
+
+contract FlashLoanAttacker {
+    // Крок 0: Початковий капітал зловмисника = $0
+
+    function executeAttack() external {
+        // КРОК 1: Взяти flash loan 10,000 ETH (≈$30M) з Aave
+        // Умова: повернути 10,000 ETH + 0.09% комісія в цій же транзакції
+        aaveLendingPool.flashLoan(
+            address(this),      // отримувач
+            WETH,               // актив
+            10_000 ether,       // сума
+            ""                  // параметри
+        );
+    }
+
+    // Ця функція автоматично викликається Aave після отримання кредиту
+    function executeOperation(
+        address asset,
+        uint256 amount,       // 10,000 ETH
+        uint256 premium,      // 9 ETH (0.09% комісія)
+        address initiator
+    ) external returns (bool) {
+
+        // КРОК 2: Скинути 5,000 ETH на DEX (Uniswap пул ETH/TOKEN_X)
+        // Це ОБВАЛЮЄ ціну TOKEN_X відносно ETH
+        uniswapRouter.swapExactTokensForTokens(
+            5000 ether,         // продаємо 5000 ETH
+            0,                  // мін. вихід (без обмеження)
+            [WETH, TOKEN_X],    // шлях обміну
+            address(this),
+            deadline
+        );
+        // Ціна TOKEN_X на Uniswap: $100 → $2 (маніпульована)
+
+        // КРОК 3: На lending протоколі, що використовує Uniswap як oracle,
+        // TOKEN_X тепер «коштує» $2 замість $100
+        // Ліквідувати позиції інших користувачів за заниженою ціною
+        // або взяти кредит з мінімальною заставою
+        lendingProtocol.borrow(
+            WETH,              // беремо ETH
+            8000 ether,        // сума кредиту
+            TOKEN_X,           // застава (оцінена за маніпульованою ціною)
+            myTokenXBalance    // використовуємо дешево куплений TOKEN_X
+        );
+
+        // КРОК 4: Повернути ціну до нормальної (продати TOKEN_X назад)
+        uniswapRouter.swapExactTokensForTokens(
+            tokenXBalance, 0, [TOKEN_X, WETH], address(this), deadline
+        );
+
+        // КРОК 5: Повернути flash loan + комісію
+        IERC20(WETH).approve(address(aaveLendingPool), amount + premium);
+        // Повертаємо 10,009 ETH
+
+        // ПРИБУТОК зловмисника: ~3,000 ETH ($9M)
+        // Час атаки: 1 транзакція, ~15 секунд
+        return true;
+    }
+}</code></pre>
+
+        <h3>Технічний приклад: Oracle Manipulation</h3>
+        <p>Маніпуляція оракулами — ключовий вектор атак на DeFi. Порівняння вразливого та безпечного підходів:</p>
+<pre><code>// Oracle Manipulation — вразливий vs безпечний підхід
+// ====================================================
+
+// ❌ ВРАЗЛИВИЙ: використання spot price з Uniswap як oracle
+contract VulnerableLending {
+    IUniswapV2Pair public pair;  // Пул ETH/USDC на Uniswap
+
+    function getPrice() public view returns (uint256) {
+        // ❌ Spot price — можна маніпулювати flash loan-ом!
+        (uint112 reserve0, uint112 reserve1, ) = pair.getReserves();
+        // price = reserve1 / reserve0
+        return (uint256(reserve1) * 1e18) / uint256(reserve0);
+        // Зловмисник може тимчасово змінити reserves одним swap-ом
+    }
+
+    function borrow(uint256 collateralAmount) external {
+        uint256 price = getPrice();  // ← маніпульована ціна!
+        uint256 borrowAmount = collateralAmount * price / 1e18;
+        // Зловмисник отримує кредит за штучно завищеною ціною застави
+        _transfer(msg.sender, borrowAmount);
+    }
+}
+
+// ✅ БЕЗПЕЧНИЙ: використання Chainlink Price Feeds
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+
+contract SecureLending {
+    AggregatorV3Interface public priceFeed;
+
+    constructor() {
+        // Chainlink ETH/USD Price Feed (агреговані дані з багатьох джерел)
+        priceFeed = AggregatorV3Interface(
+            0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419
+        );
+    }
+
+    function getPrice() public view returns (uint256) {
+        (
+            /* uint80 roundID */,
+            int256 price,       // Ціна з 8 десятковими знаками
+            /* uint startedAt */,
+            uint256 updatedAt,
+            /* uint80 answeredInRound */
+        ) = priceFeed.latestRoundData();
+
+        // ✅ Перевірка свіжості даних (не старіше 1 години)
+        require(block.timestamp - updatedAt &lt; 3600, "Stale price");
+        // ✅ Перевірка валідності
+        require(price &gt; 0, "Invalid price");
+
+        return uint256(price);
+    }
+}
+
+// ✅ АЛЬТЕРНАТИВА: TWAP (Time-Weighted Average Price) від Uniswap V3
+// Середньозважена ціна за період — неможливо маніпулювати в одній транзакції
+contract TWAPOracle {
+    IUniswapV3Pool public pool;
+
+    function getTWAPPrice(uint32 twapInterval) external view returns (uint256) {
+        // Отримуємо накопичені tick-значення за останні N секунд
+        uint32[] memory secondsAgos = new uint32[](2);
+        secondsAgos[0] = twapInterval;  // N секунд тому
+        secondsAgos[1] = 0;             // зараз
+
+        (int56[] memory tickCumulatives, ) = pool.observe(secondsAgos);
+
+        // Середній tick за період
+        int56 tickCumulativesDelta = tickCumulatives[1] - tickCumulatives[0];
+        int24 avgTick = int24(tickCumulativesDelta / int56(int32(twapInterval)));
+
+        // Конвертація tick → price
+        // Маніпуляція TWAP вимагає підтримки штучної ціни протягом
+        // ВСЬОГО періоду — економічно невигідно
+        return getQuoteAtTick(avgTick, 1e18, WETH, USDC);
+    }
+}</code></pre>
+
+        <h3>Rug Pull: евристики для виявлення</h3>
+        <p>Більшість rug pull мають характерні ознаки, які можна виявити аналізом коду контракту до інвестування:</p>
+<pre><code>// Евристики виявлення Rug Pull у смарт-контрактах
+// ================================================
+
+// 🔴 ЧЕРВОНІ ПРАПОРИ (Red Flags) у коді токен-контракту:
+
+// 1. Необмежені mint-права
+function mint(address to, uint256 amount) external onlyOwner {
+    _mint(to, amount);  // 🔴 Власник може друкувати токени без обмежень
+}
+
+// 2. Функція зміни комісії (fee) до 100%
+uint256 public sellFee = 5;  // Початкова комісія 5%
+function setSellFee(uint256 _fee) external onlyOwner {
+    sellFee = _fee;  // 🔴 Може бути встановлено 99% — продаж неможливий!
+}
+
+// 3. Blacklist/whitelist, що блокує продаж
+mapping(address =&gt; bool) public blacklisted;
+function transfer(address to, uint256 amount) public override {
+    require(!blacklisted[msg.sender], "Blacklisted");  // 🔴
+    super.transfer(to, amount);
+}
+
+// 4. Backdoor для вилучення ліквідності
+function emergencyWithdraw() external onlyOwner {
+    // 🔴 Вилучає ВСЮ ліквідність з пулу
+    IUniswapV2Pair(pair).transfer(owner, pairBalance);
+}
+
+// 5. Proxy-контракт з можливістю зміни логіки
+// 🔴 Початковий код виглядає безпечно, але власник може
+//    змінити імплементацію на шкідливу в будь-який момент
+
+// ─────────────────────────────────────────────────────
+// ✅ ЗЕЛЕНІ ПРАПОРИ (ознаки легітимного проєкту):
+// - Liquidity locked (заблокована ліквідність) на 6-12+ місяців
+// - Ownership renounced (відмова від прав власника)
+// - Аудит від відомої фірми (CertiK, PeckShield, Hacken)
+// - Max supply обмежений, mint-функція відсутня
+// - Відкритий та верифікований код на Etherscan
+// - Публічна та деанонімізована команда (KYC)
+
+// Інструменти перевірки:
+// - TokenSniffer (tokensniffer.com) — автоматичний аналіз
+// - GoPlus Security API (gopluslabs.io) — API для перевірки
+// - RugDoc (rugdoc.io) — рев'ю DeFi-проєктів
+// - De.Fi Scanner — аналіз безпеки контрактів</code></pre>
+
+        <h3>Порівняльна таблиця атак на DeFi-протоколи</h3>
+        <table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%; margin:1em 0;">
+          <thead>
+            <tr style="background:var(--accent-light);">
+              <th>Тип атаки</th>
+              <th>Механізм</th>
+              <th>Приклади інцидентів</th>
+              <th>Збитки</th>
+              <th>Захист</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Flash Loan</strong></td>
+              <td>Маніпуляція ціни через безкоштовний кредит в одній транзакції</td>
+              <td>bZx (2020), Pancake Bunny (2021), Cream Finance (2021)</td>
+              <td>$300M+</td>
+              <td>TWAP oracle, Chainlink, обмеження ліквідності</td>
+            </tr>
+            <tr>
+              <td><strong>Rug Pull</strong></td>
+              <td>Розробники виводять ліквідність або друкують токени</td>
+              <td>Squid Game Token (2021), AnubisDAO (2021)</td>
+              <td>$2.8B (2021)</td>
+              <td>Locked liquidity, аудит, renounced ownership</td>
+            </tr>
+            <tr>
+              <td><strong>Bridge Exploit</strong></td>
+              <td>Компрометація валідаторів або вразливість у верифікації</td>
+              <td>Ronin ($625M), Wormhole ($320M), Nomad ($190M)</td>
+              <td>$2B+</td>
+              <td>Децентралізовані валідатори, fraud proofs, optimistic verification</td>
+            </tr>
+            <tr>
+              <td><strong>Oracle Manipulation</strong></td>
+              <td>Підміна цінових даних для вигідних операцій</td>
+              <td>Mango Markets ($114M), Harvest Finance ($34M)</td>
+              <td>$400M+</td>
+              <td>Chainlink, TWAP, multiple oracle sources</td>
+            </tr>
+            <tr>
+              <td><strong>Governance Attack</strong></td>
+              <td>Захоплення голосів через flash loan для зміни протоколу</td>
+              <td>Beanstalk ($182M), Build Finance ($470K)</td>
+              <td>$200M+</td>
+              <td>Timelock, token lockup для голосування, quorum</td>
+            </tr>
+            <tr>
+              <td><strong>Reentrancy</strong></td>
+              <td>Повторний виклик функції до оновлення стану</td>
+              <td>The DAO ($60M), Cream Finance ($130M)</td>
+              <td>$200M+</td>
+              <td>CEI паттерн, ReentrancyGuard, formal verification</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Опишіть покроковий механізм flash loan атаки. Чому вона можлива лише на блокчейні і неможлива у традиційних фінансах?</li>
+            <li>Чому використання spot price з DEX (Uniswap) як oracle є вразливим? Порівняйте підходи Chainlink та TWAP для захисту від маніпуляції цінами.</li>
+            <li>Назвіть 5 червоних прапорів (red flags) у коді токен-контракту, які вказують на потенційний rug pull. Які інструменти допомагають їх виявити?</li>
+            <li>Чому cross-chain bridges є одними з найвразливіших компонентів DeFi? Проаналізуйте причини атаки на Ronin Bridge ($625 млн).</li>
+            <li>Яку роль відіграє atomic nature транзакцій у блокчейні для flash loan атак? Як timelock та governance delay можуть захистити від governance attacks?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 10.4 -->
@@ -161,6 +897,283 @@
           <li><strong>Travel Rule (FATF Recommendation 16)</strong> — при переказі криптоактивів понад поріг ($1000) біржі повинні обмінюватися інформацією про відправника та отримувача, аналогічно банківським переказам.</li>
           <li><strong>Україна</strong> — Закон «Про віртуальні активи» (2022) встановлює правовий фреймворк, НКЦБФР як регулятор, вимоги до реєстрації та AML-compliance для VASP (Virtual Asset Service Providers).</li>
         </ul>
+
+        <h3>Технічний приклад: Proof of Reserves (Merkle Tree верифікація)</h3>
+        <p>Proof of Reserves дозволяє біржі криптографічно довести, що вона має достатні резерви для покриття депозитів користувачів, без розкриття індивідуальних балансів. Використовується Merkle Tree:</p>
+<pre><code># Proof of Reserves — верифікація за допомогою Merkle Tree
+# =========================================================
+import hashlib
+import json
+
+class MerkleProofOfReserves:
+    """
+    Біржа будує Merkle Tree з хешів (user_id + balance).
+    Кожен користувач може перевірити, що його баланс включено в дерево,
+    не бачачи балансів інших користувачів.
+    """
+
+    @staticmethod
+    def hash_node(data: str) -&gt; str:
+        return hashlib.sha256(data.encode()).hexdigest()
+
+    @staticmethod
+    def hash_pair(left: str, right: str) -&gt; str:
+        combined = left + right
+        return hashlib.sha256(combined.encode()).hexdigest()
+
+    def build_tree(self, user_balances: list) -&gt; dict:
+        """
+        user_balances = [
+            {"user_id": "hash_user_A", "balance": 1.5},   # 1.5 BTC
+            {"user_id": "hash_user_B", "balance": 0.8},   # 0.8 BTC
+            {"user_id": "hash_user_C", "balance": 3.2},   # 3.2 BTC
+            {"user_id": "hash_user_D", "balance": 0.5},   # 0.5 BTC
+        ]
+        Total reserves: 6.0 BTC
+        """
+        # Крок 1: Створити leaf-вузли (хеші балансів)
+        leaves = []
+        for ub in user_balances:
+            leaf = self.hash_node(f"{ub['user_id']}:{ub['balance']}")
+            leaves.append(leaf)
+
+        # Крок 2: Побудувати дерево знизу вгору
+        #
+        #              Merkle Root
+        #             /            \
+        #        Hash(AB)        Hash(CD)
+        #       /       \       /       \
+        #   Hash(A)  Hash(B) Hash(C)  Hash(D)
+        #      |        |       |        |
+        #  User_A:1.5 User_B:0.8 User_C:3.2 User_D:0.5
+        #
+        tree = [leaves]
+        current_level = leaves
+
+        while len(current_level) &gt; 1:
+            next_level = []
+            for i in range(0, len(current_level), 2):
+                left = current_level[i]
+                right = current_level[i + 1] if i + 1 &lt; len(current_level) else left
+                next_level.append(self.hash_pair(left, right))
+            tree.append(next_level)
+            current_level = next_level
+
+        merkle_root = current_level[0]
+        return {"root": merkle_root, "tree": tree, "total_reserves": sum(u['balance'] for u in user_balances)}
+
+    def generate_proof(self, tree, index: int) -&gt; list:
+        """Генерує Merkle proof для конкретного користувача"""
+        proof = []
+        for level in tree["tree"][:-1]:
+            if index % 2 == 0:
+                sibling_idx = index + 1 if index + 1 &lt; len(level) else index
+                proof.append({"position": "right", "hash": level[sibling_idx]})
+            else:
+                proof.append({"position": "left", "hash": level[index - 1]})
+            index //= 2
+        return proof
+
+    def verify_proof(self, leaf_hash: str, proof: list, root: str) -&gt; bool:
+        """Користувач верифікує, що його баланс включено в дерево"""
+        current = leaf_hash
+        for step in proof:
+            if step["position"] == "left":
+                current = self.hash_pair(step["hash"], current)
+            else:
+                current = self.hash_pair(current, step["hash"])
+        return current == root  # True = баланс підтверджено!
+
+# === Приклад використання ===
+por = MerkleProofOfReserves()
+
+# Біржа публікує Merkle Root та загальну суму резервів
+balances = [
+    {"user_id": "sha256(user_a@email.com + nonce)", "balance": 1.5},
+    {"user_id": "sha256(user_b@email.com + nonce)", "balance": 0.8},
+    {"user_id": "sha256(user_c@email.com + nonce)", "balance": 3.2},
+    {"user_id": "sha256(user_d@email.com + nonce)", "balance": 0.5},
+]
+tree = por.build_tree(balances)
+print(f"Merkle Root: {tree['root']}")
+print(f"Загальні резерви: {tree['total_reserves']} BTC")
+
+# Аудитор перевіряє: on-chain баланс гаманця біржі &gt;= total_reserves
+# Кожен користувач верифікує свій proof:
+proof = por.generate_proof(tree, index=0)  # proof для User A
+leaf = por.hash_node("sha256(user_a@email.com + nonce):1.5")
+is_valid = por.verify_proof(leaf, proof, tree["root"])
+print(f"User A баланс підтверджено: {is_valid}")  # True</code></pre>
+
+        <h3>Технічний приклад: Архітектура Cold Storage біржі</h3>
+        <p>Нижче представлена текстова діаграма архітектури зберігання криптоактивів на криптобіржі. Основний принцип — мінімізація активів у hot wallet:</p>
+<pre><code>Архітектура Cold/Hot Storage криптобіржі
+=========================================
+
+                    ┌─────────────────────────────────────────┐
+                    │           КОРИСТУВАЧІ (Internet)         │
+                    └──────────────────┬──────────────────────┘
+                                       │
+                                       ▼
+                    ┌─────────────────────────────────────────┐
+                    │              WAF / DDoS Protection       │
+                    │          (Cloudflare, Akamai)            │
+                    └──────────────────┬──────────────────────┘
+                                       │
+                    ┌──────────────────┴──────────────────────┐
+                    │          APPLICATION LAYER               │
+                    │  ┌────────────┐  ┌────────────────────┐ │
+                    │  │  Trading   │  │  Withdrawal Engine  │ │
+                    │  │  Engine    │  │  (rate limits, MFA, │ │
+                    │  │            │  │   whitelist, delay) │ │
+                    │  └────────────┘  └────────┬───────────┘ │
+                    └───────────────────────────┼─────────────┘
+                                                │
+                 ┌──────────────────────────────┼──────────────────┐
+                 │                              │                  │
+                 ▼                              ▼                  ▼
+    ┌────────────────────┐    ┌──────────────────────┐   ┌────────────────┐
+    │   HOT WALLET (5%)  │    │  WARM WALLET (15%)   │   │ COLD STORAGE   │
+    │                    │    │                      │   │   (80%)        │
+    │ • Автоматичні      │    │ • Напів-автоматичні  │   │                │
+    │   виведення        │    │   виведення          │   │ • Multisig     │
+    │ • Підключений      │    │ • Потрібне 1         │   │   (3-з-5)      │
+    │   до інтернету     │    │   підтвердження      │   │ • Air-gapped   │
+    │ • Автоматичне      │    │ • HSM-захищений      │   │   комп'ютери   │
+    │   поповнення       │    │                      │   │ • Географічно  │
+    │   з warm wallet    │    │                      │   │   розподілені  │
+    │                    │    │                      │   │   сейфи        │
+    │ Ліміт: $500K       │    │ Ліміт: $5M           │   │ • Ручне        │
+    │                    │    │                      │   │   підписання   │
+    └─────────┬──────────┘    └──────────┬───────────┘   │ • 24-48 год    │
+              │                          │               │   обробка      │
+              │     Автоматичне          │               └───────┬────────┘
+              │     поповнення           │                       │
+              │◄─────────────────────────┘      Ручне            │
+              │                                 поповнення       │
+              │◄─────────────────────────────────────────────────┘
+
+    ┌─────────────────────────────────────────────────────────────────┐
+    │                    МОНІТОРИНГ ТА АЛЕРТИ                         │
+    │                                                                 │
+    │  • Аномальні обсяги виведення → автоматична пауза               │
+    │  • Hot wallet баланс &lt; порогу → автоматичне поповнення з warm    │
+    │  • Підозрілі IP/пристрої → додаткова верифікація                │
+    │  • Chainalysis/Elliptic → перевірка адрес на санкції            │
+    │  • Щоденна звірка балансів (reconciliation)                     │
+    └─────────────────────────────────────────────────────────────────┘</code></pre>
+
+        <h3>Ключові вимоги регуляції MiCA (Markets in Crypto-Assets)</h3>
+        <table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%; margin:1em 0;">
+          <thead>
+            <tr style="background:var(--accent-light);">
+              <th>Категорія</th>
+              <th>Вимога MiCA</th>
+              <th>Деталі</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Ліцензування CASP</strong></td>
+              <td>Обов'язкова ліцензія для Crypto-Asset Service Providers</td>
+              <td>Єдиний «паспорт» для роботи у всіх країнах ЄС, мінімальний капітал залежно від послуг</td>
+            </tr>
+            <tr>
+              <td><strong>Stablecoins (EMT/ART)</strong></td>
+              <td>E-Money Tokens та Asset-Referenced Tokens</td>
+              <td>100% резерви для EMT, диверсифіковані резерви для ART, регулярний аудит резервів</td>
+            </tr>
+            <tr>
+              <td><strong>Whitepaper</strong></td>
+              <td>Обов'язковий whitepaper для публічного розміщення</td>
+              <td>Опис технології, ризиків, прав власників; відповідальність емітента за точність</td>
+            </tr>
+            <tr>
+              <td><strong>AML/KYC</strong></td>
+              <td>Повна відповідність AML-директивам ЄС</td>
+              <td>Верифікація клієнтів, моніторинг транзакцій, звітування про підозрілі операції</td>
+            </tr>
+            <tr>
+              <td><strong>Custody</strong></td>
+              <td>Вимоги до зберігання активів клієнтів</td>
+              <td>Сегрегація активів, страхування, прозора політика зберігання ключів</td>
+            </tr>
+            <tr>
+              <td><strong>Захист споживачів</strong></td>
+              <td>Прозорість, розкриття ризиків, right of withdrawal</td>
+              <td>14-денний cooling period для роздрібних інвесторів, заборона misleading marketing</td>
+            </tr>
+            <tr>
+              <td><strong>Market Abuse</strong></td>
+              <td>Заборона маніпуляцій ринком та інсайдерської торгівлі</td>
+              <td>Wash trading, pump-and-dump, front-running — кримінальна відповідальність</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Чек-лист безпеки криптобіржі</h3>
+        <table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%; margin:1em 0;">
+          <thead>
+            <tr style="background:var(--accent-light);">
+              <th>Область</th>
+              <th>Заходи безпеки</th>
+              <th>Пріоритет</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Зберігання активів</strong></td>
+              <td>Cold storage (80%+), multisig (3-з-5+), HSM, географічний розподіл</td>
+              <td>Критичний</td>
+            </tr>
+            <tr>
+              <td><strong>Автентифікація</strong></td>
+              <td>MFA (TOTP/FIDO2), anti-phishing код, session management, device fingerprinting</td>
+              <td>Критичний</td>
+            </tr>
+            <tr>
+              <td><strong>Виведення коштів</strong></td>
+              <td>Whitelist адрес, cooling period (24-72 год), email-підтвердження, ліміти</td>
+              <td>Критичний</td>
+            </tr>
+            <tr>
+              <td><strong>Proof of Reserves</strong></td>
+              <td>Щомісячний PoR (Merkle Tree), незалежний аудитор, on-chain верифікація</td>
+              <td>Високий</td>
+            </tr>
+            <tr>
+              <td><strong>Мережева безпека</strong></td>
+              <td>WAF, DDoS protection, IDS/IPS, мережева сегментація, VPN для адмінів</td>
+              <td>Високий</td>
+            </tr>
+            <tr>
+              <td><strong>Моніторинг</strong></td>
+              <td>Real-time аномалії, Chainalysis/Elliptic для AML, SIEM, 24/7 SOC</td>
+              <td>Високий</td>
+            </tr>
+            <tr>
+              <td><strong>Страхування</strong></td>
+              <td>Insurance fund (SAFU), зовнішній страховий поліс, reserve ratio</td>
+              <td>Середній</td>
+            </tr>
+            <tr>
+              <td><strong>Compliance</strong></td>
+              <td>KYC/AML, Travel Rule, MiCA ліцензування, регулярні аудити</td>
+              <td>Високий</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Поясніть принцип роботи Proof of Reserves на основі Merkle Tree. Як користувач може самостійно перевірити, що його баланс включено у звіт біржі?</li>
+            <li>Опишіть архітектуру cold/hot/warm storage на криптобіржі. Чому рекомендується зберігати не менше 80% активів у cold storage?</li>
+            <li>Які основні вимоги MiCA (Markets in Crypto-Assets) до криптобірж та стейблкоїнів? Як MiCA змінює правила гри для криптоіндустрії в ЄС?</li>
+            <li>Що таке Travel Rule (FATF Recommendation 16) та як він впливає на приватність криптовалютних переказів? Яка роль VASP у його реалізації?</li>
+            <li>Проаналізуйте крах FTX з точки зору безпеки: які механізми (Proof of Reserves, сегрегація активів, аудит) могли б запобігти цій ситуації?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Summary -->

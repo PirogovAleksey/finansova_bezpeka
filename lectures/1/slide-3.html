@@ -237,7 +237,173 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. MITRE ATT&CK mapping -->
+    <section class="slide">
+      <h1>MITRE ATT&CK у фінансах</h1>
+      <h2>Матриця тактик та технік, релевантних для банків</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-red">
+          <span class="card-icon">🔓</span>
+          <div class="card-title">Initial Access</div>
+          <div class="card-text">T1566 Phishing, T1190 Exploit Public App, T1195 Supply Chain</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔄</span>
+          <div class="card-title">Lateral Movement</div>
+          <div class="card-text">T1021 Remote Services, T1550 Use Alternate Auth, T1210 Exploitation</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">📤</span>
+          <div class="card-title">Exfiltration</div>
+          <div class="card-text">T1041 C2 Channel, T1567 Web Service, T1048 Alternative Protocol</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🎭</span>
+          <div class="card-title">Defense Evasion</div>
+          <div class="card-text">T1070 Indicator Removal, T1036 Masquerading, T1027 Obfuscation</div>
+        </div>
+        <div class="card accent-cyan">
+          <span class="card-icon">🔑</span>
+          <div class="card-title">Credential Access</div>
+          <div class="card-text">T1003 OS Credential Dumping, T1110 Brute Force, T1558 Kerberoasting</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">💰</span>
+          <div class="card-title">Impact</div>
+          <div class="card-text">T1486 Data Encrypted, T1657 Financial Theft, T1485 Data Destruction</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1rem;">
+        <p><strong>MITRE ATT&CK</strong> — стандарт для опису поведінки зловмисників. Дозволяє структурувати загрози та будувати захист по кожній техніці.</p>
+      </div>
+    </section>
+
+    <!-- 9. Detection opportunities -->
+    <section class="slide">
+      <h1>Можливості виявлення на кожній фазі</h1>
+      <h2>Де можна зупинити атаку?</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>Розвідка</strong> — моніторинг сканування портів, Threat Intelligence, OSINT-аудит власних витоків</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>Доставка</strong> — email gateway, URL-фільтрація, пісочниця для вкладень</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Експлуатація</strong> — EDR, антивірус, патч-менеджмент, контроль макросів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Закріплення</strong> — моніторинг автозапуску, аналіз планувальника завдань, SIEM-правила</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">5️⃣</span>
+          <span class="il-text"><strong>Переміщення</strong> — мережева сегментація, NTA, PAM, аномалії в AD</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">6️⃣</span>
+          <span class="il-text"><strong>Ексфільтрація</strong> — DLP, аналіз DNS-трафіку, контроль зовнішніх з'єднань</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">7️⃣</span>
+          <span class="il-text"><strong>Дії на цілі</strong> — контроль SWIFT-операцій, моніторинг транзакцій, резервне копіювання</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Carbanak: детальний Kill Chain -->
+    <section class="slide">
+      <h1>Carbanak: детальний Kill Chain</h1>
+      <h2>Поетапний розбір реальної атаки на 100+ банків</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="icon-list">
+            <div class="icon-list-item">
+              <span class="il-icon">📧</span>
+              <span class="il-text"><strong>Фішинг:</strong> лист із вкладенням .doc з макросом — «резюме» або «запит НБУ»</span>
+            </div>
+            <div class="icon-list-item">
+              <span class="il-icon">🚪</span>
+              <span class="il-text"><strong>RAT:</strong> Carbanak backdoor з повним віддаленим контролем робочого столу</span>
+            </div>
+            <div class="icon-list-item">
+              <span class="il-icon">📹</span>
+              <span class="il-text"><strong>Відеозапис:</strong> 2-4 місяці запису екранів операторів SWIFT та АБС</span>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="icon-list">
+            <div class="icon-list-item">
+              <span class="il-icon">🎭</span>
+              <span class="il-text"><strong>Імітація:</strong> зловмисники виконували операції як легітимні оператори</span>
+            </div>
+            <div class="icon-list-item">
+              <span class="il-icon">🏧</span>
+              <span class="il-text"><strong>Виведення:</strong> банкомати видавали готівку за розкладом, мули забирали</span>
+            </div>
+            <div class="icon-list-item">
+              <span class="il-icon">💸</span>
+              <span class="il-text"><strong>SWIFT:</strong> фальшиві міжнародні перекази на підставні рахунки</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Ключ до успіху Carbanak — <strong>терпіння</strong>. Місяці спостереження дозволили ідеально імітувати легітимні операції.</p>
+      </div>
+    </section>
+
+    <!-- 11. Defensive Kill Chain -->
+    <section class="slide">
+      <h1>Defensive Kill Chain</h1>
+      <h2>Проактивний захист: дзеркальна модель для команди безпеки</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Розвідка</div>
+          <div class="step-desc">Threat Intel, OSINT аудит</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Зміцнення</div>
+          <div class="step-desc">Hardening, патчі, MFA</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Виявлення</div>
+          <div class="step-desc">SIEM, EDR, NTA, SOC 24/7</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Стримування</div>
+          <div class="step-desc">Ізоляція, блокування C2</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Ліквідація</div>
+          <div class="step-desc">Видалення шкідливого ПЗ</div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-title">Відновлення</div>
+          <div class="step-desc">Бекапи, DR-план</div>
+        </div>
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-title">Аналіз</div>
+          <div class="step-desc">Lessons learned, покращення</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p><strong>Принцип:</strong> на кожну фазу атаки повинна бути відповідна фаза захисту. Мета — не лише реагувати, а <strong>випереджати</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

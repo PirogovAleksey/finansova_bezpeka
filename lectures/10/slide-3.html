@@ -130,6 +130,118 @@
     </section>
 
     <section class="slide">
+      <h1>Flash Loan атаки: механіка детально</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">⚡</span>
+          <span class="il-text"><strong>Atomарність</strong> — позика + маніпуляція + exploit + повернення = одна транзакція, або все, або нічого</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💰</span>
+          <span class="il-text"><strong>Без застави</strong> — Aave, dYdX надають $100M+ миттєво; вартість атаки = лише gas (~$50)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>Pancake Bunny (2021)</strong> — $45M: flash loan → маніпуляція ціною LP-токенів → мінтинг</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔗</span>
+          <span class="il-text"><strong>Cream Finance (2021)</strong> — $130M: серія flash loan атак через маніпуляцію ціни oracle</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Flash loans демократизували атаки: не потрібен капітал, лише знання вразливостей протоколу.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Маніпуляція Oracle</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Spot Price</div>
+          <div class="step-desc">Протокол використовує поточну ціну з одного DEX як oracle</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Pump</div>
+          <div class="step-desc">Атакуючий купує великий об'єм → ціна токена злітає на DEX</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Exploit</div>
+          <div class="step-desc">Бере кредит під «дорогу» заставу або ліквідує чужі позиції</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Dump</div>
+          <div class="step-desc">Продає токен → ціна повертається, протокол залишається з поганим боргом</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Захист: Chainlink (децентралізований oracle, агрегація даних з 20+ джерел), Uniswap TWAP (середня ціна за час).</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Виявлення Rug Pull</h1>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🔍</span>
+          <div class="card-title">Аналіз контракту</div>
+          <div class="card-text">Функції mint(), pause(), blacklist() у owner? Можливість заблокувати продаж токенів (honeypot)</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔒</span>
+          <div class="card-title">Liquidity Lock</div>
+          <div class="card-text">LP-токени залочені? На який термін? Team Tokens lock? Unicrypt, PinkLock для перевірки</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🛠️</span>
+          <div class="card-title">Автоматичні сканери</div>
+          <div class="card-text">TokenSniffer, GoPlus API, RugDoc, De.Fi Scanner: автоматична оцінка ризику токена</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">📋</span>
+          <div class="card-title">Due Diligence</div>
+          <div class="card-text">Реальна команда (KYC)? GitHub активність? Аудит від відомої компанії? Токеноміка розумна?</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Статистика DeFi зломів</h1>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">$6.3B</div>
+          <div class="stat-label">загальні втрати DeFi (2020-2024)</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">40%</div>
+          <div class="stat-label">атаки на bridges (cross-chain)</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="stat-value">30%</div>
+          <div class="stat-label">flash loan + oracle маніпуляції</div>
+        </div>
+      </div>
+      <div class="icon-list" style="margin-top: 1.2rem;">
+        <div class="icon-list-item">
+          <span class="il-icon">🏆</span>
+          <span class="il-text"><strong>Топ-3 зломи:</strong> Ronin Bridge $625M, Poly Network $611M, Wormhole $320M</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📈</span>
+          <span class="il-text"><strong>Тренд:</strong> зменшення зломів у 2024 завдяки кращим аудитам та формальній верифікації</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💡</span>
+          <span class="il-text"><strong>Повернення:</strong> ~20% вкрадених коштів повертаються через переговори або white-hat дії</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

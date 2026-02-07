@@ -195,6 +195,108 @@
     </section>
 
     <section class="slide">
+      <h1>A01-A03 детально</h1>
+      <h2>Три найкритичніші категорії</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-red">
+          <span class="card-icon">🔓</span>
+          <div class="card-title">A01: Broken Access Control</div>
+          <div class="card-text">94% додатків мають проблеми. IDOR, горизонтальна/вертикальна ескалація, CORS misconfiguration, force browsing до адмін-панелей</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔐</span>
+          <div class="card-title">A02: Cryptographic Failures</div>
+          <div class="card-text">Передача PAN у відкритому вигляді, використання SHA-1/MD5, жорстко закодовані ключі, відсутність TLS 1.2+, слабкий entropy для токенів</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">💉</span>
+          <div class="card-title">A03: Injection</div>
+          <div class="card-text">SQL, NoSQL, OS Command, LDAP, XSS (тепер тут). ORM не панацея: HQL injection, Sequelize raw queries. Parameterized queries обов'язкові</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>A01-A03 разом відповідають за понад 60% усіх критичних вразливостей у фінансових веб-додатках.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>A04-A07 детально</h1>
+      <h2>Архітектура, конфігурація, компоненти</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📐</span>
+          <span class="il-text"><strong>A04: Insecure Design</strong> — відсутність threat modeling, бізнес-логіка без abuse cases. Приклад: необмежена кількість спроб OTP у мобільному банкінгу</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚙️</span>
+          <span class="il-text"><strong>A05: Security Misconfiguration</strong> — default credentials (admin/admin), відкриті S3 buckets, stack traces у production, XML external entities enabled</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📦</span>
+          <span class="il-text"><strong>A06: Vulnerable Components</strong> — 80% коду — open source. SCA-інструменти: Dependabot, Snyk, OWASP Dependency-Check. SBOM як вимога регуляторів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🪪</span>
+          <span class="il-text"><strong>A07: Auth Failures</strong> — credential stuffing (мільярди паролів у відкритому доступі), відсутність MFA, слабкий rate limiting, session fixation</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Еволюція OWASP Top 10: 2017 → 2021 → 2025</h1>
+      <div class="card-grid cols-3">
+        <div class="card accent-orange">
+          <span class="card-icon">📜</span>
+          <div class="card-title">2017</div>
+          <div class="card-text">#1 Injection<br>#2 Broken Auth<br>#3 Sensitive Data<br>#4 XXE<br>Фокус на технічних вразливостях</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📋</span>
+          <div class="card-title">2021</div>
+          <div class="card-text">#1 Access Control ↑<br>#3 Injection ↓<br>+Insecure Design<br>+SSRF<br>Зсув до архітектурних проблем</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🔮</span>
+          <div class="card-title">2025</div>
+          <div class="card-text">AI/ML вразливості<br>API Security окремо<br>Supply Chain посилено<br>Cloud-native ризики<br>Zero Trust як вимога</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Тренд еволюції: технічні баги → архітектурні проблеми → екосистемні ризики (supply chain, AI, cloud).</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Вразливості у FinTech контексті</h1>
+      <h2>Специфіка фінансових додатків</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">💳</span>
+          <div class="card-title">Платіжні API</div>
+          <div class="card-text">IDOR у транзакціях, race condition при переказах, маніпуляція сумою через параметр amount</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🏦</span>
+          <div class="card-title">Інтернет-банкінг</div>
+          <div class="card-text">Session hijacking, XSS для крадіжки cookie, CSRF на форму переказу коштів</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">📱</span>
+          <div class="card-title">Мобільний банкінг</div>
+          <div class="card-text">Insecure local storage, відсутність cert pinning, reverse engineering APK/IPA</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🔗</span>
+          <div class="card-title">Open Banking API</div>
+          <div class="card-text">OAuth2 misconfiguration, broken object-level auth, excessive data exposure через PSD2 API</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Середня вартість витоку у фінансовому секторі: $5.9M (2024). Найвищий показник серед усіх галузей після охорони здоров'я.</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

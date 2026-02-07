@@ -130,6 +130,122 @@
     </section>
 
     <section class="slide">
+      <h1>Reentrancy: The DAO (детально)</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">The DAO</div>
+          <div class="step-desc">Інвестиційний фонд на Ethereum, зібрав $150M ETH (2016)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">splitDAO()</div>
+          <div class="step-desc">Функція виведення: спочатку відправляє ETH, потім оновлює баланс</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Exploit</div>
+          <div class="step-desc">Fallback → повторний виклик splitDAO() до оновлення балансу: $60M вкрадено</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Hard Fork</div>
+          <div class="step-desc">Ethereum спільнота відкотила транзакції → розкол на ETH та ETC</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Захист: Checks-Effects-Interactions pattern — оновити стан ДО зовнішнього виклику. ReentrancyGuard від OpenZeppelin.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Integer Overflow/Underflow</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">💥</span>
+            <div class="card-title">Overflow (до Solidity 0.8)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              uint8 max = 255<br>
+              255 + 1 = 0 (переповнення!)<br>
+              Атакуючий отримує нескінченні токени<br>
+              BEC Token (2018): $900M обнулено
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">📉</span>
+            <div class="card-title">Underflow (до Solidity 0.8)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              uint256 balance = 0<br>
+              0 - 1 = MAX_UINT256<br>
+              Баланс стає астрономічним<br>
+              Обхід перевірок на достатність коштів
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Solidity 0.8+ автоматично перевіряє overflow/underflow (revert). Для старих контрактів: SafeMath від OpenZeppelin.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Інструменти аудиту смарт-контрактів</h1>
+      <div class="card-grid">
+        <div class="card accent-green">
+          <span class="card-icon">🐍</span>
+          <div class="card-title">Slither</div>
+          <div class="card-text">Статичний аналіз (Trail of Bits). Швидкий, 90+ детекторів, інтеграція з CI/CD. Безкоштовний</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔮</span>
+          <div class="card-title">Mythril</div>
+          <div class="card-text">Символічне виконання (ConsenSys). Глибший аналіз, знаходить складні вразливості. Повільніший</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🐰</span>
+          <div class="card-title">Echidna</div>
+          <div class="card-text">Фаззінг (Trail of Bits). Генерує випадкові вхідні дані, перевіряє інваріанти контракту</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🏢</span>
+          <div class="card-title">Ручний аудит</div>
+          <div class="card-text">Trail of Bits, OpenZeppelin, Certik. $50K-$500K за аудит. Незамінний для бізнес-логіки</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Найкращий підхід: автоматичні інструменти (Slither + Mythril) + ручний аудит + bug bounty програма.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Формальна верифікація</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📐</span>
+          <span class="il-text"><strong>Що це?</strong> — математичний доказ, що код відповідає специфікації на 100%</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔬</span>
+          <span class="il-text"><strong>Certora Prover</strong> — пише правила (інваріанти) та перевіряє їх для ВСІХ можливих станів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🧮</span>
+          <span class="il-text"><strong>K Framework</strong> — формальна семантика EVM, використовується для верифікації MakerDAO, Uniswap</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚖️</span>
+          <span class="il-text"><strong>Обмеження</strong> — дорого ($100K+), довго (місяці), верифікує лише специфіковані властивості</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Аудит знаходить відомі патерни вразливостей. Формальна верифікація доводить відсутність цілих класів помилок.</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

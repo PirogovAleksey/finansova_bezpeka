@@ -204,7 +204,142 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. Password Entropy -->
+    <section class="slide">
+      <h1>Ентропія паролів</h1>
+      <h2>Скільки бітів випадковості у вашому паролі?</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🔓</span>
+          <div class="card-title">«password» — 0 біт</div>
+          <div class="card-text">Словникове слово. Зламується миттєво через dictionary attack</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🟠</span>
+          <div class="card-title">«P@ssw0rd!» — 28 біт</div>
+          <div class="card-text">Передбачувані підстановки (a→@, o→0). Зламується за хвилини</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🔵</span>
+          <div class="card-title">«Xk9$mL2!qR» — 60 біт</div>
+          <div class="card-text">Випадковий, але важко запам'ятати. Brute force — роки</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🟢</span>
+          <div class="card-title">«correct horse battery staple» — 77 біт</div>
+          <div class="card-text">4 випадкових слова (Diceware). Легко запам'ятати, centuries to crack</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Формула: H = L &times; log2(R), де L — довжина, R — розмір алфавіту. NIST рекомендує мінімум 8 символів, краще — парольні фрази від 16 символів.</p>
+      </div>
+    </section>
+
+    <!-- 9. FIDO2/WebAuthn Flow -->
+    <section class="slide">
+      <h1>FIDO2/WebAuthn — детальний потік</h1>
+      <h2>Від реєстрації до автентифікації</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">navigator.credentials.create()</div>
+          <div class="step-desc">Браузер запитує автентифікатор створити пару ключів для origin</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Attestation Response</div>
+          <div class="step-desc">Публічний ключ + attestation зберігається на сервері (Relying Party)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">navigator.credentials.get()</div>
+          <div class="step-desc">Сервер надсилає challenge, браузер передає автентифікатору</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">User Verification</div>
+          <div class="step-desc">Біометрика або PIN на пристрої — розблокування приватного ключа</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Assertion Response</div>
+          <div class="step-desc">Підпис challenge + clientDataJSON (origin, type) → сервер верифікує</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>clientDataJSON включає origin: фішинговий сайт fake-bank.com не зможе отримати підпис для bank.com — захист на рівні протоколу.</p>
+      </div>
+    </section>
+
+    <!-- 10. Біометрична таблиця порівняння -->
+    <section class="slide">
+      <h1>Порівняння біометричних методів</h1>
+      <h2>FAR vs FRR для фінансових систем</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-blue">
+          <span class="card-icon">👆</span>
+          <div class="card-title">Відбиток пальця</div>
+          <div class="card-text">FAR: 0.001%<br>FRR: 2%<br>Вартість: низька<br>Швидкість: &lt;1 сек</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">👤</span>
+          <div class="card-title">Розпізнавання обличчя</div>
+          <div class="card-text">FAR: 0.0001%<br>FRR: 3%<br>Вартість: середня<br>Вразливість: deepfake</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">👁️</span>
+          <div class="card-title">Сканування райдужки</div>
+          <div class="card-text">FAR: 0.00001%<br>FRR: 1%<br>Вартість: висока<br>Найточніший метод</div>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 1.2rem;">
+        <div class="stat-box blue">
+          <div class="stat-value">FAR</div>
+          <div class="stat-label">False Accept Rate — хибне прийняття чужого</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">FRR</div>
+          <div class="stat-label">False Reject Rate — хибне відхилення свого</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">Liveness</div>
+          <div class="stat-label">Визначення живої людини vs фото/маска</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. MFA Bypass Techniques -->
+    <section class="slide">
+      <h1>Техніки обходу MFA</h1>
+      <h2>Відомі атаки на багатофакторну автентифікацію</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🎣</span>
+          <span class="il-text"><strong>Real-time phishing (Evilginx2)</strong> — проксі-сервер перехоплює токен після введення MFA коду жертвою</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📱</span>
+          <span class="il-text"><strong>SIM-swapping</strong> — зловмисник переносить номер жертви на свою SIM-карту (SMS OTP)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔔</span>
+          <span class="il-text"><strong>MFA fatigue (prompt bombing)</strong> — масові push-запити поки жертва не натисне «Дозволити» (Uber 2022)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🍪</span>
+          <span class="il-text"><strong>Session hijacking</strong> — крадіжка cookie після успішної MFA (pass-the-cookie)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>SS7-атаки</strong> — перехоплення SMS через вразливості мобільного протоколу SS7</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Захист: FIDO2 стійкий до всіх цих атак завдяки origin binding та криптографічному підпису. Number matching у push знижує MFA fatigue.</p>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

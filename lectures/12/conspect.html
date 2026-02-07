@@ -65,6 +65,135 @@
           <li><strong>Post-Incident Activity (пост-інцидентна діяльність)</strong> — lessons learned нарада, оновлення playbooks, звітування регуляторам (НБУ вимагає повідомлення про кіберінциденти), покращення захисту.</li>
         </ol>
         <p><strong>Playbooks</strong> — заздалегідь підготовлені покрокові інструкції для типових інцидентів: ransomware, phishing, data breach, insider threat, DDoS. Кожен playbook визначає: хто відповідальний, які кроки, кого повідомити, які інструменти використати. Автоматизація через SOAR (Security Orchestration, Automation and Response) дозволяє виконувати стандартні дії автоматично.</p>
+
+        <h3>Фази NIST SP 800-61 — зведена таблиця</h3>
+<pre><code>┌─────────────────────────────────┬──────────────────────────────────────────────────────┬──────────────────────────────────┐
+│ Фаза                            │ Ключові дії                                          │ Інструменти / Артефакти          │
+├─────────────────────────────────┼──────────────────────────────────────────────────────┼──────────────────────────────────┤
+│ 1. Preparation                  │ Створення CSIRT, розробка playbooks,                 │ IR Plan, SIEM, EDR, SOAR,        │
+│                                 │ tabletop exercises, red/blue team                    │ Contact list, Runbooks           │
+├─────────────────────────────────┼──────────────────────────────────────────────────────┼──────────────────────────────────┤
+│ 2. Detection &amp; Analysis         │ Моніторинг алертів, тріаж, визначення                │ SIEM (Splunk, Sentinel),         │
+│                                 │ scope/impact, класифікація інциденту                 │ EDR (CrowdStrike, Defender),     │
+│                                 │                                                      │ Threat Intelligence feeds        │
+├─────────────────────────────────┼──────────────────────────────────────────────────────┼──────────────────────────────────┤
+│ 3. Containment, Eradication     │ Ізоляція систем, видалення malware,                  │ Network segmentation, AV/EDR,    │
+│    &amp; Recovery                   │ відновлення з бекапів, патчинг                       │ Backup systems, Forensic images  │
+├─────────────────────────────────┼──────────────────────────────────────────────────────┼──────────────────────────────────┤
+│ 4. Post-Incident Activity       │ Lessons learned, звіт регуляторам,                   │ Post-mortem report,              │
+│                                 │ оновлення політик та playbooks                       │ Metrics (MTTD, MTTR)             │
+└─────────────────────────────────┴──────────────────────────────────────────────────────┴──────────────────────────────────┘</code></pre>
+
+        <h3>Приклад Playbook: реагування на Ransomware</h3>
+<pre><code># ============================================================
+# PLAYBOOK: Ransomware Incident Response
+# Версія: 2.1 | Дата: 2024-09-15
+# Severity: CRITICAL (P1)
+# ============================================================
+
+КРОК 1 — ВИЯВЛЕННЯ (Detection)
+  Тригери:
+    - EDR-алерт: масове шифрування файлів (.encrypted, .locked, .crypt)
+    - SIEM: аномальна кількість файлових операцій (>1000 write ops/min)
+    - Користувачі повідомляють про недоступність файлів
+    - Виявлення ransom note (README_DECRYPT.txt)
+
+  Дії:
+    ☐ Зафіксувати час першого алерту (T0)
+    ☐ Визначити уражені хости (hostname, IP, user)
+    ☐ Присвоїти Incident ID: INC-YYYY-MMDD-NNN
+    ☐ Сповістити Incident Manager та CSIRT
+
+КРОК 2 — СТРИМУВАННЯ (Containment)
+  Негайні дії (перші 15 хвилин):
+    ☐ Ізолювати уражені хости від мережі (disable port / EDR isolate)
+    ☐ Заблокувати C2-домени та IP на firewall/proxy
+    ☐ Вимкнути share-доступ (SMB/CIFS) до серверів
+    ☐ Зберегти RAM-дамп ДО вимкнення системи
+
+  Команди ізоляції (приклад CrowdStrike Falcon):
+    $ falconctl contain --host=HOSTNAME
+    $ firewall-cmd --add-rich-rule='rule family="ipv4"
+      source address="10.0.5.0/24" drop'
+
+КРОК 3 — АНАЛІЗ (Analysis)
+  ☐ Ідентифікувати штам ransomware (ID Ransomware, VirusTotal)
+  ☐ Визначити вектор проникнення (phishing email, RDP, supply chain)
+  ☐ Оцінити масштаб шифрування (кількість хостів, файлів, серверів)
+  ☐ Перевірити наявність data exfiltration (double extortion)
+
+КРОК 4 — ЛІКВІДАЦІЯ ТА ВІДНОВЛЕННЯ (Eradication &amp; Recovery)
+  ☐ Видалити всі артефакти malware з усіх хостів
+  ☐ Скинути скомпрометовані облікові дані (AD passwords)
+  ☐ Відновити дані з офлайн-бекапів (перевірити цілісність)
+  ☐ Моніторити повторну активність протягом 72 годин
+
+КРОК 5 — КОМУНІКАЦІЯ
+  Повідомити:
+    ☐ Керівництво (CEO/CTO) — протягом 30 хвилин
+    ☐ НБУ (для фінансових установ) — протягом 24 годин
+    ☐ Кіберполіція України — за потреби
+    ☐ Клієнти — якщо скомпрометовані персональні дані (72 год GDPR)
+    ☐ Страхова компанія (кіберстрахування) — протягом 24 годин</code></pre>
+
+        <h3>Класифікація інцидентів за рівнем критичності (Severity)</h3>
+<pre><code>┌──────────┬───────────────────────────────┬───────────────────────────────────────┬──────────────┬──────────────────┐
+│ Severity │ Опис                          │ Приклади                              │ Час реакції  │ Ескалація        │
+├──────────┼───────────────────────────────┼───────────────────────────────────────┼──────────────┼──────────────────┤
+│ P1       │ CRITICAL — масштабна загроза, │ Ransomware, активний data breach,     │ 15 хвилин    │ CSIRT + CEO +    │
+│          │ критичні системи down         │ компрометація core banking            │              │ Регулятор        │
+├──────────┼───────────────────────────────┼───────────────────────────────────────┼──────────────┼──────────────────┤
+│ P2       │ HIGH — серйозна загроза,      │ Malware на кількох хостах,            │ 1 година     │ CSIRT +          │
+│          │ потенційний data breach       │ unauthorized access до sensitive data  │              │ IT Director      │
+├──────────┼───────────────────────────────┼───────────────────────────────────────┼──────────────┼──────────────────┤
+│ P3       │ MEDIUM — обмежений вплив,     │ Phishing з successful credential      │ 4 години     │ SOC L2 +         │
+│          │ немає data breach             │ theft, minor malware, policy violation │              │ Incident Manager │
+├──────────┼───────────────────────────────┼───────────────────────────────────────┼──────────────┼──────────────────┤
+│ P4       │ LOW — мінімальний вплив,      │ Port scan, failed brute force,        │ 24 години    │ SOC L1           │
+│          │ інформаційний                 │ spam із malicious link (не відкритий) │              │                  │
+└──────────┴───────────────────────────────┴───────────────────────────────────────┴──────────────┴──────────────────┘</code></pre>
+
+        <h3>Шаблон комунікації CSIRT при інциденті</h3>
+<pre><code># ============================================================
+# CSIRT Incident Notification Template
+# ============================================================
+
+ТЕМА: [SEVERITY] Кіберінцидент INC-2024-1015-001 — Ransomware Attack
+
+СТАТУС: АКТИВНИЙ | Оновлення #3 | 2024-10-15 14:30 UTC+2
+
+РЕЗЮМЕ:
+  Тип інциденту:    Ransomware (LockBit 3.0)
+  Severity:         P1 — CRITICAL
+  Час виявлення:    2024-10-15 09:47 UTC+2
+  Уражені системи:  12 робочих станцій, 2 файлових сервери
+  Статус даних:     ~45,000 файлів зашифровано
+  Data exfiltration: Розслідується
+
+ПОТОЧНІ ДІЇ:
+  ✓ Уражені хости ізольовано від мережі
+  ✓ C2 домени заблоковано на firewall
+  ✓ Зібрано RAM-дампи з ключових хостів
+  → Проводиться аналіз вектора проникнення
+  → Оцінка масштабу data exfiltration
+
+НАСТУПНЕ ОНОВЛЕННЯ: 2024-10-15 16:00 UTC+2
+
+КОНТАКТИ:
+  Incident Manager: Іванов І.І. | +380-XX-XXX-XX-XX
+  SOC Lead:         Петренко О.М. | +380-XX-XXX-XX-XX
+  Legal:            Коваленко К.В. | +380-XX-XXX-XX-XX</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Назвіть та охарактеризуйте чотири фази Incident Response відповідно до NIST SP 800-61. Яка з них є найбільш критичною для фінансових установ і чому?</li>
+            <li>Що таке playbook у контексті реагування на інциденти? Які ключові компоненти повинен містити playbook для реагування на ransomware-атаку?</li>
+            <li>Поясніть різницю між рівнями критичності інцидентів P1-P4. Наведіть приклади інцидентів кожного рівня у фінансовій установі.</li>
+            <li>Яку роль відіграє SOAR у процесі реагування на інциденти? Які переваги автоматизації IR-процесів?</li>
+            <li>Чому для фінансових установ середній час виявлення інциденту (MTTD) 204 дні є критичною проблемою? Які заходи можуть зменшити цей показник?</li>
+          </ol>
+        </div>
       </section>
 
       <section>
@@ -87,6 +216,242 @@
         </ol>
         <p><strong>Forensic imaging</strong> — створення побітової копії (bit-for-bit image) диска з використанням write blocker (апаратний пристрій, що запобігає запису на оригінальний носій). Інструменти: FTK Imager, dd, dc3dd. Цілісність підтверджується хеш-сумою (SHA-256) оригіналу та копії.</p>
         <p><strong>Memory forensics</strong> — аналіз дампу оперативної пам'яті за допомогою Volatility Framework: виявлення malware, що працює лише в пам'яті (fileless malware), отримання ключів шифрування, аналіз мережевих з'єднань, виявлення прихованих процесів.</p>
+
+        <h3>Створення форензичного образу диска за допомогою dd/dc3dd</h3>
+<pre><code># ============================================================
+# Forensic Disk Imaging — побітове копіювання диска
+# ВАЖЛИВО: Використовуйте write blocker перед підключенням диска!
+# ============================================================
+
+# 1. Визначити цільовий диск (НЕ монтувати!)
+$ lsblk
+NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+sda      8:0    0 476.9G  0 disk          # &lt;-- системний диск
+sdb      8:16   0 931.5G  0 disk          # &lt;-- доказовий диск (через write blocker)
+
+# 2. Створення образу за допомогою dc3dd (покращена версія dd для форензики)
+$ dc3dd if=/dev/sdb \
+       hof=/evidence/case-2024-1015/disk_image.dd \
+       hash=sha256 \
+       log=/evidence/case-2024-1015/imaging.log \
+       verb=on
+
+# Параметри:
+#   if    — input file (джерело, доказовий диск)
+#   hof   — hash output file (образ + автоматичний хеш)
+#   hash  — алгоритм хешування для верифікації
+#   log   — файл журналу процесу
+#   verb  — verbose output
+
+# 3. Альтернатива: стандартний dd з ручним хешуванням
+$ dd if=/dev/sdb of=/evidence/case-2024-1015/disk_image.raw \
+     bs=4096 conv=noerror,sync status=progress
+
+# 4. Обчислення контрольної хеш-суми оригіналу та копії
+$ sha256sum /dev/sdb
+a3f7c8b2e1d5... /dev/sdb
+
+$ sha256sum /evidence/case-2024-1015/disk_image.raw
+a3f7c8b2e1d5... /evidence/case-2024-1015/disk_image.raw
+# ✓ Хеші збігаються — цілісність підтверджено
+
+# 5. FTK Imager (GUI, Windows) — створення образу у форматі E01
+#    File → Create Disk Image → Physical Drive → E01 format
+#    E01 підтримує стиснення та метадані (case number, examiner, notes)</code></pre>
+
+        <h3>Скрипт збору волатильних даних (Linux)</h3>
+<pre><code>#!/bin/bash
+# ============================================================
+# Volatile Data Collection Script — Linux Incident Response
+# Запускати З ЗОВНІШНЬОГО USB (не з доказового диска!)
+# ============================================================
+
+CASE_ID="INC-2024-1015-001"
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+OUTPUT_DIR="/mnt/usb_forensic/${CASE_ID}/${TIMESTAMP}"
+mkdir -p "${OUTPUT_DIR}"
+
+echo "[*] Збір волатильних даних — ${CASE_ID}"
+echo "[*] Час початку: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+echo "[*] Дослідник: $(whoami)@$(hostname)"
+
+# 1. Системна інформація
+echo "[+] Збір системної інформації..."
+date -u &gt; "${OUTPUT_DIR}/01_datetime.txt"
+uname -a &gt; "${OUTPUT_DIR}/02_system_info.txt"
+hostname &gt; "${OUTPUT_DIR}/03_hostname.txt"
+uptime &gt; "${OUTPUT_DIR}/04_uptime.txt"
+
+# 2. Мережеві з'єднання (КРИТИЧНО — збирати першими після RAM)
+echo "[+] Збір мережевих з'єднань..."
+netstat -antup &gt; "${OUTPUT_DIR}/05_netstat.txt" 2&gt;&amp;1
+ss -tulnp &gt; "${OUTPUT_DIR}/06_ss_listening.txt" 2&gt;&amp;1
+ip addr show &gt; "${OUTPUT_DIR}/07_ip_addresses.txt"
+ip route show &gt; "${OUTPUT_DIR}/08_routing_table.txt"
+arp -a &gt; "${OUTPUT_DIR}/09_arp_cache.txt"
+cat /etc/resolv.conf &gt; "${OUTPUT_DIR}/10_dns_config.txt"
+
+# 3. Процеси
+echo "[+] Збір інформації про процеси..."
+ps auxwwf &gt; "${OUTPUT_DIR}/11_processes_full.txt"
+ps -eo pid,ppid,user,cmd --forest &gt; "${OUTPUT_DIR}/12_process_tree.txt"
+ls -la /proc/*/exe 2&gt;/dev/null &gt; "${OUTPUT_DIR}/13_proc_exe_links.txt"
+
+# 4. Відкриті файли та дескриптори
+echo "[+] Збір відкритих файлів..."
+lsof -n -P &gt; "${OUTPUT_DIR}/14_open_files.txt" 2&gt;&amp;1
+
+# 5. Завантажені модулі ядра (rootkit detection)
+echo "[+] Перевірка модулів ядра..."
+lsmod &gt; "${OUTPUT_DIR}/15_kernel_modules.txt"
+
+# 6. Заплановані задачі (persistence check)
+echo "[+] Перевірка cron/at jobs..."
+crontab -l &gt; "${OUTPUT_DIR}/16_crontab_current.txt" 2&gt;&amp;1
+ls -la /etc/cron.* &gt; "${OUTPUT_DIR}/17_cron_dirs.txt" 2&gt;&amp;1
+cat /etc/crontab &gt; "${OUTPUT_DIR}/18_etc_crontab.txt"
+
+# 7. Користувачі та авторизація
+echo "[+] Збір даних про користувачів..."
+who &gt; "${OUTPUT_DIR}/19_who.txt"
+w &gt; "${OUTPUT_DIR}/20_w.txt"
+last -50 &gt; "${OUTPUT_DIR}/21_last_logins.txt"
+cat /etc/passwd &gt; "${OUTPUT_DIR}/22_passwd.txt"
+
+# 8. Хешування зібраних файлів
+echo "[+] Обчислення SHA-256 для всіх зібраних файлів..."
+sha256sum "${OUTPUT_DIR}"/*.txt &gt; "${OUTPUT_DIR}/CHECKSUMS_SHA256.txt"
+
+echo "[✓] Збір завершено: ${OUTPUT_DIR}"
+echo "[*] Час завершення: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"</code></pre>
+
+        <h3>Шаблон Chain of Custody (ланцюжок зберігання доказів)</h3>
+<pre><code>╔══════════════════════════════════════════════════════════════════════╗
+║                    CHAIN OF CUSTODY FORM                             ║
+║                 Форма ланцюжка зберігання доказів                    ║
+╠══════════════════════════════════════════════════════════════════════╣
+║ Case ID:        INC-2024-1015-001                                    ║
+║ Назва справи:   Ransomware-атака на процесинговий центр              ║
+║ Дата відкриття: 2024-10-15                                           ║
+╠══════════════════════════════════════════════════════════════════════╣
+║ ОПИС ДОКАЗУ:                                                         ║
+║ Evidence ID:    EVD-001                                              ║
+║ Тип:            Жорсткий диск (HDD)                                  ║
+║ Виробник/Модель: Seagate Barracuda ST1000DM010                       ║
+║ Серійний номер: ZN1234AB                                             ║
+║ Розмір:         1 TB                                                 ║
+║ SHA-256 образу: a3f7c8b2e1d5f9a0b4c6d8e2f1a3b5c7d9e1f3a5b7c9d1...   ║
+╠══════════════════════════════════════════════════════════════════════╣
+║ ЖУРНАЛ ПЕРЕДАЧІ:                                                     ║
+║                                                                      ║
+║ #  │ Дата/Час           │ Від кого      │ Кому          │ Мета       ║
+║ ───┼────────────────────┼───────────────┼───────────────┼─────────── ║
+║ 1  │ 2024-10-15 10:30   │ Петренко О.   │ Іванов І.     │ Вилучення  ║
+║    │                    │ (SOC Analyst) │ (Forensic)    │ з сервера  ║
+║ ───┼────────────────────┼───────────────┼───────────────┼─────────── ║
+║ 2  │ 2024-10-15 11:15   │ Іванов І.     │ Forensic Lab  │ Imaging    ║
+║    │                    │ (Forensic)    │ (Safe #3)     │            ║
+║ ───┼────────────────────┼───────────────┼───────────────┼─────────── ║
+║ 3  │ 2024-10-16 09:00   │ Forensic Lab  │ Коваль М.     │ Аналіз     ║
+║    │                    │ (Safe #3)     │ (Analyst)     │            ║
+╠══════════════════════════════════════════════════════════════════════╣
+║ ПІДПИСИ:                                                             ║
+║ Дослідник:     ________________  Дата: ___________                   ║
+║ Свідок:        ________________  Дата: ___________                   ║
+║ Відповідальний:________________  Дата: ___________                   ║
+╚══════════════════════════════════════════════════════════════════════╝</code></pre>
+
+        <h3>Робочий процес використання Write Blocker</h3>
+<pre><code># ============================================================
+# Write Blocker Workflow — захист доказового диска від запису
+# ============================================================
+
+КРОК 1: ПІДГОТОВКА
+  ☐ Увімкнути write blocker (апаратний: Tableau T35u, CRU WiebeTech)
+  ☐ Перевірити індикатор: LED "Write Block" = ON (зелений)
+  ☐ Підключити доказовий диск до write blocker
+
+КРОК 2: ВЕРИФІКАЦІЯ БЛОКУВАННЯ ЗАПИСУ
+  # Linux: перевірити, що диск змонтовано як read-only
+  $ hdparm -r /dev/sdb
+  /dev/sdb:
+   readonly      =  1 (on)    # ✓ Write protection активний
+
+  # Або перевірити через dmesg
+  $ dmesg | tail -5
+  [  142.567] sd 2:0:0:0: [sdb] Write Protect is on
+  [  142.567] sd 2:0:0:0: [sdb] Mode Sense: 00 3a 00 00
+
+КРОК 3: СТВОРЕННЯ ОБРАЗУ
+  ☐ Запустити dc3dd/FTK Imager для побітового копіювання
+  ☐ Зафіксувати SHA-256 хеш оригіналу та копії
+  ☐ Порівняти хеші (повинні бути ідентичні)
+
+КРОК 4: ЗБЕРІГАННЯ
+  ☐ Від'єднати доказовий диск від write blocker
+  ☐ Помістити у антистатичний пакет із пломбою
+  ☐ Зафіксувати у Chain of Custody Form
+  ☐ Зберігати у сейфі з обмеженим доступом
+
+# Програмний write blocker (альтернатива для Linux):
+$ blockdev --setro /dev/sdb      # встановити read-only
+$ blockdev --getro /dev/sdb      # перевірити (1 = read-only)
+# УВАГА: програмний blocker менш надійний за апаратний для судових справ</code></pre>
+
+        <h3>Збір дампу пам'яті за допомогою WinPmem (Windows)</h3>
+<pre><code># ============================================================
+# Memory Acquisition — WinPmem (Windows)
+# Завантажити: https://github.com/Velocidex/WinPmem
+# ============================================================
+
+# Запуск від імені адміністратора (Run as Administrator)
+
+# 1. Створення повного дампу RAM у форматі raw
+C:\forensic_tools&gt; winpmem_mini_x64.exe ^
+    --output F:\evidence\INC-2024-1015\memory_dump.raw ^
+    --format raw
+
+# Вивід:
+#   Driver loaded successfully.
+#   CR3: 0x00000000001AA000
+#   Acquiring memory...  16384 MB
+#   [====================] 100%  (16384/16384 MB)
+#   Memory acquisition complete.
+#   SHA-256: b5e2f8a1c3d7...
+
+# 2. Альтернатива: формат AFF4 (з метаданими та стисненням)
+C:\forensic_tools&gt; winpmem_mini_x64.exe ^
+    --output F:\evidence\INC-2024-1015\memory_dump.aff4 ^
+    --format aff4
+
+# 3. Верифікація цілісності дампу
+C:\forensic_tools&gt; certutil -hashfile ^
+    F:\evidence\INC-2024-1015\memory_dump.raw SHA256
+
+# SHA256 hash: b5e2f8a1c3d7...
+# CertUtil: -hashfile command completed successfully.
+
+# ============================================================
+# Memory Acquisition — Linux (LiME - Linux Memory Extractor)
+# ============================================================
+
+# Завантаження модуля LiME
+$ sudo insmod lime-$(uname -r).ko \
+    "path=/mnt/usb/memory_dump.lime format=lime"
+
+# Перевірка
+$ sha256sum /mnt/usb/memory_dump.lime</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Що таке Chain of Custody і чому його порушення може зробити цифровий доказ недопустимим у суді? Які елементи повинен містити формуляр Chain of Custody?</li>
+            <li>Поясніть принцип Order of Volatility. Чому збір дампу оперативної пам'яті повинен передувати створенню образу диска?</li>
+            <li>Яку роль відіграє write blocker у процесі forensic imaging? Порівняйте апаратний та програмний write blocker.</li>
+            <li>Опишіть процес створення побітового образу диска за допомогою dc3dd. Як підтверджується цілісність створеного образу?</li>
+            <li>Що таке fileless malware і чому аналіз дампу оперативної пам'яті є єдиним способом його виявлення? Які інструменти використовуються для memory forensics?</li>
+          </ol>
+        </div>
       </section>
 
       <section>
@@ -111,6 +476,277 @@
           <li>Sigma rules — стандартизований формат правил для виявлення загроз у логах, сумісний з різними SIEM.</li>
         </ul>
         <p><strong>MITRE ATT&CK Framework</strong> — використовується для класифікації тактик та технік зловмисника: Initial Access → Execution → Persistence → Privilege Escalation → Defense Evasion → Credential Access → Discovery → Lateral Movement → Collection → Exfiltration → Impact.</p>
+
+        <h3>Sigma Rule — виявлення Lateral Movement (PsExec)</h3>
+<pre><code># ============================================================
+# Sigma Rule: Виявлення Lateral Movement через PsExec
+# MITRE ATT&amp;CK: T1021.002 (Remote Services: SMB/Windows Admin Shares)
+# Джерело логів: Windows Security Event Log
+# ============================================================
+
+title: PsExec Lateral Movement Detection
+id: 8b4f7c2a-1d3e-4f5a-9b8c-6e7d2a3f1b5c
+status: stable
+level: high
+description: >
+  Виявлення використання PsExec або аналогічних інструментів
+  для lateral movement через створення сервісу PSEXESVC.
+author: CSIRT Financial SOC
+date: 2024/10/15
+tags:
+  - attack.lateral_movement
+  - attack.t1021.002
+  - attack.t1569.002
+
+logsource:
+  category: process_creation
+  product: windows
+
+detection:
+  selection_service:
+    EventID: 7045                    # New service installed
+    ServiceName|contains:
+      - 'PSEXESVC'
+      - 'csexec'
+      - 'paexec'
+    ServiceFileName|endswith:
+      - '\PSEXESVC.exe'
+      - '\csexec.exe'
+
+  selection_process:
+    EventID: 1                       # Process creation (Sysmon)
+    ParentImage|endswith: '\services.exe'
+    Image|endswith:
+      - '\PSEXESVC.exe'
+      - '\cmd.exe'
+      - '\powershell.exe'
+    User|contains: 'SYSTEM'
+
+  condition: selection_service or selection_process
+
+falsepositives:
+  - Легітимне адміністрування через PsExec (задокументоване)
+  - Системи управління конфігурацією (SCCM)
+
+# Конвертація в Splunk SPL:
+# index=windows EventCode=7045 ServiceName="PSEXESVC*"
+# | table _time, host, ServiceName, ServiceFileName, Account_Name
+
+# Конвертація в Elastic Query:
+# event.code: "7045" AND winlog.event_data.ServiceName: *PSEXESVC*</code></pre>
+
+        <h3>YARA Rule — виявлення банківського malware</h3>
+<pre><code>/*
+ * YARA Rule: Виявлення банківського трояна (Emotet-like behavior)
+ * Використання: yara -r banking_trojan.yar /path/to/suspicious/files/
+ */
+
+rule Banking_Trojan_Emotet_Indicators
+{
+    meta:
+        description = "Виявлення індикаторів банківського трояна Emotet"
+        author      = "CSIRT Financial SOC"
+        date        = "2024-10-15"
+        severity    = "critical"
+        mitre_att   = "T1055 (Process Injection), T1071 (Application Layer Protocol)"
+
+    strings:
+        // Характерні рядки Emotet
+        $s1 = "Content-Type: multipart/form-data" ascii
+        $s2 = "bcdfghjklmnpqrstvwxz" ascii   // consonant string for DGA
+        $s3 = "%s\\%s.exe" ascii
+        $s4 = "\\rundll32.exe" ascii wide
+
+        // Мережеві індикатори (C2 communication patterns)
+        $net1 = /https?:\/\/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{2,5}\/[a-z]{3,8}\// ascii
+        $net2 = "POST" ascii
+        $net3 = "Cookie:" ascii
+
+        // Crypto/encoding patterns
+        $crypto1 = { 8B 45 ?? 35 ?? ?? ?? ?? 89 45 }   // XOR encryption
+        $crypto2 = { C1 E? 04 33 }                      // shift + XOR
+
+        // Anti-analysis techniques
+        $anti1 = "IsDebuggerPresent" ascii
+        $anti2 = "GetTickCount" ascii
+        $anti3 = "SbieDll.dll" ascii          // Sandboxie detection
+        $anti4 = "vmware" ascii nocase        // VM detection
+
+    condition:
+        uint16(0) == 0x5A4D and              // PE файл (MZ header)
+        filesize &lt; 500KB and                 // Типовий розмір &lt; 500KB
+        (
+            (3 of ($s*) and 1 of ($net*)) or // Рядки + мережа
+            (2 of ($crypto*) and 2 of ($anti*)) or  // Crypto + Anti-analysis
+            (4 of ($s*, $net*, $crypto*, $anti*))    // Будь-які 4 індикатори
+        )
+}
+
+/*
+ * Запуск YARA сканування:
+ * $ yara -r banking_trojan.yar /evidence/malware_samples/
+ * $ yara -r banking_trojan.yar -p 4 /mnt/disk_image/  # 4 потоки
+ */</code></pre>
+
+        <h3>Volatility Framework — аналіз дампу пам'яті</h3>
+<pre><code># ============================================================
+# Volatility 3 — Memory Forensics Commands
+# Аналіз дампу пам'яті скомпрометованої системи
+# ============================================================
+
+# 1. Визначення профілю ОС (автоматично у Volatility 3)
+$ vol3 -f memory_dump.raw windows.info
+# Variable        Value
+# Kernel Base     0xf8047e200000
+# Major/Minor     10.0
+# Machine Type    34404 (AMD64)
+
+# 2. Список процесів — пошук підозрілих
+$ vol3 -f memory_dump.raw windows.pslist
+# PID    PPID   ImageFileName    CreateTime
+# 4      0      System           2024-10-15 08:00:01
+# 632    4      smss.exe         2024-10-15 08:00:03
+# 5124   1032   svchost.exe      2024-10-15 09:45:12  ← підозрілий час!
+# 7890   5124   cmd.exe          2024-10-15 09:45:30  ← child process
+
+# 3. Дерево процесів — виявлення аномальних parent-child
+$ vol3 -f memory_dump.raw windows.pstree
+# *** 5124  svchost.exe    (PPID: 1032, нетиповий parent!)
+# ***** 7890  cmd.exe
+# ******* 8012  powershell.exe  ← svchost → cmd → powershell = ПІДОЗРІЛО
+
+# 4. Мережеві з'єднання — виявлення C2
+$ vol3 -f memory_dump.raw windows.netscan
+# Offset     Proto  LocalAddr      ForeignAddr       State     PID
+# 0xe50012   TCPv4  10.0.1.50:443  185.220.101.3:443 ESTABLISHED 5124
+#                                   ↑ Відомий C2 сервер (Tor exit node)
+
+# 5. Виявлення прихованих/завершених процесів
+$ vol3 -f memory_dump.raw windows.psscan
+# Порівняти з pslist — різниця = приховані процеси (rootkit)
+
+# 6. DLL injection detection
+$ vol3 -f memory_dump.raw windows.dlllist --pid 5124
+# Шукати нетипові DLL, завантажені з TEMP або AppData
+
+# 7. Command history — що виконував зловмисник
+$ vol3 -f memory_dump.raw windows.cmdline --pid 7890
+# cmd.exe: "cmd.exe /c whoami &amp;&amp; net user &amp;&amp; net group "Domain Admins""
+
+# 8. Витягнення підозрілого процесу для аналізу
+$ vol3 -f memory_dump.raw windows.dumpfiles --pid 5124 \
+    --dump-dir ./extracted_files/
+
+# 9. Registry hives — пошук persistence mechanisms
+$ vol3 -f memory_dump.raw windows.registry.printkey \
+    --key "Software\Microsoft\Windows\CurrentVersion\Run"
+# REG_SZ  WindowsUpdate  C:\Users\admin\AppData\Local\Temp\svchost.exe
+#                         ↑ ПІДОЗРІЛО: легітимний svchost НЕ в Temp!</code></pre>
+
+        <h3>Аналіз логів за допомогою grep/awk — виявлення підозрілої активності</h3>
+<pre><code># ============================================================
+# Log Analysis — пошук слідів атаки в системних логах
+# ============================================================
+
+# 1. Пошук brute force атак у auth.log (Linux)
+$ grep "Failed password" /var/log/auth.log | \
+    awk '{print $11}' | sort | uniq -c | sort -rn | head -20
+
+# Вивід:
+#   847  185.220.101.45    ← 847 невдалих спроб з однієї IP!
+#   234  91.132.147.22
+#    56  10.0.1.15         ← внутрішня IP — можливий lateral movement
+
+# 2. Виявлення успішного входу після серії невдалих (compromise indicator)
+$ grep -E "(Failed|Accepted)" /var/log/auth.log | \
+    grep "185.220.101.45" | tail -20
+
+# Oct 15 09:44:57 Failed password for admin from 185.220.101.45
+# Oct 15 09:44:58 Failed password for admin from 185.220.101.45
+# Oct 15 09:45:12 Accepted password for admin from 185.220.101.45
+#                 ↑ ПІДОЗРІЛО: успішний вхід після 847 невдалих спроб!
+
+# 3. Пошук підозрілих PowerShell команд у Windows Event Log (XML export)
+$ grep -oP 'ScriptBlockText&gt;\K[^&lt;]+' powershell_logs.xml | \
+    grep -iE "(invoke-mimikatz|downloadstring|encodedcommand|bypass)"
+
+# 4. Аналіз веб-логів — SQL injection спроби
+$ awk '$7 ~ /(union|select|insert|drop|delete|update).*--/' \
+    /var/log/apache2/access.log | \
+    awk '{print $1, $7}' | head -20
+
+# 185.220.101.45 /api/users?id=1' UNION SELECT username,password FROM users--
+# 185.220.101.45 /api/login?user=admin'OR'1'='1
+
+# 5. Виявлення data exfiltration — великі вихідні передачі
+$ awk '$10 &gt; 10000000 {print $1, $4, $7, $10}' \
+    /var/log/apache2/access.log | sort -t' ' -k4 -rn
+
+# 10.0.1.50 [15/Oct/2024:03:15:22] /api/export/customers 157286400
+#           ↑ 3:15 AM — нетиповий час            ↑ 150 MB — аномальний розмір
+
+# 6. Timeline reconstruction — об'єднання логів за часом
+$ sort -t' ' -k1,2 \
+    auth.log syslog apache_access.log firewall.log | \
+    grep "Oct 15" | \
+    awk '$0 ~ /09:4[0-9]/' &gt; timeline_0940_0950.txt</code></pre>
+
+        <h3>Wireshark Display Filters — аналіз C2 трафіку</h3>
+<pre><code># ============================================================
+# Wireshark Display Filters для виявлення C2 та exfiltration
+# Застосовувати до PCAP-файлів, зібраних під час інциденту
+# ============================================================
+
+# 1. Виявлення C2 Beaconing — регулярні з'єднання через рівні інтервали
+ip.dst == 185.220.101.3 &amp;&amp; tcp.flags.syn == 1
+# Аналізувати інтервали між SYN-пакетами: ~60с ± jitter = beaconing
+
+# 2. DNS Tunneling — підозріло довгі DNS-запити (data exfiltration через DNS)
+dns.qry.name.len &gt; 50
+# Або пошук нетипових типів записів:
+dns.qry.type == 16         # TXT records (часто для tunneling)
+dns.qry.type == 10         # NULL records
+
+# 3. HTTP C2 — підозрілий POST-трафік до IP без домену
+http.request.method == "POST" &amp;&amp; !http.host contains "."
+# Або великі POST-запити (data exfiltration):
+http.request.method == "POST" &amp;&amp; http.content_length &gt; 1000000
+
+# 4. Encrypted C2 — TLS з'єднання до підозрілих IP
+tls.handshake.type == 1 &amp;&amp; ip.dst == 185.220.101.0/24
+# Перевірити JA3/JA3S fingerprints для ідентифікації malware:
+tls.handshake.ja3_full
+
+# 5. Lateral Movement — SMB та WMI трафік
+smb2.cmd == 5                # SMB2 Create (файлові операції)
+smb2.filename contains "PSEXESVC"  # PsExec indicator
+
+# WMI remote execution:
+dcom                         # DCOM трафік
+tcp.port == 135              # RPC endpoint mapper
+
+# 6. Data Exfiltration — великі передачі у нетипових напрямках
+tcp.len &gt; 10000 &amp;&amp; !(ip.dst == 10.0.0.0/8)
+# Фільтр для виявлення великих пакетів на зовнішні IP
+
+# 7. Kerberos — Kerberoasting / Golden Ticket
+kerberos.msg_type == 12      # TGS-REP
+kerberos.cipher_type == 23   # RC4 (downgrade attack indicator)
+
+# 8. Збереження відфільтрованих пакетів
+# File → Export Specified Packets → "C2_traffic_filtered.pcap"
+# Для подальшого аналізу та звіту</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Що таке Sigma rules і яка їх перевага порівняно з правилами, написаними для конкретного SIEM? Наведіть приклад Sigma rule для виявлення lateral movement.</li>
+            <li>Опишіть структуру YARA rule. Які секції вона містить і як формулюється умова виявлення (condition)?</li>
+            <li>Як за допомогою Volatility Framework виявити приховані процеси та ознаки process injection? Які команди використовуються?</li>
+            <li>Які Wireshark display filters допомагають виявити DNS tunneling та C2 beaconing? Поясніть принцип виявлення кожного типу трафіку.</li>
+            <li>Як використовується MITRE ATT&CK Framework при аналізі інцидентів? Поясніть на прикладі ransomware-атаки, які тактики та техніки можна ідентифікувати.</li>
+          </ol>
+        </div>
       </section>
 
       <section>
@@ -133,6 +769,222 @@
         </ul>
         <p><strong>Кіберстрахування</strong> — страховий поліс, що покриває збитки від кіберінцидентів: витрати на IR, forensics, юридичні послуги, повідомлення клієнтів, втрачений прибуток, штрафи регуляторів. Вартість полісу залежить від рівня безпеки організації, що стимулює покращення захисту.</p>
         <p><strong>Regulatory reporting у фінансовому секторі:</strong> НБУ вимагає повідомлення про значні кіберінциденти протягом визначеного терміну. GDPR вимагає повідомлення про витоки персональних даних протягом 72 годин. PCI DSS вимагає негайного повідомлення платіжних брендів при компрометації карткових даних.</p>
+
+        <h3>Організаційна структура CSIRT — ролі та відповідальності</h3>
+<pre><code>┌────────────────────────┬──────────────────────────────────────────────┬────────────────────────────────────┐
+│ Роль                   │ Відповідальності                             │ Необхідні навички / Сертифікації  │
+├────────────────────────┼──────────────────────────────────────────────┼────────────────────────────────────┤
+│ CSIRT Manager          │ • Загальне керівництво командою              │ CISSP, CISM                       │
+│ (Керівник CSIRT)       │ • Стратегічне планування IR                  │ Управлінський досвід 5+ років     │
+│                        │ • Звітування керівництву та регуляторам      │ Комунікаційні навички              │
+│                        │ • Бюджет та ресурси                          │                                    │
+├────────────────────────┼──────────────────────────────────────────────┼────────────────────────────────────┤
+│ Incident Manager       │ • Координація реагування на конкретний       │ GCIH, ECIH                         │
+│ (Менеджер інцидентів)  │   інцидент                                   │ Досвід IR 3+ років                │
+│                        │ • Прийняття оперативних рішень               │ Stress management                  │
+│                        │ • Комунікація зі стейкхолдерами              │                                    │
+├────────────────────────┼──────────────────────────────────────────────┼────────────────────────────────────┤
+│ SOC Analyst L1         │ • Моніторинг алертів 24/7                    │ CompTIA Security+                  │
+│ (Аналітик L1)          │ • Первинний тріаж інцидентів                 │ Базові знання SIEM                 │
+│                        │ • Ескалація підозрілих подій                  │ Знання мережевих протоколів        │
+├────────────────────────┼──────────────────────────────────────────────┼────────────────────────────────────┤
+│ SOC Analyst L2/L3      │ • Глибокий аналіз інцидентів                 │ GCFA, GCIA, CySA+                  │
+│ (Аналітик L2/L3)       │ • Threat hunting                             │ Досвід розслідувань 2+ років      │
+│                        │ • Розробка detection rules                   │ Програмування (Python)             │
+├────────────────────────┼──────────────────────────────────────────────┼────────────────────────────────────┤
+│ Digital Forensic       │ • Збір та збереження цифрових доказів        │ GCFE, EnCE, CHFI                   │
+│ Analyst                │ • Forensic imaging та аналіз                 │ Volatility, FTK, EnCase            │
+│ (Форензик-аналітик)    │ • Підготовка звітів для суду                 │ Chain of Custody процедури         │
+├────────────────────────┼──────────────────────────────────────────────┼────────────────────────────────────┤
+│ Malware Analyst        │ • Static та dynamic аналіз malware           │ GREM                               │
+│ (Аналітик malware)     │ • Reverse engineering                        │ IDA Pro, Ghidra, x64dbg            │
+│                        │ • Створення IOC та YARA rules                │ Assembly, C/C++                    │
+├────────────────────────┼──────────────────────────────────────────────┼────────────────────────────────────┤
+│ Threat Intelligence    │ • Збір та аналіз threat intel                │ CTIA, GCTI                         │
+│ Analyst                │ • Attribution зловмисників                   │ OSINT, Dark Web моніторинг         │
+│                        │ • Оцінка IOC, TTP (MITRE ATT&amp;CK)            │ Аналітичне мислення                │
+├────────────────────────┼──────────────────────────────────────────────┼────────────────────────────────────┤
+│ Communications Lead    │ • Зв'язок з медіа та PR                     │ Кризові комунікації                │
+│ (Комунікації)          │ • Повідомлення клієнтів                      │ Досвід PR у фінансовому секторі   │
+│                        │ • Внутрішні комунікації                      │                                    │
+├────────────────────────┼──────────────────────────────────────────────┼────────────────────────────────────┤
+│ Legal Counsel          │ • Юридичні аспекти інциденту                 │ Кібер-право, GDPR, PCI DSS         │
+│ (Юрист)                │ • Взаємодія з правоохоронцями                │ Досвід у фінансовому compliance    │
+│                        │ • Regulatory reporting                       │ NDA, контрактні зобов'язання       │
+└────────────────────────┴──────────────────────────────────────────────┴────────────────────────────────────┘
+
+Рекомендований розмір CSIRT для фінансової установи:
+  • Малий банк (до 500 працівників):    5-8 осіб (суміщення ролей)
+  • Середній банк (500-5000):           10-20 осіб
+  • Великий банк (5000+):              30-50+ осіб, 24/7 SOC</code></pre>
+
+        <h3>Шаблон Post-Incident Lessons Learned</h3>
+<pre><code># ============================================================
+# POST-INCIDENT REVIEW — LESSONS LEARNED
+# ============================================================
+
+ЗАГАЛЬНА ІНФОРМАЦІЯ:
+  Incident ID:        INC-2024-1015-001
+  Тип інциденту:      Ransomware (LockBit 3.0)
+  Severity:           P1 — CRITICAL
+  Дата виявлення:     2024-10-15 09:47
+  Дата закриття:      2024-10-22 16:00
+  Дата наради:        2024-11-01 10:00
+  Присутні:           CSIRT (повний склад), CTO, CISO, Legal, HR
+
+═══════════════════════════════════════════════════════════════
+
+ХРОНОЛОГІЯ ІНЦИДЕНТУ (Timeline):
+  2024-10-14 22:15  Зловмисник отримав доступ через phishing email
+  2024-10-14 23:30  Lateral movement через скомпрометований обліковий запис
+  2024-10-15 02:00  Розгортання ransomware на файлових серверах
+  2024-10-15 03:15  Data exfiltration — 150 MB клієнтських даних
+  2024-10-15 09:47  Виявлення шифрування (MTTD = 11 годин 32 хвилини)
+  2024-10-15 10:02  Початок containment (15 хвилин після виявлення)
+  2024-10-17 14:00  Eradication завершено
+  2024-10-22 16:00  Повне відновлення систем
+
+═══════════════════════════════════════════════════════════════
+
+ЩО СПРАЦЮВАЛО ДОБРЕ:
+  ✓ Containment виконано швидко (15 хвилин після виявлення)
+  ✓ Офлайн-бекапи були доступні та актуальні
+  ✓ Комунікація з регулятором (НБУ) — в межах вимог
+  ✓ Playbook для ransomware був дотриманий на 85%
+  ✓ Forensic imaging виконано з дотриманням chain of custody
+
+ЩО НЕ СПРАЦЮВАЛО / ПРОБЛЕМИ:
+  ✗ MTTD = 11.5 годин — занадто довго (ціль: &lt; 1 година)
+  ✗ Phishing email обійшов email-фільтри (SPF/DKIM пройшов)
+  ✗ Відсутній моніторинг lateral movement (no east-west traffic inspection)
+  ✗ Немає сегментації між робочими станціями та серверами
+  ✗ Service account мав надмірні привілеї (Domain Admin)
+
+═══════════════════════════════════════════════════════════════
+
+КОРЕНЕВІ ПРИЧИНИ (Root Cause Analysis):
+  1. Первинний вектор: spear-phishing email з macro-документом
+  2. Відсутність EDR на частині серверів
+  3. Надмірні привілеї service account
+  4. Відсутність мережевої сегментації (flat network)
+
+РЕКОМЕНДОВАНІ ПОКРАЩЕННЯ:
+  # Пріоритет   Дія                                    Відповідальний  Дедлайн
+  P1            Впровадити EDR на всіх серверах         IT Security     2024-11-15
+  P1            Сегментувати мережу (VLAN)              Network Team    2024-12-01
+  P1            Зменшити привілеї service accounts      AD Admin        2024-11-10
+  P2            Оновити email security (sandbox)        IT Security     2024-11-30
+  P2            Впровадити east-west traffic monitoring  SOC             2024-12-15
+  P3            Провести phishing awareness training    HR + Security   2024-11-20
+  P3            Оновити ransomware playbook             CSIRT           2024-11-05
+
+═══════════════════════════════════════════════════════════════
+
+ФІНАНСОВИЙ ВПЛИВ:
+  Прямі витрати (IR, forensics, відновлення):     $320,000
+  Втрачений прибуток (downtime 7 днів):           $1,200,000
+  Штрафи регуляторів:                              $0 (повідомлено вчасно)
+  Повідомлення клієнтів:                           $45,000
+  Юридичні послуги:                                $85,000
+  Покращення безпеки:                              $500,000
+  ──────────────────────────────────────────────────────────
+  ЗАГАЛОМ:                                         $2,150,000
+  Покриття кіберстрахуванням:                      $1,500,000
+  Чисті збитки:                                    $650,000</code></pre>
+
+        <h3>Метрики ефективності реагування на інциденти (Incident Metrics Dashboard)</h3>
+<pre><code>┌──────────────────────────────────────┬───────────────┬───────────────┬───────────────┬──────────────────┐
+│ Метрика                              │ Поточне       │ Попередній    │ Ціль          │ Галузевий        │
+│                                      │ значення      │ квартал       │               │ benchmark        │
+├──────────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────┤
+│ MTTD (Mean Time to Detect)           │ 11.5 год      │ 18.2 год      │ &lt; 1 год       │ 204 дні (IBM)    │
+│ Середній час виявлення інциденту     │ ↑ покращення  │               │               │                  │
+├──────────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────┤
+│ MTTR (Mean Time to Respond)          │ 15 хв         │ 45 хв         │ &lt; 30 хв       │ 73 дні (IBM)     │
+│ Середній час початку реагування      │ ✓ у межах     │               │               │                  │
+├──────────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────┤
+│ MTTC (Mean Time to Contain)          │ 2 год         │ 6 год         │ &lt; 4 год       │ N/A              │
+│ Середній час стримування             │ ✓ у межах     │               │               │                  │
+├──────────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────┤
+│ MTTR (Mean Time to Recover)          │ 7 днів        │ 14 днів       │ &lt; 5 днів      │ 24 дні           │
+│ Середній час повного відновлення     │ ↑ покращення  │               │ (для P1)      │ (ransomware)     │
+├──────────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────┤
+│ Кількість інцидентів (квартал)       │ 47            │ 52            │ Зменшення     │ Залежить від     │
+│                                      │               │               │ на 10%/рік    │ розміру компанії │
+├──────────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────┤
+│ Розподіл за severity:                │               │               │               │                  │
+│   P1 (Critical)                      │ 1 (2%)        │ 2 (4%)        │ 0             │                  │
+│   P2 (High)                          │ 5 (11%)       │ 8 (15%)       │ &lt; 5%          │                  │
+│   P3 (Medium)                        │ 18 (38%)      │ 20 (38%)      │               │                  │
+│   P4 (Low)                           │ 23 (49%)      │ 22 (42%)      │               │                  │
+├──────────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────┤
+│ False Positive Rate                  │ 32%           │ 45%           │ &lt; 20%         │ 30-50%           │
+│ Відсоток хибних спрацювань           │ ↑ покращення  │               │               │                  │
+├──────────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────┤
+│ Playbook Coverage                    │ 78%           │ 65%           │ &gt; 90%         │ 60-80%           │
+│ Покриття інцидентів playbooks        │ ↑ покращення  │               │               │                  │
+├──────────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────┤
+│ Вартість інциденту (середня)         │ $85,000       │ $120,000      │ Зменшення     │ $5.9M (data      │
+│                                      │               │               │               │ breach, фін.)    │
+└──────────────────────────────────────┴───────────────┴───────────────┴───────────────┴──────────────────┘</code></pre>
+
+        <h3>Порівняння покриття кіберстрахування</h3>
+<pre><code>┌─────────────────────────────────┬───────────────┬───────────────┬───────────────┬──────────────────────────┐
+│ Покриття                        │ Базовий       │ Стандартний   │ Преміум       │ Коментар                 │
+│                                 │ ($50K-200K)   │ ($200K-1M)   │ ($1M-10M)     │                          │
+├─────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────────────┤
+│ Витрати на Incident Response    │ ✓             │ ✓             │ ✓             │ IR-команда, forensics    │
+├─────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────────────┤
+│ Digital Forensics               │ ✓ (до $25K)   │ ✓ (до $100K)  │ ✓ (повне)     │ Форензичне розслідування │
+├─────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────────────┤
+│ Повідомлення клієнтів           │ ✓             │ ✓             │ ✓             │ Листи, call center       │
+│ (Notification costs)            │               │               │               │                          │
+├─────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────────────┤
+│ Юридичні послуги                │ ✗             │ ✓ (до $50K)   │ ✓ (повне)     │ Адвокати, представництво │
+├─────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────────────┤
+│ Втрачений прибуток              │ ✗             │ ✓ (до 30 днів)│ ✓ (до 90 днів)│ Business interruption    │
+│ (Business Interruption)         │               │               │               │                          │
+├─────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────────────┤
+│ Ransom payment                  │ ✗             │ ✗             │ ✓ (з умовами) │ Потребує узгодження      │
+│                                 │               │               │               │ з правоохоронцями        │
+├─────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────────────┤
+│ Штрафи регуляторів              │ ✗             │ ✓ (частково)  │ ✓             │ GDPR, НБУ, PCI DSS       │
+│ (Regulatory fines)              │               │               │               │                          │
+├─────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────────────┤
+│ Позови третіх сторін            │ ✗             │ ✓ (до $250K)  │ ✓ (повне)     │ Позови клієнтів          │
+│ (Third-party liability)         │               │               │               │                          │
+├─────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────────────┤
+│ Кризовий PR                     │ ✗             │ ✗             │ ✓             │ Управління репутацією     │
+├─────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────────────┤
+│ Credit monitoring для клієнтів  │ ✗             │ ✓ (6 місяців) │ ✓ (24 місяці) │ При витоку PII           │
+├─────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────────────┤
+│ Відновлення даних               │ ✓ (базове)    │ ✓             │ ✓ (повне)     │ Data recovery services   │
+├─────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────────────┤
+│ Fraud coverage                  │ ✗             │ ✗             │ ✓             │ Покриття шахрайських     │
+│                                 │               │               │               │ транзакцій               │
+├─────────────────────────────────┼───────────────┼───────────────┼───────────────┼──────────────────────────┤
+│ Типова річна премія             │ $5K-15K       │ $15K-50K      │ $50K-200K+    │ Залежить від розміру     │
+│ (для фінансової установи)       │               │               │               │ компанії та risk profile │
+└─────────────────────────────────┴───────────────┴───────────────┴───────────────┴──────────────────────────┘
+
+Вимоги страховика до організації (типові):
+  ☐ Наявність MFA на всіх зовнішніх сервісах
+  ☐ Регулярне патч-менеджмент (критичні патчі &lt; 72 години)
+  ☐ Офлайн-бекапи з тестуванням відновлення
+  ☐ EDR на всіх ендпоінтах
+  ☐ Security awareness training для працівників
+  ☐ Incident Response Plan (задокументований та тестований)</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Опишіть організаційну структуру CSIRT для фінансової установи. Які ролі є обов'язковими і чому? Як змінюється структура залежно від розміру організації?</li>
+            <li>Які ключові питання повинні бути розглянуті під час наради Lessons Learned? Чому ця нарада повинна відбутися протягом 1-2 тижнів після закриття інциденту?</li>
+            <li>Поясніть метрики MTTD та MTTR. Чому середньогалузевий MTTD у 204 дні є критичною проблемою для фінансових установ? Які заходи допомагають зменшити ці показники?</li>
+            <li>Що таке кіберстрахування і які типи збитків воно покриває? Які вимоги типово висувають страхові компанії до рівня кібербезпеки організації?</li>
+            <li>Які обов'язки фінансової установи щодо regulatory reporting при кіберінциденті відповідно до вимог НБУ, GDPR та PCI DSS? Які терміни повідомлення встановлені?</li>
+          </ol>
+        </div>
       </section>
 
       <section>

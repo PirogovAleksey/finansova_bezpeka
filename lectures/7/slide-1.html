@@ -165,6 +165,119 @@
     </section>
 
     <section class="slide">
+      <h1>12 вимог PCI DSS детально</h1>
+      <h2>Групування за цілями безпеки</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🌐</span>
+          <div class="card-title">Мережева безпека (1-2)</div>
+          <div class="card-text">Firewall/NSC для CDE сегментації. Заборона vendor-default паролів та конфігурацій на всіх компонентах</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🔐</span>
+          <div class="card-title">Захист даних (3-4)</div>
+          <div class="card-text">AES-256 для stored PAN, маскування (перші 6 / останні 4). TLS 1.2+ для transit. CVV/PIN — НІКОЛИ не зберігати</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">⚙️</span>
+          <div class="card-title">Управління вразливостями (5-6)</div>
+          <div class="card-text">Anti-malware з автооновленням на всіх системах. Secure SDLC: code review, SAST/DAST, патчі протягом 30 днів</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">👁️</span>
+          <div class="card-title">Моніторинг і тестування (7-12)</div>
+          <div class="card-text">Need-to-know + MFA + фізична безпека. SIEM з логами 1+ рік. ASV-скан + пентест. Документована ISP</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Типи SAQ — порівняння</h1>
+      <h2>Self-Assessment Questionnaire</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📄</span>
+          <span class="il-text"><strong>SAQ A</strong> — e-commerce з повним аутсорсингом платежів (iframe/redirect). Лише 22 вимоги</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📄</span>
+          <span class="il-text"><strong>SAQ A-EP</strong> — e-commerce з частковим контролем сторінки оплати. ~140 вимог</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📄</span>
+          <span class="il-text"><strong>SAQ B</strong> — лише imprint або standalone dial-out термінали. Без інтернету</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📄</span>
+          <span class="il-text"><strong>SAQ C</strong> — POS-термінали з IP-підключенням до процесора. Без e-commerce</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📄</span>
+          <span class="il-text"><strong>SAQ D</strong> — повний опитувальник для тих, хто зберігає карткові дані. 300+ вимог</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Стратегія: мінімізувати CDE scope через токенізацію та аутсорсинг — перехід з SAQ D на SAQ A.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Рівні комплаєнсу PCI DSS</h1>
+      <h2>Детальні вимоги валідації</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔴</span>
+          <span class="il-text"><strong>Level 1</strong> — >6M транзакцій/рік. Щорічний ROC від QSA, щоквартальний ASV-скан, щорічний пентест, AOC</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🟠</span>
+          <span class="il-text"><strong>Level 2</strong> — 1-6M транзакцій. Щорічний SAQ від ISA (Internal Security Assessor), ASV-скан, AOC</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔵</span>
+          <span class="il-text"><strong>Level 3</strong> — 20K-1M e-commerce. Щорічний SAQ, щоквартальний ASV-скан, AOC</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🟢</span>
+          <span class="il-text"><strong>Level 4</strong> — &lt;20K транзакцій. SAQ рекомендований, ASV за вимогою acquirer-банку</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Після data breach будь-який merchant може бути підвищений до Level 1 незалежно від обсягу транзакцій.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Процес ASV-сканування</h1>
+      <h2>Approved Scanning Vendor</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Scope визначення</div>
+          <div class="step-desc">Ідентифікація всіх зовнішніх IP та доменів CDE</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Зовнішній скан</div>
+          <div class="step-desc">Автоматизоване сканування вразливостей (CVSS 4.0+)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Remediation</div>
+          <div class="step-desc">Виправлення знайдених вразливостей (CVSS >= 4.0 = FAIL)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Re-scan + звіт</div>
+          <div class="step-desc">Повторний скан, ASV видає Passing Report</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>ASV-скан проводиться щоквартально та після значних змін інфраструктури. Приклади ASV: Qualys, Trustwave, Rapid7.</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

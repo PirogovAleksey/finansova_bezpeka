@@ -166,6 +166,146 @@
     </section>
 
     <section class="slide">
+      <h1>CVSS v3.1 Calculator: покроковий розбір</h1>
+      <h2>Приклад: SQL Injection у API платежів</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🌐</span>
+          <span class="il-text"><strong>Attack Vector: Network (N)</strong> — атака через інтернет, без фізичного доступу</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🧩</span>
+          <span class="il-text"><strong>Attack Complexity: Low (L)</strong> — SQLi тривіально експлуатується через sqlmap</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔑</span>
+          <span class="il-text"><strong>Privileges Required: None (N)</strong> — неавтентифікований доступ до endpoint</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">👤</span>
+          <span class="il-text"><strong>User Interaction: None (N)</strong> — жодна дія жертви не потрібна</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💥</span>
+          <span class="il-text"><strong>CIA: High/High/High</strong> — читання даних, модифікація записів, DoS можливий</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Результат: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H = 9.8 Critical. SLA: hotfix за 24 години.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Vulnerability Lifecycle</h1>
+      <h2>Від виявлення до закриття</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Discovery</div>
+          <div class="step-desc">Виявлення: сканер, пентест, bug bounty, code review, інцидент</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Triage</div>
+          <div class="step-desc">Підтвердження, CVSS-оцінка, визначення пріоритету, присвоєння власника</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Remediation</div>
+          <div class="step-desc">Code fix, virtual patching (WAF), оновлення залежностей, конфігураційні зміни</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Verification</div>
+          <div class="step-desc">Re-testing: PoC більше не працює, regression test пройдено</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Closure & Metrics</div>
+          <div class="step-desc">Закриття тікету, розрахунок MTTR, lessons learned, оновлення playbook</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Середній MTTR у фінансовому секторі: Critical 3 дні, High 15 днів, Medium 45 днів. Мета: зменшити вдвічі.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Bug Bounty: статистика та тренди</h1>
+      <div class="stat-row">
+        <div class="stat-box blue">
+          <div class="stat-value">$45M+</div>
+          <div class="stat-label">виплачено на HackerOne у 2024</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">65%</div>
+          <div class="stat-label">вразливостей — High/Critical</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">$3,000</div>
+          <div class="stat-label">медіана виплати у FinTech</div>
+        </div>
+      </div>
+      <div class="card-grid" style="margin-top: 1.2rem;">
+        <div class="card accent-blue">
+          <span class="card-icon">🏆</span>
+          <div class="card-title">Топ вразливості</div>
+          <div class="card-text">IDOR (28%), XSS (18%), Information Disclosure (14%), Auth Bypass (12%), SQLi (8%)</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🏦</span>
+          <div class="card-title">FinTech програми</div>
+          <div class="card-text">PayPal ($50K max), Coinbase ($1M max), Stripe ($25K), monobank, Revolut</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">⏱️</span>
+          <div class="card-title">Швидкість</div>
+          <div class="card-text">Середній час до першого звіту: 24 години після запуску програми</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">👥</span>
+          <div class="card-title">Спільнота</div>
+          <div class="card-text">1.5M+ дослідників на HackerOne, 500K+ на Bugcrowd. Багато з України</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Responsible Disclosure Process</h1>
+      <h2>Етичне розкриття вразливостей</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Виявлення</div>
+          <div class="step-desc">Дослідник знаходить вразливість у рамках scope (або випадково)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Звіт вендору</div>
+          <div class="step-desc">Конфіденційне повідомлення через security@, bug bounty платформу або security.txt</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Координація</div>
+          <div class="step-desc">Вендор підтверджує, оцінює CVSS, узгоджує таймлайн виправлення (зазвичай 90 днів)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Виправлення</div>
+          <div class="step-desc">Вендор випускає патч, CVE присвоюється через MITRE/CNA</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Публікація</div>
+          <div class="step-desc">Публічне розкриття після патчу: advisory, блог-пост, CVE деталі. Винагорода дослідника</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>ISO 29147 (disclosure) + ISO 30111 (handling) — міжнародні стандарти процесу розкриття вразливостей.</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

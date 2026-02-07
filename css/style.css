@@ -661,6 +661,93 @@ a.lecture-card {
   margin: 20px 0 12px;
 }
 
+/* --- Code blocks --- */
+.lecture-content pre {
+  background: #1e293b;
+  color: #e2e8f0;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 16px 0;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.7;
+  border: 1px solid #334155;
+  position: relative;
+}
+
+html.dark .lecture-content pre {
+  background: #0f172a;
+  border-color: #1e3a5f;
+}
+
+.lecture-content pre code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  background: none;
+  padding: 0;
+  border: none;
+  color: inherit;
+}
+
+.lecture-content code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.88em;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--card-border);
+}
+
+.lecture-content pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+}
+
+/* --- Control questions --- */
+.control-questions {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.06), rgba(99, 102, 241, 0.06));
+  border: 1px solid var(--card-border);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  padding: 20px 24px;
+  margin: 24px 0 8px;
+}
+
+.control-questions h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0 0 12px !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-questions h3::before {
+  content: '❓';
+  font-size: 16px;
+}
+
+.control-questions ol {
+  margin: 0 0 0 20px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.control-questions li {
+  margin-bottom: 4px;
+}
+
+.control-questions li:last-child {
+  margin-bottom: 0;
+}
+
 .lecture-nav-bottom {
   display: flex;
   justify-content: space-between;

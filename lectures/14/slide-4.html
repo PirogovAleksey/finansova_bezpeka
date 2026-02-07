@@ -78,6 +78,63 @@
       </div>
     </section>
     <section class="slide">
+      <h1>KPI / KRI Dashboard</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">📊</span>
+            <div class="card-title">KPI (ефективність)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">MTTD: 4.2 год (ціль: &lt;24 год) <span style="color: green;">&#10003;</span><br>MTTR: 2.1 год (ціль: &lt;4 год) <span style="color: green;">&#10003;</span><br>Patch compliance: 97% <span style="color: green;">&#10003;</span><br>Phishing click rate: 3.2% <span style="color: green;">&#10003;</span><br>SOC coverage: 94% <span style="color: orange;">&#9888;</span></div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">⚠️</span>
+            <div class="card-title">KRI (ранні сигнали)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Нові critical CVE: 12 (тренд &#8593;) <span style="color: red;">&#10007;</span><br>Невідомі активи: 34 <span style="color: orange;">&#9888;</span><br>Відкриті інциденти: 7 <span style="color: green;">&#10003;</span><br>Third-party ризики: 3 high <span style="color: orange;">&#9888;</span><br>Turnover SOC: 15% <span style="color: red;">&#10007;</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1rem;">Dashboard оновлюється <strong>в реальному часі</strong>. KRI з червоним статусом — негайна ескалація на CISO</div>
+    </section>
+    <section class="slide">
+      <h1>MTTD / MTTR — бенчмарки</h1>
+      <div class="highlight-box"><strong>MTTD</strong> (Mean Time to Detect) та <strong>MTTR</strong> (Mean Time to Respond) — ключові метрики швидкості SOC</div>
+      <div class="card-grid" style="margin-top: 1.5rem;">
+        <div class="card accent-red"><span class="card-icon">🐌</span><div class="card-title">Без SOC</div><div class="card-text">MTTD: 204 дні<br>MTTR: 73 дні<br>Джерело: IBM 2024</div></div>
+        <div class="card accent-orange"><span class="card-icon">📊</span><div class="card-title">Базовий SOC</div><div class="card-text">MTTD: 24-72 год<br>MTTR: 4-24 год<br>SIEM + T1 аналітики</div></div>
+        <div class="card accent-green"><span class="card-icon">⚡</span><div class="card-title">Зрілий SOC</div><div class="card-text">MTTD: 1-4 год<br>MTTR: 30 хв - 2 год<br>SIEM + EDR + SOAR</div></div>
+        <div class="card accent-blue"><span class="card-icon">🤖</span><div class="card-title">AI-Driven SOC</div><div class="card-text">MTTD: хвилини<br>MTTR: автоматичний<br>ML-детектування + авто-containment</div></div>
+      </div>
+      <div class="icon-list" style="margin-top: 1rem;">
+        <div class="icon-list-item"><span class="il-icon">💰</span><span class="il-text">Кожен день скорочення MTTD економить в середньому <strong>$25K</strong> вартості breach</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Рівні зрілості SOC</h1>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-title">Initial (Reactive)</div><div class="step-desc">Ad hoc реагування, відсутність SIEM, мінімальний моніторинг. Інциденти виявляють зовнішні сторони</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Managed (Foundational)</div><div class="step-desc">Базовий SIEM, документовані runbooks, T1 аналітики 8/5. Реактивний підхід</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Defined (Proactive)</div><div class="step-desc">24/7 моніторинг, threat hunting, SOAR, TI інтеграція. Проактивний пошук загроз</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Quantitative (Data-Driven)</div><div class="step-desc">Metrics-driven рішення, predictive analytics, кореляція з бізнес-ризиками</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-title">Optimizing (Autonomous)</div><div class="step-desc">AI/ML детектування, автоматичне реагування, continuous improvement. Мета для top-tier банків</div></div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1rem;">Більшість українських банків знаходяться на рівні <strong>2-3</strong>. Ціль — рівень 4 протягом 2-3 років</div>
+    </section>
+    <section class="slide">
+      <h1>Безперервне вдосконалення (PDCA)</h1>
+      <div class="highlight-box"><strong>Plan-Do-Check-Act</strong> — циклічний підхід до постійного покращення процесів кібербезпеки та SOC</div>
+      <div class="card-grid" style="margin-top: 1.5rem;">
+        <div class="card accent-blue"><span class="card-icon">📋</span><div class="card-title">Plan (Планувати)</div><div class="card-text">Аналіз метрик, визначення gaps, постановка цілей. Наприклад: знизити MTTD на 30%</div></div>
+        <div class="card accent-green"><span class="card-icon">🔧</span><div class="card-title">Do (Виконувати)</div><div class="card-text">Впровадження змін: нові detection rules, SOAR playbooks, навчання аналітиків</div></div>
+        <div class="card accent-orange"><span class="card-icon">📊</span><div class="card-title">Check (Перевіряти)</div><div class="card-text">Порівняння результатів з цілями, purple team exercises, аудит ефективності</div></div>
+        <div class="card accent-purple"><span class="card-icon">🔄</span><div class="card-title">Act (Коригувати)</div><div class="card-text">Стандартизація успішних змін, коригування невдалих, нові цілі на наступний цикл</div></div>
+      </div>
+      <div class="icon-list" style="margin-top: 1rem;">
+        <div class="icon-list-item"><span class="il-icon">📅</span><span class="il-text">Цикл PDCA для SOC: <strong>щоквартально</strong> для процесів, <strong>щомісячно</strong> для detection rules</span></div>
+      </div>
+    </section>
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

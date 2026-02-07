@@ -58,6 +58,53 @@
       </div>
     </section>
     <section class="slide">
+      <h1>Чек-лист захисту ОС (Hardening)</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">🔄</span><span class="il-text"><strong>Автооновлення</strong> — увімкніть auto-update для ОС, браузера та всіх додатків</span></div>
+        <div class="icon-list-item"><span class="il-icon">🛡️</span><span class="il-text"><strong>Firewall</strong> — увімкніть вбудований firewall (Windows Defender Firewall / macOS Firewall)</span></div>
+        <div class="icon-list-item"><span class="il-icon">👤</span><span class="il-text"><strong>Права доступу</strong> — працюйте з обмеженим акаунтом, admin лише для інсталяцій</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔐</span><span class="il-text"><strong>BitLocker / FileVault</strong> — увімкніть повне шифрування диска</span></div>
+        <div class="icon-list-item"><span class="il-icon">🚫</span><span class="il-text"><strong>Непотрібні сервіси</strong> — вимкніть Remote Desktop, SMBv1, Telnet якщо не використовуєте</span></div>
+        <div class="icon-list-item"><span class="il-icon">📋</span><span class="il-text"><strong>AppLocker / Gatekeeper</strong> — дозволяйте лише підписані додатки з відомих джерел</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Безпека домашнього роутера</h1>
+      <div class="card-grid">
+        <div class="card accent-red"><span class="card-icon">🔑</span><div class="card-title">Зміна паролів</div><div class="card-text">Admin: admin/admin — перше що перевіряє зловмисник. Змініть негайно!</div></div>
+        <div class="card accent-blue"><span class="card-icon">📶</span><div class="card-title">WPA3 / WPA2-AES</div><div class="card-text">Вимкніть WEP та WPS. Пароль Wi-Fi мінімум 16 символів</div></div>
+        <div class="card accent-green"><span class="card-icon">🔄</span><div class="card-title">Firmware Update</div><div class="card-text">Перевіряйте оновлення щомісяця. Роутери рідко оновлюються автоматично</div></div>
+        <div class="card accent-orange"><span class="card-icon">🌐</span><div class="card-title">DNS фільтрація</div><div class="card-text">Встановіть DNS: Quad9 (9.9.9.9) або Cloudflare (1.1.1.2) для блокування шкідливих сайтів</div></div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Зламаний роутер = зловмисник бачить ВСЕ: паролі, банкінг, листування. Це найважливіший пристрій у мережі.</p>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Порівняння VPN-протоколів</h1>
+      <div class="card-grid">
+        <div class="card accent-green"><span class="card-icon">⚡</span><div class="card-title">WireGuard</div><div class="card-text">Сучасний, швидкий, ~4000 рядків коду. Найкращий вибір для особистого VPN</div></div>
+        <div class="card accent-blue"><span class="card-icon">🔒</span><div class="card-title">OpenVPN</div><div class="card-text">Перевірений часом, гнучкий, працює через TCP/443 (обхід блокувань)</div></div>
+        <div class="card accent-orange"><span class="card-icon">🏢</span><div class="card-title">IPsec / IKEv2</div><div class="card-text">Корпоративний стандарт, стабільний при зміні мережі (мобільні пристрої)</div></div>
+        <div class="card accent-red"><span class="card-icon">🚫</span><div class="card-title">PPTP</div><div class="card-text">Застарілий, зламаний. НІКОЛИ не використовуйте — еквівалент відсутності шифрування</div></div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Безкоштовні VPN часто збирають та продають ваші дані. Краще власний VPN на VPS або платний провайдер з аудитом (Mullvad, ProtonVPN).</p>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Безпека IoT-пристроїв</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">📶</span><span class="il-text"><strong>Окрема мережа</strong> — створіть Guest Wi-Fi для IoT. Ізоляція від основних пристроїв</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔑</span><span class="il-text"><strong>Паролі за замовчуванням</strong> — змініть на кожному пристрої. Ботнет Mirai зламав 600K пристроїв через default credentials</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔄</span><span class="il-text"><strong>Firmware</strong> — оновлюйте камери, розетки, термостати. Обирайте виробників з підтримкою оновлень</span></div>
+        <div class="icon-list-item"><span class="il-icon">🚫</span><span class="il-text"><strong>UPnP</strong> — вимкніть на роутері. Автоматичне відкриття портів = загроза безпеці</span></div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Зламана IP-камера або розумна колонка = шпигунство у вашому домі. Перед покупкою IoT перевірте репутацію виробника.</p>
+      </div>
+    </section>
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

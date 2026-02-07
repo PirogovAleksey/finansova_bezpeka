@@ -162,6 +162,125 @@
     </section>
 
     <section class="slide">
+      <h1>Безпека NFC-платежів</h1>
+      <h2>Near Field Communication — технічні деталі</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📡</span>
+          <span class="il-text"><strong>Дальність 1-4 см</strong> — фізична близькість як перший фактор безпеки, relay-атака ускладнена</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔐</span>
+          <span class="il-text"><strong>Secure Element (SE)</strong> — ізольований чіп (eSE/UICC/HCE). Зберігає ключі та виконує криптооперації</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💳</span>
+          <span class="il-text"><strong>DPAN</strong> — Device PAN, унікальний для пристрою. Реальний PAN не передається через NFC</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔢</span>
+          <span class="il-text"><strong>CVM limits</strong> — до ~500-1500 грн без PIN/біометрії. Вище — обов'язкова верифікація</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Захист від replay</strong> — одноразовий криптограм + sequence counter виключають повторне використання</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>PSD2 — вимоги SCA</h1>
+      <h2>Strong Customer Authentication</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">🧠</span>
+          <div class="card-title">Knowledge</div>
+          <div class="card-text">Щось, що знає клієнт: PIN, пароль, секретне питання. Перший фактор</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">📱</span>
+          <div class="card-title">Possession</div>
+          <div class="card-text">Щось, що має клієнт: телефон (OTP/push), апаратний токен, SIM-картка</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">👆</span>
+          <div class="card-title">Inherence</div>
+          <div class="card-text">Щось, чим є клієнт: відбиток пальця, Face ID, голос, поведінкова біометрія</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">⚡</span>
+          <div class="card-title">Виключення SCA</div>
+          <div class="card-text">Low-value (&lt;30 EUR), recurring, trusted beneficiary, merchant-initiated, TRA exemption</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>SCA вимагає мінімум 2 з 3 факторів. Динамічне зв'язування: код прив'язаний до суми та отримувача.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Open Banking API — архітектура</h1>
+      <h2>Безпечна взаємодія TPP з банками</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">TPP реєстрація</div>
+          <div class="step-desc">Ліцензія від регулятора, eIDAS-сертифікат (QWAC/QSeal), реєстрація у банку</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Consent Request</div>
+          <div class="step-desc">TPP запитує consent через API. Клієнт перенаправляється до банку для підтвердження</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">SCA у банку</div>
+          <div class="step-desc">Клієнт проходить Strong Customer Authentication безпосередньо у банківському додатку</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Access Token</div>
+          <div class="step-desc">Банк видає OAuth2 access token з обмеженим scope та терміном дії (90 днів для AIS)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">API Calls</div>
+          <div class="step-desc">TPP працює через RESTful API з mTLS, підписаними запитами (JWS) та rate limiting</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Безпека QR-платежів</h1>
+      <h2>Загрози та механізми захисту</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">⚠️</span>
+          <div class="card-title">QR Overlay Attack</div>
+          <div class="card-text">Шахрай наклеює свій QR поверх легітимного. Кошти йдуть на рахунок атакуючого</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔗</span>
+          <div class="card-title">Phishing QR</div>
+          <div class="card-text">QR веде на фішингову сторінку, що імітує платіжний інтерфейс банку</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">✅</span>
+          <div class="card-title">Цифровий підпис</div>
+          <div class="card-text">QR містить ECDSA-підпис від банку. Додаток верифікує перед відображенням деталей</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">⏱️</span>
+          <div class="card-title">Dynamic + TTL</div>
+          <div class="card-text">Одноразовий QR з терміном дії 60-300 сек. Прив'язка до суми та merchant ID</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>EMVCo QR Standard: merchant-presented (статичний/динамічний) та consumer-presented (завжди динамічний, безпечніший).</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

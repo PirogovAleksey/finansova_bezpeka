@@ -166,6 +166,119 @@
     </section>
 
     <section class="slide">
+      <h1>Pretexting: сценарії скриптів</h1>
+      <h2>Типові діалоги зловмисників</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Привітання</div>
+          <div class="step-desc">«Доброго дня, Олено Іванівно! Це Максим з IT-відділу.»</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Легітимізація</div>
+          <div class="step-desc">«Ваш керівник Андрій Петренко попросив мене допомогти з оновленням.»</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Проблема</div>
+          <div class="step-desc">«Бачу аномальну активність на вашому акаунті, потрібно терміново перевірити.»</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Запит</div>
+          <div class="step-desc">«Підкажіть свій пароль / код з SMS, щоб я міг підтвердити, що це ви.»</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Ключ: знання імен, посад, внутрішніх процесів з OSINT (LinkedIn, сайт компанії) робить pretexting переконливим.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Фізична соціальна інженерія: методи</h1>
+      <h2>Атаки поза цифровим простором</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🚪</span>
+          <div class="card-title">Tailgating</div>
+          <div class="card-text">«Тримайте двері!» — прохід за працівником без власного бейджа</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">📋</span>
+          <div class="card-title">Shoulder surfing</div>
+          <div class="card-text">Підглядання PIN-коду в банкоматі, паролю на робочому місці</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🗑️</span>
+          <div class="card-title">Dumpster diving</div>
+          <div class="card-text">Пошук у смітті: роздруківки, записки з паролями, фінансові документи</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">💾</span>
+          <div class="card-title">USB-drop</div>
+          <div class="card-text">USB з написом «Зарплати 2025» на парковці. 45% людей підключають знайдені USB</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Watering Hole: схема атаки</h1>
+      <h2>Компрометація довірених сайтів</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Розвідка</div>
+          <div class="step-desc">Визначити сайти, які регулярно відвідує цільова група (галузевий портал, форум)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Компрометація</div>
+          <div class="step-desc">Злом сайту через вразливість (XSS, SQL injection, CMS exploit)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Впровадження</div>
+          <div class="step-desc">Вставка exploit-коду або редірект на шкідливий сайт (drive-by download)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Зараження</div>
+          <div class="step-desc">Відвідувач заходить на довірений сайт → автоматичне завантаження malware</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Приклад: атака на Polish Financial Supervision Authority (2017) — сайт фінрегулятора заражав банки-відвідувачі.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Vishing: тактики голосового фішингу</h1>
+      <h2>Телефонне шахрайство у фінансовому секторі</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📞</span>
+          <span class="il-text"><strong>Caller ID Spoofing</strong> — підміна номера на реальний номер банку (+380 44 ...)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🎭</span>
+          <span class="il-text"><strong>Сценарій «безпечний рахунок»</strong> — «переведіть кошти, поки ми блокуємо шахрая»</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🤖</span>
+          <span class="il-text"><strong>AI Voice Cloning</strong> — клонування голосу знайомих за зразком з соцмереж (3 сек аудіо)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚡</span>
+          <span class="il-text"><strong>Робо-дзвінки</strong> — автоматичний IVR: «Натисніть 1 для з'єднання з оператором безпеки»</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>НБУ: понад 300 000 скарг на телефонне шахрайство щорічно. Середній збиток: 5 000-15 000 грн на жертву.</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

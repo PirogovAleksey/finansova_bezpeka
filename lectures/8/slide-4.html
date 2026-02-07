@@ -156,6 +156,115 @@
     </section>
 
     <section class="slide">
+      <h1>Метрики фішинг-симуляцій</h1>
+      <h2>Ключові показники ефективності програми</h2>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">&lt;5%</div>
+          <div class="stat-label">Click rate (цільовий). Без тренінгу: 15-30%</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">&gt;60%</div>
+          <div class="stat-label">Report rate: відсоток працівників, що повідомили про лист</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="stat-value">&lt;5 хв</div>
+          <div class="stat-label">Time to report: час від отримання до повідомлення</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Тренд: після 4 раундів симуляцій click rate знижується на 60-80%. Рекомендована частота: щоквартально, з різними сценаріями.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Email Security Stack</h1>
+      <h2>SPF, DKIM, DMARC — захист від spoofing</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">SPF</div>
+          <div class="step-desc">Sender Policy Framework: DNS-запис визначає, які сервери можуть надсилати email від імені домену</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">DKIM</div>
+          <div class="step-desc">DomainKeys Identified Mail: криптографічний підпис листа, підтверджує автентичність відправника</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">DMARC</div>
+          <div class="step-desc">Domain-based Message Authentication: політика (none/quarantine/reject) + звіти про порушення</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">ATP</div>
+          <div class="step-desc">Advanced Threat Protection: sandbox-аналіз вкладень, URL-detonation, AI-фільтрація</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Лише 33% українських доменів мають DMARC у режимі reject. Без DMARC=reject зловмисник може надсилати листи від вашого домену.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Програма Security Awareness</h1>
+      <h2>Побудова культури безпеки в організації</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">📅</span>
+          <div class="card-title">Onboarding</div>
+          <div class="card-text">Тренінг з безпеки у перший день. Підписання політики допустимого використання</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🔄</span>
+          <div class="card-title">Щоквартальне навчання</div>
+          <div class="card-text">Нові сценарії атак, розбір реальних інцидентів, інтерактивні тести</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🏆</span>
+          <div class="card-title">Мотивація</div>
+          <div class="card-text">Security Champions у відділах, нагороди за виявлення фішингу, дошка лідерів</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">📊</span>
+          <div class="card-title">Вимірювання</div>
+          <div class="card-text">Dashboard: click rate, report rate, час реакції. Звіт для керівництва щомісяця</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Процес реагування на інциденти</h1>
+      <h2>Workflow при виявленні фішингу</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Виявлення</div>
+          <div class="step-desc">Працівник натискає «Report Phishing» або SOC виявляє підозрілий лист</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Аналіз</div>
+          <div class="step-desc">SOC перевіряє: заголовки, URL, вкладення, кількість отримувачів, хто клікнув</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Стримування</div>
+          <div class="step-desc">Блокування URL/домену, видалення листа з усіх скриньок, ізоляція заражених машин</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Відновлення</div>
+          <div class="step-desc">Скидання паролів, перевірка логів, оповіщення CERT-UA за потреби, lessons learned</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Золоте правило: краще 100 хибних спрацювань, ніж 1 пропущена атака. Ніколи не карайте за report!</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

@@ -87,6 +87,93 @@
         <p><strong>ORM Injection.</strong> Використання ORM (Hibernate, SQLAlchemy, Sequelize) не гарантує захист від ін'єкцій. Raw queries, HQL/JPQL ін'єкції, некоректне використання query builders — все це створює вектори атак. Приклад: <code>User.where("name = '#{params[:name]}'")</code> в Ruby on Rails — класична ін'єкція через ORM.</p>
 
         <p><strong>Кейс з фінансового сектору:</strong> у 2023 році дослідники виявили SQLi-вразливість у платіжному процесорі, що обслуговував тисячі торговців. Через ін'єкцію в API endpoint для пошуку транзакцій зловмисник міг отримати повні дані кредитних карток (PAN, expiry, CVV) мільйонів клієнтів. Вразливість існувала через конкатенацію рядків у legacy-коді, який не було оновлено при міграції на нову платформу.</p>
+
+        <p><strong>Приклад Classic SQLi — обхід автентифікації:</strong></p>
+<pre><code>-- Оригінальний запит на сервері:
+SELECT * FROM users WHERE username = 'INPUT' AND password = 'INPUT';
+
+-- Зловмисник вводить у поле логіну:
+-- Username: admin' --
+-- Password: будь-що
+
+-- Результат — запит перетворюється на:
+SELECT * FROM users WHERE username = 'admin' --' AND password = 'anything';
+-- Все після -- є коментарем, перевірка пароля ігнорується</code></pre>
+
+        <p><strong>Приклад UNION-based SQLi — витягування даних карток:</strong></p>
+<pre><code>-- Легітимний запит пошуку транзакцій:
+SELECT date, description, amount FROM transactions WHERE account_id = 'INPUT';
+
+-- Ін'єкція зловмисника:
+-- INPUT: 1' UNION SELECT card_number, cvv, exp_date FROM credit_cards --
+
+-- Результат:
+SELECT date, description, amount FROM transactions WHERE account_id = '1'
+UNION SELECT card_number, cvv, exp_date FROM credit_cards --';
+-- Зловмисник отримує дані всіх кредитних карток у відповіді</code></pre>
+
+        <p><strong>Blind SQLi — Boolean-based витягування даних посимвольно:</strong></p>
+<pre><code>-- Зловмисник визначає першу літеру імені адміністратора:
+-- Якщо сторінка відображається нормально — умова TRUE
+
+' AND (SELECT SUBSTRING(username,1,1) FROM users WHERE role='admin') = 'a' --
+-- Сторінка нормальна → перша літера = 'a'
+
+' AND (SELECT SUBSTRING(username,2,1) FROM users WHERE role='admin') = 'd' --
+-- Сторінка нормальна → друга літера = 'd'
+
+-- Автоматизовані інструменти (sqlmap) виконують тисячі таких запитів</code></pre>
+
+        <p><strong>Вразливий PHP-код vs параметризований запит:</strong></p>
+<pre><code># ❌ ВРАЗЛИВИЙ КОД — конкатенація рядків
+$query = "SELECT * FROM accounts WHERE client_id = '" . $_GET['id'] . "'";
+$result = mysqli_query($conn, $query);
+
+# ✅ БЕЗПЕЧНИЙ КОД — параметризований запит (PDO)
+$stmt = $pdo->prepare("SELECT * FROM accounts WHERE client_id = ?");
+$stmt->execute([$_GET['id']]);
+$result = $stmt->fetchAll();</code></pre>
+
+        <p><strong>Вразливий Python-код vs параметризований запит:</strong></p>
+<pre><code># ❌ ВРАЗЛИВИЙ КОД — f-string / format
+query = f"SELECT balance FROM accounts WHERE iban = '{user_input}'"
+cursor.execute(query)
+
+# ✅ БЕЗПЕЧНИЙ КОД — параметризований запит (psycopg2)
+query = "SELECT balance FROM accounts WHERE iban = %s"
+cursor.execute(query, (user_input,))</code></pre>
+
+        <p><strong>ORM Injection — приклад вразливого коду (SQLAlchemy):</strong></p>
+<pre><code># ❌ ВРАЗЛИВИЙ — raw SQL через ORM
+from sqlalchemy import text
+result = db.session.execute(
+    text(f"SELECT * FROM transactions WHERE account = '{account_id}'")
+)
+
+# ❌ ВРАЗЛИВИЙ — динамічний фільтр
+result = db.session.execute(
+    text("SELECT * FROM users WHERE " + user_filter)
+)
+
+# ✅ БЕЗПЕЧНИЙ — використання ORM-методів
+result = Transaction.query.filter_by(account=account_id).all()
+
+# ✅ БЕЗПЕЧНИЙ — параметризований raw SQL
+result = db.session.execute(
+    text("SELECT * FROM transactions WHERE account = :acc"),
+    {"acc": account_id}
+)</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Поясніть різницю між Classic (In-band) SQL-ін'єкцією та Blind SQL-ін'єкцією. Чому Blind SQLi вважається складнішою, але не менш небезпечною?</li>
+            <li>Як працює атака UNION-based SQL-ін'єкції для витягування даних кредитних карток? Які умови повинні бути виконані для успішної UNION-ін'єкції?</li>
+            <li>Що таке Second-Order SQL Injection і чому вона особливо небезпечна для мікросервісної архітектури фінансових систем?</li>
+            <li>Чому використання ORM (Object-Relational Mapping) не гарантує повного захисту від SQL-ін'єкцій? Наведіть приклади вразливих ORM-конструкцій.</li>
+            <li>Порівняйте вразливий код з конкатенацією рядків та параметризований запит. Поясніть, чому параметризація запобігає SQL-ін'єкціям на рівні SQL-движка.</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 5.2 -->
@@ -118,6 +205,148 @@
         </ul>
 
         <p><strong>Server-Side Template Injection (SSTI)</strong> — ін'єкція в серверні шаблонізатори (Jinja2, Twig, Freemarker, Thymeleaf). Якщо дані користувача потрапляють у шаблон без обробки, зловмисник може виконати довільний код на сервері. Приклад: email-шаблони для фінансових повідомлень, де ім'я клієнта вставляється безпосередньо в Jinja2-шаблон.</p>
+
+        <p><strong>Command Injection — вразливий vs безпечний код:</strong></p>
+<pre><code># ❌ ВРАЗЛИВИЙ — генерація PDF-виписки з user input
+import os
+def generate_statement(account_name):
+    # Зловмисник передає: "; rm -rf / #" як account_name
+    os.system(f"wkhtmltopdf 'https://bank.com/statement?name={account_name}' output.pdf")
+
+# Результат виконання:
+# wkhtmltopdf 'https://bank.com/statement?name='; rm -rf / #' output.pdf
+# Команда rm -rf / виконується на сервері!
+
+# ✅ БЕЗПЕЧНИЙ — використання бібліотечного API без shell
+import subprocess
+def generate_statement_safe(account_name):
+    # subprocess з list аргументів НЕ використовує shell
+    subprocess.run(
+        ["wkhtmltopdf", f"https://bank.com/statement?name={account_name}", "output.pdf"],
+        shell=False,  # Важливо: shell=False (за замовчуванням)
+        check=True
+    )
+
+# ✅ ЩЕ КРАЩЕ — використання Python-бібліотеки замість CLI
+import pdfkit
+def generate_statement_best(account_name):
+    # Валідація вхідних даних
+    if not account_name.isalnum():
+        raise ValueError("Invalid account name")
+    pdfkit.from_url(f"https://bank.com/statement?name={account_name}", "output.pdf")</code></pre>
+
+        <p><strong>SSRF — атака на хмарну інфраструктуру банку:</strong></p>
+<pre><code># Фінансовий додаток має функцію завантаження логотипу компанії за URL
+# Легітимний запит:
+POST /api/company/logo
+{"logo_url": "https://example.com/logo.png"}
+
+# ❌ Вразливий серверний код (Python/Flask):
+@app.route('/api/company/logo', methods=['POST'])
+def fetch_logo():
+    url = request.json['logo_url']
+    # Сервер виконує запит без перевірки URL
+    response = requests.get(url)
+    return save_image(response.content)
+
+# SSRF-атака 1: Доступ до AWS metadata (крадіжка IAM credentials)
+{"logo_url": "http://169.254.169.254/latest/meta-data/iam/security-credentials/BankAppRole"}
+# Відповідь містить: AccessKeyId, SecretAccessKey, Token — повний доступ до AWS
+
+# SSRF-атака 2: Сканування внутрішньої мережі банку
+{"logo_url": "http://10.0.1.50:6379/INFO"}       # Redis без автентифікації
+{"logo_url": "http://10.0.1.100:9200/_cat/indices"} # Elasticsearch з даними клієнтів
+{"logo_url": "http://10.0.1.5:8080/admin"}        # Адмін-панель внутрішнього сервісу
+
+# ✅ БЕЗПЕЧНИЙ — валідація URL перед запитом
+from urllib.parse import urlparse
+import ipaddress
+
+BLOCKED_RANGES = [
+    ipaddress.ip_network('10.0.0.0/8'),
+    ipaddress.ip_network('172.16.0.0/12'),
+    ipaddress.ip_network('192.168.0.0/16'),
+    ipaddress.ip_network('169.254.0.0/16'),  # AWS metadata
+]
+
+def is_safe_url(url):
+    parsed = urlparse(url)
+    if parsed.scheme not in ('http', 'https'):
+        return False
+    try:
+        ip = ipaddress.ip_address(parsed.hostname)
+        return not any(ip in network for network in BLOCKED_RANGES)
+    except ValueError:
+        # Hostname, не IP — дозволяємо (але DNS rebinding все ще можливий)
+        return True</code></pre>
+
+        <p><strong>XXE — атака на XML-парсер банківських повідомлень:</strong></p>
+<pre><code>&lt;!-- ❌ Шкідливий XML-документ (XXE payload) --&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE payment [
+  &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt;
+]&gt;
+&lt;payment&gt;
+  &lt;from&gt;UA903052992990004149123456789&lt;/from&gt;
+  &lt;to&gt;UA213223130000026007233566001&lt;/to&gt;
+  &lt;amount&gt;10000.00&lt;/amount&gt;
+  &lt;description&gt;&amp;xxe;&lt;/description&gt;  &lt;!-- Вміст /etc/passwd потрапить сюди --&gt;
+&lt;/payment&gt;
+
+&lt;!-- XXE для крадіжки конфігурації бази даних --&gt;
+&lt;!DOCTYPE payment [
+  &lt;!ENTITY xxe SYSTEM "file:///var/www/bank-app/config/database.yml"&gt;
+]&gt;
+
+&lt;!-- XXE + SSRF — доступ до внутрішніх сервісів --&gt;
+&lt;!DOCTYPE payment [
+  &lt;!ENTITY xxe SYSTEM "http://10.0.1.50:8080/admin/users"&gt;
+]&gt;</code></pre>
+<pre><code># ✅ Безпечна конфігурація XML-парсера (Python)
+import defusedxml.ElementTree as ET  # Безпечна бібліотека
+tree = ET.parse('payment.xml')  # Автоматично блокує XXE
+
+# Або вручну вимкнути зовнішні сутності у lxml:
+from lxml import etree
+parser = etree.XMLParser(
+    resolve_entities=False,
+    no_network=True,
+    dtd_validation=False,
+    load_dtd=False
+)
+tree = etree.parse('payment.xml', parser)</code></pre>
+
+        <p><strong>SSTI — ін'єкція в Jinja2-шаблон фінансових email-повідомлень:</strong></p>
+<pre><code># ❌ ВРАЗЛИВИЙ — користувацькі дані потрапляють у шаблон
+from jinja2 import Template
+
+def send_notification(client_name, amount):
+    # Зловмисник реєструється з ім'ям: {{7*7}} або {{config.items()}}
+    template_str = f"Шановний {client_name}, ваш платіж на суму {amount} грн оброблено."
+    template = Template(template_str)
+    return template.render()
+
+# Якщо client_name = "{{config.items()}}" — зловмисник бачить конфігурацію сервера
+# Якщо client_name = "{{''.__class__.__mro__[1].__subclasses__()}}" — список усіх класів Python
+# Це може призвести до Remote Code Execution!
+
+# ✅ БЕЗПЕЧНИЙ — дані передаються як змінні шаблону
+def send_notification_safe(client_name, amount):
+    template = Template("Шановний {{ name }}, ваш платіж на суму {{ sum }} грн оброблено.")
+    return template.render(name=client_name, sum=amount)
+
+# Тепер навіть якщо client_name = "{{7*7}}", буде виведено текст "{{7*7}}", а не 49</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Поясніть, як Command Injection може виникнути у фінансовому додатку при генерації PDF-виписок. Які методи захисту від цієї вразливості найефективніші?</li>
+            <li>Опишіть сценарій SSRF-атаки на хмарну інфраструктуру банку через AWS metadata endpoint. Чому Capital One breach 2019 року вважається знаковим прикладом SSRF?</li>
+            <li>Чому вразливість XXE є особливо актуальною для фінансового сектору? Які формати та протоколи (SWIFT, ISO 20022) можуть бути вектором XXE-атаки?</li>
+            <li>Як працює SSTI (Server-Side Template Injection) і чому вона може призвести до Remote Code Execution? Наведіть приклад безпечного використання шаблонізатора.</li>
+            <li>Порівняйте SSRF та XXE як вразливості, що дозволяють доступ до внутрішніх ресурсів. У чому їх спільні риси та відмінності?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 5.3 -->
@@ -145,6 +374,150 @@
         <p><strong>Database Activity Monitoring (DAM)</strong> — моніторинг та аудит усіх запитів до бази даних у реальному часі. Виявляє аномальні запити: SELECT на всю таблицю клієнтів, масовий експорт даних, запити в неробочий час, DDL-зміни. Рішення: IBM Guardium, Imperva SecureSphere, Oracle Audit Vault.</p>
 
         <p><strong>Безпека резервних копій:</strong> backup бази — це повна копія всіх даних. Вимоги: шифрування backup (AES-256), розмежування доступу до backup storage, тестування відновлення, зберігання в окремій локації (geographic separation), дотримання retention policy (не зберігати довше необхідного). Кейс: у 2020 році незашифрований backup PostgreSQL банку був випадково завантажений у публічний S3-bucket, розкривши дані 500 000 клієнтів.</p>
+
+        <p><strong>Конфігурація Transparent Data Encryption (TDE) — SQL Server:</strong></p>
+<pre><code>-- Крок 1: Створити Master Key у базі master
+USE master;
+CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'StrongP@ssw0rd!2024';
+
+-- Крок 2: Створити сертифікат для TDE
+CREATE CERTIFICATE BankTDE_Cert
+    WITH SUBJECT = 'TDE Certificate for Financial Database';
+
+-- Крок 3: Створити Database Encryption Key у цільовій базі
+USE FinancialDB;
+CREATE DATABASE ENCRYPTION KEY
+    WITH ALGORITHM = AES_256
+    ENCRYPTION BY SERVER CERTIFICATE BankTDE_Cert;
+
+-- Крок 4: Увімкнути шифрування
+ALTER DATABASE FinancialDB SET ENCRYPTION ON;
+
+-- Перевірка стану шифрування:
+SELECT db.name, dm.encryption_state, dm.percent_complete
+FROM sys.dm_database_encryption_keys dm
+JOIN sys.databases db ON dm.database_id = db.database_id;
+-- encryption_state: 3 = Encrypted</code></pre>
+
+        <p><strong>PostgreSQL — шифрування з'єднань (TLS) та column-level encryption:</strong></p>
+<pre><code>-- Конфігурація TLS у postgresql.conf:
+-- ssl = on
+-- ssl_cert_file = '/etc/ssl/certs/bank-db.crt'
+-- ssl_key_file = '/etc/ssl/private/bank-db.key'
+-- ssl_min_protocol_version = 'TLSv1.3'
+
+-- Примусове TLS у pg_hba.conf:
+-- hostssl  financial_db  app_user  10.0.0.0/8  scram-sha-256
+
+-- Column-level encryption з pgcrypto:
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- Шифрування номера картки при збереженні
+INSERT INTO payment_cards (client_id, card_number_encrypted, card_last4)
+VALUES (
+    1001,
+    pgp_sym_encrypt('4111111111111111', 'encryption-key-from-vault'),
+    '1111'
+);
+
+-- Розшифрування (тільки авторизовані сервіси мають ключ)
+SELECT client_id,
+       pgp_sym_decrypt(card_number_encrypted::bytea, 'encryption-key-from-vault') AS card_number
+FROM payment_cards
+WHERE client_id = 1001;</code></pre>
+
+        <p><strong>PostgreSQL Row-Level Security (RLS) — обмеження доступу менеджерів до даних клієнтів:</strong></p>
+<pre><code>-- Увімкнути RLS на таблиці клієнтів
+ALTER TABLE clients ENABLE ROW LEVEL SECURITY;
+
+-- Політика: менеджер бачить лише клієнтів свого відділення
+CREATE POLICY branch_isolation ON clients
+    FOR ALL
+    TO branch_managers
+    USING (branch_id = current_setting('app.current_branch_id')::int);
+
+-- Політика: аудитор має доступ лише для читання до всіх записів
+CREATE POLICY auditor_read_all ON clients
+    FOR SELECT
+    TO auditors
+    USING (true);
+
+-- Встановлення контексту при підключенні (у додатку):
+-- SET app.current_branch_id = '42';
+
+-- Тепер менеджер відділення 42 при SELECT * FROM clients
+-- бачить ТІЛЬКИ клієнтів з branch_id = 42
+-- Навіть якщо він напише WHERE branch_id = 99 — результат буде порожнім</code></pre>
+
+        <p><strong>Конфігурація аудиту запитів (PostgreSQL pgAudit):</strong></p>
+<pre><code>-- Встановлення розширення pgAudit у postgresql.conf:
+-- shared_preload_libraries = 'pgaudit'
+
+-- Конфігурація аудиту:
+-- pgaudit.log = 'read, write, ddl'        -- Логувати SELECT, INSERT/UPDATE/DELETE, DDL
+-- pgaudit.log_catalog = off                 -- Не логувати системні каталоги
+-- pgaudit.log_relation = on                 -- Логувати кожну таблицю окремо
+-- pgaudit.log_statement_once = off          -- Логувати повний запит
+
+-- Створення ролі для аудиту:
+CREATE ROLE auditor;
+ALTER SYSTEM SET pgaudit.role = 'auditor';
+
+-- Приклад запису в аудит-логу:
+-- LOG: AUDIT: SESSION,1,1,READ,SELECT,TABLE,public.clients,
+--      "SELECT * FROM clients WHERE balance > 1000000",&lt;none&gt;
+-- Хто, коли, що запитував — повна відстежуваність</code></pre>
+
+        <p><strong>Безпечний скрипт резервного копіювання бази даних:</strong></p>
+<pre><code>#!/bin/bash
+# secure_backup.sh — Шифрований backup фінансової бази даних
+
+set -euo pipefail
+
+# Змінні
+DB_NAME="financial_db"
+BACKUP_DIR="/var/backups/db"
+DATE=$(date +%Y%m%d_%H%M%S)
+BACKUP_FILE="${BACKUP_DIR}/${DB_NAME}_${DATE}.sql.gz.enc"
+RETENTION_DAYS=30
+GPG_RECIPIENT="backup@bank.ua"
+
+# Створення backup з шифруванням (pipeline: dump → compress → encrypt)
+pg_dump -h localhost -U backup_user --no-owner "${DB_NAME}" \
+  | gzip -9 \
+  | gpg --encrypt --recipient "${GPG_RECIPIENT}" --trust-model always \
+  > "${BACKUP_FILE}"
+
+# Встановлення обмежених прав доступу
+chmod 600 "${BACKUP_FILE}"
+chown backup:backup "${BACKUP_FILE}"
+
+# Перевірка цілісності backup
+if [ ! -s "${BACKUP_FILE}" ]; then
+    echo "ERROR: Backup file is empty!" | mail -s "Backup FAILED" dba@bank.ua
+    exit 1
+fi
+
+# Видалення старих backup (retention policy)
+find "${BACKUP_DIR}" -name "*.sql.gz.enc" -mtime +${RETENTION_DAYS} -delete
+
+# Копіювання у віддалене сховище (geographic separation)
+aws s3 cp "${BACKUP_FILE}" "s3://bank-backups-dr/${DB_NAME}/" \
+    --sse aws:kms --sse-kms-key-id alias/backup-key
+
+# Логування результату
+echo "$(date): Backup completed: ${BACKUP_FILE}" >> /var/log/db_backup.log</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Порівняйте Transparent Data Encryption (TDE), Column-level Encryption та Application-level Encryption. У яких сценаріях фінансова установа повинна використовувати кожен із цих підходів?</li>
+            <li>Поясніть механізм Row-Level Security (RLS) у PostgreSQL. Як він реалізує принцип «менеджер бачить лише клієнтів свого відділення»?</li>
+            <li>Чому Database Activity Monitoring (DAM) є обов'язковим компонентом безпеки фінансової бази даних? Які типи аномальних запитів він повинен виявляти?</li>
+            <li>Опишіть основні вимоги до безпечного резервного копіювання фінансової бази даних. Які наслідки може мати витік незашифрованого backup?</li>
+            <li>Чому передача даних між додатком та базою даних у відкритому вигляді є критичною вразливістю? Як налаштувати примусове TLS-з'єднання у PostgreSQL?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 5.4 -->
@@ -186,6 +559,269 @@
         </ul>
 
         <p><strong>Database Hardening</strong> — захищена конфігурація серверів баз даних: зміна default credentials, вимкнення непотрібних функцій (xp_cmdshell, LOAD_FILE), мінімальний набір привілеїв для service accounts, мережева ізоляція бази (не виставляти в інтернет), регулярне оновлення та патчинг, CIS Benchmarks для конкретних СУБД.</p>
+
+        <p><strong>Параметризовані запити — приклади на різних мовах програмування:</strong></p>
+<pre><code># Python (psycopg2) — переказ між рахунками
+import psycopg2
+
+def transfer_funds(conn, from_iban, to_iban, amount):
+    with conn.cursor() as cur:
+        # Перевірка балансу — параметризований запит
+        cur.execute(
+            "SELECT balance FROM accounts WHERE iban = %s FOR UPDATE",
+            (from_iban,)
+        )
+        balance = cur.fetchone()[0]
+
+        if balance < amount:
+            raise ValueError("Недостатньо коштів")
+
+        # Списання
+        cur.execute(
+            "UPDATE accounts SET balance = balance - %s WHERE iban = %s",
+            (amount, from_iban)
+        )
+        # Зарахування
+        cur.execute(
+            "UPDATE accounts SET balance = balance + %s WHERE iban = %s",
+            (amount, to_iban)
+        )
+        # Запис транзакції
+        cur.execute(
+            "INSERT INTO transactions (from_iban, to_iban, amount, created_at) "
+            "VALUES (%s, %s, %s, NOW())",
+            (from_iban, to_iban, amount)
+        )
+    conn.commit()</code></pre>
+
+<pre><code>// Java (PreparedStatement) — пошук транзакцій клієнта
+public List&lt;Transaction&gt; getTransactions(String clientId, Date fromDate, Date toDate) {
+    String sql = "SELECT id, amount, description, created_at " +
+                 "FROM transactions " +
+                 "WHERE client_id = ? AND created_at BETWEEN ? AND ? " +
+                 "ORDER BY created_at DESC";
+
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setString(1, clientId);       // Parameter index 1
+        stmt.setDate(2, new java.sql.Date(fromDate.getTime()));  // Parameter index 2
+        stmt.setDate(3, new java.sql.Date(toDate.getTime()));    // Parameter index 3
+
+        ResultSet rs = stmt.executeQuery();
+        List&lt;Transaction&gt; transactions = new ArrayList&lt;&gt;();
+        while (rs.next()) {
+            transactions.add(new Transaction(
+                rs.getLong("id"),
+                rs.getBigDecimal("amount"),
+                rs.getString("description"),
+                rs.getTimestamp("created_at")
+            ));
+        }
+        return transactions;
+    }
+}</code></pre>
+
+<pre><code>// Node.js (pg) — перевірка IBAN та отримання балансу
+const { Pool } = require('pg');
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+async function getAccountBalance(iban) {
+    // Параметризований запит — $1 буде замінено безпечно
+    const query = {
+        text: 'SELECT balance, currency, status FROM accounts WHERE iban = $1',
+        values: [iban],
+    };
+
+    const result = await pool.query(query);
+    if (result.rows.length === 0) {
+        throw new Error('Account not found');
+    }
+    return result.rows[0];
+}
+
+// Множинні параметри — пошук транзакцій з фільтрами
+async function searchTransactions(accountId, minAmount, maxAmount, limit) {
+    const result = await pool.query(
+        `SELECT * FROM transactions
+         WHERE account_id = $1
+           AND amount BETWEEN $2 AND $3
+         ORDER BY created_at DESC
+         LIMIT $4`,
+        [accountId, minAmount, maxAmount, limit]
+    );
+    return result.rows;
+}</code></pre>
+
+        <p><strong>Приклад правила WAF (ModSecurity / OWASP Core Rule Set):</strong></p>
+<pre><code># ModSecurity — основна конфігурація для фінансового додатку
+# /etc/modsecurity/modsecurity.conf
+
+# Увімкнення ModSecurity у режимі блокування
+SecRuleEngine On
+
+# Блокування SQL-ін'єкцій (OWASP CRS Rule 942100)
+SecRule ARGS|ARGS_NAMES|REQUEST_COOKIES|REQUEST_HEADERS \
+    "@rx (?i:(?:union[\s\v]+select|select[\s\v]+[\w\*][\s\v]+from|insert[\s\v]+into|delete[\s\v]+from|drop[\s\v]+table))" \
+    "id:942100,\
+     phase:2,\
+     block,\
+     msg:'SQL Injection Attack Detected',\
+     logdata:'Matched Data: %{MATCHED_VAR}',\
+     severity:'CRITICAL',\
+     tag:'attack-sqli',\
+     tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION'"
+
+# Блокування SSRF-спроб (доступ до внутрішніх IP)
+SecRule ARGS "@rx (?:^|\b)(?:(?:10|127)\.\d{1,3}\.\d{1,3}\.\d{1,3}|169\.254\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3})" \
+    "id:932200,\
+     phase:2,\
+     block,\
+     msg:'SSRF Attempt - Internal IP Access',\
+     severity:'CRITICAL'"
+
+# Обмеження розміру запиту (захист від buffer overflow)
+SecRequestBodyLimit 1048576
+SecRequestBodyNoFilesLimit 131072
+
+# Обмеження частоти запитів (rate limiting)
+SecAction "id:900700,phase:1,nolog,pass,t:none,setvar:'tx.dos_burst_time_slice=60'"
+SecAction "id:900710,phase:1,nolog,pass,t:none,setvar:'tx.dos_counter_threshold=100'"</code></pre>
+
+        <p><strong>Input Validation — патерни валідації фінансових даних:</strong></p>
+<pre><code>import re
+from decimal import Decimal, InvalidOperation
+
+class FinancialValidator:
+    """Валідатор вхідних даних фінансового додатку"""
+
+    # Регулярний вираз для українського IBAN
+    IBAN_PATTERN = re.compile(r'^UA\d{27}$')
+
+    # Дозволені валюти (whitelist)
+    ALLOWED_CURRENCIES = {'UAH', 'USD', 'EUR', 'GBP', 'PLN'}
+
+    @staticmethod
+    def validate_iban(iban: str) -> bool:
+        """Whitelist-валідація IBAN"""
+        if not isinstance(iban, str):
+            return False
+        iban = iban.strip().upper()
+        if not FinancialValidator.IBAN_PATTERN.match(iban):
+            return False
+        # Перевірка контрольної суми (ISO 7064 Mod 97-10)
+        rearranged = iban[4:] + iban[:4]
+        numeric = ''.join(str(ord(c) - 55) if c.isalpha() else c for c in rearranged)
+        return int(numeric) % 97 == 1
+
+    @staticmethod
+    def validate_amount(amount_str: str, max_amount: Decimal = Decimal('999999999.99')) -> Decimal:
+        """Валідація суми переказу"""
+        try:
+            amount = Decimal(amount_str)
+        except (InvalidOperation, TypeError):
+            raise ValueError("Невірний формат суми")
+
+        if amount <= 0:
+            raise ValueError("Сума повинна бути більше 0")
+        if amount > max_amount:
+            raise ValueError(f"Сума перевищує максимально допустиму: {max_amount}")
+        if amount.as_tuple().exponent < -2:
+            raise ValueError("Максимум 2 десяткових знаки")
+        return amount
+
+    @staticmethod
+    def validate_currency(currency: str) -> str:
+        """Whitelist-валідація валюти"""
+        currency = currency.strip().upper()
+        if currency not in FinancialValidator.ALLOWED_CURRENCIES:
+            raise ValueError(f"Непідтримувана валюта: {currency}")
+        return currency
+
+    @staticmethod
+    def validate_payment_description(description: str, max_length: int = 140) -> str:
+        """Валідація призначення платежу"""
+        if not isinstance(description, str):
+            raise ValueError("Опис повинен бути рядком")
+        description = description.strip()
+        if len(description) > max_length:
+            raise ValueError(f"Максимальна довжина опису: {max_length} символів")
+        # Видалення небезпечних символів (але дозволяємо кирилицю)
+        if re.search(r'[<>&"\';\\]', description):
+            raise ValueError("Опис містить заборонені символи")
+        return description</code></pre>
+
+        <p><strong>Database Hardening — чек-лист для фінансових систем:</strong></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Категорія</th>
+              <th>Захід</th>
+              <th>Деталі</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Автентифікація</td>
+              <td>Зміна default credentials</td>
+              <td>Видалити/перейменувати стандартні облікові записи (sa, root, postgres). Встановити складні паролі (мін. 16 символів)</td>
+            </tr>
+            <tr>
+              <td>Автентифікація</td>
+              <td>Мінімальні привілеї</td>
+              <td>Окремий DB user для кожного мікросервісу. Сервіс аналітики: <code>GRANT SELECT ON transactions TO analytics_svc</code></td>
+            </tr>
+            <tr>
+              <td>Мережа</td>
+              <td>Мережева ізоляція</td>
+              <td>База доступна лише з application subnet. Порт 5432/3306/1433 закритий з інтернету. Використання VPC / private subnet</td>
+            </tr>
+            <tr>
+              <td>Мережа</td>
+              <td>TLS для з'єднань</td>
+              <td>Мінімум TLS 1.2, рекомендовано TLS 1.3. Заборонити незашифровані з'єднання у pg_hba.conf / my.cnf</td>
+            </tr>
+            <tr>
+              <td>Функціонал</td>
+              <td>Вимкнення небезпечних функцій</td>
+              <td>SQL Server: <code>sp_configure 'xp_cmdshell', 0</code>. MySQL: видалити <code>LOAD_FILE</code>, <code>INTO OUTFILE</code>. PostgreSQL: обмежити <code>COPY</code></td>
+            </tr>
+            <tr>
+              <td>Функціонал</td>
+              <td>Обмеження доступних бази</td>
+              <td>Видалити тестові бази (test, sample). Обмежити <code>CREATE DATABASE</code> правами</td>
+            </tr>
+            <tr>
+              <td>Аудит</td>
+              <td>Логування запитів</td>
+              <td>Увімкнути pgAudit / MySQL Enterprise Audit. Логувати DDL, DML на критичних таблицях, невдалі спроби автентифікації</td>
+            </tr>
+            <tr>
+              <td>Аудит</td>
+              <td>Моніторинг</td>
+              <td>Налаштувати алерти на: масовий SELECT, DDL у production, підключення з нових IP, запити у неробочий час</td>
+            </tr>
+            <tr>
+              <td>Оновлення</td>
+              <td>Патчинг</td>
+              <td>Регулярне оновлення СУБД (щомісячні security patches). Тестування на staging перед production</td>
+            </tr>
+            <tr>
+              <td>Стандарти</td>
+              <td>CIS Benchmarks</td>
+              <td>Застосувати CIS Benchmark для конкретної СУБД. Автоматизувати перевірку через OpenSCAP або аналогічні інструменти</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Напишіть приклад параметризованого запиту на будь-якій мові програмування для пошуку транзакцій за IBAN та діапазоном дат. Поясніть, чому цей підхід безпечний.</li>
+            <li>Яку роль виконує WAF (Web Application Firewall) у захисті фінансового додатку? Чому WAF не може замінити безпечний код, а лише доповнює його?</li>
+            <li>Опишіть стратегію Input Validation для фінансового API-endpoint, що приймає суму, IBAN та валюту. Які перевірки обов'язкові для кожного поля?</li>
+            <li>Поясніть основні кроки Database Hardening для PostgreSQL у фінансовій установі. Які налаштування за замовчуванням є небезпечними та потребують зміни?</li>
+            <li>Чому правило «100% запитів повинні використовувати параметризацію» є абсолютним у фінансових системах? Які ризики створює навіть один неправильний запит?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Summary -->

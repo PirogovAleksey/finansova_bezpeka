@@ -213,7 +213,154 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. RBAC приклад для банку -->
+    <section class="slide">
+      <h1>RBAC — приклад для банку</h1>
+      <h2>Ієрархія ролей банківської системи</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Стажер (Trainee)</div>
+          <div class="step-desc">view_own_tasks — лише перегляд навчальних матеріалів та тестових даних</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Касир (Teller)</div>
+          <div class="step-desc">view_account, create_transaction (до 50K грн), print_statement</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Старший касир (Senior Teller)</div>
+          <div class="step-desc">+ approve_transaction (до 200K грн), override_limits, handle_disputes</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Менеджер відділення (Branch Manager)</div>
+          <div class="step-desc">+ approve_loans (до 5M грн), manage_staff, view_branch_reports</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Регіональний директор</div>
+          <div class="step-desc">+ view_all_branches, approve_loans (до 50M грн), strategic_reports</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Ієрархічний RBAC: кожна роль успадковує дозволи нижчих рівнів. Менеджер автоматично має всі дозволи касира.</p>
+      </div>
+    </section>
+
+    <!-- 9. ABAC Policy Example -->
+    <section class="slide">
+      <h1>ABAC — приклад політики</h1>
+      <h2>Контекстне рішення для кредитного відділу</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">👤</span>
+          <div class="card-title">Суб'єкт (Subject)</div>
+          <div class="card-text">role = "credit_officer"<br>department = "lending"<br>clearance_level >= 3<br>certification = "risk_mgmt"</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">📄</span>
+          <div class="card-title">Об'єкт (Resource)</div>
+          <div class="card-text">type = "loan_application"<br>amount <= 2_000_000 UAH<br>risk_score < "high"<br>status = "pending"</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🌍</span>
+          <div class="card-title">Контекст (Environment)</div>
+          <div class="card-text">time = "09:00-18:00"<br>day = "weekday"<br>network = "corporate_vpn"<br>device = "managed"</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">✅</span>
+          <div class="card-title">Рішення (Decision)</div>
+          <div class="card-text">action = "approve_loan"<br>effect = PERMIT<br>obligation: log_decision<br>obligation: notify_supervisor</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Одна ABAC-політика замінює десятки RBAC-ролей. Зміна ліміту або часу — правка одного правила, а не перебудова ролей.</p>
+      </div>
+    </section>
+
+    <!-- 10. RBAC vs ABAC vs ReBAC -->
+    <section class="slide">
+      <h1>RBAC vs ABAC vs ReBAC</h1>
+      <h2>Коли застосовувати яку модель</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-blue">
+          <span class="card-icon">👔</span>
+          <div class="card-title">RBAC</div>
+          <div class="card-text">
+            Складність: низька<br>
+            Гнучкість: низька<br>
+            Масштабування: role explosion<br>
+            Аудит: простий<br>
+            <strong>Для:</strong> невеликі банки, фіксовані ролі
+          </div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🧩</span>
+          <div class="card-title">ABAC</div>
+          <div class="card-text">
+            Складність: висока<br>
+            Гнучкість: максимальна<br>
+            Масштабування: відмінне<br>
+            Аудит: складний<br>
+            <strong>Для:</strong> великі банки, регуляторні вимоги
+          </div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🕸️</span>
+          <div class="card-title">ReBAC</div>
+          <div class="card-text">
+            Складність: середня<br>
+            Гнучкість: висока<br>
+            Масштабування: графове<br>
+            Аудит: візуальний<br>
+            <strong>Для:</strong> multi-tenant, ownership
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Рекомендація: RBAC для базових ролей + ABAC для контекстних рішень + ReBAC для ownership — гібридний підхід дає найкращий результат.</p>
+      </div>
+    </section>
+
+    <!-- 11. Policy-as-Code з OPA -->
+    <section class="slide">
+      <h1>Policy-as-Code з OPA</h1>
+      <h2>Приклад Rego-політики для банківського API</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📝</span>
+          <span class="il-text"><strong>Rego-правило:</strong> allow якщо input.user.role == "manager" AND input.action == "approve" AND input.resource.amount &lt; 1000000</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🧪</span>
+          <span class="il-text"><strong>Unit-тест:</strong> test_manager_can_approve_small_loan — перевірка з mock-даними перед деплоєм</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔀</span>
+          <span class="il-text"><strong>CI/CD:</strong> git push → тести політик → conftest verify → автодеплой до OPA</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>Decision Log:</strong> кожне рішення OPA логується — хто, коли, що запитував, результат</span>
+        </div>
+      </div>
+      <div class="card-grid" style="margin-top: 1.2rem;">
+        <div class="card accent-blue">
+          <span class="card-icon">🔌</span>
+          <div class="card-title">Інтеграція</div>
+          <div class="card-text">API Gateway (Kong, Envoy), Kubernetes Admission, Terraform, мікросервіси через REST/gRPC</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">⚡</span>
+          <div class="card-title">Продуктивність</div>
+          <div class="card-text">Компіляція Rego у Wasm. Latency &lt;1ms на рішення. Кешування partial evaluation</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

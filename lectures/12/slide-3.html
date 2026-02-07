@@ -68,6 +68,72 @@
       </div>
     </section>
     <section class="slide">
+      <h1>Приклад Sigma Rule</h1>
+      <h2>Стандартний формат detection rule для будь-якого SIEM</h2>
+      <div class="code-block" style="background: var(--card-bg); border-radius: 12px; padding: 1.2rem; font-family: monospace; font-size: 0.85rem; line-height: 1.6; overflow-x: auto; border: 1px solid var(--border);">
+        <span style="color: var(--accent-blue);">title:</span> Suspicious PowerShell Encoded Command<br>
+        <span style="color: var(--accent-blue);">status:</span> experimental<br>
+        <span style="color: var(--accent-blue);">logsource:</span><br>
+        &nbsp;&nbsp;<span style="color: var(--accent-orange);">product:</span> windows<br>
+        &nbsp;&nbsp;<span style="color: var(--accent-orange);">category:</span> process_creation<br>
+        <span style="color: var(--accent-blue);">detection:</span><br>
+        &nbsp;&nbsp;<span style="color: var(--accent-orange);">selection:</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;CommandLine|contains: '-enc'<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Image|endswith: 'powershell.exe'<br>
+        &nbsp;&nbsp;<span style="color: var(--accent-orange);">condition:</span> selection<br>
+        <span style="color: var(--accent-blue);">level:</span> high
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Sigma конвертується в Splunk SPL, Elastic KQL, Microsoft Sentinel та інші SIEM через sigmac/pySigma.</p>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Структура YARA Rule</h1>
+      <h2>Пошук malware за сигнатурами у файлах та пам'яті</h2>
+      <div class="code-block" style="background: var(--card-bg); border-radius: 12px; padding: 1.2rem; font-family: monospace; font-size: 0.85rem; line-height: 1.6; overflow-x: auto; border: 1px solid var(--border);">
+        <span style="color: var(--accent-blue);">rule</span> Detect_Cobalt_Strike {<br>
+        &nbsp;&nbsp;<span style="color: var(--accent-orange);">meta:</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;author = "SOC Team"<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;description = "Cobalt Strike beacon"<br>
+        &nbsp;&nbsp;<span style="color: var(--accent-orange);">strings:</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;$s1 = "%d is an x86 dll" ascii<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;$s2 = "beacon.dll" ascii<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;$s3 = { 4D 5A 90 00 03 00 }<br>
+        &nbsp;&nbsp;<span style="color: var(--accent-orange);">condition:</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;uint16(0) == 0x5A4D and 2 of ($s*)<br>
+        }
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>YARA працює з файлами, RAM дампами, мережевим трафіком. Інтегрується з VirusTotal, THOR, Loki Scanner.</p>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Memory Forensics з Volatility</h1>
+      <h2>Аналіз дампу оперативної пам'яті</h2>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-title">imageinfo</div><div class="step-desc">Визначення профілю ОС: версія Windows/Linux, архітектура, KDBG offset</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">pslist / pstree</div><div class="step-desc">Список процесів, parent-child зв'язки, виявлення підозрілих та прихованих процесів</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">netscan</div><div class="step-desc">Мережеві з'єднання з RAM: C2 адреси, порти, стан сокетів навіть для завершених сесій</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">malfind / yarascan</div><div class="step-desc">Пошук injected code, RWX секцій, YARA сканування пам'яті процесів</div></div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Volatility 3: Python-based, модульний, підтримує Windows, Linux, macOS. Ключовий інструмент для fileless malware.</p>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Network Forensics: Wireshark</h1>
+      <h2>Глибокий аналіз мережевого трафіку</h2>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">🔎</span><span class="il-text"><strong>Display Filters</strong> — ip.addr == 10.0.0.1 && tcp.port == 443 для фільтрації підозрілого трафіку</span></div>
+        <div class="icon-list-item"><span class="il-icon">📡</span><span class="il-text"><strong>Follow Stream</strong> — реконструкція TCP/HTTP сесій, перегляд переданих даних та C2 команд</span></div>
+        <div class="icon-list-item"><span class="il-icon">📊</span><span class="il-text"><strong>Statistics</strong> — Conversations, Protocol Hierarchy: виявлення аномальних обсягів та протоколів</span></div>
+        <div class="icon-list-item"><span class="il-icon">📦</span><span class="il-text"><strong>Export Objects</strong> — витягування файлів з HTTP/SMB трафіку: malware samples, exfiltrated documents</span></div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Для beacon detection: Statistics → Conversations → Sort by Packets. C2 beacons мають регулярні інтервали.</p>
+      </div>
+    </section>
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

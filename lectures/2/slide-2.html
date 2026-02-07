@@ -222,7 +222,149 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. SAST vs DAST vs IAST -->
+    <section class="slide">
+      <h1>SAST vs DAST vs IAST — порівняння</h1>
+      <h2>Три підходи до тестування безпеки</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-blue">
+          <span class="card-icon">📄</span>
+          <div class="card-title">SAST</div>
+          <div class="card-text">White-box. Аналіз вихідного коду. Швидко, багато false positives. Semgrep, SonarQube</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🌐</span>
+          <div class="card-title">DAST</div>
+          <div class="card-text">Black-box. Тестує працюючий додаток ззовні. Реальні вразливості, повільно. OWASP ZAP, Burp</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔬</span>
+          <div class="card-title">IAST</div>
+          <div class="card-text">Grey-box. Агент всередині додатку. Точний, мало false positives. Contrast Security, Hdiv</div>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 1.2rem;">
+        <div class="stat-box blue">
+          <div class="stat-value">SAST</div>
+          <div class="stat-label">на кожен commit</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">DAST</div>
+          <div class="stat-label">на staging</div>
+        </div>
+        <div class="stat-box purple">
+          <div class="stat-value">IAST</div>
+          <div class="stat-label">QA/staging</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Threat Modeling Process -->
+    <section class="slide">
+      <h1>Процес Threat Modeling</h1>
+      <h2>Покрокове моделювання загроз для FinTech</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Scope</div>
+          <div class="step-desc">Визначити межі системи та Data Flow Diagram</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Identify</div>
+          <div class="step-desc">Знайти активи: PII, фінансові дані, ключі</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">STRIDE</div>
+          <div class="step-desc">Для кожного компонента застосувати 6 категорій загроз</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">DREAD</div>
+          <div class="step-desc">Оцінити ризик: Damage, Reproducibility, Exploitability, Affected, Discoverability</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Mitigate</div>
+          <div class="step-desc">Визначити контрзаходи для кожної загрози</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Threat Model проводиться при кожній зміні архітектури. Для FinTech обов'язково включає PCI DSS та Open Banking загрози.</p>
+      </div>
+    </section>
+
+    <!-- 10. DevSecOps Pipeline -->
+    <section class="slide">
+      <h1>DevSecOps Pipeline</h1>
+      <h2>Повний потік безпеки від коду до production</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">💻</span>
+          <span class="il-text"><strong>IDE</strong> — плагіни безпеки (Semgrep, Snyk) підказують вразливості під час написання коду</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔑</span>
+          <span class="il-text"><strong>Pre-commit</strong> — git-secrets блокує commit з API-ключами, паролями, приватними ключами</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📝</span>
+          <span class="il-text"><strong>CI Build</strong> — SAST + SCA + license check + secret scanning автоматично на кожному PR</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🐳</span>
+          <span class="il-text"><strong>Container Build</strong> — Trivy сканує Docker-образ, Cosign підписує для supply chain security</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🧪</span>
+          <span class="il-text"><strong>Staging</strong> — DAST + IAST + API fuzzing на тестовому оточенні перед релізом</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🚀</span>
+          <span class="il-text"><strong>Production</strong> — RASP + WAF + runtime monitoring + anomaly detection</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Security Gates в CI/CD -->
+    <section class="slide">
+      <h1>Security Gates в CI/CD</h1>
+      <h2>Автоматичні ворота, що блокують небезпечний код</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">🚫</span>
+            <div class="card-title">Блокуючі (Hard Gates)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Critical/High вразливості<br>
+              Секрети у коді<br>
+              Вразливі залежності (CVSS > 7)<br>
+              Неліцензовані компоненти<br>
+              Unsigned Docker images
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">⚠️</span>
+            <div class="card-title">Попереджуючі (Soft Gates)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Medium/Low вразливості<br>
+              Code quality issues<br>
+              Test coverage нижче порогу<br>
+              Deprecated залежності<br>
+              Documentation gaps
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Hard Gates зупиняють pipeline повністю. У FinTech жодна вразливість рівня Critical не повинна потрапити у production.</p>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🔒</span>
       <h1>Ключові висновки</h1>

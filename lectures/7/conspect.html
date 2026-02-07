@@ -93,6 +93,109 @@
         <p><strong>Рівні комплаєнсу PCI DSS</strong> залежать від обсягу транзакцій: Level 1 (>6 млн транзакцій/рік) — щорічний аудит QSA + щоквартальне ASV-сканування; Level 2 (1-6 млн) — SAQ + ASV; Level 3 (20K-1 млн e-commerce) — SAQ + ASV; Level 4 (<20K) — SAQ. Більшість українських банків підпадають під Level 1-2.</p>
 
         <p><strong>PCI DSS v4.0 (2024)</strong> — оновлення з фокусом на: customized approach (гнучкість у виконанні вимог), розширені вимоги до MFA, targeted risk analysis, enhanced security awareness, автоматизація тестування.</p>
+
+        <p><strong>Таблиця 12 вимог PCI DSS із зіставленням цілей безпеки:</strong></p>
+<pre><code>┌──────┬─────────────────────────────────────────┬──────────────────────────┐
+│ Req# │ Вимога                                  │ Ціль безпеки             │
+├──────┼─────────────────────────────────────────┼──────────────────────────┤
+│  1   │ Встановити та підтримувати firewall      │ Захист мережі            │
+│  2   │ Не використовувати default паролі        │ Захист мережі            │
+│  3   │ Захистити збережені дані карток          │ Захист даних             │
+│  4   │ Шифрувати передачу даних                 │ Захист даних             │
+│  5   │ Захист від malware                       │ Управління вразливостями │
+│  6   │ Розробляти безпечні системи              │ Управління вразливостями │
+│  7   │ Обмежити доступ (need-to-know)           │ Контроль доступу         │
+│  8   │ Ідентифікувати та автентифікувати        │ Контроль доступу         │
+│  9   │ Обмежити фізичний доступ                 │ Контроль доступу         │
+│ 10   │ Логувати та моніторити доступ            │ Моніторинг і тестування  │
+│ 11   │ Регулярно тестувати безпеку              │ Моніторинг і тестування  │
+│ 12   │ Підтримувати політику безпеки            │ Політика ІБ              │
+└──────┴─────────────────────────────────────────┴──────────────────────────┘</code></pre>
+
+        <p><strong>Рівні комплаєнсу та вимоги до валідації:</strong></p>
+<pre><code>┌─────────┬────────────────────────┬────────────────────────────────────────┐
+│ Рівень  │ Обсяг транзакцій/рік   │ Вимоги до валідації                    │
+├─────────┼────────────────────────┼────────────────────────────────────────┤
+│ Level 1 │ > 6 млн                │ Щорічний аудит QSA (on-site)           │
+│         │                        │ + Щоквартальне ASV-сканування          │
+│         │                        │ + Attestation of Compliance (AOC)      │
+├─────────┼────────────────────────┼────────────────────────────────────────┤
+│ Level 2 │ 1 — 6 млн              │ Щорічний SAQ (Self-Assessment)         │
+│         │                        │ + Щоквартальне ASV-сканування          │
+├─────────┼────────────────────────┼────────────────────────────────────────┤
+│ Level 3 │ 20 000 — 1 млн         │ Щорічний SAQ                           │
+│         │ (e-commerce)           │ + Щоквартальне ASV-сканування          │
+├─────────┼────────────────────────┼────────────────────────────────────────┤
+│ Level 4 │ &lt; 20 000               │ Щорічний SAQ                           │
+│         │                        │ (ASV за рекомендацією acquirer)        │
+└─────────┴────────────────────────┴────────────────────────────────────────┘</code></pre>
+
+        <p><strong>Дерево вибору SAQ (Self-Assessment Questionnaire):</strong></p>
+<pre><code>Чи зберігаєте/обробляєте/передаєте дані карток?
+│
+├── НІ → PCI DSS не застосовується
+│
+└── ТАК → Чи є card-not-present (e-commerce) канал?
+    │
+    ├── ТАК → Чи повністю outsource обробку платежів?
+    │   │
+    │   ├── ТАК → Чи є iframe/redirect (без PAN на вашому сервері)?
+    │   │   │
+    │   │   ├── ТАК → SAQ A  (найменший обсяг — 22 вимоги)
+    │   │   └── НІ  → SAQ A-EP (частковий контроль платіжної сторінки)
+    │   │
+    │   └── НІ → Чи є власний payment application?
+    │       │
+    │       ├── ТАК → SAQ D (повний — 329 вимог)
+    │       └── НІ  → SAQ C-VT (віртуальний термінал)
+    │
+    └── НІ → Card-present (POS)?
+        │
+        ├── P2PE-сертифікований термінал → SAQ P2PE (мінімальний)
+        ├── Standalone terminal, no storage → SAQ B
+        ├── IP-connected terminal → SAQ C
+        └── Інше → SAQ D (повний)</code></pre>
+
+        <p><strong>Фрагмент звіту ASV-сканування (Approved Scanning Vendor):</strong></p>
+<pre><code># ASV Scan Report — Summary
+# Scanner: Qualys PCI (ASV #4243-01-08)
+# Scan Date: 2024-11-15  Target: payments.example.ua
+
+SCAN STATUS: FAIL
+
+┌────────────────────────┬──────────┬─────────────────────────────────────────┐
+│ Host / IP              │ Severity │ Finding                                 │
+├────────────────────────┼──────────┼─────────────────────────────────────────┤
+│ 203.0.113.10 :443      │ HIGH     │ TLS 1.0 enabled — must disable          │
+│                        │          │ (PCI DSS Req 4.1)                       │
+├────────────────────────┼──────────┼─────────────────────────────────────────┤
+│ 203.0.113.10 :443      │ MEDIUM   │ SSL certificate expires in 12 days      │
+├────────────────────────┼──────────┼─────────────────────────────────────────┤
+│ 203.0.113.11 :8080     │ HIGH     │ Apache Struts CVE-2024-XXXX —           │
+│                        │          │ remote code execution (Req 6.2)         │
+├────────────────────────┼──────────┼─────────────────────────────────────────┤
+│ 203.0.113.12 :3306     │ CRITICAL │ MySQL port exposed to Internet           │
+│                        │          │ (PCI DSS Req 1.3.7)                     │
+└────────────────────────┴──────────┴─────────────────────────────────────────┘
+
+REMEDIATION REQUIRED:
+ 1. Disable TLS 1.0/1.1 on payments.example.ua (Req 4.1)
+ 2. Renew SSL certificate before expiry
+ 3. Patch Apache Struts to latest version (Req 6.2)
+ 4. Block external access to MySQL port 3306 (Req 1.3.7)
+
+Next quarterly scan deadline: 2025-02-15</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Які організації зобов'язані дотримуватися стандарту PCI DSS та які наслідки порушення вимог?</li>
+            <li>У чому різниця між рівнями комплаєнсу PCI DSS (Level 1–4) та які вимоги до валідації існують для кожного рівня?</li>
+            <li>Яка роль SAQ (Self-Assessment Questionnaire) у процесі PCI DSS комплаєнсу та як обирається тип SAQ?</li>
+            <li>Що таке ASV-сканування та з якою періодичністю його необхідно проводити?</li>
+            <li>Які ключові зміни було впроваджено у PCI DSS версії 4.0 порівняно з попередніми версіями?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 7.2 -->
@@ -124,6 +227,231 @@
         </ul>
 
         <p><strong>Point-to-Point Encryption (P2PE)</strong> — шифрування даних картки від моменту зчитування на терміналі до processing host. Дані ніколи не з'являються у відкритому вигляді в мережі торговця, що значно зменшує PCI DSS scope та ризик компрометації через malware на POS-системах.</p>
+
+        <p><strong>Схема потоку EMV-транзакції (chip-and-PIN):</strong></p>
+<pre><code>EMV Transaction Flow (Contact Chip)
+====================================
+
+ Картка              POS-термінал           Acquirer          Card Network         Issuer
+   │                      │                    │                  │                  │
+   │  1. Insert card      │                    │                  │                  │
+   │─────────────────────>│                    │                  │                  │
+   │                      │                    │                  │                  │
+   │  2. SELECT AID       │                    │                  │                  │
+   │  (Application ID)    │                    │                  │                  │
+   │<─────────────────────│                    │                  │                  │
+   │  AID: A0000000031010 │ (Visa)             │                  │                  │
+   │─────────────────────>│                    │                  │                  │
+   │                      │                    │                  │                  │
+   │  3. GET PROCESSING   │                    │                  │                  │
+   │     OPTIONS (GPO)    │                    │                  │                  │
+   │<─────────────────────│                    │                  │                  │
+   │  AFL, AIP            │                    │                  │                  │
+   │─────────────────────>│                    │                  │                  │
+   │                      │                    │                  │                  │
+   │  4. READ RECORDS     │                    │                  │                  │
+   │  (PAN, expiry, etc.) │                    │                  │                  │
+   │<─────────────────────│                    │                  │                  │
+   │  Card data           │                    │                  │                  │
+   │─────────────────────>│                    │                  │                  │
+   │                      │                    │                  │                  │
+   │  5. Cardholder       │                    │                  │                  │
+   │     Verification     │                    │                  │                  │
+   │     (PIN entry)      │                    │                  │                  │
+   │<────── PIN OK ───────│                    │                  │                  │
+   │                      │                    │                  │                  │
+   │  6. GENERATE AC      │                    │                  │                  │
+   │  (Application        │                    │                  │                  │
+   │   Cryptogram)        │                    │                  │                  │
+   │<─────────────────────│                    │                  │                  │
+   │  ARQC (Authorization │                    │                  │                  │
+   │  Request Cryptogram) │                    │                  │                  │
+   │─────────────────────>│                    │                  │                  │
+   │                      │  7. Authorization  │                  │                  │
+   │                      │     Request        │                  │                  │
+   │                      │  (PAN + ARQC +     │                  │                  │
+   │                      │   amount + ...)    │                  │                  │
+   │                      │───────────────────>│  8. Route to     │                  │
+   │                      │                    │     issuer       │                  │
+   │                      │                    │─────────────────>│  9. Verify ARQC  │
+   │                      │                    │                  │  (shared key)    │
+   │                      │                    │                  │  Check balance   │
+   │                      │                    │                  │  Risk analysis   │
+   │                      │                    │  10. Response    │                  │
+   │                      │                    │<─────────────────│  ARPC + Auth Code│
+   │                      │  11. Auth Response │                  │                  │
+   │                      │<───────────────────│                  │                  │
+   │  12. TC / AAC        │                    │                  │                  │
+   │  (Transaction        │                    │                  │                  │
+   │   Certificate or     │                    │                  │                  │
+   │   decline)           │                    │                  │                  │
+   │<─────────────────────│                    │                  │                  │
+   │                      │                    │                  │                  │
+   │  Remove card         │  Print receipt     │                  │                  │
+
+Криптограм ARQC = MAC(shared_key, amount | currency | date | ATC | unpredictable_number)
+ - Унікальний для кожної транзакції → клонування неможливе
+ - ATC (Application Transaction Counter) — лічильник, що збільшується з кожною транзакцією</code></pre>
+
+        <p><strong>Процес токенізації платежів:</strong></p>
+<pre><code>Токенізація: заміна PAN на токен
+=================================
+
+Крок 1: Реєстрація картки (Enrollment)
+─────────────────────────────────────────
+Клієнт вводить:    PAN: 4149 6288 0123 4567
+                   Exp: 12/26   CVV: 321
+
+Token Service Provider (TSP) генерує:
+   Token PAN:      4149 6200 0098 7654    ← виглядає як справжній PAN
+   Token Requestor ID: merchant_abc_123
+   Token Domain:   e-commerce
+   Token Expiry:   12/26
+
+Mapping (зберігається ТІЛЬКИ у TSP vault):
+   Token  4149620000987654 ──→ PAN  4149628801234567
+                                    (AES-256 encrypted)
+
+Крок 2: Оплата з використанням токену
+─────────────────────────────────────────
+Торговець ──→ Acquirer ──→ Card Network (TSP)
+  Token PAN: 4149 6200 0098 7654
+  Cryptogram: 8A3F...B2C1
+  Amount: 500.00 UAH
+
+TSP виконує de-tokenization:
+  Token → PAN (lookup у vault)
+  Forwarding до Issuer: PAN 4149 6288 0123 4567 + cryptogram
+
+Крок 3: Issuer обробляє транзакцію зі справжнім PAN
+─────────────────────────────────────────
+Response: Approved (Auth Code: 847291)
+
+Переваги токенізації:
+ - Торговець НІКОЛИ не бачить реальний PAN
+ - Витік бази торговця → токени непридатні для fraud
+ - Один PAN може мати різні токени для різних торговців
+ - Клієнт може деактивувати токен без перевипуску картки</code></pre>
+
+        <p><strong>Потік автентифікації 3D Secure 2.0:</strong></p>
+<pre><code>3D Secure 2.0 — Authentication Flow
+=====================================
+
+Клієнт          Торговець         3DS Server        Directory        ACS (Issuer)
+  │                │                  │              Server (DS)          │
+  │  1. Checkout   │                  │                 │                 │
+  │  (card data)   │                  │                 │                 │
+  │───────────────>│                  │                 │                 │
+  │                │  2. 3DS Auth     │                 │                 │
+  │                │     Request      │                 │                 │
+  │                │  {               │                 │                 │
+  │                │   acctNumber,    │                 │                 │
+  │                │   amount,        │                 │                 │
+  │                │   deviceInfo,    │                 │                 │
+  │                │   browserInfo,   │                 │                 │
+  │                │   billingAddr,   │                 │                 │
+  │                │   merchantRiskInd│                 │                 │
+  │                │  }               │                 │                 │
+  │                │─────────────────>│                 │                 │
+  │                │                  │  3. AReq        │                 │
+  │                │                  │─────────────────>                 │
+  │                │                  │                 │  4. Route to    │
+  │                │                  │                 │     ACS         │
+  │                │                  │                 │────────────────>│
+  │                │                  │                 │                 │
+  │                │                  │                 │  5. Risk-Based  │
+  │                │                  │                 │     Decision:   │
+  │                │                  │                 │                 │
+  │      ┌─────────────────────── FRICTIONLESS FLOW ──────────────┐     │
+  │      │ Низький ризик: issuer автоматично схвалює               │     │
+  │      │ (відомий пристрій, типова сума, довірений торговець)    │     │
+  │      │ ACS → ARes: transStatus = "Y" (authenticated)          │     │
+  │      └────────────────────────────────────────────────────────┘     │
+  │                │                  │                 │                 │
+  │      ┌─────────────────────── CHALLENGE FLOW ─────────────────┐     │
+  │      │ Високий ризик: потрібна додаткова перевірка             │     │
+  │      │ ACS → ARes: transStatus = "C" (challenge required)     │     │
+  │      │                                                         │     │
+  │  6. Challenge UI (iframe/redirect)                             │     │
+  │<═══════════════════════════════════════════════════════════════>│     │
+  │      │ Методи challenge:                                       │     │
+  │      │  - OTP через SMS/email                                  │     │
+  │      │  - Push у банківський додаток                            │     │
+  │      │  - Біометрія (fingerprint/face)                         │     │
+  │      │  - Out-of-band authentication                           │     │
+  │      └────────────────────────────────────────────────────────┘     │
+  │                │                  │                 │                 │
+  │                │  7. Auth Result  │                 │                 │
+  │                │<─────────────────│                 │                 │
+  │                │  {authenticationValue: "kBMF...",  │                 │
+  │                │   transStatus: "Y",                │                 │
+  │                │   eci: "05"}                       │                 │
+  │                │                  │                 │                 │
+  │                │  8. Authorization Request (з CAVV) │                 │
+  │                │  ──────────────────── Acquirer ──── Card Network ──>│
+  │                │                  │                 │                 │
+  │  9. Payment    │                  │                 │                 │
+  │     result     │                  │                 │                 │
+  │<───────────────│                  │                 │                 │
+
+ECI (Electronic Commerce Indicator):
+  05 — Повна 3DS автентифікація (liability shift на issuer)
+  06 — Attempted authentication (issuer/card не підтримує)
+  07 — Без 3DS (liability залишається на торговці)</code></pre>
+
+        <p><strong>Огляд управління ключами P2PE:</strong></p>
+<pre><code>P2PE Key Management Architecture
+==================================
+
+┌─────────────────────────────────────────────────────────┐
+│                   Key Hierarchy                         │
+│                                                         │
+│   Master Key (HSM at Processor)                         │
+│       │                                                 │
+│       ├── Terminal Master Key (TMK)                     │
+│       │       │                                         │
+│       │       ├── Session Key (SK) — per transaction    │
+│       │       │    ← derived via DUKPT                  │
+│       │       │                                         │
+│       │       └── PIN Encryption Key (PEK)              │
+│       │            ← для шифрування PIN block           │
+│       │                                                 │
+│       └── Key Encryption Key (KEK)                      │
+│            ← для безпечної передачі нових ключів        │
+└─────────────────────────────────────────────────────────┘
+
+DUKPT (Derived Unique Key Per Transaction):
+─────────────────────────────────────────────
+1. При ін'єкції ключів: Base Derivation Key (BDK) → Initial Key (IK)
+   BDK зберігається ТІЛЬКИ в HSM процесора
+   IK завантажується у Secure Element термінала
+
+2. Для кожної транзакції:
+   IK + Key Serial Number (KSN) → Unique Session Key
+   KSN = BDK ID (10 hex) + Device ID (5 hex) + Counter (5 hex)
+
+3. Шифрування даних картки:
+   Encrypted_Track = AES-256(Session_Key, Card_Data)
+
+4. Процесор:
+   KSN → BDK → Session Key → Decrypt(Card_Data)
+
+Безпека:
+ - Кожна транзакція = унікальний ключ
+ - Компрометація одного ключа не розкриває інші
+ - ~1 мільйон можливих ключів на один IK
+ - Tamper-resistant terminal: при спробі розкрити — ключі знищуються</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Як EMV-чіп забезпечує захист від клонування карток порівняно з магнітною стрічкою? Яку роль відіграє криптограм ARQC?</li>
+            <li>Поясніть процес токенізації платежів. Чому витік бази даних токенів торговця не дозволяє зловмиснику здійснити шахрайські операції?</li>
+            <li>У чому різниця між frictionless flow та challenge flow у протоколі 3D Secure 2.0? Які фактори впливають на рішення issuer банку?</li>
+            <li>Що таке DUKPT і чому він є ключовим елементом безпеки P2PE? Як забезпечується унікальність ключа для кожної транзакції?</li>
+            <li>Поясніть концепцію liability shift у контексті EMV та 3D Secure. Як вона стимулює впровадження безпечних технологій?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 7.3 -->
@@ -155,6 +483,181 @@
           <li><strong>Strong Customer Authentication (SCA)</strong> — обов'язкова двофакторна автентифікація для онлайн-платежів та доступу до рахунків.</li>
           <li>В Україні НБУ розвиває аналог Open Banking через SEP (Систему електронних платежів) та API-стандарти для банків.</li>
         </ul>
+
+        <p><strong>Потік NFC-платежу Apple Pay:</strong></p>
+<pre><code>Apple Pay NFC Payment Flow
+===========================
+
+┌──────────────┐                    ┌──────────────┐
+│   iPhone     │                    │ POS Terminal │
+│              │                    │              │
+│ ┌──────────┐ │                    │              │
+│ │  Wallet  │ │  1. Наближення    │              │
+│ │   App    │ │     до термінала  │              │
+│ └────┬─────┘ │  ──────────────>  │              │
+│      │       │                    │              │
+│  2. Face ID/ │                    │              │
+│     Touch ID │                    │              │
+│  (локальна   │                    │              │
+│  перевірка)  │                    │              │
+│      │       │                    │              │
+│ ┌────▼─────┐ │                    │              │
+│ │  Secure  │ │  3. NFC (13.56 MHz)              │
+│ │ Element  │ │  ═══════════════> │              │
+│ │          │ │  Дані:            │              │
+│ │ DAN:     │ │   - DAN (token)   │              │
+│ │ 4761..   │ │   - Dynamic       │              │
+│ │          │ │     Security Code │              │
+│ │ Payment  │ │   - Device Auth   │              │
+│ │ Applet   │ │     Data          │              │
+│ └──────────┘ │                    │              │
+└──────────────┘                    └──────┬───────┘
+                                           │
+                                    4. Standard EMV
+                                       authorization flow
+                                           │
+                                    ┌──────▼───────┐
+                                    │   Acquirer    │
+                                    └──────┬───────┘
+                                           │
+                                    ┌──────▼───────┐
+                                    │ Card Network │ ← De-tokenization:
+                                    │ (Visa/MC)    │   DAN → Real PAN
+                                    └──────┬───────┘
+                                           │
+                                    ┌──────▼───────┐
+                                    │    Issuer     │ ← Verify cryptogram
+                                    │    Bank       │   Check balance
+                                    └──────────────┘
+
+Що зберігається в Secure Element:
+ ┌──────────────────────────────────────────────────┐
+ │ Device Account Number (DAN): 4761 34XX XXXX 9876 │
+ │ DAN Expiry:                  12/27              │
+ │ Payment Applet:              Visa / MC          │
+ │ Cryptographic Keys:          AES-256            │
+ │ Application Transaction Counter (ATC)           │
+ └──────────────────────────────────────────────────┘
+
+ НЕ зберігається: реальний PAN, CVV, PIN, ім'я власника</code></pre>
+
+        <p><strong>Вимоги PSD2 Strong Customer Authentication (SCA):</strong></p>
+<pre><code>PSD2 SCA — Вимоги та виключення
+================================
+
+Два з трьох факторів автентифікації (обов'язково):
+┌────────────────────┬────────────────────┬────────────────────┐
+│  Знання            │  Володіння         │  Властивість       │
+│  (Something you    │  (Something you    │  (Something you    │
+│   know)            │   have)            │   are)             │
+├────────────────────┼────────────────────┼────────────────────┤
+│ • Пароль           │ • Мобільний        │ • Відбиток пальця  │
+│ • PIN-код          │   телефон          │ • Розпізнавання    │
+│ • Кодове слово     │ • Апаратний токен  │   обличчя          │
+│ • Графічний ключ   │ • Smart-картка     │ • Голос             │
+│                    │ • OTP-генератор    │ • Сканування       │
+│                    │                    │   райдужки ока     │
+└────────────────────┴────────────────────┴────────────────────┘
+
+Dynamic Linking: автентифікаційний код прив'язується до суми
+та отримувача (user бачить «Підтвердіть 500 UAH для ТОВ АБВ»)
+
+Виключення з SCA (не потребують двофакторної):
+┌──────────────────────────────────┬─────────────────────────┐
+│ Виключення                      │ Умова                   │
+├──────────────────────────────────┼─────────────────────────┤
+│ Низька сума                     │ &lt; €30 (до 5 поспіль    │
+│                                  │ або сума &lt; €100)       │
+├──────────────────────────────────┼─────────────────────────┤
+│ Довірені бенефіціари             │ Клієнт додав у whitelist│
+├──────────────────────────────────┼─────────────────────────┤
+│ Рекурентні платежі              │ Та сама сума, той самий │
+│                                  │ отримувач (після 1-го)  │
+├──────────────────────────────────┼─────────────────────────┤
+│ Transaction Risk Analysis (TRA) │ Fraud rate PSP нижче:   │
+│                                  │ &lt; €100: fraud &lt; 0.13%  │
+│                                  │ &lt; €250: fraud &lt; 0.06%  │
+│                                  │ &lt; €500: fraud &lt; 0.01%  │
+├──────────────────────────────────┼─────────────────────────┤
+│ Корпоративні платежі            │ Dedicated payment       │
+│                                  │ process/protocol        │
+├──────────────────────────────────┼─────────────────────────┤
+│ Merchant-Initiated Transactions │ Підписки, recurring     │
+│ (MIT)                            │ після початкової SCA    │
+└──────────────────────────────────┴─────────────────────────┘</code></pre>
+
+        <p><strong>Приклад Open Banking API запиту (PSD2-compliant):</strong></p>
+<pre><code>// ═══════════════════════════════════════════════════════
+// Open Banking API — Payment Initiation (PISP)
+// Berlin Group NextGenPSD2 standard
+// ═══════════════════════════════════════════════════════
+
+// Крок 1: Запит на ініціювання платежу
+// POST /v1/payments/sepa-credit-transfers
+// Headers:
+//   Authorization: Bearer &lt;OAuth2 access_token&gt;
+//   X-Request-ID: 99391c7e-ad88-49ec-a2ad-99ddcb1f7721
+//   PSU-IP-Address: 192.168.1.100
+//   TPP-Redirect-URI: https://finapp.example.ua/callback
+
+{
+  "instructedAmount": {
+    "currency": "UAH",
+    "amount": "1500.00"
+  },
+  "debtorAccount": {
+    "iban": "UA213223130000026007233566001"
+  },
+  "creditorName": "ТОВ Інтернет-Магазин",
+  "creditorAccount": {
+    "iban": "UA713223130000026007233599002"
+  },
+  "remittanceInformationUnstructured": "Замовлення #12345"
+}
+
+// Крок 2: Відповідь банку — потрібна SCA
+// HTTP/1.1 201 Created
+{
+  "transactionStatus": "RCVD",
+  "paymentId": "1234-wertiq-983",
+  "_links": {
+    "scaRedirect": {
+      "href": "https://bank.example.ua/auth/sca?paymentId=1234-wertiq-983"
+    },
+    "self": {
+      "href": "/v1/payments/sepa-credit-transfers/1234-wertiq-983"
+    },
+    "status": {
+      "href": "/v1/payments/sepa-credit-transfers/1234-wertiq-983/status"
+    }
+  }
+}
+
+// Крок 3: Після SCA — перевірка статусу
+// GET /v1/payments/sepa-credit-transfers/1234-wertiq-983/status
+// Response:
+{
+  "transactionStatus": "ACCP",
+  "fundsAvailable": true
+}
+
+// Статуси транзакції:
+// RCVD — Received (отримано)
+// ACTC — AcceptedTechnicalValidation (валідація пройдена)
+// ACCP — AcceptedCustomerProfile (SCA пройдена, кошти доступні)
+// ACSC — AcceptedSettlementCompleted (платіж виконано)
+// RJCT — Rejected (відхилено)</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Як Secure Element у смартфоні забезпечує безпеку NFC-платежів Apple Pay/Google Pay? Чому компрометація операційної системи не розкриває платіжні дані?</li>
+            <li>Які два з трьох факторів автентифікації вимагає PSD2 SCA та у яких випадках допускаються виключення?</li>
+            <li>Порівняйте безпеку Merchant-Presented QR та Customer-Presented QR кодів. Який підхід є безпечнішим і чому?</li>
+            <li>Яка різниця між AISP та PISP у контексті Open Banking? Які ризики пов'язані з наданням доступу третім сторонам до банківських рахунків?</li>
+            <li>Поясніть концепцію Dynamic Linking у PSD2. Чому автентифікаційний код має бути прив'язаний до суми та отримувача платежу?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Section 7.4 -->
@@ -186,6 +689,256 @@
         </ul>
 
         <p><strong>Chargeback та dispute management.</strong> Коли клієнт оскаржує транзакцію, банк-емітент ініціює chargeback — повернення коштів. Для торговця це означає: повернення суми транзакції + комісія за chargeback ($20-100) + ризик потрапити в chargeback monitoring program (при >1% chargeback rate). Ефективний fraud detection зменшує chargeback rate та захищає як клієнтів, так і торговців.</p>
+
+        <p><strong>Приклад rule-based fraud detection (псевдокод):</strong></p>
+<pre><code>// ═══════════════════════════════════════════════════════════
+// Fraud Detection Engine — Rule-Based System (псевдокод)
+// ═══════════════════════════════════════════════════════════
+
+FUNCTION evaluate_transaction(txn, customer_profile):
+    risk_score = 0
+    alerts = []
+
+    // Правило 1: Велика сума для нового клієнта
+    IF txn.amount > 10000 AND customer_profile.account_age_days < 30:
+        risk_score += 300
+        alerts.append("HIGH_AMOUNT_NEW_ACCOUNT")
+
+    // Правило 2: Географічна аномалія
+    IF txn.country != customer_profile.home_country:
+        time_since_last_domestic = now() - customer_profile.last_domestic_txn
+        IF time_since_last_domestic < hours(2):
+            // Неможливо фізично переміститись за такий час
+            risk_score += 400
+            alerts.append("IMPOSSIBLE_TRAVEL")
+
+    // Правило 3: Velocity check — занадто багато транзакцій
+    recent_txns = get_transactions(customer_profile.id, last_minutes=10)
+    IF count(recent_txns) > 5:
+        risk_score += 250
+        alerts.append("VELOCITY_EXCEEDED")
+
+    // Правило 4: Підозрілий MCC (Merchant Category Code)
+    high_risk_mcc = [6051, 7995, 6211]  // Crypto, gambling, securities
+    IF txn.mcc IN high_risk_mcc AND txn.amount > 5000:
+        risk_score += 200
+        alerts.append("HIGH_RISK_MCC")
+
+    // Правило 5: Нічний час + великий переказ
+    IF txn.local_time.hour BETWEEN 1 AND 5:
+        IF txn.type == "P2P_TRANSFER" AND txn.amount > 20000:
+            risk_score += 350
+            alerts.append("NIGHT_LARGE_TRANSFER")
+
+    // Правило 6: Перший платіж на новому пристрої
+    IF txn.device_id NOT IN customer_profile.known_devices:
+        risk_score += 150
+        alerts.append("NEW_DEVICE")
+        IF txn.amount > customer_profile.avg_amount * 3:
+            risk_score += 200
+            alerts.append("NEW_DEVICE_HIGH_AMOUNT")
+
+    // Рішення на основі сумарного risk score
+    SWITCH risk_score:
+        CASE 0..299:    RETURN {action: "APPROVE", score: risk_score}
+        CASE 300..599:  RETURN {action: "STEP_UP_AUTH", score: risk_score,
+                                method: "PUSH_NOTIFICATION"}
+        CASE 600..799:  RETURN {action: "REVIEW", score: risk_score,
+                                alerts: alerts, queue: "L1_ANALYST"}
+        CASE 800+:     RETURN {action: "DECLINE", score: risk_score,
+                                alerts: alerts, reason: "HIGH_FRAUD_RISK"}
+</code></pre>
+
+        <p><strong>Таблиця фіч ML-моделі для скорингу транзакцій:</strong></p>
+<pre><code>ML Feature Engineering — Transaction Scoring Model
+====================================================
+
+┌─────┬──────────────────────────┬─────────┬─────────────────────────────────┐
+│  #  │ Feature (ознака)         │ Тип     │ Опис / приклад                  │
+├─────┼──────────────────────────┼─────────┼─────────────────────────────────┤
+│  1  │ txn_amount               │ float   │ Сума транзакції (UAH)           │
+│  2  │ txn_amount_zscore        │ float   │ Відхилення від середньої суми   │
+│     │                          │         │ клієнта (z-score)               │
+│  3  │ txn_hour                 │ int     │ Година доби (0-23)              │
+│  4  │ txn_day_of_week          │ int     │ День тижня (0-6)               │
+│  5  │ merchant_category_code   │ cat     │ MCC код торговця                │
+│  6  │ merchant_risk_level      │ cat     │ low / medium / high / very_high │
+│  7  │ is_domestic              │ bool    │ Внутрішня/міжнародна транзакція │
+│  8  │ country_risk_score       │ float   │ Рівень ризику країни (0-1)      │
+│  9  │ distance_from_home       │ float   │ Відстань від домашньої локації  │
+│ 10  │ velocity_1h              │ int     │ К-ть транзакцій за останню год. │
+│ 11  │ velocity_24h             │ int     │ К-ть транзакцій за 24 години    │
+│ 12  │ total_amount_24h         │ float   │ Загальна сума за 24 години      │
+│ 13  │ time_since_last_txn      │ float   │ Час від попередньої транзакції  │
+│ 14  │ is_new_merchant          │ bool    │ Перший платіж у цього торговця  │
+│ 15  │ is_new_device            │ bool    │ Транзакція з нового пристрою    │
+│ 16  │ device_age_days          │ int     │ Вік пристрою в системі (дні)   │
+│ 17  │ device_fingerprint_match │ float   │ Збіг з відомим fingerprint (0-1)│
+│ 18  │ ip_proxy_score           │ float   │ Ймовірність VPN/proxy (0-1)    │
+│ 19  │ email_domain_age         │ int     │ Вік домену email (дні)         │
+│ 20  │ account_age_days         │ int     │ Вік акаунту клієнта (дні)      │
+│ 21  │ avg_txn_amount_30d       │ float   │ Середня сума за 30 днів        │
+│ 22  │ std_txn_amount_30d       │ float   │ Стандартне відхилення за 30 дн. │
+│ 23  │ has_3ds                  │ bool    │ 3D Secure автентифікація        │
+│ 24  │ card_present             │ bool    │ Card-present / card-not-present │
+│ 25  │ failed_auth_24h          │ int     │ Невдалі спроби автентифікації   │
+└─────┴──────────────────────────┴─────────┴─────────────────────────────────┘
+
+Модель: XGBoost Classifier
+ - Training set:  10M транзакцій (fraud rate ~0.1%)
+ - SMOTE oversampling для балансування класів
+ - Метрики: Precision 94.2%, Recall 87.5%, F1 90.7%, AUC-ROC 0.993
+ - Latency: p50 = 12ms, p99 = 45ms</code></pre>
+
+        <p><strong>Приклад Real-Time Scoring API:</strong></p>
+<pre><code>// ═══════════════════════════════════════════════════════
+// Real-Time Fraud Scoring API
+// POST /api/v2/fraud/score
+// Latency SLA: &lt; 100ms (p99)
+// ═══════════════════════════════════════════════════════
+
+// Request:
+{
+  "transaction_id": "txn_7f3a8b2c1d4e",
+  "timestamp": "2024-11-15T14:32:08Z",
+  "card_token": "tok_4761XXXXXXXX9876",
+  "amount": 28500.00,
+  "currency": "UAH",
+  "merchant": {
+    "id": "merch_electronics_001",
+    "name": "ТОВ Електроніка Плюс",
+    "mcc": "5732",
+    "country": "UA",
+    "city": "Київ"
+  },
+  "channel": "e-commerce",
+  "device": {
+    "fingerprint": "fp_a8b3c2d1e4f5",
+    "ip_address": "91.196.XX.XX",
+    "user_agent": "Mozilla/5.0..."
+  },
+  "authentication": {
+    "method": "3DS2",
+    "status": "challenge_completed"
+  }
+}
+
+// Response (12ms):
+{
+  "transaction_id": "txn_7f3a8b2c1d4e",
+  "fraud_score": 742,
+  "risk_level": "HIGH",
+  "recommendation": "REVIEW",
+  "model_version": "xgb_v3.2.1",
+  "scoring_time_ms": 11,
+  "risk_factors": [
+    {
+      "factor": "AMOUNT_ANOMALY",
+      "weight": 0.35,
+      "detail": "Сума у 8.5x перевищує середню для клієнта"
+    },
+    {
+      "factor": "NEW_MERCHANT_CATEGORY",
+      "weight": 0.20,
+      "detail": "Клієнт ніколи не купував в MCC 5732"
+    },
+    {
+      "factor": "VELOCITY_SPIKE",
+      "weight": 0.25,
+      "detail": "4-та транзакція за останні 30 хвилин"
+    },
+    {
+      "factor": "DEVICE_MISMATCH",
+      "weight": 0.20,
+      "detail": "Новий device fingerprint, не в known_devices"
+    }
+  ],
+  "suggested_action": {
+    "type": "STEP_UP_AUTH",
+    "method": "PUSH_NOTIFICATION",
+    "message": "Підтвердіть оплату 28 500 ₴ в ТОВ Електроніка Плюс"
+  }
+}</code></pre>
+
+        <p><strong>Потік процесу Chargeback:</strong></p>
+<pre><code>Chargeback Process Flow
+========================
+
+Час     Крок                          Учасники
+─────   ─────────────────────────     ──────────────────────
+Day 0   Транзакція здійснена           Клієнт → Торговець
+        Amount: 15,000 UAH
+        Auth Code: 847291
+        │
+Day 45  Клієнт оскаржує транзакцію    Клієнт → Issuer банк
+        Причина: "Я не здійснював     (Reason Code: 10.4 —
+        цю покупку"                    Fraud / Card-Absent)
+        │
+Day 46  Issuer ініціює chargeback      Issuer → Card Network
+        Provisional credit клієнту:    → Acquirer
+        +15,000 UAH на рахунок
+        │
+Day 47  Acquirer повідомляє торговця   Acquirer → Торговець
+        Списання: -15,000 UAH         Chargeback fee: -750 UAH
+        від суми розрахунків
+        │
+        Торговець має 30 днів на
+        representment (оскарження)
+        │
+        ┌── Варіант A: Торговець       Торговець → Acquirer
+        │   подає Representment        → Card Network → Issuer
+        │   Докази:
+        │   - AVS match
+        │   - 3DS authentication
+        │   - Delivery confirmation
+        │   - IP/device logs
+        │   - Customer correspondence
+        │
+        │   Issuer переглядає →
+        │   ├── Прийнято: Chargeback reversed
+        │   │   Торговцю повернено 15,000 UAH
+        │   │
+        │   └── Відхилено: Pre-Arbitration
+        │       → Arbitration (Card Network вирішує)
+        │       → Програвша сторона сплачує ~$500 fee
+        │
+        └── Варіант B: Торговець
+            приймає chargeback
+            Втрата: 15,000 + 750 = 15,750 UAH
+
+Chargeback Monitoring Programs:
+┌────────────────┬─────────────────────┬──────────────────────────┐
+│ Card Network   │ Програма            │ Порогові значення        │
+├────────────────┼─────────────────────┼──────────────────────────┤
+│ Visa           │ VDMP (Dispute       │ > 100 disputes/month     │
+│                │ Monitoring Program) │ AND > 0.9% dispute ratio │
+├────────────────┼─────────────────────┼──────────────────────────┤
+│ Visa           │ VFMP (Fraud         │ > $75K fraud/month       │
+│                │ Monitoring Program) │ AND > 0.9% fraud ratio   │
+├────────────────┼─────────────────────┼──────────────────────────┤
+│ Mastercard     │ EFM (Excessive      │ > 100 chargebacks/month  │
+│                │ Fraud Merchant)     │ AND > 0.50% CB ratio     │
+│                │                     │ AND > $50K fraud amount  │
+├────────────────┼─────────────────────┼──────────────────────────┤
+│ Mastercard     │ ECM (Excessive      │ > 100 chargebacks/month  │
+│                │ Chargeback Merchant)│ AND > 1.5% CB ratio      │
+└────────────────┴─────────────────────┴──────────────────────────┘
+
+Наслідки потрапляння у monitoring program:
+ - Місячні штрафи від $10,000 до $100,000
+ - Обов'язковий план корективних дій
+ - Можливе припинення права приймати картки</code></pre>
+
+        <div class="control-questions">
+          <h3>Контрольні запитання</h3>
+          <ol>
+            <li>Порівняйте rule-based та ML-based підходи до fraud detection. У яких випадках кожен з підходів є більш ефективним?</li>
+            <li>Які ознаки (features) використовуються ML-моделями для скорингу транзакцій? Поясніть, чому velocity-фічі та device fingerprint є важливими.</li>
+            <li>Що таке поведінковий аналіз (behavioral analytics) у контексті fraud detection та як він пов'язаний з adaptive authentication?</li>
+            <li>Опишіть процес chargeback від моменту оскарження клієнтом до фінального рішення. Які наслідки для торговця при високому chargeback rate?</li>
+            <li>Як працює real-time scoring API і чому критично важливо забезпечити час відповіді менше 100 мс? Які архітектурні рішення це забезпечують?</li>
+          </ol>
+        </div>
       </section>
 
       <!-- Summary -->

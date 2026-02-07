@@ -161,6 +161,132 @@
     </section>
 
     <section class="slide">
+      <h1>Порівняння ML-алгоритмів для безпеки</h1>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">🌲</span>
+          <div class="card-title">Random Forest</div>
+          <div class="card-text">Точність 92-95%, швидкий inference, інтерпретабельний. Найкращий для табличних даних</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">⚡</span>
+          <div class="card-title">XGBoost / LightGBM</div>
+          <div class="card-text">Точність 95-97%, gradient boosting. Лідер Kaggle-змагань з fraud detection</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🧠</span>
+          <div class="card-title">Deep Learning (LSTM)</div>
+          <div class="card-text">Точність 93-96% для послідовностей. Ідеальний для часових рядів та мережевого трафіку</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔮</span>
+          <div class="card-title">Isolation Forest</div>
+          <div class="card-text">Unsupervised, не потребує labels. Виявляє нові типи атак без попереднього навчання</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>На практиці найкращий результат дає ensemble: XGBoost для відомих патернів + Isolation Forest для zero-day.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Архітектура UEBA-системи</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Data Collection</div>
+          <div class="step-desc">AD logs, VPN, email, файлові сервери, endpoint → Data Lake</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Feature Extraction</div>
+          <div class="step-desc">Час, частота, обсяг, ресурси, peer group → вектор ознак</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">ML Engine</div>
+          <div class="step-desc">Autoencoder будує baseline, відхилення = anomaly score (0-100)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Risk Aggregation</div>
+          <div class="step-desc">Множинні аномалії з різних джерел → єдиний risk score сутності</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Response</div>
+          <div class="step-desc">SOAR-інтеграція: автоматичне блокування, ізоляція, ескалація до SOC</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Виявлення аномалій мережевого трафіку</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">📊</span>
+            <div class="card-title">Що аналізується</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Flow metadata (NetFlow/IPFIX)<br>
+              Розмір та частота пакетів<br>
+              DNS-запити та їх ентропія<br>
+              TLS fingerprinting (JA3/JA4)<br>
+              Lateral movement патерни
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">🚨</span>
+            <div class="card-title">Що виявляється</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              C2 beaconing (періодичні з'єднання)<br>
+              DNS tunneling (високий ентропія)<br>
+              Data exfiltration (аномальний upload)<br>
+              Криптомайнінг (Stratum протокол)<br>
+              Brute-force та password spray
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Darktrace Enterprise Immune System аналізує 1M+ подій/сек та будує «імунну систему» мережі за 1-2 тижні.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Автоматизований Threat Hunting Pipeline</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Збір даних</div>
+          <div class="step-desc">SIEM + EDR + NDR + Cloud logs → єдиний data lake для аналізу</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">AI-гіпотези</div>
+          <div class="step-desc">ML-модель генерує гіпотези: «можливий lateral movement на сервер X»</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Автоматична верифікація</div>
+          <div class="step-desc">AI перевіряє гіпотезу через додаткові запити до логів, endpoint-дані</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Збагачення контексту</div>
+          <div class="step-desc">Threat Intelligence, MITRE ATT&CK mapping, risk scoring автоматично</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">SOC Playbook</div>
+          <div class="step-desc">Аналітик отримує готовий кейс з контекстом, IoC та рекомендаціями дій</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

@@ -157,6 +157,125 @@
     </section>
 
     <section class="slide">
+      <h1>ML Pipeline для Fraud Detection</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Ingestion</div>
+          <div class="step-desc">Kafka/Kinesis: потік транзакцій у реальному часі, 10K+ TPS</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Feature Store</div>
+          <div class="step-desc">Redis/DynamoDB: pre-computed ознаки клієнта за останні 1h/24h/30d</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Scoring</div>
+          <div class="step-desc">ML-модель генерує fraud score 0-1000 за &lt;50ms (SageMaker/Vertex AI)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Decision</div>
+          <div class="step-desc">Rules engine: approve / review / decline на основі score + бізнес-правил</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Feedback Loop</div>
+          <div class="step-desc">Результати розслідувань повертаються для перенавчання моделі щотижня</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Feature Engineering для транзакцій</h1>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">📊</span>
+          <div class="card-title">Агрегатні</div>
+          <div class="card-text">Сума/кількість транзакцій за 1h, 24h, 7d. Середня сума, max, stddev</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🌍</span>
+          <div class="card-title">Геопросторові</div>
+          <div class="card-text">Відстань від попередньої транзакції, країна ризику, impossible travel flag</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🔗</span>
+          <div class="card-title">Графові</div>
+          <div class="card-text">Мережа зв'язків: спільні пристрої, IP, отримувачі. PageRank для ризику</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">⏱️</span>
+          <div class="card-title">Поведінкові</div>
+          <div class="card-text">Відхилення від baseline: час, merchant category, сума vs peer group</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Якість features визначає 80% результату. Модель з 200+ features дає precision 95%+ при recall 70%+.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>AML Risk Scoring модель</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">📋</span>
+            <div class="card-title">Rule-based (legacy)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Пороги: сума > $10K → alert<br>
+              Статичні правила: 500+ rules<br>
+              False positive rate: >95%<br>
+              Нові схеми — місяці на правила
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">🤖</span>
+            <div class="card-title">ML Risk Scoring</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              GNN: аналіз мережі транзакцій<br>
+              Dynamic risk score: 0-100<br>
+              False positive rate: 50-60%<br>
+              Нові схеми — виявлення за днями
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Graph Neural Networks виявляють smurfing-схеми (розбиття сум) та layering (ланцюжки переказів) через аналіз мережі.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Виявлення Deepfake у KYC</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">👁️</span>
+          <span class="il-text"><strong>Аналіз мікрорухів</strong> — частота моргання, мікроекспресії, рух зіниць не відповідає deepfake</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🎨</span>
+          <span class="il-text"><strong>Текстурний аналіз</strong> — артефакти на межі обличчя, inconsistent освітлення, розмиті контури</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📱</span>
+          <span class="il-text"><strong>Device integrity</strong> — перевірка камери, rooted device, screen injection, virtual camera detection</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔬</span>
+          <span class="il-text"><strong>Frequency analysis</strong> — FFT-аналіз відео виявляє GAN-артефакти у частотному домені</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Multi-modal</strong> — audio + video + document + device = комплексний антифрод score</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">

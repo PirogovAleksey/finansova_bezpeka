@@ -217,7 +217,147 @@
       </div>
     </section>
 
-    <!-- 8. Підсумок -->
+    <!-- 8. OAuth 2.0 Flows Comparison -->
+    <section class="slide">
+      <h1>OAuth 2.0 Flows: порівняння</h1>
+      <h2>Вибір правильного flow для кожного сценарію</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">📱</span>
+          <div class="card-title">Auth Code + PKCE</div>
+          <div class="card-text">Мобільні додатки, SPA. Найбезпечніший для публічних клієнтів. PKCE захищає від перехоплення</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🖥️</span>
+          <div class="card-title">Client Credentials</div>
+          <div class="card-text">Server-to-server. Без участі користувача. Ідеально для мікросервісів та batch-процесів</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔄</span>
+          <div class="card-title">Device Code</div>
+          <div class="card-text">Smart TV, IoT-пристрої. Користувач авторизує на іншому пристрої через код</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">⚠️</span>
+          <div class="card-title">Implicit (deprecated)</div>
+          <div class="card-text">НЕ використовувати! Токен у URL, немає refresh. Замінений на Auth Code + PKCE</div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>У FinTech забороняється Implicit Flow та Resource Owner Password. Тільки Authorization Code + PKCE або Client Credentials.</p>
+      </div>
+    </section>
+
+    <!-- 9. API Security Checklist -->
+    <section class="slide">
+      <h1>API Security Checklist</h1>
+      <h2>Обов'язкові перевірки для кожного FinTech API</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔐</span>
+          <span class="il-text"><strong>Автентифікація</strong> — OAuth 2.0 + JWT з перевіркою підпису, issuer, audience, expiration</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔑</span>
+          <span class="il-text"><strong>Авторизація</strong> — перевірка прав на кожен об'єкт (BOLA) та кожну функцію (BFLA)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📋</span>
+          <span class="il-text"><strong>Input Validation</strong> — OpenAPI schema validation, sanitization, max length для всіх полів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⏱️</span>
+          <span class="il-text"><strong>Rate Limiting</strong> — per-user, per-IP, per-endpoint ліміти з graceful degradation</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>Logging</strong> — кожен запит логується з correlation ID, без sensitive data у логах</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔒</span>
+          <span class="il-text"><strong>TLS 1.3</strong> — тільки HTTPS, HSTS header, certificate pinning для мобільних</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Rate Limiting Strategies -->
+    <section class="slide">
+      <h1>Стратегії Rate Limiting</h1>
+      <h2>Захист API від перевантаження та зловживань</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-blue">
+          <span class="card-icon">🪣</span>
+          <div class="card-title">Token Bucket</div>
+          <div class="card-text">Токени додаються з фіксованою швидкістю. Дозволяє короткі burst-навантаження</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🪟</span>
+          <div class="card-title">Sliding Window</div>
+          <div class="card-text">Ковзне вікно часу. Точніший підрахунок, запобігає edge-case burst на межі вікна</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">📊</span>
+          <div class="card-title">Adaptive</div>
+          <div class="card-text">Динамічні ліміти на основі навантаження сервера та поведінки клієнта</div>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 1.2rem;">
+        <div class="stat-box blue">
+          <div class="stat-value">100/хв</div>
+          <div class="stat-label">читання балансу</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">5/хв</div>
+          <div class="stat-label">грошові перекази</div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-value">3/год</div>
+          <div class="stat-label">зміна пароля</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Відповідь при перевищенні ліміту: HTTP 429 з заголовками Retry-After та X-RateLimit-Reset для коректної роботи клієнтів.</p>
+      </div>
+    </section>
+
+    <!-- 11. Webhook Security -->
+    <section class="slide">
+      <h1>Безпека Webhooks: повний захист</h1>
+      <h2>Комплексна стратегія верифікації зворотних викликів</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">🔐</span>
+            <div class="card-title">Верифікація вхідних</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              HMAC-SHA256 підпис<br>
+              Timestamp перевірка (< 5 хв)<br>
+              IP whitelist провайдера<br>
+              Replay protection (nonce)<br>
+              TLS certificate pinning
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">📤</span>
+            <div class="card-title">Надійна доставка</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Idempotency key у кожному запиті<br>
+              Retry з exponential backoff<br>
+              Dead letter queue для failed<br>
+              Async обробка через чергу<br>
+              Моніторинг та алерти
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Реальний кейс: у 2022 році атака на FinTech через фейковий Stripe webhook дозволила обійти оплату на $3.2M. Завжди перевіряйте підпис!</p>
+      </div>
+    </section>
+
+    <!-- 12. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🔒</span>
       <h1>Ключові висновки</h1>
