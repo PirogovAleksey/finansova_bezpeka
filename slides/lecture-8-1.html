@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8.1 Фішинг та його різновиди | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../lecture.html?id=8">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <section class="slide active">
+      <span class="slide-icon">🎣</span>
+      <h1>Фішинг та його різновиди</h1>
+      <p class="subtitle">Лекція 8.1</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Email phishing, spear phishing, whaling, smishing, vishing</span>
+    </section>
+
+    <section class="slide">
+      <h1>Масштаб загрози</h1>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">90%+</div>
+          <div class="stat-label">кібератак починаються з фішингу</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">$2.7B</div>
+          <div class="stat-label">збитки від BEC щорічно (FBI)</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="stat-value">36%</div>
+          <div class="stat-label">витоків даних через фішинг (Verizon)</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>У фінансовому секторі фішинг є причиною ~50% всіх витоків даних. Один кліку може коштувати мільйони.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Типи фішингу</h1>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">📧</span>
+          <div class="card-title">Email Phishing</div>
+          <div class="card-text">Масова розсилка. Click rate 3-5%. Generic звернення</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🎯</span>
+          <div class="card-title">Spear Phishing</div>
+          <div class="card-text">Цілеспрямовано на особу. Click rate 30-50%. Персоналізація</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">🐋</span>
+          <div class="card-title">Whaling</div>
+          <div class="card-text">C-level керівники. CEO Fraud. Переказ коштів</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🌐</span>
+          <div class="card-title">Pharming</div>
+          <div class="card-text">DNS-атака. Правильна URL → підроблений сайт</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Smishing та Vishing</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">📱</span>
+            <div class="card-title">Smishing (SMS)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              «Картку заблоковано»<br>
+              «Посилка затримана»<br>
+              URL складно перевірити<br>
+              Мобільний = менше уваги
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">📞</span>
+            <div class="card-title">Vishing (Voice)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              «Служба безпеки банку»<br>
+              Вимагають PIN / CVV / OTP<br>
+              Десятки тисяч скарг (НБУ)<br>
+              AI voice cloning = нова загроза
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Business Email Compromise</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Recon</div>
+          <div class="step-desc">Дослідження компанії, ролей, стосунків</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Spoof</div>
+          <div class="step-desc">Підробка домену або компрометація пошти</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Request</div>
+          <div class="step-desc">Терміновий запит від «CEO» на переказ</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Transfer</div>
+          <div class="step-desc">Кошти переведені на рахунок зловмисника</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>BEC — найбільш фінансово збитковий кіберзлочин. company-ua.com замість company.ua — різниця в одній літері.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Ознаки фішингового листа</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📧</span>
+          <span class="il-text"><strong>Відправник</strong> — підозрілий домен, typosquatting (privatbank → privattbank)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⏰</span>
+          <span class="il-text"><strong>Терміновість</strong> — «Негайно!», «24 години!», «Ваш рахунок буде закрито!»</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔗</span>
+          <span class="il-text"><strong>Посилання</strong> — hover показує інший URL, скорочені посилання</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📎</span>
+          <span class="il-text"><strong>Вкладення</strong> — .exe, .scr, .zip, макроси в Office документах</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">👤</span>
+          <span class="il-text"><strong>Звернення</strong> — generic «Шановний клієнте» замість імені</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>Фішинг</strong> — #1 вектор атак у фінансовому секторі, 90%+ кібератак</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>Spear phishing</strong> — 30-50% click rate, персоналізація через OSINT</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>BEC</strong> — $2.7B/рік збитків, компрометація або spoofing email</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Vishing</strong> — масова загроза в Україні, AI voice cloning підвищує ризик</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../js/slides.js"></script>
+
+</body>
+</html>

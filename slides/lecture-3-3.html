@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.3 Моделі авторизації | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../lecture.html?id=3">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <!-- 1. Title -->
+    <section class="slide active">
+      <span class="slide-icon">🎯</span>
+      <h1>Моделі авторизації</h1>
+      <p class="subtitle">Лекція 3.3</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">RBAC, ABAC, ReBAC</span>
+    </section>
+
+    <!-- 2. Автентифікація vs Авторизація -->
+    <section class="slide">
+      <h1>Автентифікація vs Авторизація</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">🪪</span>
+            <div class="card-title">Автентифікація</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              «Хто ви?»<br>
+              Перевірка ідентичності<br>
+              Логін + пароль + MFA<br>
+              Відбувається один раз
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">✅</span>
+            <div class="card-title">Авторизація</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              «Що вам дозволено?»<br>
+              Перевірка дозволів<br>
+              Ролі, політики, правила<br>
+              Перевіряється при кожній дії
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Касир = автентифікований. Але чи може він схвалити кредит на 10 млн грн? Це питання авторизації.</p>
+      </div>
+    </section>
+
+    <!-- 3. RBAC -->
+    <section class="slide">
+      <h1>RBAC — Role-Based Access Control</h1>
+      <h2>Найпоширеніша модель у фінансах</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">💳</span>
+          <div class="card-title">Касир</div>
+          <div class="card-text">view_account, create_transaction (до 50K грн)</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">👔</span>
+          <div class="card-title">Менеджер</div>
+          <div class="card-text">+ approve_transaction, view_reports</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔍</span>
+          <div class="card-title">Аудитор</div>
+          <div class="card-text">view_all, generate_reports (read-only)</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">⚙️</span>
+          <div class="card-title">Адмін</div>
+          <div class="card-text">manage_users, manage_roles, system_config</div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>Role Explosion: 10 відділень &times; 5 департаментів &times; 4 рівні = 200 ролей. RBAC не масштабується.</p>
+      </div>
+    </section>
+
+    <!-- 4. ABAC -->
+    <section class="slide">
+      <h1>ABAC — Attribute-Based</h1>
+      <h2>Рішення на основі атрибутів та контексту</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">👤</span>
+          <div class="card-title">Суб'єкт</div>
+          <div class="card-text">Відділ, посада, рівень допуску, сертифікації</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">📄</span>
+          <div class="card-title">Об'єкт</div>
+          <div class="card-text">Тип даних, конфіденційність, власник ресурсу</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🎬</span>
+          <div class="card-title">Дія</div>
+          <div class="card-text">Читання, запис, схвалення, переказ</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🌍</span>
+          <div class="card-title">Контекст</div>
+          <div class="card-text">Час, IP, геолокація, рівень ризику</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>«Менеджер кредитування може схвалити кредит до 1M грн у робочий час з корпоративної мережі» — одна ABAC-політика замість 20 ролей.</p>
+      </div>
+    </section>
+
+    <!-- 5. ReBAC -->
+    <section class="slide">
+      <h1>ReBAC — Relationship-Based</h1>
+      <h2>Доступ на основі відносин (Google Zanzibar)</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🏦</span>
+          <span class="il-text"><strong>Банківський менеджер</strong> — бачить лише дані своїх клієнтів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">👨‍👩‍👧</span>
+          <span class="il-text"><strong>Сімейний акаунт</strong> — батько має доступ до акаунту дитини</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏢</span>
+          <span class="il-text"><strong>Корпоративний банкінг</strong> — CFO → всі рахунки, бухгалтер → тільки операційний</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔧</span>
+          <span class="il-text"><strong>Інструменти</strong> — OpenFGA, SpiceDB, Ory Keto</span>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 1.2rem;">
+        <div class="stat-box blue">
+          <div class="stat-value">10M+</div>
+          <div class="stat-label">перевірок/сек у Zanzibar</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">&lt;10ms</div>
+          <div class="stat-label">latency авторизації</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Порівняння моделей -->
+    <section class="slide">
+      <h1>Порівняння моделей</h1>
+      <div class="card-grid cols-3">
+        <div class="card accent-blue">
+          <span class="card-icon">👔</span>
+          <div class="card-title">RBAC</div>
+          <div class="card-text">Простий, зрозумілий. Для невеликих організацій з фіксованою структурою</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🧩</span>
+          <div class="card-title">ABAC</div>
+          <div class="card-text">Гнучкий, контекстний. Для складних політик з динамічними умовами</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🕸️</span>
+          <div class="card-title">ReBAC</div>
+          <div class="card-text">Граф відносин. Для систем зі складною ієрархією власності</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>На практиці: гібридний підхід. RBAC для базових ролей + ABAC для контекстних політик + ReBAC для ownership.</p>
+      </div>
+    </section>
+
+    <!-- 7. Policy-as-Code -->
+    <section class="slide">
+      <h1>Policy-as-Code та OPA</h1>
+      <h2>Open Policy Agent — політики як код</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📝</span>
+          <span class="il-text"><strong>Rego</strong> — декларативна мова для опису політик</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔀</span>
+          <span class="il-text"><strong>Git</strong> — версіонування, code review, audit trail</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🧪</span>
+          <span class="il-text"><strong>Unit-тести</strong> — тестування політик як звичайного коду</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔌</span>
+          <span class="il-text"><strong>Інтеграція</strong> — мікросервіси, API Gateway, Kubernetes, Terraform</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Decoupling: зміна політики авторизації без перерозгортання жодного сервісу.</p>
+      </div>
+    </section>
+
+    <!-- 8. Підсумок -->
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>RBAC — базовий</strong> — простий, але role explosion у великих організаціях</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>ABAC — контекстний</strong> — атрибути + середовище = точні політики</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>ReBAC — відносини</strong> — граф ownership для складних структур</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Policy-as-Code</strong> — OPA/Rego = аудит, тестування, версіонування</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../js/slides.js"></script>
+
+</body>
+</html>

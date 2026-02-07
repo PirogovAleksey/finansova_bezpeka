@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7.4 Fraud Detection | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../lecture.html?id=7">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <section class="slide active">
+      <span class="slide-icon">🔎</span>
+      <h1>Fraud Detection</h1>
+      <p class="subtitle">Лекція 7.4</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">ML-системи, поведінковий аналіз, real-time scoring</span>
+    </section>
+
+    <section class="slide">
+      <h1>Масштаб проблеми</h1>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">$30B+</div>
+          <div class="stat-label">втрати від карткового fraud на рік</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">&lt;100ms</div>
+          <div class="stat-label">час на рішення per transaction</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="stat-value">M+</div>
+          <div class="stat-label">транзакцій на секунду для аналізу</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Кожна транзакція потребує fraud score за мілісекунди. Хибний блок = втрачений клієнт. Пропущений fraud = втрачені гроші.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Rule-based vs ML</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">📋</span>
+            <div class="card-title">Rule-based</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Статичні правила<br>
+              Прозорість рішень<br>
+              Високий false positive<br>
+              Легко обійти<br>
+              Не адаптується
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">🤖</span>
+            <div class="card-title">ML-based</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Навчені на даних<br>
+              Висока точність<br>
+              Низький false positive<br>
+              Адаптація до нових патернів<br>
+              Random Forest, XGBoost, NN
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>На практиці: гібрид. ML для scoring + rules для compliance (блок транзакцій у санкційні країни).</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Real-time Scoring</h1>
+      <h2>Fraud score для кожної транзакції</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">💰</span>
+          <span class="il-text"><strong>Сума</strong> — незвично велика для цього клієнта?</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📍</span>
+          <span class="il-text"><strong>Локація</strong> — Київ → Нігерія за 1 годину? Impossible travel</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🕐</span>
+          <span class="il-text"><strong>Час</strong> — 3:00 AM, нетиповий для клієнта?</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📱</span>
+          <span class="il-text"><strong>Device</strong> — новий пристрій? Змінений fingerprint?</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏪</span>
+          <span class="il-text"><strong>Merchant</strong> — high-risk категорія? Нова країна?</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Поведінковий аналіз</h1>
+      <h2>Профіль «нормальної» поведінки клієнта</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Baseline</div>
+          <div class="step-desc">Типові суми, merchant, час, локація</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Monitor</div>
+          <div class="step-desc">Кожна транзакція порівнюється з профілем</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Score</div>
+          <div class="step-desc">Відхилення збільшує risk score</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Action</div>
+          <div class="step-desc">Low → OK, Mid → step-up, High → block</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Adaptive auth: 200 грн у АТБ = OK. 50K переказ з нового пристрою о 3 AM = push-підтвердження або блок.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Graph Analytics</h1>
+      <h2>Виявлення мереж шахрайства</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🕸️</span>
+          <div class="card-title">Linked Accounts</div>
+          <div class="card-text">Спільний device, IP, email domain → підозріла мережа</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">💸</span>
+          <div class="card-title">Money Mules</div>
+          <div class="card-text">Ланцюжки переказів: A→B→C→D→зняття готівки</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🎭</span>
+          <div class="card-title">Synthetic Identity</div>
+          <div class="card-text">Фіктивні особи з комбінації реальних та підроблених даних</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📊</span>
+          <div class="card-title">Pattern Detection</div>
+          <div class="card-text">Кластеризація підозрілих транзакцій за спільними ознаками</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Chargeback Management</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">💳</span>
+          <span class="il-text"><strong>Chargeback</strong> — клієнт оскаржує транзакцію → повернення коштів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💰</span>
+          <span class="il-text"><strong>Вартість:</strong> сума + комісія $20-100 + репутаційний ризик</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>Моніторинг:</strong> >1% chargeback rate = monitoring program від Visa/MC</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Захист:</strong> fraud detection + 3DS + clear merchant name + refund policy</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>ML + Rules</strong> — гібридний підхід для fraud detection</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>Real-time scoring</strong> — рішення за &lt;100ms для кожної транзакції</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Behavioral analytics</strong> — профіль клієнта = baseline для виявлення аномалій</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Graph analytics</strong> — виявлення мереж fraud та money mule ланцюжків</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../js/slides.js"></script>
+
+</body>
+</html>

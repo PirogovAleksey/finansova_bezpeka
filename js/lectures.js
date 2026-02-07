@@ -48,91 +48,286 @@ const lectures = [
     title: "Автентифікація та контроль доступу",
     description: "Механізми автентифікації, авторизації та управління доступом у фінансових системах.",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "У цій лекції ми розглянемо механізми автентифікації та контролю доступу у фінансовому секторі. Автентифікація — це процес підтвердження ідентичності користувача, а авторизація визначає, які дії він може виконувати. У фінансових системах ці механізми є критичним бар'єром між зловмисником та грошима клієнтів.",
+    overviewExtra: "Ви дізнаєтесь про сучасні механізми автентифікації (MFA, FIDO2, біометрія, passwordless), структуру та вразливості JWT-токенів, протоколи OAuth 2.0 та OpenID Connect для FinTech, моделі авторизації RBAC/ABAC/ReBAC, а також практики управління ідентичностями (IAM) та привілейованим доступом (PAM) у фінансових організаціях.",
+    topics: [
+      { title: "Механізми автентифікації у фінансовому секторі", desc: "паролі, їх слабкості; MFA (TOTP, FIDO2, push); біометрія; passwordless-автентифікація" },
+      { title: "Токени, сесії та протоколи автентифікації", desc: "JWT (структура, підпис, вразливості); OAuth 2.0 flows для FinTech; OpenID Connect; session management" },
+      { title: "Моделі авторизації: RBAC, ABAC, ReBAC", desc: "Role-Based, Attribute-Based, Relationship-Based Access Control; Policy-as-Code; OPA" },
+      { title: "IAM та управління привілейованим доступом", desc: "Identity lifecycle, SSO, Federation, SCIM; PAM (CyberArk, HashiCorp Vault); розділення обов'язків (SoD)" }
+    ],
+    conspect: "conspects/lecture-3.html",
+    presentations: [
+      { title: "Тема 3.1 — Механізми автентифікації", desc: "Паролі, MFA, FIDO2, біометрія, passwordless", url: "slides/lecture-3-1.html" },
+      { title: "Тема 3.2 — Токени та протоколи", desc: "JWT, OAuth 2.0, OpenID Connect, session management", url: "slides/lecture-3-2.html" },
+      { title: "Тема 3.3 — Моделі авторизації", desc: "RBAC, ABAC, ReBAC, Policy-as-Code, OPA", url: "slides/lecture-3-3.html" },
+      { title: "Тема 3.4 — IAM та PAM", desc: "Identity lifecycle, SSO, SCIM, CyberArk, Vault, SoD", url: "slides/lecture-3-4.html" }
+    ]
   },
   {
     id: 4,
     title: "Клієнтські атаки (XSS)",
     description: "Міжсайтовий скриптинг, CSRF та інші атаки на клієнтську частину веб-додатків.",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "У цій лекції ми розглянемо атаки на клієнтську частину веб-додатків фінансового сектору. Cross-Site Scripting (XSS) залишається однією з найпоширеніших веб-вразливостей у світі — за даними OWASP, XSS входить до кожного релізу Top 10 вразливостей. У фінансовому контексті XSS може призвести до крадіжки сесій інтернет-банкінгу, підміни реквізитів платежів та викрадення конфіденційних даних клієнтів.",
+    overviewExtra: "Ви дізнаєтесь про три типи XSS (Reflected, Stored, DOM-based) та їх експлуатацію у фінансових додатках, механізми CSRF та Clickjacking, атаки на клієнтське сховище (cookies, localStorage, токени), а також сучасні методи захисту: Content Security Policy, Subresource Integrity, secure headers та правильну санітизацію даних.",
+    topics: [
+      { title: "Cross-Site Scripting (XSS)", desc: "Reflected, Stored, DOM-based XSS; контексти ін'єкції; реальні кейси у фінансових додатках" },
+      { title: "CSRF та Clickjacking", desc: "Cross-Site Request Forgery, token-based захист, UI redressing, X-Frame-Options" },
+      { title: "Атаки на клієнтське сховище", desc: "крадіжка cookies та токенів, localStorage pitfalls, session hijacking, формджекінг" },
+      { title: "Захист від клієнтських атак", desc: "CSP, SRI, secure headers, output encoding, DOMPurify, trusted types" }
+    ],
+    conspect: "conspects/lecture-4.html",
+    presentations: [
+      { title: "Тема 4.1 — Cross-Site Scripting", desc: "Reflected, Stored, DOM-based XSS у фінансових додатках", url: "slides/lecture-4-1.html" },
+      { title: "Тема 4.2 — CSRF та Clickjacking", desc: "Підробка запитів, UI redressing, захисні механізми", url: "slides/lecture-4-2.html" },
+      { title: "Тема 4.3 — Атаки на клієнтське сховище", desc: "Cookies, токени, session hijacking, формджекінг", url: "slides/lecture-4-3.html" },
+      { title: "Тема 4.4 — Захист від клієнтських атак", desc: "CSP, SRI, secure headers, sanitization, trusted types", url: "slides/lecture-4-4.html" }
+    ]
   },
   {
     id: 5,
     title: "Серверні вразливості та бази даних",
     description: "SQL-ін'єкції, серверні атаки та захист баз даних фінансових систем.",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "У цій лекції ми розглянемо серверні вразливості та атаки на бази даних фінансових систем. SQL-ін'єкції залишаються однією з найнебезпечніших вразливостей — одна вдала ін'єкція може дати зловмиснику повний доступ до бази з мільйонами записів клієнтів, їхніми рахунками та історією транзакцій.",
+    overviewExtra: "Ви дізнаєтесь про типи SQL-ін'єкцій (classic, blind, time-based) та їх наслідки у фінансовому секторі, інші серверні ін'єкції (Command Injection, SSRF, XXE, SSTI), принципи безпеки баз даних (шифрування, розмежування доступу, аудит), а також комплексні методи захисту: параметризовані запити, WAF, input validation та database hardening.",
+    topics: [
+      { title: "SQL-ін'єкції у фінансових системах", desc: "classic, blind, time-based SQLi; ORM injection; second-order injection; реальні кейси" },
+      { title: "Серверні ін'єкції та SSRF", desc: "Command Injection, SSRF, XXE, SSTI; атаки на внутрішню інфраструктуру банків" },
+      { title: "Безпека баз даних", desc: "шифрування at rest та in transit, розмежування доступу, аудит, backup security" },
+      { title: "Комплексний захист серверної частини", desc: "параметризовані запити, ORM best practices, WAF, input validation, database hardening" }
+    ],
+    conspect: "conspects/lecture-5.html",
+    presentations: [
+      { title: "Тема 5.1 — SQL-ін'єкції", desc: "Classic, blind, time-based SQLi, ORM injection", url: "slides/lecture-5-1.html" },
+      { title: "Тема 5.2 — Серверні ін'єкції та SSRF", desc: "Command Injection, SSRF, XXE, SSTI", url: "slides/lecture-5-2.html" },
+      { title: "Тема 5.3 — Безпека баз даних", desc: "Шифрування, доступ, аудит, backup security", url: "slides/lecture-5-3.html" },
+      { title: "Тема 5.4 — Комплексний захист серверу", desc: "Параметризовані запити, WAF, hardening", url: "slides/lecture-5-4.html" }
+    ]
   },
   {
     id: 6,
     title: "Стандартизація OWASP та аудит",
     description: "Стандарти OWASP, методологія аудиту безпеки та оцінка вразливостей.",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "У цій лекції ми розглянемо стандарти OWASP та методологію аудиту безпеки фінансових систем. OWASP (Open Worldwide Application Security Project) — це глобальна спільнота, що створює відкриті стандарти, інструменти та методології для забезпечення безпеки веб-додатків. Для фінансового сектору OWASP-стандарти є фундаментом програми application security.",
+    overviewExtra: "Ви дізнаєтесь про OWASP Top 10 та його застосування у фінансових додатках, стандарт верифікації ASVS для побудови security requirements, методологію тестування безпеки (OWASP Testing Guide, PTES, penetration testing), а також систему оцінки вразливостей CVSS, процеси vulnerability management та організацію bug bounty програм у фінансовому секторі.",
+    topics: [
+      { title: "OWASP Top 10 для фінансових додатків", desc: "аналіз ключових вразливостей, A01-A10 у контексті FinTech, еволюція стандарту" },
+      { title: "OWASP ASVS та стандарти верифікації", desc: "рівні верифікації L1/L2/L3, security requirements, MASVS для мобільного банкінгу" },
+      { title: "Методологія аудиту безпеки", desc: "OWASP Testing Guide, PTES, типи тестування, penetration testing lifecycle" },
+      { title: "Оцінка вразливостей та управління ними", desc: "CVSS scoring, vulnerability management lifecycle, bug bounty, responsible disclosure" }
+    ],
+    conspect: "conspects/lecture-6.html",
+    presentations: [
+      { title: "Тема 6.1 — OWASP Top 10", desc: "A01-A10 вразливості у контексті фінансових додатків", url: "slides/lecture-6-1.html" },
+      { title: "Тема 6.2 — OWASP ASVS", desc: "Рівні верифікації, security requirements, MASVS", url: "slides/lecture-6-2.html" },
+      { title: "Тема 6.3 — Методологія аудиту", desc: "Testing Guide, PTES, penetration testing lifecycle", url: "slides/lecture-6-3.html" },
+      { title: "Тема 6.4 — Оцінка вразливостей", desc: "CVSS, vulnerability management, bug bounty", url: "slides/lecture-6-4.html" }
+    ]
   },
   {
     id: 7,
     title: "Безпека платіжних систем",
     description: "PCI DSS, захист транзакцій, безпека карткових платежів та електронних гаманців.",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "У цій лекції ми розглянемо безпеку платіжних систем — критичну область фінансової кібербезпеки. Платіжна індустрія обробляє трильйони доларів щорічно, що робить її привабливою мішенню для кіберзлочинців. Від карткових платежів до мобільних гаманців — кожен компонент платіжної екосистеми потребує надійного захисту.",
+    overviewExtra: "Ви дізнаєтесь про стандарт PCI DSS та його 12 вимог, безпеку карткових транзакцій (EMV, токенізація, 3D Secure 2.0), захист мобільних та електронних платежів (Apple Pay, Google Pay, e-wallets), а також системи виявлення шахрайства (fraud detection) та моніторинг транзакцій у реальному часі.",
+    topics: [
+      { title: "PCI DSS — стандарт безпеки платіжних карток", desc: "12 вимог PCI DSS, рівні комплаєнсу, SAQ, ROC, ASV-сканування" },
+      { title: "Безпека карткових транзакцій", desc: "EMV-чіпи, токенізація, 3D Secure 2.0, point-to-point encryption (P2PE)" },
+      { title: "Мобільні та електронні платежі", desc: "Apple Pay, Google Pay, NFC, e-wallets, QR-платежі, Open Banking (PSD2)" },
+      { title: "Fraud detection та моніторинг транзакцій", desc: "rule-based та ML-системи, поведінковий аналіз, real-time scoring, chargeback" }
+    ],
+    conspect: "conspects/lecture-7.html",
+    presentations: [
+      { title: "Тема 7.1 — PCI DSS", desc: "12 вимог, рівні комплаєнсу, SAQ, сертифікація", url: "slides/lecture-7-1.html" },
+      { title: "Тема 7.2 — Безпека карткових транзакцій", desc: "EMV, токенізація, 3D Secure 2.0, P2PE", url: "slides/lecture-7-2.html" },
+      { title: "Тема 7.3 — Мобільні та електронні платежі", desc: "Apple Pay, Google Pay, e-wallets, Open Banking", url: "slides/lecture-7-3.html" },
+      { title: "Тема 7.4 — Fraud detection", desc: "ML-системи, поведінковий аналіз, real-time scoring", url: "slides/lecture-7-4.html" }
+    ]
   },
   {
     id: 8,
     title: "Соціальна інженерія та психологія шахрайства",
     description: "Методи соціальної інженерії, фішинг, вішинг та психологічні прийоми шахраїв.",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "Соціальна інженерія — це найефективніший вектор атак у фінансовому секторі: понад 90% успішних кібератак починаються з людського фактору. Розглянемо фішинг та його різновиди, pretexting і маніпулятивні техніки, психологію жертви та когнітивні вразливості, а також побудову культури захисту від соціальної інженерії.",
+    overviewExtra: "Від класичного email-фішингу до AI-генерованих deepfake-дзвінків — зловмисники експлуатують довіру, страх та авторитет. Розуміння психологічних механізмів маніпуляції є першим кроком до ефективного захисту.",
+    topics: [
+      { title: "Фішинг та його різновиди", desc: "Email phishing, spear phishing, whaling, smishing, vishing, pharming" },
+      { title: "Pretexting та маніпулятивні техніки", desc: "Impersonation, tailgating, baiting, quid pro quo, watering hole" },
+      { title: "Психологія жертви", desc: "Принципи Чалдіні, когнітивні упередження, експлуатація емоцій та авторитету" },
+      { title: "Захист від соціальної інженерії", desc: "Awareness-тренінги, phishing-симуляції, reporting culture, технічні контролі" }
+    ],
+    conspect: "conspects/lecture-8.html",
+    presentations: [
+      { title: "Тема 8.1 — Фішинг та його різновиди", desc: "Email phishing, spear phishing, whaling, smishing, vishing", url: "slides/lecture-8-1.html" },
+      { title: "Тема 8.2 — Pretexting та маніпулятивні техніки", desc: "Impersonation, tailgating, baiting, watering hole", url: "slides/lecture-8-2.html" },
+      { title: "Тема 8.3 — Психологія жертви", desc: "Принципи Чалдіні, когнітивні упередження, емоційна маніпуляція", url: "slides/lecture-8-3.html" },
+      { title: "Тема 8.4 — Захист від соціальної інженерії", desc: "Awareness-тренінги, phishing-симуляції, технічні контролі", url: "slides/lecture-8-4.html" }
+    ]
   },
   {
     id: 9,
     title: "Штучний інтелект у кібербезпеці",
     description: "Використання AI/ML для виявлення загроз, аномалій та автоматизації захисту.",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "Штучний інтелект змінює ландшафт кібербезпеки як для захисників, так і для атакуючих. Розглянемо AI/ML для виявлення загроз та аномалій, застосування AI у фінансовому моніторингу, нові загрози від генеративного AI, а також захист самих AI-систем та принципи відповідального AI.",
+    overviewExtra: "UEBA, автоматизований threat hunting, deepfake detection — AI стає невід'ємною частиною SOC. Водночас зловмисники використовують генеративний AI для створення переконливого фішингу, deepfake-голосів та обходу захисту.",
+    topics: [
+      { title: "AI/ML для виявлення загроз", desc: "Anomaly detection, UEBA, network traffic analysis, автоматизований threat hunting" },
+      { title: "AI у фінансовому моніторингу", desc: "ML для fraud detection, AML-скринінг, deepfake detection у KYC" },
+      { title: "Генеративний AI та нові загрози", desc: "AI-фішинг, deepfake-голоси, автоматизація атак, LLM-вразливості" },
+      { title: "Захист AI-систем та відповідальний AI", desc: "Adversarial attacks, model security, AI governance, EU AI Act" }
+    ],
+    conspect: "conspects/lecture-9.html",
+    presentations: [
+      { title: "Тема 9.1 — AI/ML для виявлення загроз", desc: "Anomaly detection, UEBA, автоматизований threat hunting", url: "slides/lecture-9-1.html" },
+      { title: "Тема 9.2 — AI у фінансовому моніторингу", desc: "ML для fraud detection, AML-скринінг, deepfake detection", url: "slides/lecture-9-2.html" },
+      { title: "Тема 9.3 — Генеративний AI та нові загрози", desc: "AI-фішинг, deepfake-голоси, LLM-вразливості", url: "slides/lecture-9-3.html" },
+      { title: "Тема 9.4 — Захист AI-систем", desc: "Adversarial attacks, model security, AI governance", url: "slides/lecture-9-4.html" }
+    ]
   },
   {
     id: 10,
     title: "Безпека криптоактивів",
     description: "Захист криптовалютних гаманців, смарт-контрактів та DeFi-протоколів.",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "Криптоактиви створюють унікальні виклики безпеці: незворотність транзакцій, анонімність, відсутність центрального регулятора. Розглянемо типи криптогаманців та їх захист, вразливості смарт-контрактів, безпеку DeFi-протоколів та ризики централізованих бірж.",
+    overviewExtra: "Від Mt. Gox до Ronin Bridge — історія криптоіндустрії рясніє зломами на мільярди доларів. Розуміння архітектури блокчейну та його вразливостей — необхідність для фахівця з фінансової безпеки.",
+    topics: [
+      { title: "Криптогаманці та управління ключами", desc: "Hot/cold wallets, seed phrase, multisig, MPC, hardware wallets" },
+      { title: "Вразливості смарт-контрактів", desc: "Reentrancy, overflow, access control, аудит коду, formal verification" },
+      { title: "Безпека DeFi-протоколів", desc: "Flash loans, oracle manipulation, rug pulls, impermanent loss" },
+      { title: "Безпека бірж та регулювання", desc: "Proof of Reserves, cold storage, ліцензування, MiCA" }
+    ],
+    conspect: "conspects/lecture-10.html",
+    presentations: [
+      { title: "Тема 10.1 — Криптогаманці та ключі", desc: "Hot/cold wallets, seed phrase, multisig, hardware wallets", url: "slides/lecture-10-1.html" },
+      { title: "Тема 10.2 — Вразливості смарт-контрактів", desc: "Reentrancy, overflow, access control, аудит", url: "slides/lecture-10-2.html" },
+      { title: "Тема 10.3 — Безпека DeFi", desc: "Flash loans, oracle manipulation, rug pulls", url: "slides/lecture-10-3.html" },
+      { title: "Тема 10.4 — Біржі та регулювання", desc: "Proof of Reserves, cold storage, MiCA", url: "slides/lecture-10-4.html" }
+    ]
   },
   {
     id: 11,
     title: "AML та фінансовий моніторинг",
     description: "Протидія відмиванню коштів, KYC-процедури та системи фінансового моніторингу.",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "Протидія відмиванню коштів (AML) та фінансовий моніторинг є ключовими елементами фінансової безпеки. Розглянемо процес відмивання коштів та його етапи, KYC/CDD-процедури, системи фінансового моніторингу та transaction monitoring, а також міжнародні стандарти FATF та українське законодавство.",
+    overviewExtra: "Від FATF Recommendations до закону України «Про запобігання та протидію легалізації доходів» — AML-compliance є обов'язковим для кожної фінансової установи. Порушення загрожує мільйонними штрафами та втратою ліцензії.",
+    topics: [
+      { title: "Відмивання коштів: схеми та етапи", desc: "Placement, layering, integration, типові схеми, trade-based ML" },
+      { title: "KYC та Customer Due Diligence", desc: "Ідентифікація, верифікація, EDD, PEP-скринінг, ongoing monitoring" },
+      { title: "Системи фінансового моніторингу", desc: "Transaction monitoring, STR, threshold reporting, risk scoring" },
+      { title: "FATF та українське законодавство", desc: "40 рекомендацій FATF, Держфінмоніторинг, закон 361-IX" }
+    ],
+    conspect: "conspects/lecture-11.html",
+    presentations: [
+      { title: "Тема 11.1 — Відмивання коштів", desc: "Placement, layering, integration, типові схеми", url: "slides/lecture-11-1.html" },
+      { title: "Тема 11.2 — KYC та CDD", desc: "Ідентифікація, верифікація, EDD, PEP-скринінг", url: "slides/lecture-11-2.html" },
+      { title: "Тема 11.3 — Фінансовий моніторинг", desc: "Transaction monitoring, STR, risk scoring", url: "slides/lecture-11-3.html" },
+      { title: "Тема 11.4 — FATF та законодавство", desc: "40 рекомендацій, Держфінмоніторинг, закон 361-IX", url: "slides/lecture-11-4.html" }
+    ]
   },
   {
     id: 12,
     title: "Цифрова форензика та реагування на інциденти",
     description: "Розслідування кіберінцидентів, збір цифрових доказів та процедури реагування.",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "Цифрова форензика — це наука про збір, збереження та аналіз цифрових доказів для розслідування кіберінцидентів. Розглянемо процес incident response, збір та збереження цифрових доказів, аналіз malware та мережевого трафіку, а також побудову CSIRT-команди.",
+    overviewExtra: "Від першого виявлення інциденту до судового процесу — кожен крок повинен відповідати стандартам збереження доказів. Помилка на будь-якому етапі може зробити докази недопустимими у суді.",
+    topics: [
+      { title: "Incident Response Framework", desc: "NIST SP 800-61, фази реагування, playbooks, CSIRT" },
+      { title: "Збір цифрових доказів", desc: "Chain of custody, forensic imaging, volatile data, write blockers" },
+      { title: "Аналіз інцидентів", desc: "Malware analysis, memory forensics, network forensics, log analysis" },
+      { title: "Побудова CSIRT та post-incident", desc: "CSIRT структура, lessons learned, reporting, кіберстрахування" }
+    ],
+    conspect: "conspects/lecture-12.html",
+    presentations: [
+      { title: "Тема 12.1 — Incident Response", desc: "NIST SP 800-61, фази реагування, playbooks", url: "slides/lecture-12-1.html" },
+      { title: "Тема 12.2 — Збір цифрових доказів", desc: "Chain of custody, forensic imaging, volatile data", url: "slides/lecture-12-2.html" },
+      { title: "Тема 12.3 — Аналіз інцидентів", desc: "Malware analysis, memory forensics, log analysis", url: "slides/lecture-12-3.html" },
+      { title: "Тема 12.4 — CSIRT та post-incident", desc: "CSIRT структура, lessons learned, кіберстрахування", url: "slides/lecture-12-4.html" }
+    ]
   },
   {
     id: 13,
     title: "Кібергігієна та захист кінцевого користувача",
     description: "Правила цифрової гігієни, захист персональних даних та безпечна поведінка онлайн.",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "Кібергігієна — це набір щоденних практик для захисту від кіберзагроз на рівні кінцевого користувача. Розглянемо безпечне управління паролями та акаунтами, захист персональних даних та приватність, безпеку мобільних пристроїв та домашніх мереж, а також фінансову безпеку онлайн.",
+    overviewExtra: "95% кіберінцидентів пов'язані з людським фактором. Кібергігієна — це перший і найважливіший рубіж захисту для кожного працівника фінансової установи та кожного клієнта.",
+    topics: [
+      { title: "Паролі та управління акаунтами", desc: "Password managers, MFA, passkeys, breach monitoring" },
+      { title: "Захист персональних даних", desc: "GDPR, приватність, data minimization, право на забуття" },
+      { title: "Безпека пристроїв та мереж", desc: "Endpoint security, Wi-Fi, VPN, IoT, оновлення" },
+      { title: "Фінансова безпека онлайн", desc: "Безпечні платежі, захист від шахрайства, інвестиційні сками" }
+    ],
+    conspect: "conspects/lecture-13.html",
+    presentations: [
+      { title: "Тема 13.1 — Паролі та акаунти", desc: "Password managers, MFA, passkeys, breach monitoring", url: "slides/lecture-13-1.html" },
+      { title: "Тема 13.2 — Захист персональних даних", desc: "GDPR, приватність, data minimization", url: "slides/lecture-13-2.html" },
+      { title: "Тема 13.3 — Безпека пристроїв", desc: "Endpoint security, Wi-Fi, VPN, оновлення", url: "slides/lecture-13-3.html" },
+      { title: "Тема 13.4 — Фінансова безпека онлайн", desc: "Безпечні платежі, захист від шахрайства", url: "slides/lecture-13-4.html" }
+    ]
   },
   {
     id: 14,
     title: "Ризик-менеджмент та SOC",
     description: "Управління кіберризиками, побудова та функціонування центрів безпеки (SOC).",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "Управління кіберризиками та побудова Security Operations Center (SOC) є стратегічними завданнями для фінансових установ. Розглянемо фреймворки ризик-менеджменту, кількісну та якісну оцінку ризиків, архітектуру та рівні зрілості SOC, а також ключові метрики ефективності кібербезпеки.",
+    overviewExtra: "Від ISO 27005 до NIST CSF — ризик-менеджмент визначає пріоритети інвестицій у безпеку. SOC — це оперативний центр, що забезпечує безперервний моніторинг, виявлення та реагування на загрози 24/7.",
+    topics: [
+      { title: "Фреймворки ризик-менеджменту", desc: "ISO 27005, NIST RMF, FAIR, risk appetite, risk register" },
+      { title: "Оцінка та обробка ризиків", desc: "Якісна та кількісна оцінка, ALE, risk treatment, residual risk" },
+      { title: "Архітектура та функціонування SOC", desc: "SOC tiers, SIEM, EDR, SOAR, threat intelligence, 24/7 monitoring" },
+      { title: "Метрики та зрілість кібербезпеки", desc: "KPI/KRI, MTTD/MTTR, SOC maturity model, continuous improvement" }
+    ],
+    conspect: "conspects/lecture-14.html",
+    presentations: [
+      { title: "Тема 14.1 — Фреймворки ризик-менеджменту", desc: "ISO 27005, NIST RMF, FAIR, risk appetite", url: "slides/lecture-14-1.html" },
+      { title: "Тема 14.2 — Оцінка та обробка ризиків", desc: "Якісна та кількісна оцінка, ALE, risk treatment", url: "slides/lecture-14-2.html" },
+      { title: "Тема 14.3 — Архітектура SOC", desc: "SOC tiers, SIEM, EDR, SOAR, 24/7 monitoring", url: "slides/lecture-14-3.html" },
+      { title: "Тема 14.4 — Метрики кібербезпеки", desc: "KPI/KRI, MTTD/MTTR, SOC maturity model", url: "slides/lecture-14-4.html" }
+    ]
   },
   {
     id: 15,
     title: "Національна стратегія фінансової кібербезпеки",
     description: "Державна політика, регулювання та стратегічні ініціативи у сфері фінансової кібербезпеки.",
     duration: "2 год",
-    badge: "locked"
+    badge: "new",
+    overview: "Фінансова кібербезпека є частиною національної безпеки. Розглянемо роль НБУ та CERT-UA у захисті фінансового сектору, міжнародні стандарти та директиви (NIS2, DORA), кібербезпеку в умовах війни та стратегічні пріоритети розвитку фінансової кібербезпеки України.",
+    overviewExtra: "Від Стратегії кібербезпеки України до EU DORA — регуляторний ландшафт швидко змінюється. Україна, маючи унікальний досвід кібервійни, формує передові практики захисту фінансової інфраструктури.",
+    topics: [
+      { title: "НБУ та CERT-UA: захист фінсектору", desc: "Роль НБУ, CERT-UA, кіберполіція, міжвідомча координація" },
+      { title: "Міжнародні стандарти та директиви", desc: "NIS2, DORA, SWIFT CSCF, Basel III operational resilience" },
+      { title: "Кібербезпека в умовах війни", desc: "Досвід України, атаки на фінінфраструктуру, resilience, IT Army" },
+      { title: "Стратегічні пріоритети", desc: "Кадри, інновації, міжнародна співпраця, цифрова трансформація" }
+    ],
+    conspect: "conspects/lecture-15.html",
+    presentations: [
+      { title: "Тема 15.1 — НБУ та CERT-UA", desc: "Роль НБУ, CERT-UA, міжвідомча координація", url: "slides/lecture-15-1.html" },
+      { title: "Тема 15.2 — Міжнародні стандарти", desc: "NIS2, DORA, SWIFT CSCF, Basel III", url: "slides/lecture-15-2.html" },
+      { title: "Тема 15.3 — Кібербезпека в умовах війни", desc: "Досвід України, атаки на фінінфраструктуру", url: "slides/lecture-15-3.html" },
+      { title: "Тема 15.4 — Стратегічні пріоритети", desc: "Кадри, інновації, міжнародна співпраця", url: "slides/lecture-15-4.html" }
+    ]
   }
 ];
 

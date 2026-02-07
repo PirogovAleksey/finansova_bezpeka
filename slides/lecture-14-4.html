@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>14.4 Метрики кібербезпеки | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/slides.css">
+</head>
+<body>
+  <div class="top-controls">
+    <a href="../lecture.html?id=14"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>До лекції</a>
+    <button onclick="toggleTheme()"><span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span><span id="theme-label">Світла</span></button>
+  </div>
+  <div class="slide-deck">
+    <section class="slide active">
+      <span class="slide-icon">📈</span>
+      <h1>Метрики кібербезпеки</h1>
+      <p class="subtitle">Лекція 14.4</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">KPI/KRI, MTTD, MTTR, SOC Maturity Model</span>
+    </section>
+    <section class="slide">
+      <h1>Навіщо метрики?</h1>
+      <div class="highlight-box">Метрики дозволяють <strong>вимірювати</strong> ефективність безпеки, <strong>обґрунтовувати</strong> інвестиції та демонструвати <strong>прогрес</strong> керівництву і регуляторам</div>
+      <div class="two-col" style="margin-top: 1.5rem;">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">📊</span>
+            <div class="card-title">KPI</div>
+            <div class="card-text">Key Performance Indicators — вимірюють ефективність поточних процесів</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">⚠️</span>
+            <div class="card-title">KRI</div>
+            <div class="card-text">Key Risk Indicators — ранні сигнали зростання ризиків</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Ключові метрики SOC</h1>
+      <div class="card-grid">
+        <div class="card accent-blue"><span class="card-icon">🔍</span><div class="card-title">MTTD</div><div class="card-text">Mean Time to Detect. Ціль: &lt;24 год. Industry average: 204 дні!</div></div>
+        <div class="card accent-green"><span class="card-icon">⚡</span><div class="card-title">MTTR</div><div class="card-text">Mean Time to Respond. Ціль: &lt;4 год для critical інцидентів</div></div>
+        <div class="card accent-orange"><span class="card-icon">🎯</span><div class="card-title">Alert-to-Incident</div><div class="card-text">Скільки алертів стають реальними інцидентами. Якість detection rules</div></div>
+        <div class="card accent-red"><span class="card-icon">🚨</span><div class="card-title">False Positive Rate</div><div class="card-text">Хибні спрацювання. Високий FP = alert fatigue = пропущені загрози</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Додаткові метрики</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">🔄</span><span class="il-text"><strong>Patch compliance</strong> — % систем з актуальними патчами. Ціль: &gt;95% протягом SLA</span></div>
+        <div class="icon-list-item"><span class="il-icon">🎣</span><span class="il-text"><strong>Phishing click rate</strong> — результати phishing-симуляцій. Ціль: &lt;5%</span></div>
+        <div class="icon-list-item"><span class="il-icon">⏱️</span><span class="il-text"><strong>Vulnerability remediation time</strong> — час від виявлення до виправлення вразливості</span></div>
+        <div class="icon-list-item"><span class="il-icon">📊</span><span class="il-text"><strong>Coverage</strong> — % активів під моніторингом SOC. Ціль: 100% критичних</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>SOC Maturity Model</h1>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-title">Initial</div><div class="step-desc">Reactive, ad hoc, мінімальний моніторинг</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Managed</div><div class="step-desc">Базовий SIEM, визначені процеси, runbooks</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Defined</div><div class="step-desc">Повний SOC, threat hunting, SOAR, TI</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Quantitative</div><div class="step-desc">Metrics-driven, predictive analytics, CI</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-title">Optimizing</div><div class="step-desc">AI-driven SOC, автономне реагування</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Reporting для керівництва</h1>
+      <div class="highlight-box">Не «blocked 10K attacks», а «<strong>зменшили ризик втрати на $2M</strong> через покращення detection»</div>
+      <div class="icon-list" style="margin-top: 1.5rem;">
+        <div class="icon-list-item"><span class="il-icon">📊</span><span class="il-text"><strong>CISO Dashboard</strong> — KRI, risk posture, compliance status, incident trends</span></div>
+        <div class="icon-list-item"><span class="il-icon">💬</span><span class="il-text"><strong>Мова бізнесу</strong> — гроші, ризики, compliance — не техніка</span></div>
+        <div class="icon-list-item"><span class="il-icon">📅</span><span class="il-text"><strong>Регулярність</strong> — щомісячний звіт для правління, щотижневий для менеджменту</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>MTTD + MTTR</strong> — головні метрики ефективності SOC</span></div>
+        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>False positive rate</strong> — критична метрика: alert fatigue = пропущені атаки</span></div>
+        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Maturity Model</strong> — від reactive (L1) до AI-driven (L5), поступовий розвиток</span></div>
+        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>Бізнес-мова</strong> — reporting має говорити про гроші та ризики, не про техніку</span></div>
+      </div>
+    </section>
+  </div>
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+  <div class="controls"><button onclick="prev()">&#8592;</button><button onclick="next()">&#8594;</button></div>
+  <script src="../js/slides.js"></script>
+</body>
+</html>

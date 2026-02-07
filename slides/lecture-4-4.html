@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4.4 Захист від клієнтських атак | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../lecture.html?id=4">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <!-- 1. Title -->
+    <section class="slide active">
+      <span class="slide-icon">🛡️</span>
+      <h1>Захист від клієнтських атак</h1>
+      <p class="subtitle">Лекція 4.4</p>
+      <span class="tag tag-green" style="margin-top: 1rem;">CSP, SRI, Secure Headers, Trusted Types</span>
+    </section>
+
+    <!-- 2. CSP -->
+    <section class="slide">
+      <h1>Content Security Policy</h1>
+      <h2>Найпотужніший захист від XSS</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📜</span>
+          <span class="il-text"><strong>script-src 'self'</strong> — лише скрипти з того ж домену, блокує inline</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🎨</span>
+          <span class="il-text"><strong>style-src</strong> — контроль CSS, захист від CSS-exfiltration</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🌐</span>
+          <span class="il-text"><strong>connect-src</strong> — whitelist доменів для AJAX/WebSocket</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🖼️</span>
+          <span class="il-text"><strong>frame-ancestors 'none'</strong> — захист від clickjacking</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>report-to</strong> — браузер надсилає звіти про порушення CSP</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Strict CSP -->
+    <section class="slide">
+      <h1>Strict CSP — nonce-based</h1>
+      <h2>Whitelist доменів легко обходиться!</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">❌</span>
+            <div class="card-title">Whitelist CSP</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              script-src cdn.com *.google.com<br>
+              Обхід через JSONP endpoint<br>
+              Angular sandbox bypass<br>
+              Будь-який дозволений хост
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">✅</span>
+            <div class="card-title">Nonce-based CSP</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              script-src 'nonce-abc123'<br>
+              Новий nonce кожен запит<br>
+              Inline скрипт без nonce — блок<br>
+              XSS payload не має nonce
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Google рекомендує strict nonce-based CSP. Whitelist CSP обходиться у 94% випадків.</p>
+      </div>
+    </section>
+
+    <!-- 4. SRI -->
+    <section class="slide">
+      <h1>Subresource Integrity (SRI)</h1>
+      <h2>Перевірка цілісності зовнішніх скриптів</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Хеш</div>
+          <div class="step-desc">Обчислюється SHA-384 хеш скрипту</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">integrity=""</div>
+          <div class="step-desc">Хеш додається до тегу script</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Перевірка</div>
+          <div class="step-desc">Браузер порівнює хеш</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Блокування</div>
+          <div class="step-desc">Якщо не збігається → скрипт не виконується</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Magecart захист: якщо CDN скомпрометовано і скрипт змінено — SRI заблокує виконання.</p>
+      </div>
+    </section>
+
+    <!-- 5. Output Encoding -->
+    <section class="slide">
+      <h1>Output Encoding</h1>
+      <h2>Основний захист від XSS</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">📄</span>
+          <div class="card-title">HTML Encoding</div>
+          <div class="card-text">&lt; → &amp;lt; &gt; → &amp;gt; Для тексту в HTML</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🏷️</span>
+          <div class="card-title">Attribute Encoding</div>
+          <div class="card-text">+ лапки " ' для HTML-атрибутів</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">⚙️</span>
+          <div class="card-title">JS Encoding</div>
+          <div class="card-text">\uXXXX для даних всередині JavaScript</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔗</span>
+          <div class="card-title">URL Encoding</div>
+          <div class="card-text">%XX для URL-параметрів</div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>Екранувати при ВИВОДІ, не при введенні. Дані зберігаються чистими, encoding — за контекстом.</p>
+      </div>
+    </section>
+
+    <!-- 6. Trusted Types -->
+    <section class="slide">
+      <h1>Trusted Types</h1>
+      <h2>Браузерний захист від DOM XSS</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔒</span>
+          <span class="il-text"><strong>Блокує</strong> рядки у небезпечних sinks: innerHTML, document.write, eval</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">✅</span>
+          <span class="il-text"><strong>Дозволяє</strong> лише «довірені» об'єкти через явну санітизацію</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏭</span>
+          <span class="il-text"><strong>Policy factory</strong> — централізована точка санітизації (DOMPurify)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📋</span>
+          <span class="il-text"><strong>CSP:</strong> require-trusted-types-for 'script' — активація через header</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Google використовує Trusted Types внутрішньо. Зменшує DOM XSS на 60%+ у великих додатках.</p>
+      </div>
+    </section>
+
+    <!-- 7. Secure Headers -->
+    <section class="slide">
+      <h1>Комплекс Secure Headers</h1>
+      <h2>Обов'язкові заголовки для фінансового додатку</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Content-Security-Policy</strong> — захист від XSS та data injection</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📄</span>
+          <span class="il-text"><strong>X-Content-Type-Options: nosniff</strong> — запобігання MIME-sniffing</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🖼️</span>
+          <span class="il-text"><strong>X-Frame-Options: DENY</strong> — захист від clickjacking</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔐</span>
+          <span class="il-text"><strong>Strict-Transport-Security</strong> — примусовий HTTPS (HSTS)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔗</span>
+          <span class="il-text"><strong>Referrer-Policy</strong> — контроль витоку URL при навігації</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🎤</span>
+          <span class="il-text"><strong>Permissions-Policy</strong> — обмеження camera, microphone, geolocation</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Підсумок -->
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>CSP nonce-based</strong> — найефективніший захист від XSS</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>SRI</strong> — захист від supply chain атак на CDN/скрипти</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Output encoding</strong> — правильний контекст = правильне екранування</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Defense in depth</strong> — CSP + SRI + Trusted Types + headers = надійний захист</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../js/slides.js"></script>
+
+</body>
+</html>

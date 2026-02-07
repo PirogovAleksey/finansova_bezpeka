@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Конспект лекції 7: Безпека платіжних систем — PCI DSS, карткові транзакції, мобільні платежі.">
+  <meta name="author" content="Кафедра ТЕІБ, Ужгородський національний університет">
+  <meta name="theme-color" content="#0ea5e9">
+  <title>Конспект: Лекція 7 — Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
+</head>
+<body>
+
+  <aside>
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        Фінансова<br>Безпека
+        <span>онлайн-курс</span>
+      </div>
+    </div>
+
+    <nav aria-label="Головна навігація">
+      <a href="../index.html" class="active">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>
+        Лекції
+      </a>
+      <a href="../practicals.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+        Практичні
+      </a>
+      <a href="../tests.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+        Тести
+      </a>
+      <a href="../materials.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg></span>
+        Матеріали
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Перемкнути тему">
+        <svg id="theme-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <span id="theme-label">Темна тема</span>
+      </button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="lecture-nav-top">
+      <a href="../lecture.html?id=7" class="back-link">&larr; Назад до лекції 7</a>
+      <span class="lecture-badge">Конспект лекції 7</span>
+    </div>
+
+    <article class="lecture-content">
+      <h1>Безпека платіжних систем</h1>
+      <div class="lecture-info">
+        <span>⏱ 2 год</span>
+        <span class="badge badge-new">Конспект</span>
+      </div>
+
+      <!-- Section 7.1 -->
+      <section>
+        <h2>7.1 PCI DSS — стандарт безпеки платіжних карток</h2>
+
+        <p>Payment Card Industry Data Security Standard (PCI DSS) — це стандарт безпеки, розроблений PCI Security Standards Council (заснований Visa, Mastercard, American Express, Discover, JCB). PCI DSS є обов'язковим для всіх організацій, що зберігають, обробляють або передають дані платіжних карток. Порушення стандарту загрожує штрафами до $100 000 на місяць та відкликанням права приймати карткові платежі.</p>
+
+        <p><strong>12 вимог PCI DSS (v4.0):</strong></p>
+        <ol>
+          <li><strong>Встановити та підтримувати firewall</strong> — мережевий захист cardholder data environment (CDE).</li>
+          <li><strong>Не використовувати default паролі</strong> — змінити всі vendor-supplied defaults для системних паролів та параметрів безпеки.</li>
+          <li><strong>Захистити збережені дані карток</strong> — шифрування PAN, заборона зберігання CVV/CVC після авторизації, маскування PAN при відображенні.</li>
+          <li><strong>Шифрувати передачу даних карток</strong> — TLS 1.2+ для будь-якої передачі PAN через публічні мережі.</li>
+          <li><strong>Захист від malware</strong> — антивірусне ПЗ на всіх системах у CDE, регулярне оновлення.</li>
+          <li><strong>Розробляти безпечні системи</strong> — Secure SDLC, патч-менеджмент, захист від відомих вразливостей.</li>
+          <li><strong>Обмежити доступ до даних карток</strong> — need-to-know principle, RBAC, мінімальні привілеї.</li>
+          <li><strong>Ідентифікувати та автентифікувати доступ</strong> — унікальний ID для кожного користувача, MFA для адміністративного доступу.</li>
+          <li><strong>Обмежити фізичний доступ</strong> — контроль доступу до серверних, камери, журнали відвідувань.</li>
+          <li><strong>Логувати та моніторити доступ</strong> — логування всіх дій з даними карток, централізований SIEM, збереження логів мінімум 1 рік.</li>
+          <li><strong>Регулярно тестувати безпеку</strong> — щоквартальне ASV-сканування, щорічний пентест, wireless-сканування.</li>
+          <li><strong>Підтримувати політику безпеки</strong> — документована політика ІБ, awareness-тренінги, incident response plan.</li>
+        </ol>
+
+        <p><strong>Рівні комплаєнсу PCI DSS</strong> залежать від обсягу транзакцій: Level 1 (>6 млн транзакцій/рік) — щорічний аудит QSA + щоквартальне ASV-сканування; Level 2 (1-6 млн) — SAQ + ASV; Level 3 (20K-1 млн e-commerce) — SAQ + ASV; Level 4 (<20K) — SAQ. Більшість українських банків підпадають під Level 1-2.</p>
+
+        <p><strong>PCI DSS v4.0 (2024)</strong> — оновлення з фокусом на: customized approach (гнучкість у виконанні вимог), розширені вимоги до MFA, targeted risk analysis, enhanced security awareness, автоматизація тестування.</p>
+      </section>
+
+      <!-- Section 7.2 -->
+      <section>
+        <h2>7.2 Безпека карткових транзакцій</h2>
+
+        <p>Карткові транзакції проходять складний ланцюжок обробки: від POS-термінала або веб-сайту через acquirer до card network (Visa/Mastercard) та issuer банку. Кожна ланка потребує захисту.</p>
+
+        <p><strong>EMV (Europay, Mastercard, Visa)</strong> — стандарт смарт-карток з чіпом, що замінив магнітну стрічку:</p>
+        <ul>
+          <li>Чіп генерує унікальний криптограм для кожної транзакції (dynamic authentication), на відміну від статичних даних магнітної стрічки, які легко клонувати.</li>
+          <li>EMV зменшив card-present fraud на 76% у країнах з повним впровадженням.</li>
+          <li>Liability shift: відповідальність за fraud покладається на сторону, що не підтримує EMV (якщо термінал не підтримує чіп — відповідає торговець).</li>
+        </ul>
+
+        <p><strong>Токенізація платежів</strong> — заміна реального PAN (номера картки) на унікальний токен:</p>
+        <ul>
+          <li><strong>Network-level tokenization</strong> — Visa/Mastercard замінюють PAN на токен для конкретного торговця/каналу. Токен виглядає як номер картки, але непридатний для використання в іншому контексті.</li>
+          <li><strong>Merchant-level tokenization</strong> — торговець зберігає токен замість PAN. Повторні платежі використовують токен, PAN ніколи не зберігається у merchant системах.</li>
+          <li>Токенізація суттєво зменшує PCI DSS scope: системи, що працюють лише з токенами, не підпадають під повні вимоги PCI DSS.</li>
+        </ul>
+
+        <p><strong>3D Secure 2.0 (3DS2)</strong> — протокол автентифікації онлайн-платежів:</p>
+        <ul>
+          <li>При онлайн-покупці issuer банк може вимагати додаткову автентифікацію (push у банківський додаток, OTP, біометрію).</li>
+          <li>3DS2 (порівняно з 3DS1) передає значно більше даних для risk-based аналізу: device fingerprint, billing address, transaction history — що дозволяє issuer автоматично схвалювати низько-ризикові транзакції (frictionless flow).</li>
+          <li>PSD2 Strong Customer Authentication (SCA) у ЄС вимагає 3DS2 для більшості онлайн-платежів.</li>
+          <li>Liability shift: при використанні 3DS відповідальність за fraud переходить від торговця до issuer банку.</li>
+        </ul>
+
+        <p><strong>Point-to-Point Encryption (P2PE)</strong> — шифрування даних картки від моменту зчитування на терміналі до processing host. Дані ніколи не з'являються у відкритому вигляді в мережі торговця, що значно зменшує PCI DSS scope та ризик компрометації через malware на POS-системах.</p>
+      </section>
+
+      <!-- Section 7.3 -->
+      <section>
+        <h2>7.3 Мобільні та електронні платежі</h2>
+
+        <p>Мобільні платежі є найбільш швидкозростаючим сегментом платіжної індустрії. В Україні понад 70% банківських операцій здійснюються через мобільні додатки. Безпека мобільних платежів вимагає захисту на рівні пристрою, додатку, мережі та серверу.</p>
+
+        <p><strong>Apple Pay / Google Pay — NFC-платежі:</strong></p>
+        <ul>
+          <li><strong>Secure Element (SE)</strong> — ізольований чіп на пристрої, де зберігається Device Account Number (DAN) — токенізований номер картки. Навіть при компрометації ОС зловмисник не отримає DAN.</li>
+          <li><strong>Dynamic Security Code</strong> — для кожної транзакції генерується одноразовий криптограм, аналогічно EMV-чіпу.</li>
+          <li><strong>Біометрична автентифікація</strong> — Face ID/Touch ID перед кожним платежем. Apple Pay не передає біометричні дані серверу — перевірка відбувається локально.</li>
+          <li><strong>Privacy</strong> — Apple/Google не знають деталей транзакцій. Торговець отримує лише DAN та криптограм, не реальний PAN.</li>
+        </ul>
+
+        <p><strong>QR-платежі</strong> — поширені в Азії (WeChat Pay, Alipay) та набирають популярність в Україні:</p>
+        <ul>
+          <li><strong>Merchant-Presented QR</strong> — торговець показує QR-код, клієнт сканує та підтверджує оплату. Ризик: підміна QR-коду зловмисником (наклейка поверх оригінального QR).</li>
+          <li><strong>Customer-Presented QR</strong> — клієнт показує динамічний QR-код з одноразовим токеном, торговець сканує. Безпечніший варіант.</li>
+          <li>Захист: підписані QR з цифровим сертифікатом, короткий TTL для динамічних QR, перевірка merchant identity перед підтвердженням.</li>
+        </ul>
+
+        <p><strong>Open Banking та PSD2:</strong></p>
+        <ul>
+          <li>Payment Services Directive 2 (PSD2) в ЄС зобов'язує банки надавати доступ до рахунків клієнтів через API третім сторонам (за згодою клієнта).</li>
+          <li><strong>AISP (Account Information Service Provider)</strong> — доступ до інформації про рахунки (наприклад, для агрегаторів фінансів).</li>
+          <li><strong>PISP (Payment Initiation Service Provider)</strong> — ініціювання платежу з рахунку клієнта (наприклад, оплата з банківського рахунку замість картки).</li>
+          <li><strong>Strong Customer Authentication (SCA)</strong> — обов'язкова двофакторна автентифікація для онлайн-платежів та доступу до рахунків.</li>
+          <li>В Україні НБУ розвиває аналог Open Banking через SEP (Систему електронних платежів) та API-стандарти для банків.</li>
+        </ul>
+      </section>
+
+      <!-- Section 7.4 -->
+      <section>
+        <h2>7.4 Fraud detection та моніторинг транзакцій</h2>
+
+        <p>Fraud detection — це система виявлення шахрайських транзакцій у реальному часі. За даними Nilson Report, глобальні втрати від карткового шахрайства перевищують $30 мільярдів на рік. Сучасні системи fraud detection повинні аналізувати мільйони транзакцій на секунду з мінімальною затримкою (менше 100 мс на рішення).</p>
+
+        <p><strong>Rule-based системи</strong> — перше покоління fraud detection:</p>
+        <ul>
+          <li>Статичні правила: «Заблокувати транзакцію понад $10,000 з нової країни», «Позначити 3+ транзакції за 5 хвилин з різних міст».</li>
+          <li>Переваги: прозорість (зрозуміло, чому заблоковано), простота реалізації, відповідність compliance-вимогам.</li>
+          <li>Недоліки: не адаптуються до нових патернів fraud, високий false positive rate (легітимні транзакції блокуються), легко обходяться досвідченими шахраями, які знають правила.</li>
+        </ul>
+
+        <p><strong>ML-based системи</strong> — сучасний підхід до fraud detection:</p>
+        <ul>
+          <li><strong>Supervised learning</strong> — моделі (Random Forest, XGBoost, Neural Networks) навчені на історичних даних fraud/non-fraud. Переваги: високий detection rate, низький false positive, адаптація до нових патернів.</li>
+          <li><strong>Unsupervised learning</strong> — виявлення аномалій без розмічених даних. Автоенкодери, isolation forest визначають транзакції, що відхиляються від нормальної поведінки клієнта.</li>
+          <li><strong>Real-time scoring</strong> — кожна транзакція отримує fraud score (0-1000) на основі: суми, локації, часу, merchant category, device fingerprint, історії клієнта, швидкості транзакцій.</li>
+          <li><strong>Graph analytics</strong> — виявлення мереж шахрайства: пов'язані акаунти, спільні пристрої, money mule ланцюжки.</li>
+        </ul>
+
+        <p><strong>Поведінковий аналіз (Behavioral Analytics):</strong></p>
+        <ul>
+          <li>Створення профілю «нормальної» поведінки для кожного клієнта: типові суми, merchant categories, час транзакцій, геолокація, пристрої.</li>
+          <li>Відхилення від профілю збільшує risk score: клієнт зазвичай платить 200-500 грн в супермаркетах у Києві, раптом — переказ 50,000 грн з нового пристрою о 3:00 AM з IP Нігерії.</li>
+          <li>Adaptive authentication: залежно від risk score система вимагає різний рівень автентифікації (step-up auth) — низький ризик: без додаткових запитів; середній: push-підтвердження; високий: повна повторна автентифікація або блокування.</li>
+        </ul>
+
+        <p><strong>Chargeback та dispute management.</strong> Коли клієнт оскаржує транзакцію, банк-емітент ініціює chargeback — повернення коштів. Для торговця це означає: повернення суми транзакції + комісія за chargeback ($20-100) + ризик потрапити в chargeback monitoring program (при >1% chargeback rate). Ефективний fraud detection зменшує chargeback rate та захищає як клієнтів, так і торговців.</p>
+      </section>
+
+      <!-- Summary -->
+      <section>
+        <h2>Підсумок</h2>
+        <p>У цій лекції ми розглянули безпеку платіжних систем — від стандарту PCI DSS з його 12 вимогами до сучасних технологій захисту транзакцій. EMV-чіпи, токенізація та 3D Secure 2.0 забезпечують багаторівневий захист карткових платежів, а Apple Pay/Google Pay демонструють, як Secure Element та біометрія роблять мобільні платежі навіть безпечнішими за карткові.</p>
+        <p>Open Banking (PSD2) відкриває нові можливості, але вимагає Strong Customer Authentication та захисту API. ML-based fraud detection системи аналізують мільйони транзакцій у реальному часі, виявляючи шахрайство за мілісекунди на основі поведінкових патернів та graph analytics.</p>
+        <p><strong>У наступній лекції</strong> ми розглянемо соціальну інженерію та психологію шахрайства: фішинг, вішинг, pretexting та психологічні прийоми, які використовують зловмисники для маніпулювання людьми у фінансовому секторі.</p>
+      </section>
+    </article>
+
+    <div class="lecture-nav-bottom">
+      <a href="../lecture.html?id=7" class="nav-btn">&larr; Назад до лекції</a>
+      <span></span>
+    </div>
+
+    <footer></footer>
+  </main>
+
+  <script src="../js/main.js"></script>
+
+</body>
+</html>

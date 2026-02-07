@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Конспект лекції 8: Соціальна інженерія та психологія шахрайства — фішинг, pretexting, маніпуляції.">
+  <meta name="author" content="Кафедра ТЕІБ, Ужгородський національний університет">
+  <meta name="theme-color" content="#0ea5e9">
+  <title>Конспект: Лекція 8 — Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
+</head>
+<body>
+
+  <aside>
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        Фінансова<br>Безпека
+        <span>онлайн-курс</span>
+      </div>
+    </div>
+
+    <nav aria-label="Головна навігація">
+      <a href="../index.html" class="active">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>
+        Лекції
+      </a>
+      <a href="../practicals.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+        Практичні
+      </a>
+      <a href="../tests.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+        Тести
+      </a>
+      <a href="../materials.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg></span>
+        Матеріали
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Перемкнути тему">
+        <svg id="theme-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <span id="theme-label">Темна тема</span>
+      </button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="lecture-nav-top">
+      <a href="../lecture.html?id=8" class="back-link">&larr; Назад до лекції 8</a>
+      <span class="lecture-badge">Конспект лекції 8</span>
+    </div>
+
+    <article class="lecture-content">
+      <h1>Соціальна інженерія та психологія шахрайства</h1>
+      <div class="lecture-info">
+        <span>⏱ 2 год</span>
+        <span class="badge badge-new">Конспект</span>
+      </div>
+
+      <!-- Section 8.1 -->
+      <section>
+        <h2>8.1 Фішинг та його різновиди</h2>
+
+        <p>Фішинг (phishing) — це метод соціальної інженерії, при якому зловмисник видає себе за довірену особу або організацію з метою отримання конфіденційної інформації: облікових даних, номерів карток, OTP-кодів. За даними Verizon DBIR, фішинг є початковим вектором у понад 36% всіх витоків даних, а у фінансовому секторі ця цифра сягає 50%.</p>
+
+        <p><strong>Основні різновиди фішингу:</strong></p>
+        <ul>
+          <li><strong>Email phishing (масовий)</strong> — розсилка тисяч листів, що імітують банки, платіжні системи, державні органи. Лист містить посилання на підроблений сайт або шкідливий вкладений файл. Типові ознаки: generic звернення («Шановний клієнте»), терміновість («Ваш рахунок буде заблоковано»), підозріла URL-адреса.</li>
+          <li><strong>Spear phishing</strong> — цілеспрямована атака на конкретну особу або організацію. Зловмисник досліджує ціль через LinkedIn, соцмережі, корпоративний сайт і створює персоналізований лист. Значно ефективніший за масовий фішинг: click rate 30-50% проти 3-5%.</li>
+          <li><strong>Whaling</strong> — атака на C-level керівників (CEO, CFO, CTO). Зловмисник імітує юриста, регулятора або партнера. Типова атака: CEO fraud — лист від «генерального директора» фінансовому директору з терміновим запитом на переказ коштів.</li>
+          <li><strong>Smishing (SMS phishing)</strong> — фішинг через SMS: «Ваша картка заблокована, перейдіть за посиланням» або «Ваша посилка затримана, підтвердіть доставку». Особливо ефективний на мобільних пристроях, де URL складно перевірити.</li>
+          <li><strong>Vishing (voice phishing)</strong> — телефонний фішинг. Зловмисник дзвонить, представляючись працівником банку, НБУ або поліції, і вимагає дані картки або коди підтвердження. В Україні вішинг є одним із найпоширеніших видів шахрайства: у 2023-2024 роках НБУ зафіксував десятки тисяч скарг.</li>
+          <li><strong>Pharming</strong> — атака на DNS, що перенаправляє жертву на підроблений сайт навіть при введенні правильної URL-адреси. Може використовувати компрометацію DNS-сервера або файлу hosts на комп'ютері жертви.</li>
+        </ul>
+
+        <p><strong>Business Email Compromise (BEC)</strong> — окремий клас атак, при якому зловмисник або компрометує реальну поштову скриньку, або створює схожий домен (наприклад, company-ua.com замість company.ua). BEC спрямований на ініціювання переказу коштів і є одним із найбільш фінансово збиткових видів кіберзлочинів: за даними FBI IC3, збитки від BEC перевищують $2.7 мільярди на рік.</p>
+      </section>
+
+      <!-- Section 8.2 -->
+      <section>
+        <h2>8.2 Pretexting та маніпулятивні техніки</h2>
+
+        <p>Pretexting — це створення вигаданого сценарію (pretext), що виправдовує запит на конфіденційну інформацію або дію. На відміну від фішингу, pretexting базується на побудові довіри через діалог та вигадану роль.</p>
+
+        <p><strong>Основні техніки соціальної інженерії:</strong></p>
+        <ul>
+          <li><strong>Impersonation (видавання себе за іншого)</strong> — зловмисник представляється працівником IT-відділу, служби безпеки, аудитором або керівником. У фінансовому секторі: «Це служба безпеки ПриватБанку, ми зафіксували підозрілу транзакцію з вашого рахунку».</li>
+          <li><strong>Tailgating / Piggybacking</strong> — фізичне проникнення в захищену зону, прослідкувавши за авторизованим співробітником. У банках: зловмисник з «коробкою для доставки» проходить через двері разом із працівником.</li>
+          <li><strong>Baiting</strong> — приманка у формі USB-флешки з написом «Зарплати Q4» або «Конфіденційно», залишеної на парковці або в приймальні. Жертва підключає пристрій до корпоративного комп'ютера, запускаючи malware.</li>
+          <li><strong>Quid pro quo</strong> — «послуга за послугу»: зловмисник пропонує допомогу (наприклад, «технічна підтримка»), а натомість просить надати доступ або встановити ПЗ.</li>
+          <li><strong>Watering hole</strong> — компрометація сайту, який регулярно відвідують працівники цільової організації (наприклад, галузевий форум для банківських працівників). Відвідувачі заражаються malware без підозрілих листів.</li>
+        </ul>
+
+        <p><strong>Multi-stage атаки.</strong> Сучасні атаки на фінансові установи часто комбінують кілька технік: reconnaissance через LinkedIn → spear phishing з легітимним вкладенням → встановлення бекдору → lateral movement → компрометація SWIFT-термінала. Атака на Центральний банк Бангладеш (2016) з крадіжкою $81 млн — класичний приклад такого ланцюжка.</p>
+      </section>
+
+      <!-- Section 8.3 -->
+      <section>
+        <h2>8.3 Психологія жертви та когнітивні вразливості</h2>
+
+        <p>Ефективність соціальної інженерії базується на експлуатації фундаментальних психологічних механізмів. Роберт Чалдіні (Robert Cialdini) описав 6 принципів впливу, які активно використовуються зловмисниками:</p>
+
+        <ol>
+          <li><strong>Взаємність (Reciprocity)</strong> — люди відчувають потребу відповісти послугою на послугу. Зловмисник спочатку «допомагає» (надсилає корисний документ, вирішує проблему), а потім просить надати доступ або інформацію.</li>
+          <li><strong>Зобов'язання та послідовність (Commitment)</strong> — люди прагнуть бути послідовними у своїх діях. Зловмисник спочатку отримує маленьку «так» (заповніть коротку форму), а потім збільшує запити (надайте дані картки).</li>
+          <li><strong>Соціальний доказ (Social Proof)</strong> — люди орієнтуються на дії інших. «Усі ваші колеги вже пройшли верифікацію» або «10,000 клієнтів вже оновили додаток».</li>
+          <li><strong>Авторитет (Authority)</strong> — люди схильні підкорятися авторитетним фігурам. Зловмисник видає себе за керівника, регулятора (НБУ), правоохоронця. У фінансовому секторі це особливо дієво через ієрархічну культуру.</li>
+          <li><strong>Симпатія (Liking)</strong> — люди більш схильні допомагати тим, хто їм подобається. Зловмисник створює раппорт, знаходить спільні інтереси, робить компліменти.</li>
+          <li><strong>Дефіцит (Scarcity)</strong> — обмежені в часі пропозиції створюють тиск: «Акція закінчується через 1 годину», «Ваш рахунок буде заблокований через 24 години».</li>
+        </ol>
+
+        <p><strong>Когнітивні упередження, які експлуатують зловмисники:</strong></p>
+        <ul>
+          <li><strong>Confirmation bias</strong> — жертва бачить те, що очікує (лист від банку виглядає як справжній, бо очікується комунікація від банку).</li>
+          <li><strong>Anchoring</strong> — перша інформація задає рамку (зловмисник повідомляє про проблему, і жертва фокусується на її вирішенні, а не на перевірці).</li>
+          <li><strong>Stress and urgency</strong> — під стресом люди приймають імпульсивні рішення. Зловмисник створює штучну терміновість: «Ваші кошти списують ЗАРАЗ».</li>
+          <li><strong>Inattentional blindness</strong> — зайняті люди не помічають аномалій. Бухгалтер, який обробляє сотні платежів, може не помітити підозрілий рахунок серед легітимних.</li>
+        </ul>
+      </section>
+
+      <!-- Section 8.4 -->
+      <section>
+        <h2>8.4 Захист від соціальної інженерії</h2>
+
+        <p>Захист від соціальної інженерії потребує комплексного підходу: технічні контролі, організаційні процеси та формування культури безпеки.</p>
+
+        <p><strong>Security Awareness Training:</strong></p>
+        <ul>
+          <li><strong>Регулярні тренінги</strong> — не одноразова подія, а безперервний процес. Щоквартальні тренінги з актуальними прикладами атак на фінансовий сектор.</li>
+          <li><strong>Phishing-симуляції</strong> — контрольовані фішингові кампанії для перевірки та тренування працівників. Метрики: click rate, report rate, час до report. Цільові значення: click rate &lt;5%, report rate >60%.</li>
+          <li><strong>Role-specific training</strong> — окремі програми для C-level (whaling), фінансового відділу (BEC), IT (technical SE), front office (impersonation).</li>
+          <li><strong>Gamification</strong> — елементи гри: рейтинги, бейджі, змагання між відділами за найнижчий click rate.</li>
+        </ul>
+
+        <p><strong>Організаційні контролі:</strong></p>
+        <ul>
+          <li><strong>Процедури верифікації</strong> — callback verification для фінансових запитів (перезвонити за офіційним номером), dual authorization для переказів понад поріг.</li>
+          <li><strong>Reporting culture</strong> — створення безпечного середовища для повідомлення про підозрілі комунікації. Без покарання за «хибні спрацювання». Кнопка «Report Phishing» у email-клієнті.</li>
+          <li><strong>Incident response для SE</strong> — чіткий план дій при виявленні атаки: ізоляція скомпрометованих акаунтів, зміна паролів, повідомлення клієнтів, forensic-аналіз.</li>
+        </ul>
+
+        <p><strong>Технічні контролі:</strong></p>
+        <ul>
+          <li><strong>Email security</strong> — SPF, DKIM, DMARC для захисту від spoofing корпоративного домену. Advanced Threat Protection для виявлення фішингових посилань та вкладень.</li>
+          <li><strong>Anti-phishing filters</strong> — ML-based фільтрація підозрілих листів, URL rewriting, sandbox для вкладень.</li>
+          <li><strong>MFA everywhere</strong> — навіть якщо пароль скомпрометовано через фішинг, MFA (особливо FIDO2) блокує доступ. FIDO2 є phishing-resistant за дизайном.</li>
+          <li><strong>DNS-фільтрація</strong> — блокування відомих фішингових доменів на рівні DNS (Cisco Umbrella, Cloudflare Gateway).</li>
+          <li><strong>Browser isolation</strong> — ізоляція веб-браузера для перегляду підозрілих посилань у sandbox-середовищі.</li>
+        </ul>
+      </section>
+
+      <!-- Summary -->
+      <section>
+        <h2>Підсумок</h2>
+        <p>Соціальна інженерія залишається найефективнішим вектором атак, оскільки експлуатує людську психологію, а не технічні вразливості. Фішинг у всіх його формах — від масового email phishing до персоналізованого whaling — є причиною більшості витоків даних у фінансовому секторі.</p>
+        <p>Зловмисники використовують принципи впливу Чалдіні (авторитет, терміновість, взаємність) та когнітивні упередження для маніпулювання жертвами. Ефективний захист потребує комбінації технічних контролів (email security, MFA, DNS-фільтрація), організаційних процесів (верифікація, dual authorization) та культури безпеки (awareness-тренінги, phishing-симуляції, reporting culture).</p>
+        <p><strong>У наступній лекції</strong> ми розглянемо штучний інтелект у кібербезпеці: використання AI/ML для виявлення загроз та аномалій, застосування AI у фінансовому моніторингу, нові загрози від генеративного AI та принципи відповідального AI.</p>
+      </section>
+    </article>
+
+    <div class="lecture-nav-bottom">
+      <a href="../lecture.html?id=8" class="nav-btn">&larr; Назад до лекції</a>
+      <span></span>
+    </div>
+
+    <footer></footer>
+  </main>
+
+  <script src="../js/main.js"></script>
+
+</body>
+</html>

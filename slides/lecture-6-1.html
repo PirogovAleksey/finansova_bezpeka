@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6.1 OWASP Top 10 | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../lecture.html?id=6">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <section class="slide active">
+      <span class="slide-icon">📋</span>
+      <h1>OWASP Top 10</h1>
+      <p class="subtitle">Лекція 6.1</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">10 найкритичніших вразливостей</span>
+    </section>
+
+    <section class="slide">
+      <h1>Що таке OWASP?</h1>
+      <h2>Open Worldwide Application Security Project</h2>
+      <div class="stat-row">
+        <div class="stat-box blue">
+          <div class="stat-value">2001</div>
+          <div class="stat-label">рік заснування</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">Open</div>
+          <div class="stat-label">усі стандарти безкоштовні</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">De facto</div>
+          <div class="stat-label">стандарт для AppSec</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>PCI DSS, НБУ, EBA посилаються на OWASP як базовий стандарт безпеки веб-додатків.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Top 10 (2021): A01-A05</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔓</span>
+          <span class="il-text"><strong>A01: Broken Access Control</strong> — IDOR, горизонтальна ескалація, обхід авторизації API</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔐</span>
+          <span class="il-text"><strong>A02: Cryptographic Failures</strong> — PAN без шифрування, MD5 для паролів, HTTP</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💉</span>
+          <span class="il-text"><strong>A03: Injection</strong> — SQL, Command, LDAP-ін'єкції у фінансових системах</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📐</span>
+          <span class="il-text"><strong>A04: Insecure Design</strong> — архітектурні вразливості, відсутність threat modeling</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚙️</span>
+          <span class="il-text"><strong>A05: Security Misconfiguration</strong> — default passwords, debug pages, stack traces</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Top 10 (2021): A06-A10</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📦</span>
+          <span class="il-text"><strong>A06: Vulnerable Components</strong> — Log4Shell, Struts2 → Equifax (147M записів)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🪪</span>
+          <span class="il-text"><strong>A07: Auth Failures</strong> — credential stuffing без rate limiting, відсутність MFA</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔗</span>
+          <span class="il-text"><strong>A08: Integrity Failures</strong> — supply chain атаки, компрометовані CI/CD</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>A09: Logging Failures</strong> — невдалі логіни не логуються, логи не моніторяться</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🌐</span>
+          <span class="il-text"><strong>A10: SSRF</strong> — доступ до cloud metadata, внутрішніх сервісів банку</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>A01: Broken Access Control</h1>
+      <h2>#1 вразливість — критична для фінансів</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🔢</span>
+          <div class="card-title">IDOR</div>
+          <div class="card-text">Зміна account_id=123 на account_id=456 → доступ до чужого рахунку</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">⬆️</span>
+          <div class="card-title">Privilege Escalation</div>
+          <div class="card-text">Касир отримує права менеджера через маніпуляцію role параметром</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔌</span>
+          <div class="card-title">API Bypass</div>
+          <div class="card-text">Адмін-endpoint /api/admin/users доступний без перевірки ролі</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📁</span>
+          <div class="card-title">Path Traversal</div>
+          <div class="card-text">../../../etc/passwd через download endpoint</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Equifax — A06 у дії</h1>
+      <h2>Vulnerable Component → 147 мільйонів записів</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">CVE-2017-5638</div>
+          <div class="step-desc">Вразливість у Apache Struts2</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Патч не встановлений</div>
+          <div class="step-desc">2 місяці після публікації CVE</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Експлуатація</div>
+          <div class="step-desc">RCE через веб-портал</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Витік</div>
+          <div class="step-desc">147M SSN, адрес, дат народження</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Штраф Equifax: $700 мільйонів. Причина: одна незапатчена бібліотека.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Еволюція OWASP Top 10</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">📜</span>
+            <div class="card-title">2017</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              #1 Injection<br>
+              #2 Broken Auth<br>
+              #5 Broken Access Control<br>
+              XXE окремою категорією
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">📋</span>
+            <div class="card-title">2021</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              #1 Broken Access Control ↑<br>
+              #4 Insecure Design — НОВА<br>
+              #8 Integrity Failures — НОВА<br>
+              #10 SSRF — НОВА
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Тренд: від технічних вразливостей (injection) до архітектурних проблем (insecure design, integrity).</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>Broken Access Control</strong> — #1 загроза для фінансових додатків</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>Vulnerable Components</strong> — одна бібліотека = мільйони записів (Equifax)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Insecure Design</strong> — нова категорія, не виправити патчем</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>OWASP Top 10</strong> — мінімальний стандарт, не повний список загроз</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../js/slides.js"></script>
+
+</body>
+</html>

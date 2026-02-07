@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4.2 CSRF та Clickjacking | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../lecture.html?id=4">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <!-- 1. Title -->
+    <section class="slide active">
+      <span class="slide-icon">🎭</span>
+      <h1>CSRF та Clickjacking</h1>
+      <p class="subtitle">Лекція 4.2</p>
+      <span class="tag tag-red" style="margin-top: 1rem;">Підробка запитів та UI Redressing</span>
+    </section>
+
+    <!-- 2. Що таке CSRF -->
+    <section class="slide">
+      <h1>Cross-Site Request Forgery</h1>
+      <h2>Браузер автоматично додає cookies!</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Жертва авторизована</div>
+          <div class="step-desc">Session cookie банку активний</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Відвідує evil.com</div>
+          <div class="step-desc">Або відкриває HTML-email</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Прихований POST</div>
+          <div class="step-desc">Форма → bank.com/transfer</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Банк виконує</div>
+          <div class="step-desc">Cookie валідний → переказ зроблено</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Один відкритий email може ініціювати переказ коштів без відома користувача.</p>
+      </div>
+    </section>
+
+    <!-- 3. Захист від CSRF -->
+    <section class="slide">
+      <h1>Захист від CSRF</h1>
+      <div class="card-grid">
+        <div class="card accent-green">
+          <span class="card-icon">🎫</span>
+          <div class="card-title">CSRF Token</div>
+          <div class="card-text">Унікальний токен у кожній формі. Зловмисник не може отримати його cross-origin</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🍪</span>
+          <div class="card-title">SameSite Cookie</div>
+          <div class="card-text">Strict — cookie не надсилається з cross-site запитів. Найпростіший захист</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔄</span>
+          <div class="card-title">Double Submit</div>
+          <div class="card-text">CSRF-токен у cookie І в body/header. Сервер порівнює обидва</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">📋</span>
+          <div class="card-title">Custom Headers</div>
+          <div class="card-text">X-Requested-With потребує CORS preflight. Блокує cross-origin запити</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. SameSite deep dive -->
+    <section class="slide">
+      <h1>SameSite Cookie</h1>
+      <h2>Найефективніший захист від CSRF</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-green">
+          <span class="card-icon">🔒</span>
+          <div class="card-title">Strict</div>
+          <div class="card-text">Cookie НЕ надсилається при cross-site навігації. Максимальний захист</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">⚖️</span>
+          <div class="card-title">Lax</div>
+          <div class="card-text">Cookie лише для top-level GET. Компроміс між безпекою та UX</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">⚠️</span>
+          <div class="card-title">None</div>
+          <div class="card-text">Cookie завжди надсилається. Потрібен Secure. Для cross-site інтеграцій</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Для фінансових систем: SameSite=Strict + CSRF Token для критичних операцій (переказів, зміни паролю).</p>
+      </div>
+    </section>
+
+    <!-- 5. Clickjacking -->
+    <section class="slide">
+      <h1>Clickjacking</h1>
+      <h2>Прозорий iframe поверх шкідливої сторінки</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🖼️</span>
+          <span class="il-text"><strong>Механізм:</strong> iframe з bank.com (opacity: 0) поверх fake-page.com</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🖱️</span>
+          <span class="il-text"><strong>Дія:</strong> клік на «Забрати приз» = клік на «Підтвердити переказ 50K грн»</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">👍</span>
+          <span class="il-text"><strong>Likejacking</strong> — приховані «Like» кнопки соцмереж</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🖱️</span>
+          <span class="il-text"><strong>Cursorjacking</strong> — курсор відображається не там, де насправді</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Один клік = підтверджена фінансова операція. Жертва навіть не бачить сторінку банку.</p>
+      </div>
+    </section>
+
+    <!-- 6. Захист від Clickjacking -->
+    <section class="slide">
+      <h1>Захист від Clickjacking</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">🏗️</span>
+            <div class="card-title">X-Frame-Options</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              DENY — повна заборона iframe<br>
+              SAMEORIGIN — лише свій домен<br>
+              Простий, підтримується всюди<br>
+              Legacy, але ефективний
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">🛡️</span>
+            <div class="card-title">CSP frame-ancestors</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              frame-ancestors 'none'<br>
+              frame-ancestors 'self'<br>
+              Гнучкіший контроль<br>
+              Сучасний стандарт
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Обидва заголовки разом: X-Frame-Options: DENY + CSP frame-ancestors 'none' для максимальної сумісності.</p>
+      </div>
+    </section>
+
+    <!-- 7. CSRF у реальному банкінгу -->
+    <section class="slide">
+      <h1>CSRF у фінансових системах</h1>
+      <h2>Реальні сценарії та захист</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">💸</span>
+          <span class="il-text"><strong>Переказ коштів</strong> — POST /transfer з прихованої форми на evil.com</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔑</span>
+          <span class="il-text"><strong>Зміна пароля</strong> — POST /change-password без знання поточного</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📧</span>
+          <span class="il-text"><strong>Зміна email</strong> — прив'язка email зловмисника → reset password</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Захист:</strong> CSRF token + SameSite + re-authentication для критичних дій</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Підсумок -->
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>CSRF</strong> — браузер автоматично додає cookie, запит виглядає легітимним</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>SameSite=Strict</strong> — найпростіший і найефективніший захист від CSRF</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Clickjacking</strong> — прозорий iframe, захист через X-Frame-Options / CSP</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Defense in depth</strong> — CSRF token + SameSite + re-auth для переказів</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../js/slides.js"></script>
+
+</body>
+</html>

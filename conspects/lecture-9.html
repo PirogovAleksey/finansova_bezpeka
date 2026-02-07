@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Конспект лекції 9: Штучний інтелект у кібербезпеці — AI/ML для виявлення загроз, фінансовий моніторинг, GenAI.">
+  <meta name="author" content="Кафедра ТЕІБ, Ужгородський національний університет">
+  <meta name="theme-color" content="#0ea5e9">
+  <title>Конспект: Лекція 9 — Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
+</head>
+<body>
+
+  <aside>
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        Фінансова<br>Безпека
+        <span>онлайн-курс</span>
+      </div>
+    </div>
+
+    <nav aria-label="Головна навігація">
+      <a href="../index.html" class="active">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>
+        Лекції
+      </a>
+      <a href="../practicals.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+        Практичні
+      </a>
+      <a href="../tests.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+        Тести
+      </a>
+      <a href="../materials.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg></span>
+        Матеріали
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Перемкнути тему">
+        <svg id="theme-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <span id="theme-label">Темна тема</span>
+      </button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="lecture-nav-top">
+      <a href="../lecture.html?id=9" class="back-link">&larr; Назад до лекції 9</a>
+      <span class="lecture-badge">Конспект лекції 9</span>
+    </div>
+
+    <article class="lecture-content">
+      <h1>Штучний інтелект у кібербезпеці</h1>
+      <div class="lecture-info">
+        <span>⏱ 2 год</span>
+        <span class="badge badge-new">Конспект</span>
+      </div>
+
+      <!-- Section 9.1 -->
+      <section>
+        <h2>9.1 AI/ML для виявлення загроз</h2>
+
+        <p>Традиційні системи кібербезпеки базуються на сигнатурному аналізі: антивірус порівнює файл із базою відомих загроз. Проблема: zero-day атаки та polymorphic malware не мають відомих сигнатур. AI/ML дозволяє виявляти невідомі загрози через аналіз поведінки та виявлення аномалій.</p>
+
+        <p><strong>Anomaly Detection (виявлення аномалій):</strong></p>
+        <ul>
+          <li><strong>Supervised learning</strong> — моделі навчені на розмічених даних (normal vs malicious). Random Forest, Gradient Boosting, Neural Networks класифікують мережевий трафік, файли, поведінку користувачів. Вимагає якісного датасету з обома класами.</li>
+          <li><strong>Unsupervised learning</strong> — виявлення аномалій без розмічених даних. Isolation Forest, Autoencoders, DBSCAN будують модель «нормальної» поведінки та виявляють відхилення. Ефективно проти zero-day, але вищий false positive rate.</li>
+          <li><strong>Semi-supervised learning</strong> — модель навчена переважно на нормальних даних (яких завжди більше) та виявляє все, що відхиляється від норми.</li>
+        </ul>
+
+        <p><strong>UEBA (User and Entity Behavior Analytics):</strong></p>
+        <ul>
+          <li>Створення baseline поведінки для кожного користувача та пристрою: час входу, типові ресурси, обсяг даних, геолокація.</li>
+          <li>Виявлення insider threats: працівник банку, який раптово почав звертатися до баз даних клієнтів, які не входять в його зону відповідальності.</li>
+          <li>Виявлення compromised accounts: обліковий запис, який зазвичай працює 9-18 у Києві, раптом активний о 3 AM з IP в Росії.</li>
+          <li>Risk scoring: кожному користувачу присвоюється динамічний risk score на основі відхилень від baseline.</li>
+        </ul>
+
+        <p><strong>Network Traffic Analysis з AI:</strong></p>
+        <ul>
+          <li>Deep Packet Inspection з ML для виявлення C2-комунікацій, data exfiltration, lateral movement.</li>
+          <li>Виявлення DNS tunneling, encrypted C2 через аналіз метаданих трафіку (розмір пакетів, інтервали, ентропія).</li>
+          <li>Network Detection and Response (NDR) — платформи типу Darktrace, Vectra AI автоматично виявляють та реагують на загрози в мережі.</li>
+        </ul>
+
+        <p><strong>Automated Threat Hunting:</strong> AI-системи автоматично генерують гіпотези про загрози на основі аналізу логів, мережевого трафіку та endpoint-телеметрії. SOC-аналітик отримує пріоритизований список інцидентів замість тисяч alerts — це значно зменшує alert fatigue.</p>
+      </section>
+
+      <!-- Section 9.2 -->
+      <section>
+        <h2>9.2 AI у фінансовому моніторингу</h2>
+
+        <p>Фінансовий сектор є одним із найбільших споживачів AI/ML-технологій для безпеки. Обсяги транзакцій, швидкість обробки та вартість помилок роблять ML незамінним.</p>
+
+        <p><strong>ML для Fraud Detection:</strong></p>
+        <ul>
+          <li><strong>Feature engineering</strong> — створення ознак для моделі: сума транзакції / середня сума клієнта, кількість транзакцій за останню годину, відстань від попередньої транзакції (impossible travel), час доби vs типовий час.</li>
+          <li><strong>Ensemble models</strong> — комбінація кількох моделей (Random Forest + XGBoost + Neural Network) для зменшення false positive та збільшення detection rate.</li>
+          <li><strong>Real-time inference</strong> — модель повинна видавати score за &lt;100 мс. Оптимізація: model compression, feature stores з pre-computed features, edge deployment.</li>
+          <li><strong>Imbalanced data</strong> — fraud становить &lt;0.1% транзакцій. Техніки: SMOTE (oversampling), cost-sensitive learning, focal loss.</li>
+        </ul>
+
+        <p><strong>AI для AML (Anti-Money Laundering):</strong></p>
+        <ul>
+          <li>Традиційні rule-based AML-системи генерують >95% false positives (legitimate alerts). ML-моделі зменшують false positive до 50-70%, дозволяючи аналітикам фокусуватися на справжніх ризиках.</li>
+          <li>Graph Neural Networks (GNN) для виявлення money laundering мереж: аналіз графу транзакцій виявляє підозрілі кластери та ланцюжки.</li>
+          <li>Natural Language Processing (NLP) для аналізу adverse media: автоматичний скринінг новин на згадки про санкції, корупцію, fraud для PEP-перевірок.</li>
+        </ul>
+
+        <p><strong>Deepfake Detection у KYC:</strong></p>
+        <ul>
+          <li>Remote KYC (відеоверифікація) вразливий до deepfake-атак: зловмисник може використати deepfake-відео для проходження ідентифікації.</li>
+          <li>AI-based liveness detection: аналіз мікрорухів обличчя, текстури шкіри, відблисків світла, артефактів генерації.</li>
+          <li>Presentation Attack Detection (PAD): виявлення фото, відео, 3D-масок, deepfakes під час біометричної верифікації.</li>
+        </ul>
+      </section>
+
+      <!-- Section 9.3 -->
+      <section>
+        <h2>9.3 Генеративний AI та нові загрози</h2>
+
+        <p>Генеративний AI (GPT, Midjourney, voice cloning) створює нові загрози для фінансового сектору, значно знижуючи бар'єр входу для зловмисників та підвищуючи якість атак.</p>
+
+        <p><strong>AI-powered фішинг:</strong></p>
+        <ul>
+          <li>LLM (Large Language Models) генерують ідеальні фішингові листи без граматичних помилок, з правильним стилем та контекстом. Традиційна порада «шукайте помилки у тексті» стає неефективною.</li>
+          <li>Персоналізація: AI може аналізувати профіль жертви в соцмережах та генерувати листи з релевантним контекстом (згадки про хобі, проєкти, колег).</li>
+          <li>Масштабування: те, що раніше вимагало ручної роботи для spear phishing, тепер можна автоматизувати для тисяч цілей.</li>
+        </ul>
+
+        <p><strong>Deepfake-голоси та відео:</strong></p>
+        <ul>
+          <li><strong>Voice cloning</strong> — для створення переконливого клону голосу достатньо 3-5 секунд зразка. Реальний кейс: у 2023 році зловмисники використали deepfake голосу CEO для авторизації переказу $25 млн у гонконгській компанії.</li>
+          <li><strong>Video deepfakes</strong> — real-time deepfake під час відеодзвінка для обходу KYC або авторизації операцій. Технологія стає доступною через open-source інструменти.</li>
+          <li><strong>Аудіо-фішинг</strong> — автоматизовані дзвінки з AI-голосом, що імітує працівника банку. Масштабування вішингу на тисячі одночасних дзвінків.</li>
+        </ul>
+
+        <p><strong>LLM-вразливості та зловживання:</strong></p>
+        <ul>
+          <li><strong>Prompt injection</strong> — маніпуляція AI-асистентами через спеціально сформовані запити для отримання конфіденційної інформації або виконання несанкціонованих дій.</li>
+          <li><strong>Генерація malware</strong> — LLM можуть допомагати у написанні exploit-коду, обфускації malware, створенні соціальної інженерії.</li>
+          <li><strong>Data poisoning</strong> — маніпуляція навчальними даними для впровадження backdoors у ML-моделі, які використовуються для прийняття фінансових рішень.</li>
+        </ul>
+      </section>
+
+      <!-- Section 9.4 -->
+      <section>
+        <h2>9.4 Захист AI-систем та відповідальний AI</h2>
+
+        <p>AI-системи самі потребують захисту від adversarial attacks та маніпуляцій. Крім того, регулятори вимагають прозорості та відповідальності при використанні AI у фінансових рішеннях.</p>
+
+        <p><strong>Adversarial Attacks на ML-моделі:</strong></p>
+        <ul>
+          <li><strong>Evasion attacks</strong> — модифікація вхідних даних для обходу ML-моделі. Наприклад, fraud transaction, що мімікрує під легітимну шляхом мінімальних змін параметрів (сума, час, merchant category).</li>
+          <li><strong>Poisoning attacks</strong> — впровадження шкідливих даних у навчальний датасет. Якщо модель fraud detection навчається на заражених даних, вона може пропускати певні типи fraud.</li>
+          <li><strong>Model extraction</strong> — зловмисник надсилає тисячі запитів до API моделі та відтворює її логіку, після чого знаходить способи обходу.</li>
+          <li><strong>Захист:</strong> adversarial training, input validation, model monitoring (drift detection), rate limiting API, ensemble methods.</li>
+        </ul>
+
+        <p><strong>AI Governance у фінансовому секторі:</strong></p>
+        <ul>
+          <li><strong>Explainability (XAI)</strong> — регулятори вимагають пояснення рішень AI. SHAP, LIME дозволяють пояснити, чому модель заблокувала транзакцію або відхилила кредитну заявку. «Black box» неприйнятний для фінансових рішень.</li>
+          <li><strong>Bias та fairness</strong> — AI-моделі можуть дискримінувати за ознаками раси, статі, віку. У фінансовому секторі це пряме порушення антидискримінаційного законодавства. Регулярний аудит моделей на bias.</li>
+          <li><strong>Model Risk Management</strong> — SR 11-7 (Federal Reserve) вимагає: незалежну валідацію моделей, документування, моніторинг performance, процедури виведення з експлуатації.</li>
+        </ul>
+
+        <p><strong>EU AI Act та регулювання:</strong></p>
+        <ul>
+          <li>EU AI Act класифікує AI-системи за рівнем ризику. Фінансовий сектор (credit scoring, fraud detection, insurance) — «high-risk» категорія з обов'язковими вимогами: human oversight, transparency, data governance, robustness testing.</li>
+          <li>Право на пояснення: клієнт має право знати, чому AI відхилив його заявку або заблокував транзакцію.</li>
+          <li>В Україні НКЦБФР та НБУ починають формувати рекомендації щодо використання AI у фінансових послугах, орієнтуючись на європейські стандарти.</li>
+        </ul>
+      </section>
+
+      <!-- Summary -->
+      <section>
+        <h2>Підсумок</h2>
+        <p>Штучний інтелект трансформує кібербезпеку фінансового сектору з обох сторін барикад. AI/ML дозволяє виявляти загрози, які неможливо знайти традиційними методами: anomaly detection, UEBA, automated threat hunting. У фінансовому моніторингу ML значно зменшує false positive rate та виявляє складні схеми відмивання коштів через graph analytics.</p>
+        <p>Водночас генеративний AI створює нові загрози: AI-powered фішинг, deepfake-голоси для авторизації переказів, автоматизація атак. Захист AI-систем від adversarial attacks, забезпечення explainability та fairness стають обов'язковими вимогами регуляторів (EU AI Act).</p>
+        <p><strong>У наступній лекції</strong> ми розглянемо безпеку криптоактивів: захист криптовалютних гаманців, вразливості смарт-контрактів, безпеку DeFi-протоколів та ризики централізованих бірж.</p>
+      </section>
+    </article>
+
+    <div class="lecture-nav-bottom">
+      <a href="../lecture.html?id=9" class="nav-btn">&larr; Назад до лекції</a>
+      <span></span>
+    </div>
+
+    <footer></footer>
+  </main>
+
+  <script src="../js/main.js"></script>
+
+</body>
+</html>

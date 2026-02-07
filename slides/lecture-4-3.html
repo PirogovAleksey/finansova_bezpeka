@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4.3 Атаки на клієнтське сховище | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../lecture.html?id=4">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <!-- 1. Title -->
+    <section class="slide active">
+      <span class="slide-icon">🗄️</span>
+      <h1>Атаки на клієнтське сховище</h1>
+      <p class="subtitle">Лекція 4.3</p>
+      <span class="tag tag-red" style="margin-top: 1rem;">Cookies, токени, формджекінг</span>
+    </section>
+
+    <!-- 2. Cookie theft -->
+    <section class="slide">
+      <h1>Крадіжка Cookies</h1>
+      <h2>Вектори атак на сесійні cookie</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-red">
+          <span class="card-icon">💉</span>
+          <div class="card-title">Через XSS</div>
+          <div class="card-text">document.cookie → сервер зловмисника. Захист: HttpOnly</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">📡</span>
+          <div class="card-title">Через мережу</div>
+          <div class="card-text">HTTP без шифрування. Захист: Secure + HSTS</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🍪</span>
+          <div class="card-title">Cookie Tossing</div>
+          <div class="card-text">Перезапис cookie піддомену з батьківського домену</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Обов'язкові атрибути для фінансових cookie: HttpOnly + Secure + SameSite=Strict + короткий Max-Age.</p>
+      </div>
+    </section>
+
+    <!-- 3. localStorage vs cookies -->
+    <section class="slide">
+      <h1>localStorage — небезпечне сховище</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">⚠️</span>
+            <div class="card-title">localStorage</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Доступний будь-якому JS<br>
+              Немає HttpOnly аналогу<br>
+              Зберігається безстроково<br>
+              XSS = повний доступ<br>
+              JWT тут = постійний ризик
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">✅</span>
+            <div class="card-title">Рекомендація</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Access token → JS-змінна<br>
+              Refresh token → HttpOnly cookie<br>
+              Ніяких секретів у localStorage<br>
+              sessionStorage — трохи краще<br>
+              Але теж вразливий до XSS
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Session Hijacking -->
+    <section class="slide">
+      <h1>Session Hijacking</h1>
+      <h2>Перехоплення сесії користувача</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📡</span>
+          <span class="il-text"><strong>Session Sniffing</strong> — перехоплення session ID через незашифрований WiFi</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📌</span>
+          <span class="il-text"><strong>Session Fixation</strong> — зловмисник встановлює відомий session ID до логіну жертви</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📜</span>
+          <span class="il-text"><strong>XSSI</strong> — крадіжка даних з JSON-відповідей через тег script</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Захист:</strong> HTTPS everywhere, regenerate session після login, bind до контексту</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Formjacking -->
+    <section class="slide">
+      <h1>Формджекінг (Magecart)</h1>
+      <h2>Крадіжка даних карток у реальному часі</h2>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">380K</div>
+          <div class="stat-label">карток вкрадено у British Airways</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">6 міс</div>
+          <div class="stat-label">скрипт працював непомітно</div>
+        </div>
+      </div>
+      <div class="icon-list" style="margin-top: 1.2rem;">
+        <div class="icon-list-item">
+          <span class="il-icon">💳</span>
+          <span class="il-text"><strong>Механізм:</strong> JS-скімер у платіжній формі перехоплює дані картки</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔗</span>
+          <span class="il-text"><strong>Вектор:</strong> компрометація CDN або стороннього скрипту (analytics, chat)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🎯</span>
+          <span class="il-text"><strong>Жертви:</strong> British Airways, Ticketmaster, Newegg, тисячі e-commerce</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Захист від формджекінгу -->
+    <section class="slide">
+      <h1>Захист від формджекінгу</h1>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">#️⃣</span>
+          <div class="card-title">SRI</div>
+          <div class="card-text">Subresource Integrity — хеш перевіряє цілісність зовнішніх скриптів</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🛡️</span>
+          <div class="card-title">CSP</div>
+          <div class="card-text">Обмеження connect-src блокує відправку даних на сервер зловмисника</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔒</span>
+          <div class="card-title">Ізоляція</div>
+          <div class="card-text">Платіжна форма в окремому iframe без сторонніх скриптів</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">👁️</span>
+          <div class="card-title">Моніторинг</div>
+          <div class="card-text">Виявлення змін у DOM платіжної сторінки в реальному часі</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Token Storage -->
+    <section class="slide">
+      <h1>Де зберігати токени?</h1>
+      <h2>Рекомендації для FinTech</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">✅</span>
+          <span class="il-text"><strong>Access token</strong> — у пам'яті (JS-змінна), короткий TTL (5-15 хв)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">✅</span>
+          <span class="il-text"><strong>Refresh token</strong> — HttpOnly Secure cookie, rotation при кожному використанні</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">❌</span>
+          <span class="il-text"><strong>localStorage</strong> — НІКОЛИ для токенів у фінансових додатках</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">❌</span>
+          <span class="il-text"><strong>URL параметри</strong> — НІКОЛИ, витік через Referer, logs, browser history</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Підсумок -->
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>HttpOnly + Secure + SameSite</strong> — обов'язкові атрибути cookies</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>localStorage небезпечний</strong> — XSS = повний доступ до всіх даних</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Формджекінг</strong> — SRI + CSP + ізоляція платіжних форм</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Access token у пам'яті</strong> — refresh у HttpOnly cookie з rotation</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../js/slides.js"></script>
+
+</body>
+</html>

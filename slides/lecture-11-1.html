@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11.1 Відмивання коштів | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../lecture.html?id=11">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <section class="slide active">
+      <span class="slide-icon">💸</span>
+      <h1>Відмивання коштів</h1>
+      <p class="subtitle">Лекція 11.1</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Placement, layering, integration, типові схеми</span>
+    </section>
+
+    <section class="slide">
+      <h1>Масштаб проблеми</h1>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">2-5%</div>
+          <div class="stat-label">глобального ВВП відмивається щорічно</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">$2T</div>
+          <div class="stat-label">максимальна оцінка обсягу (ООН)</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="stat-value">&lt;1%</div>
+          <div class="stat-label">відмитих коштів конфіскується</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Відмивання коштів фінансує організовану злочинність, тероризм, корупцію та наркоторгівлю.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Три етапи</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Placement</div>
+          <div class="step-desc">Готівка → фінансова система. Smurfing, cash-бізнеси, казино</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Layering</div>
+          <div class="step-desc">Серія переказів для маскування. Shell companies, offshore, крипто</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Integration</div>
+          <div class="step-desc">«Чисті» кошти → легальна економіка. Нерухомість, бізнес, luxury</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Сучасні схеми</h1>
+      <div class="card-grid">
+        <div class="card accent-orange">
+          <span class="card-icon">🚢</span>
+          <div class="card-title">Trade-Based ML</div>
+          <div class="card-text">Товар за $10K оформлений за $100K. Різниця відмивається</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🪙</span>
+          <div class="card-title">Crypto ML</div>
+          <div class="card-text">Mixers, chain hopping, privacy coins, P2P обмін</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">🧑</span>
+          <div class="card-title">Money Mules</div>
+          <div class="card-text">Рекрутування людей через фейкові вакансії для переказів</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🏢</span>
+          <div class="card-title">Shell Companies</div>
+          <div class="card-text">Фіктивні компанії в offshore юрисдикціях для layering</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Structuring (Smurfing)</h1>
+      <h2>Дроблення для обходу порогів</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">💰</span>
+          <span class="il-text"><strong>Поріг:</strong> 400,000 грн в Україні, $10,000 у США</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">✂️</span>
+          <span class="il-text"><strong>Smurfing:</strong> 10 внесків по 39,000 грн замість одного 390,000 грн</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔍</span>
+          <span class="il-text"><strong>Виявлення:</strong> transaction monitoring бачить патерн дроблення</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚖️</span>
+          <span class="il-text"><strong>Structuring</strong> — сам по собі є злочином, навіть якщо кошти легальні</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>3 етапи</strong> — placement → layering → integration</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>Crypto ML</strong> — mixers, chain hopping ускладнюють відстеження</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Money mules</strong> — жертви рекрутингу стають співучасниками</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Structuring</strong> — дроблення нижче порогу = окремий злочин</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../js/slides.js"></script>
+
+</body>
+</html>

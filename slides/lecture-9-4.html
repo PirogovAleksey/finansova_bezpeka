@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>9.4 Захист AI-систем | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../lecture.html?id=9">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <section class="slide active">
+      <span class="slide-icon">🔒</span>
+      <h1>Захист AI-систем</h1>
+      <p class="subtitle">Лекція 9.4</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Adversarial attacks, model security, AI governance</span>
+    </section>
+
+    <section class="slide">
+      <h1>Adversarial Attacks</h1>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🎯</span>
+          <div class="card-title">Evasion</div>
+          <div class="card-text">Мінімальна зміна input для обходу моделі. Fraud, що мімікрує легітимну</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">☠️</span>
+          <div class="card-title">Poisoning</div>
+          <div class="card-text">Шкідливі дані у навчальному датасеті → backdoor у моделі</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔍</span>
+          <div class="card-title">Model Extraction</div>
+          <div class="card-text">Тисячі запитів до API → відтворення логіки моделі</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🔓</span>
+          <div class="card-title">Model Inversion</div>
+          <div class="card-text">Витік навчальних даних через аналіз outputs моделі</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Захист ML-моделей</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Adversarial training</strong> — навчання на adversarial examples для стійкості</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">✅</span>
+          <span class="il-text"><strong>Input validation</strong> — перевірка вхідних даних на аномалії перед inference</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>Drift detection</strong> — моніторинг зміни розподілу даних та performance моделі</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔒</span>
+          <span class="il-text"><strong>Rate limiting</strong> — обмеження запитів до API моделі проти extraction</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔗</span>
+          <span class="il-text"><strong>Ensemble methods</strong> — атака на одну модель не обходить весь ансамбль</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Explainability (XAI)</h1>
+      <h2>Чому модель прийняла це рішення?</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">⬛</span>
+            <div class="card-title">Black Box</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              «Транзакцію заблоковано»<br>
+              Чому? Невідомо<br>
+              Клієнт незадоволений<br>
+              Регулятор вимагає пояснення
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">🔍</span>
+            <div class="card-title">Explainable AI</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              SHAP: внесок кожної ознаки<br>
+              LIME: локальне пояснення<br>
+              Feature importance<br>
+              Зрозуміло для аудитора
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Фінансові регулятори вимагають: клієнт має право знати, чому AI відхилив заявку або заблокував транзакцію.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Bias та Fairness</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">⚖️</span>
+          <span class="il-text"><strong>Проблема</strong> — AI може дискримінувати за расою, статтю, віком, локацією</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏦</span>
+          <span class="il-text"><strong>Credit scoring</strong> — біас проти меншин = порушення антидискримінаційних законів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔍</span>
+          <span class="il-text"><strong>Аудит</strong> — регулярна перевірка fairness метрик: demographic parity, equalized odds</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📋</span>
+          <span class="il-text"><strong>SR 11-7</strong> — Federal Reserve: незалежна валідація моделей, документування, моніторинг</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>EU AI Act</h1>
+      <h2>Регулювання AI у фінансовому секторі</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🚫</span>
+          <div class="card-title">Заборонені</div>
+          <div class="card-text">Social scoring, маніпулятивний AI, масове біометричне стеження</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">⚠️</span>
+          <div class="card-title">High-risk</div>
+          <div class="card-text">Credit scoring, fraud detection, insurance. Human oversight обов'язковий</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📋</span>
+          <div class="card-title">Вимоги</div>
+          <div class="card-text">Transparency, data governance, robustness testing, документація</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🇺🇦</span>
+          <div class="card-title">Україна</div>
+          <div class="card-text">НБУ та НКЦБФР формують рекомендації за європейськими стандартами</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>Adversarial attacks</strong> — evasion, poisoning, extraction загрожують ML-моделям</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>XAI</strong> — SHAP/LIME для пояснення рішень, обов'язково для фінансів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Bias audit</strong> — регулярна перевірка fairness, SR 11-7 стандарт</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>EU AI Act</strong> — фінансовий AI = high-risk, human oversight обов'язковий</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../js/slides.js"></script>
+
+</body>
+</html>
