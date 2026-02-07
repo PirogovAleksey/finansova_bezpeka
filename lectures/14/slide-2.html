@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>14.2 Оцінка та обробка ризиків | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/slides.css">
+</head>
+<body>
+  <div class="top-controls">
+    <a href="../../lecture.html?id=14"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>До лекції</a>
+    <button onclick="toggleTheme()"><span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span><span id="theme-label">Світла</span></button>
+  </div>
+  <div class="slide-deck">
+    <section class="slide active">
+      <span class="slide-icon">⚖️</span>
+      <h1>Оцінка та обробка ризиків</h1>
+      <p class="subtitle">Лекція 14.2</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Якісна та кількісна оцінка, ALE, Risk Treatment</span>
+    </section>
+    <section class="slide">
+      <h1>Два підходи до оцінки</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">📋</span>
+            <div class="card-title">Якісна (Qualitative)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Low / Medium / High / Critical<br>Risk matrix (heat map)<br><br>✅ Простота, швидкість<br>❌ Суб'єктивність</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">🔢</span>
+            <div class="card-title">Кількісна (Quantitative)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">ALE = SLE × ARO<br>FAIR Monte Carlo<br><br>✅ Об'єктивність, $ мова<br>❌ Вимагає даних</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Формула ALE</h1>
+      <div class="highlight-box">
+        <strong>ALE</strong> = SLE × ARO<br><br>
+        <strong>SLE</strong> (Single Loss Expectancy) — збиток від одного інциденту<br>
+        <strong>ARO</strong> (Annualized Rate of Occurrence) — ймовірність на рік
+      </div>
+      <div class="stat-row" style="margin-top: 1.5rem;">
+        <div class="stat-box"><div class="stat-value">$5M</div><div class="stat-label">SLE (data breach)</div></div>
+        <div class="stat-box"><div class="stat-value">× 0.1</div><div class="stat-label">ARO (10% / рік)</div></div>
+        <div class="stat-box"><div class="stat-value">= $500K</div><div class="stat-label">ALE / рік</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Risk Treatment — 4 стратегії</h1>
+      <div class="card-grid">
+        <div class="card accent-blue"><span class="card-icon">🛡️</span><div class="card-title">Mitigate</div><div class="card-text">Впровадити контролі для зниження ймовірності або впливу. Найчастіший вибір</div></div>
+        <div class="card accent-green"><span class="card-icon">📄</span><div class="card-title">Transfer</div><div class="card-text">Кіберстрахування, аутсорсинг (MSSP). Передати фінансовий тягар третій стороні</div></div>
+        <div class="card accent-orange"><span class="card-icon">✅</span><div class="card-title">Accept</div><div class="card-text">Ризик у межах appetite, mitigation дорожче збитків. Формальне рішення керівництва</div></div>
+        <div class="card accent-red"><span class="card-icon">🚫</span><div class="card-title">Avoid</div><div class="card-text">Відмовитися від діяльності. Наприклад, не зберігати певні дані клієнтів</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Residual Risk</h1>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-title">Inherent Risk</div><div class="step-desc">Ризик до застосування контролів</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Controls</div><div class="step-desc">Технічні та організаційні заходи</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Residual Risk</div><div class="step-desc">Ризик після контролів</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Acceptance</div><div class="step-desc">Residual ≤ appetite? Якщо ні — додаткові заходи</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>ROI кібербезпеки</h1>
+      <div class="highlight-box">
+        <strong>ROI</strong> = (ALE_before − ALE_after − Cost_of_control) / Cost_of_control<br><br>
+        Приклад: WAF за $100K зменшує ALE з $500K до $100K<br>
+        ROI = ($500K − $100K − $100K) / $100K = <strong>300%</strong>
+      </div>
+      <div class="icon-list" style="margin-top: 1.5rem;">
+        <div class="icon-list-item"><span class="il-icon">💡</span><span class="il-text">Мова фінансів — єдиний спосіб обґрунтувати бюджет кібербезпеки перед правлінням</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>ALE = SLE × ARO</strong> — базова формула кількісної оцінки кіберризиків</span></div>
+        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>4 стратегії</strong> — Mitigate, Transfer, Accept, Avoid — обирайте за контекстом</span></div>
+        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Residual risk</strong> — завжди залишається, має бути ≤ risk appetite</span></div>
+        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>ROI</strong> — кількісне обґрунтування інвестицій у безпеку</span></div>
+      </div>
+    </section>
+  </div>
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+  <div class="controls"><button onclick="prev()">&#8592;</button><button onclick="next()">&#8594;</button></div>
+  <script src="../../js/slides.js"></script>
+</body>
+</html>

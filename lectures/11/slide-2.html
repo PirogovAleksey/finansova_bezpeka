@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11.2 KYC та CDD | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../../lecture.html?id=11">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <section class="slide active">
+      <span class="slide-icon">🪪</span>
+      <h1>KYC та CDD</h1>
+      <p class="subtitle">Лекція 11.2</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Ідентифікація, верифікація, EDD, PEP-скринінг</span>
+    </section>
+
+    <section class="slide">
+      <h1>Рівні Due Diligence</h1>
+      <div class="card-grid">
+        <div class="card accent-green">
+          <span class="card-icon">🟢</span>
+          <div class="card-title">Simplified (SDD)</div>
+          <div class="card-text">Низький ризик. Базова ідентифікація, мінімальний моніторинг</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🔵</span>
+          <div class="card-title">Standard (CDD)</div>
+          <div class="card-text">Більшість клієнтів. ID, адреса, beneficial owner, purpose</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🟠</span>
+          <div class="card-title">Enhanced (EDD)</div>
+          <div class="card-text">Високий ризик: PEP, high-risk країни, складні структури</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">🔴</span>
+          <div class="card-title">Відмова</div>
+          <div class="card-text">Неприйнятний ризик: санкційні особи, підозріле джерело коштів</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Процес KYC</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Identify</div>
+          <div class="step-desc">ПІБ, дата народження, адреса, ID-документ</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Verify</div>
+          <div class="step-desc">Перевірка документів, біометрія, liveness</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Screen</div>
+          <div class="step-desc">PEP, санкції (OFAC, EU, UN, РНБО), adverse media</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Monitor</div>
+          <div class="step-desc">Ongoing: оновлення даних, моніторинг транзакцій</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>PEP-скринінг</h1>
+      <h2>Politically Exposed Persons</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">👑</span>
+          <span class="il-text"><strong>Хто PEP?</strong> — президент, міністр, суддя, керівник держпідприємства</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">👨‍👩‍👦</span>
+          <span class="il-text"><strong>Пов'язані:</strong> члени сім'ї та близькі пов'язані особи теж PEP</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚠️</span>
+          <span class="il-text"><strong>Не заборона:</strong> PEP = підвищений ризик, потрібна EDD, не автоматична відмова</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📋</span>
+          <span class="il-text"><strong>Скринінг:</strong> OFAC, EU Sanctions, UN, РНБО — автоматизована перевірка</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>EDD для PEP: звідки кошти? Чи відповідає обсяг операцій офіційним доходам? Senior management approval.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Beneficial Owner</h1>
+      <h2>Хто насправді контролює?</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">🏢</span>
+            <div class="card-title">Проблема</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Shell company в BVI<br>
+              Nominee directors<br>
+              Багатошарова структура<br>
+              Хто реальний власник?
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">🔍</span>
+            <div class="card-title">Вимога</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Ідентифікація UBO (>25%)<br>
+              Перевірка ланцюжка контролю<br>
+              Реєстри бенефіціарів<br>
+              Відмова якщо UBO невідомий
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>Risk-based CDD</strong> — SDD / Standard / EDD залежно від ризику клієнта</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>PEP</strong> — не заборона, а підвищений контроль та EDD</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Beneficial owner</strong> — обов'язкова ідентифікація реального власника >25%</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Ongoing monitoring</strong> — KYC не одноразовий, а безперервний процес</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../../js/slides.js"></script>
+
+</body>
+</html>

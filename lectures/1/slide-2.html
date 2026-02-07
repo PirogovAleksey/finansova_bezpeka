@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.2 Типи кібератак | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../../lecture.html?id=1">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <!-- 1. Title -->
+    <section class="slide active">
+      <span class="slide-icon">⚔️</span>
+      <h1>Типи кібератак на фінансовий сектор</h1>
+      <p class="subtitle">Лекція 1.2</p>
+      <span class="tag tag-red" style="margin-top: 1rem;">Таксономія загроз</span>
+    </section>
+
+    <!-- 2. Overview карток -->
+    <section class="slide">
+      <h1>6 категорій атак</h1>
+      <div class="card-grid cols-3">
+        <div class="card accent-orange">
+          <span class="card-icon">🎣</span>
+          <div class="card-title">Фішинг</div>
+          <div class="card-text">91% атак починається тут</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">🦠</span>
+          <div class="card-title">Malware</div>
+          <div class="card-text">Банківські трояни та RAT</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔐</span>
+          <div class="card-title">Ransomware</div>
+          <div class="card-text">Подвійне вимагання</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🌊</span>
+          <div class="card-title">DDoS</div>
+          <div class="card-text">Відмова в обслуговуванні</div>
+        </div>
+        <div class="card accent-cyan">
+          <span class="card-icon">👤</span>
+          <div class="card-title">Інсайдери</div>
+          <div class="card-text">60% інцидентів</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🔗</span>
+          <div class="card-title">Supply Chain</div>
+          <div class="card-text">Через постачальників ПЗ</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Фішинг -->
+    <section class="slide">
+      <h1>🎣 Фішинг та соціальна інженерія</h1>
+      <div class="stat-row">
+        <div class="stat-box orange">
+          <div class="stat-value">91%</div>
+          <div class="stat-label">атак починається з фішингового листа</div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-value">$2.4B</div>
+          <div class="stat-label">збитки від BEC щорічно (дані FBI)</div>
+        </div>
+      </div>
+      <div class="icon-list" style="margin-top: 1.5rem;">
+        <div class="icon-list-item">
+          <span class="il-icon">🎯</span>
+          <span class="il-text"><strong>Spear-phishing</strong> — цільові листи з персоналізованою інформацією</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📧</span>
+          <span class="il-text"><strong>BEC</strong> — зловмисник видає себе за CEO або партнера</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📞</span>
+          <span class="il-text"><strong>Vishing</strong> — телефонний фішинг для крадіжки даних карток</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Malware -->
+    <section class="slide">
+      <h1>🦠 Банківські трояни</h1>
+      <h2>Крадіжка облікових даних та маніпуляція транзакціями</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-red">
+          <span class="card-icon">⚡</span>
+          <div class="card-title">Emotet</div>
+          <div class="card-text">Модульний завантажувач. Доставляє інші трояни після проникнення</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🕷️</span>
+          <div class="card-title">TrickBot</div>
+          <div class="card-text">Крадіжка облікових даних. Модулі для lateral movement</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">💉</span>
+          <div class="card-title">Dridex</div>
+          <div class="card-text">Web-inject: підміна сторінок банкінгу в реальному часі</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p><strong>Man-in-the-Browser:</strong> троян змінює суму та реквізити переказу прямо у браузері — користувач бачить правильні дані, а банк отримує підмінені.</p>
+      </div>
+    </section>
+
+    <!-- 5. Ransomware -->
+    <section class="slide">
+      <h1>🔐 Ransomware</h1>
+      <h2>Подвійне вимагання: шифрування + витік даних</h2>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">$2.1M</div>
+          <div class="stat-label">середній викуп у фінансовому секторі</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">21 день</div>
+          <div class="stat-label">середній час простою після атаки</div>
+        </div>
+        <div class="stat-box purple">
+          <div class="stat-value">RaaS</div>
+          <div class="stat-label">Ransomware-as-a-Service — злочин за підпискою</div>
+        </div>
+      </div>
+      <div class="steps" style="margin-top: 1.5rem;">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Проникнення</div>
+          <div class="step-desc">Фішинг або RDP</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Ексфільтрація</div>
+          <div class="step-desc">Копіювання даних</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Шифрування</div>
+          <div class="step-desc">Блокування систем</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Вимагання</div>
+          <div class="step-desc">Плати або публікуємо</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. DDoS + Інсайдери -->
+    <section class="slide">
+      <h1>DDoS та інсайдерські загрози</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">🌊</span>
+            <div class="card-title">DDoS-атаки</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Цілі: онлайн-банкінг, платіжні шлюзи<br>
+              Об'єм: до 1+ Тбіт/с<br>
+              Часто — димова завіса для інших атак<br>
+              Ransom DDoS — вимагання
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-cyan" style="height: 100%;">
+            <span class="card-icon">👤</span>
+            <div class="card-title">Інсайдери</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              60% інцидентів — внутрішній компонент<br>
+              Зловмисні: крадіжка даних клієнтів<br>
+              Недбалість: випадковий витік<br>
+              Привілейовані акаунти — головна ціль
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Supply Chain -->
+    <section class="slide">
+      <h1>🔗 Supply Chain атаки</h1>
+      <h2>Довіра до постачальника як вектор атаки</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">☀️</span>
+          <span class="il-text"><strong>SolarWinds (2020)</strong> — один постачальник = 18,000 скомпрометованих організацій</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📦</span>
+          <span class="il-text"><strong>Залежності</strong> — отруєння npm/PyPI пакетів для фінансових додатків</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔌</span>
+          <span class="il-text"><strong>Сторонні API</strong> — компрометація платіжного процесора = доступ до тисяч мерчантів</span>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>Ви захистили свій периметр, але ваш постачальник CRM — ні. Його злом = ваш злом.</p>
+      </div>
+    </section>
+
+    <!-- 8. Підсумок -->
+    <section class="slide">
+      <span class="slide-icon">📊</span>
+      <h1>Ключові висновки</h1>
+      <div class="card-grid">
+        <div class="card accent-orange">
+          <span class="card-icon">🎣</span>
+          <div class="card-title">Фішинг — вхідна точка</div>
+          <div class="card-text">91% атак починається з людського фактору</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">🔐</span>
+          <div class="card-title">Ransomware — найбільш руйнівний</div>
+          <div class="card-text">Подвійне вимагання стало стандартом</div>
+        </div>
+        <div class="card accent-cyan">
+          <span class="card-icon">👤</span>
+          <div class="card-title">Інсайдери — недооцінена загроза</div>
+          <div class="card-text">60% інцидентів мають внутрішній фактор</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🛡️</span>
+          <div class="card-title">Комплексний захист</div>
+          <div class="card-text">Жоден один захід не є достатнім окремо</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../../js/slides.js"></script>
+
+</body>
+</html>

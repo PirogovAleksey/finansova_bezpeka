@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5.1 SQL-ін'єкції | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../../lecture.html?id=5">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <!-- 1. Title -->
+    <section class="slide active">
+      <span class="slide-icon">🗃️</span>
+      <h1>SQL-ін'єкції</h1>
+      <p class="subtitle">Лекція 5.1</p>
+      <span class="tag tag-red" style="margin-top: 1rem;">25+ років, все ще #1 загроза для БД</span>
+    </section>
+
+    <!-- 2. Масштаб загрози -->
+    <section class="slide">
+      <h1>SQL-ін'єкції у цифрах</h1>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">Top 3</div>
+          <div class="stat-label">OWASP — стабільно серед найнебезпечніших</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">25+</div>
+          <div class="stat-label">років — відома з 1998 року</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="stat-value">$$$</div>
+          <div class="stat-label">мільйони записів клієнтів — одна ін'єкція</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Одна SQL-ін'єкція у платіжному процесорі = PAN, CVV, дані мільйонів карток. Штрафи PCI DSS до $500K/місяць.</p>
+      </div>
+    </section>
+
+    <!-- 3. Типи SQLi -->
+    <section class="slide">
+      <h1>Типи SQL-ін'єкцій</h1>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">👁️</span>
+          <div class="card-title">Classic (In-band)</div>
+          <div class="card-text">Результат видно у відповіді. UNION SELECT для витягування даних</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔇</span>
+          <div class="card-title">Blind (Boolean)</div>
+          <div class="card-text">True/false за різницею відповіді. AND 1=1 vs AND 1=2</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">⏱️</span>
+          <div class="card-title">Time-based Blind</div>
+          <div class="card-text">WAITFOR DELAY, SLEEP() — відповідь затримується якщо true</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📡</span>
+          <div class="card-title">Out-of-band</div>
+          <div class="card-text">Дані через DNS/HTTP запити з бази на зовнішній сервер</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Classic SQLi -->
+    <section class="slide">
+      <h1>Classic SQL-ін'єкція</h1>
+      <h2>Bypass автентифікації та крадіжка даних</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔓</span>
+          <span class="il-text"><strong>Auth bypass:</strong> ' OR 1=1 -- у полі логіну → вхід без пароля</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>UNION SELECT:</strong> витягування даних з інших таблиць (users, cards, transactions)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📁</span>
+          <span class="il-text"><strong>File read:</strong> LOAD_FILE('/etc/passwd') — читання файлів сервера</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💻</span>
+          <span class="il-text"><strong>RCE:</strong> xp_cmdshell (MSSQL) — виконання команд ОС через базу</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>SELECT * FROM accounts WHERE id = '1' UNION SELECT card_number, cvv, expiry FROM cards --'</p>
+      </div>
+    </section>
+
+    <!-- 5. Second-Order & ORM -->
+    <section class="slide">
+      <h1>Підступні варіанти</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">⏰</span>
+            <div class="card-title">Second-Order SQLi</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Дані зберігаються безпечно<br>
+              Ін'єкція спрацьовує пізніше<br>
+              В іншому SQL-запиті<br>
+              Ім'я admin'-- в профілі<br>
+              Особливо небезпечно у мікросервісах
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-purple" style="height: 100%;">
+            <span class="card-icon">🔧</span>
+            <div class="card-title">ORM Injection</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              ORM ≠ автоматичний захист<br>
+              Raw queries вразливі<br>
+              HQL/JPQL ін'єкції<br>
+              String interpolation в ORM<br>
+              Регулярно оновлювати ORM
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Фінансовий кейс -->
+    <section class="slide">
+      <h1>Кейс: платіжний процесор</h1>
+      <h2>SQLi у legacy-коді при міграції (2023)</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Legacy API</div>
+          <div class="step-desc">Конкатенація рядків у SQL</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Міграція</div>
+          <div class="step-desc">Код перенесли без рефакторингу</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Експлуатація</div>
+          <div class="step-desc">SQLi через API пошуку транзакцій</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Витік</div>
+          <div class="step-desc">PAN + CVV мільйонів карток</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Legacy-код — найбільший ризик. При міграції ОБОВ'ЯЗКОВО перевіряти всі SQL-запити на параметризацію.</p>
+      </div>
+    </section>
+
+    <!-- 7. Захист -->
+    <section class="slide">
+      <h1>Захист від SQL-ін'єкцій</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">✅</span>
+          <span class="il-text"><strong>Prepared Statements</strong> — запит і дані ЗАВЖДИ окремо. 100% запитів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">✅</span>
+          <span class="il-text"><strong>ORM query builders</strong> — замість raw SQL де можливо</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">✅</span>
+          <span class="il-text"><strong>Whitelist validation</strong> — для імен таблиць, стовпців, ORDER BY</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">✅</span>
+          <span class="il-text"><strong>Least privilege</strong> — DB user без DROP, DELETE, xp_cmdshell</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚠️</span>
+          <span class="il-text"><strong>WAF</strong> — додатковий шар, НЕ заміна параметризації</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Підсумок -->
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>SQLi = катастрофа</strong> — повний доступ до БД з рахунками та картками</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>Blind SQLi</strong> — невидимий, але не менш небезпечний</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>ORM не рятує</strong> — raw queries та string interpolation вразливі</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Prepared Statements</strong> — єдиний надійний захист, 100% запитів</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../../js/slides.js"></script>
+
+</body>
+</html>

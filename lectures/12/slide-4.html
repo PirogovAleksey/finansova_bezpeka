@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12.4 CSIRT та post-incident | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/slides.css">
+</head>
+<body>
+  <div class="top-controls">
+    <a href="../../lecture.html?id=12"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>До лекції</a>
+    <button onclick="toggleTheme()"><span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span><span id="theme-label">Світла</span></button>
+  </div>
+  <div class="slide-deck">
+    <section class="slide active">
+      <span class="slide-icon">👥</span>
+      <h1>CSIRT та post-incident</h1>
+      <p class="subtitle">Лекція 12.4</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">CSIRT структура, lessons learned, кіберстрахування</span>
+    </section>
+    <section class="slide">
+      <h1>Структура CSIRT</h1>
+      <div class="card-grid">
+        <div class="card accent-red"><span class="card-icon">🎯</span><div class="card-title">Incident Manager</div><div class="card-text">Координація, комунікація з керівництвом та регуляторами</div></div>
+        <div class="card accent-blue"><span class="card-icon">👁️</span><div class="card-title">SOC Analysts</div><div class="card-text">L1 тріаж → L2 розслідування → L3 threat hunting</div></div>
+        <div class="card accent-green"><span class="card-icon">🔍</span><div class="card-title">Forensic Analyst</div><div class="card-text">Збір та аналіз цифрових доказів, malware RE</div></div>
+        <div class="card accent-purple"><span class="card-icon">📡</span><div class="card-title">Threat Intel</div><div class="card-text">IOC, attribution, threat landscape, інформаційний обмін</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Lessons Learned</h1>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-title">Нарада</div><div class="step-desc">1-2 тижні після закриття, всі учасники</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Аналіз</div><div class="step-desc">Що спрацювало? Де затримки? Що покращити?</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Оновлення</div><div class="step-desc">Playbooks, політики, технічні контролі</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Тренування</div><div class="step-desc">Tabletop exercises з новими сценаріями</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Regulatory Reporting</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">🏦</span><span class="il-text"><strong>НБУ</strong> — повідомлення про значні кіберінциденти у визначений термін</span></div>
+        <div class="icon-list-item"><span class="il-icon">🇪🇺</span><span class="il-text"><strong>GDPR</strong> — 72 години для повідомлення DPA про витік персональних даних</span></div>
+        <div class="icon-list-item"><span class="il-icon">💳</span><span class="il-text"><strong>PCI DSS</strong> — негайне повідомлення Visa/MC при компрометації карткових даних</span></div>
+        <div class="icon-list-item"><span class="il-icon">📋</span><span class="il-text"><strong>DORA (EU)</strong> — ICT incident reporting framework для фінансового сектору ЄС</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Кіберстрахування</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">✅</span>
+            <div class="card-title">Покриває</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">IR та forensics витрати<br>Юридичні послуги<br>Повідомлення клієнтів<br>Втрачений прибуток<br>Штрафи регуляторів</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">💡</span>
+            <div class="card-title">Важливо</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Вартість залежить від рівня безпеки<br>Аудит перед страхуванням<br>Стимулює покращення<br>Exclusions: war, known vulns<br>Не замінює захист!</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>CSIRT</strong> — спеціалізована команда: IM, SOC, forensics, threat intel, legal</span></div>
+        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>Lessons learned</strong> — кожен інцидент покращує захист, якщо є feedback loop</span></div>
+        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Reporting</strong> — НБУ, GDPR 72h, PCI DSS — обов'язкове повідомлення</span></div>
+        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>Кіберстрахування</strong> — фінансовий захист, але не замінює технічний</span></div>
+      </div>
+    </section>
+  </div>
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+  <div class="controls"><button onclick="prev()">&#8592;</button><button onclick="next()">&#8594;</button></div>
+  <script src="../../js/slides.js"></script>
+</body>
+</html>

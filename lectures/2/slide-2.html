@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.2 Secure SDLC | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../../lecture.html?id=2">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <!-- 1. Title -->
+    <section class="slide active">
+      <span class="slide-icon">🔄</span>
+      <h1>Secure SDLC для FinTech</h1>
+      <p class="subtitle">Лекція 2.2</p>
+      <span class="tag tag-orange" style="margin-top: 1rem;">DevSecOps & Security by Design</span>
+    </section>
+
+    <!-- 2. Вартість вразливості -->
+    <section class="slide">
+      <h1>Вартість виправлення вразливості</h1>
+      <h2>На якому етапі дешевше знайти баг?</h2>
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-value">$80</div>
+          <div class="stat-label">на етапі Design</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">$960</div>
+          <div class="stat-label">на етапі Development</div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-value">$7,600</div>
+          <div class="stat-label">на етапі Production</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.5rem;">
+        <p>Вразливість у production коштує в <strong>100 разів</strong> дорожче, ніж виявлена на етапі проєктування. Shift Left Security!</p>
+      </div>
+    </section>
+
+    <!-- 3. Фази SDLC -->
+    <section class="slide">
+      <h1>Secure SDLC — 6 фаз</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Requirements</div>
+          <div class="step-desc">Security requirements</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Design</div>
+          <div class="step-desc">Threat Modeling</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Development</div>
+          <div class="step-desc">Secure Coding</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Testing</div>
+          <div class="step-desc">SAST, DAST, Pentest</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Deploy</div>
+          <div class="step-desc">Hardening, IaC</div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-title">Maintain</div>
+          <div class="step-desc">Patching, CVE</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Threat Modeling -->
+    <section class="slide">
+      <h1>Threat Modeling (STRIDE)</h1>
+      <h2>Систематичний аналіз загроз на етапі Design</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-red">
+          <span class="card-icon">🎭</span>
+          <div class="card-title">Spoofing</div>
+          <div class="card-text">Підміна ідентичності</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">✏️</span>
+          <div class="card-title">Tampering</div>
+          <div class="card-text">Зміна даних</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🙅</span>
+          <div class="card-title">Repudiation</div>
+          <div class="card-text">Заперечення дій</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">👁️</span>
+          <div class="card-title">Info Disclosure</div>
+          <div class="card-text">Витік даних</div>
+        </div>
+        <div class="card accent-cyan">
+          <span class="card-icon">🚫</span>
+          <div class="card-title">Denial of Service</div>
+          <div class="card-text">Відмова в обслуговуванні</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">⬆️</span>
+          <div class="card-title">Elevation</div>
+          <div class="card-text">Підвищення привілеїв</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. DevSecOps -->
+    <section class="slide">
+      <h1>DevSecOps</h1>
+      <h2>Безпека — відповідальність кожного</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔄</span>
+          <span class="il-text"><strong>Shift Left</strong> — безпека на початку, а не в кінці розробки</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🤖</span>
+          <span class="il-text"><strong>Автоматизація</strong> — security checks у кожному CI/CD pipeline</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">👥</span>
+          <span class="il-text"><strong>Культура</strong> — розробники навчені secure coding practices</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>Метрики</strong> — Mean Time to Remediate, vulnerability density</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>DevSecOps = Dev + Sec + Ops. Безпека інтегрована, а не «прикручена» в кінці.</p>
+      </div>
+    </section>
+
+    <!-- 6. Security Pipeline -->
+    <section class="slide">
+      <h1>Security Pipeline</h1>
+      <h2>Автоматичні перевірки на кожному етапі</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔑</span>
+          <span class="il-text"><strong>Pre-commit</strong> — git-secrets, truffleHog (секрети у коді)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📝</span>
+          <span class="il-text"><strong>SAST</strong> — Semgrep, SonarQube, Checkmarx (статичний аналіз)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📦</span>
+          <span class="il-text"><strong>SCA</strong> — Snyk, OWASP Dependency-Check (вразливі бібліотеки)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🐳</span>
+          <span class="il-text"><strong>Container</strong> — Trivy, Clair (сканування Docker-образів)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🌐</span>
+          <span class="il-text"><strong>DAST</strong> — OWASP ZAP, Burp Suite (динамічне тестування)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">☁️</span>
+          <span class="il-text"><strong>IaC</strong> — Checkov, tfsec (Terraform misconfigurations)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. SAST vs DAST -->
+    <section class="slide">
+      <h1>SAST vs DAST</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">📄</span>
+            <div class="card-title">SAST</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Static Analysis<br>
+              Аналізує код без запуску<br>
+              Швидко, на кожен commit<br>
+              Знаходить: SQL injection, XSS patterns, hardcoded secrets
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">🌐</span>
+            <div class="card-title">DAST</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Dynamic Analysis<br>
+              Тестує працюючий додаток<br>
+              На staging перед prod<br>
+              Знаходить: auth bypass, IDOR, runtime issues
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p><strong>IAST</strong> (Interactive) = SAST + DAST. Агент всередині додатку аналізує потоки даних у runtime.</p>
+      </div>
+    </section>
+
+    <!-- 8. Підсумок -->
+    <section class="slide">
+      <span class="slide-icon">🔒</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>Shift Left</strong> — чим раніше знайдена вразливість, тим дешевше її виправити</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>Threat Modeling</strong> — STRIDE на етапі Design виявляє архітектурні проблеми</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Автоматизація</strong> — SAST/DAST/SCA у CI/CD = постійний контроль</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>DevSecOps культура</strong> — безпека = відповідальність всієї команди</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../../js/slides.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Конспект лекції 14: Ризик-менеджмент та SOC — управління кіберризиками, побудова SOC.">
+  <meta name="author" content="Кафедра ТЕІБ, Ужгородський національний університет">
+  <meta name="theme-color" content="#0ea5e9">
+  <title>Конспект: Лекція 14 — Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
+</head>
+<body>
+  <aside>
+    <div class="logo"><div class="logo-icon"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><div class="logo-text">Фінансова<br>Безпека<span>онлайн-курс</span></div></div>
+    <nav aria-label="Головна навігація">
+      <a href="../../index.html" class="active"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>Лекції</a>
+      <a href="../../practicals.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>Практичні</a>
+      <a href="../../tests.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Тести</a>
+      <a href="../../materials.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg></span>Матеріали</a>
+    </nav>
+    <div class="sidebar-footer"><button class="theme-toggle" onclick="toggleTheme()" aria-label="Перемкнути тему"><svg id="theme-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span id="theme-label">Темна тема</span></button></div>
+  </aside>
+
+  <main>
+    <div class="lecture-nav-top">
+      <a href="../../lecture.html?id=14" class="back-link">&larr; Назад до лекції 14</a>
+      <span class="lecture-badge">Конспект лекції 14</span>
+    </div>
+
+    <article class="lecture-content">
+      <h1>Ризик-менеджмент та SOC</h1>
+      <div class="lecture-info"><span>⏱ 2 год</span><span class="badge badge-new">Конспект</span></div>
+
+      <section>
+        <h2>14.1 Фреймворки ризик-менеджменту</h2>
+        <p>Управління кіберризиками — це систематичний процес ідентифікації, оцінки та обробки ризиків, що загрожують інформаційним активам організації. Для фінансових установ ризик-менеджмент є не просто best practice, а регуляторною вимогою (НБУ, Basel III, DORA).</p>
+        <p><strong>Ключові фреймворки:</strong></p>
+        <ul>
+          <li><strong>ISO 27005</strong> — міжнародний стандарт управління ризиками інформаційної безпеки. Визначає процес: context establishment → risk identification → risk analysis → risk evaluation → risk treatment → monitoring & review.</li>
+          <li><strong>NIST Risk Management Framework (RMF)</strong> — SP 800-37: categorize → select → implement → assess → authorize → monitor. Широко використовується у фінансовому секторі США та глобально.</li>
+          <li><strong>NIST Cybersecurity Framework (CSF) 2.0</strong> — 6 функцій: Govern, Identify, Protect, Detect, Respond, Recover. Гнучкий фреймворк для організацій будь-якого розміру.</li>
+          <li><strong>FAIR (Factor Analysis of Information Risk)</strong> — кількісна модель для оцінки кіберризиків у фінансових термінах (долари/гривні). Дозволяє порівнювати ризики з іншими бізнес-ризиками.</li>
+        </ul>
+        <p><strong>Risk Appetite та Risk Tolerance:</strong></p>
+        <ul>
+          <li><strong>Risk appetite</strong> — загальний рівень ризику, який організація готова прийняти для досягнення бізнес-цілей. Визначається правлінням/наглядовою радою.</li>
+          <li><strong>Risk tolerance</strong> — допустимі відхилення від risk appetite для конкретних ризиків.</li>
+          <li><strong>Risk register</strong> — реєстр усіх ідентифікованих ризиків з оцінкою ймовірності, впливу, поточних контролів та планів обробки.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>14.2 Оцінка та обробка ризиків</h2>
+        <p>Оцінка ризиків визначає пріоритети для інвестицій у безпеку. Існують два основні підходи:</p>
+        <p><strong>Якісна оцінка (Qualitative):</strong></p>
+        <ul>
+          <li>Використовує шкали (Low/Medium/High/Critical) для ймовірності та впливу.</li>
+          <li>Risk matrix (heat map): ймовірність x вплив = рівень ризику.</li>
+          <li>Переваги: простота, швидкість, не вимагає точних даних. Недоліки: суб'єктивність, складно порівнювати з бізнес-ризиками.</li>
+        </ul>
+        <p><strong>Кількісна оцінка (Quantitative):</strong></p>
+        <ul>
+          <li><strong>ALE (Annualized Loss Expectancy)</strong> = SLE (Single Loss Expectancy) x ARO (Annualized Rate of Occurrence).</li>
+          <li>Приклад: data breach (SLE = $5M) x ймовірність 10% на рік (ARO = 0.1) = ALE = $500K/рік.</li>
+          <li>FAIR model дозволяє Monte Carlo симуляцію для розрахунку розподілу можливих збитків.</li>
+          <li>Переваги: об'єктивність, фінансова мова для правління. Недоліки: вимагає даних, складніша.</li>
+        </ul>
+        <p><strong>Risk Treatment (обробка ризиків):</strong></p>
+        <ul>
+          <li><strong>Mitigate (зменшити)</strong> — впровадити контролі для зниження ймовірності або впливу. Найпоширеніший варіант.</li>
+          <li><strong>Transfer (передати)</strong> — кіберстрахування, аутсорсинг безпеки (MSSP).</li>
+          <li><strong>Accept (прийняти)</strong> — ризик в межах appetite, вартість mitigation перевищує потенційні збитки.</li>
+          <li><strong>Avoid (уникнути)</strong> — відмовитися від діяльності, що створює ризик (наприклад, не зберігати певні дані).</li>
+        </ul>
+        <p><strong>Residual risk</strong> — ризик, що залишається після застосування контролів. Повинен бути в межах risk appetite. Якщо ні — потрібні додаткові заходи або acceptance від керівництва.</p>
+      </section>
+
+      <section>
+        <h2>14.3 Архітектура та функціонування SOC</h2>
+        <p>Security Operations Center (SOC) — це централізований підрозділ, що забезпечує безперервний моніторинг, виявлення та реагування на кіберзагрози. Для великих фінансових установ SOC працює 24/7/365.</p>
+        <p><strong>SOC Tiers (рівні аналітиків):</strong></p>
+        <ul>
+          <li><strong>Tier 1 (Alert Triage)</strong> — моніторинг алертів, початкова класифікація, ескалація. Використовує runbooks для стандартних процедур.</li>
+          <li><strong>Tier 2 (Incident Analysis)</strong> — глибокий аналіз ескальованих інцидентів, кореляція даних з різних джерел, визначення scope та impact.</li>
+          <li><strong>Tier 3 (Threat Hunting / Advanced)</strong> — проактивний пошук загроз, аналіз malware, розробка detection rules, threat intelligence.</li>
+          <li><strong>SOC Manager</strong> — координація команди, метрики, reporting, взаємодія з бізнесом та регуляторами.</li>
+        </ul>
+        <p><strong>Ключові технології SOC:</strong></p>
+        <ul>
+          <li><strong>SIEM (Security Information and Event Management)</strong> — централізований збір та кореляція логів з усіх джерел: Splunk, Microsoft Sentinel, Elastic SIEM. Правила кореляції, dashboards, alerting.</li>
+          <li><strong>EDR (Endpoint Detection and Response)</strong> — моніторинг endpoints у реальному часі: CrowdStrike Falcon, Microsoft Defender for Endpoint, SentinelOne. Виявлення malware, lateral movement, fileless attacks.</li>
+          <li><strong>SOAR (Security Orchestration, Automation and Response)</strong> — автоматизація реагування: Palo Alto XSOAR, Splunk SOAR. Автоматична ізоляція хостів, блокування IP, збагачення алертів.</li>
+          <li><strong>Threat Intelligence Platform (TIP)</strong> — агрегація IOC з зовнішніх та внутрішніх джерел, автоматичне збагачення алертів контекстом.</li>
+        </ul>
+        <p><strong>SOC Models:</strong> In-house SOC (повний контроль, дорого), MSSP/MDR (Managed Security Service Provider — аутсорсинг, дешевше), Hybrid (критичні функції in-house, решта — MSSP).</p>
+      </section>
+
+      <section>
+        <h2>14.4 Метрики та зрілість кібербезпеки</h2>
+        <p>Метрики дозволяють вимірювати ефективність кібербезпеки, обґрунтовувати інвестиції та демонструвати прогрес керівництву та регуляторам.</p>
+        <p><strong>Ключові метрики (KPI/KRI):</strong></p>
+        <ul>
+          <li><strong>MTTD (Mean Time to Detect)</strong> — середній час від початку інциденту до його виявлення. Ціль: &lt;24 години (industry average: 204 дні).</li>
+          <li><strong>MTTR (Mean Time to Respond)</strong> — середній час від виявлення до containment. Ціль: &lt;4 години для critical.</li>
+          <li><strong>Alert-to-incident ratio</strong> — скільки алертів стають реальними інцидентами. Показує якість detection rules.</li>
+          <li><strong>False positive rate</strong> — відсоток хибних спрацювань. Високий FP = alert fatigue = пропущені реальні загрози.</li>
+          <li><strong>Patch compliance</strong> — відсоток систем з актуальними патчами. Ціль: >95% протягом SLA.</li>
+          <li><strong>Phishing click rate</strong> — результати phishing-симуляцій. Ціль: &lt;5%.</li>
+        </ul>
+        <p><strong>SOC Maturity Model (CMM):</strong></p>
+        <ul>
+          <li><strong>Level 1 — Initial:</strong> reactive, ad hoc процеси, мінімальний моніторинг.</li>
+          <li><strong>Level 2 — Managed:</strong> базовий SIEM, визначені процеси, runbooks для типових інцидентів.</li>
+          <li><strong>Level 3 — Defined:</strong> повноцінний SOC, threat hunting, автоматизація через SOAR, threat intelligence.</li>
+          <li><strong>Level 4 — Quantitatively Managed:</strong> метрики-driven, predictive analytics, continuous improvement.</li>
+          <li><strong>Level 5 — Optimizing:</strong> AI-driven SOC, автономне реагування, інноваційні підходи.</li>
+        </ul>
+        <p><strong>Reporting для керівництва:</strong> CISO dashboard з ключовими KRI, risk posture, compliance status, incident trends. Мова бізнесу: не «blocked 10K attacks», а «зменшили ризик втрати на $2M через покращення detection».</p>
+      </section>
+
+      <section>
+        <h2>Підсумок</h2>
+        <p>Ризик-менеджмент визначає стратегію кібербезпеки: фреймворки (ISO 27005, NIST, FAIR) допомагають систематично ідентифікувати, оцінювати та обробляти ризики. Кількісна оцінка (ALE, FAIR) дозволяє обґрунтувати інвестиції фінансовою мовою.</p>
+        <p>SOC є оперативним ядром кібербезпеки: 24/7 моніторинг через SIEM/EDR, автоматизація реагування через SOAR, проактивний threat hunting. Метрики (MTTD, MTTR, false positive rate) та SOC maturity model забезпечують вимірюваний прогрес.</p>
+        <p><strong>У наступній лекції</strong> ми розглянемо національну стратегію фінансової кібербезпеки: роль НБУ та CERT-UA, міжнародні стандарти NIS2 та DORA, досвід кібербезпеки в умовах війни та стратегічні пріоритети розвитку.</p>
+      </section>
+    </article>
+
+    <div class="lecture-nav-bottom"><a href="../../lecture.html?id=14" class="nav-btn">&larr; Назад до лекції</a><span></span></div>
+    <footer></footer>
+  </main>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

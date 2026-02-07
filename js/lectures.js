@@ -13,12 +13,12 @@ const lectures = [
       { title: "Анатомія фінансової кібератаки (Kill Chain)", desc: "7 фаз атаки у фінансовому контексті, lifecycle атаки" },
       { title: "Регуляторне середовище та стандарти", desc: "PCI DSS, SWIFT CSP, НБУ, GDPR, NIST" }
     ],
-    conspect: "conspects/lecture-1.html",
+    conspect: "lectures/1/conspect.html",
     presentations: [
-      { title: "Тема 1.1 — Сучасний стан кіберзагроз", desc: "Статистика, APT-групи, Bangladesh Bank, NotPetya, тренди", url: "slides/lecture-1-1.html" },
-      { title: "Тема 1.2 — Типи кібератак", desc: "Фішинг, malware, ransomware, DDoS, інсайдери, supply chain", url: "slides/lecture-1-2.html" },
-      { title: "Тема 1.3 — Анатомія фінансової кібератаки", desc: "Cyber Kill Chain: від розвідки до дій на цілі", url: "slides/lecture-1-3.html" },
-      { title: "Тема 1.4 — Регуляторне середовище та стандарти", desc: "PCI DSS, SWIFT CSP, НБУ, GDPR, NIST Framework", url: "slides/lecture-1-4.html" }
+      { title: "Тема 1.1 — Сучасний стан кіберзагроз", desc: "Статистика, APT-групи, Bangladesh Bank, NotPetya, тренди", url: "lectures/1/slide-1.html" },
+      { title: "Тема 1.2 — Типи кібератак", desc: "Фішинг, malware, ransomware, DDoS, інсайдери, supply chain", url: "lectures/1/slide-2.html" },
+      { title: "Тема 1.3 — Анатомія фінансової кібератаки", desc: "Cyber Kill Chain: від розвідки до дій на цілі", url: "lectures/1/slide-3.html" },
+      { title: "Тема 1.4 — Регуляторне середовище та стандарти", desc: "PCI DSS, SWIFT CSP, НБУ, GDPR, NIST Framework", url: "lectures/1/slide-4.html" }
     ]
   },
   {
@@ -35,12 +35,12 @@ const lectures = [
       { title: "Безпека мікросервісної архітектури", desc: "контейнери, Kubernetes, service mesh, mTLS, secrets management" },
       { title: "Захист API та інтеграцій", desc: "OAuth 2.0/OIDC, API Gateway, rate limiting, input validation, webhook security" }
     ],
-    conspect: "conspects/lecture-2.html",
+    conspect: "lectures/2/conspect.html",
     presentations: [
-      { title: "Тема 2.1 — Zero Trust Architecture", desc: "Принципи Zero Trust, мікросегментація, BeyondCorp", url: "slides/lecture-2-1.html" },
-      { title: "Тема 2.2 — Secure SDLC", desc: "DevSecOps, SAST/DAST, безпечна розробка", url: "slides/lecture-2-2.html" },
-      { title: "Тема 2.3 — Безпека мікросервісів", desc: "Контейнери, Kubernetes, service mesh, secrets", url: "slides/lecture-2-3.html" },
-      { title: "Тема 2.4 — Захист API", desc: "OAuth 2.0, API Gateway, rate limiting, валідація", url: "slides/lecture-2-4.html" }
+      { title: "Тема 2.1 — Zero Trust Architecture", desc: "Принципи Zero Trust, мікросегментація, BeyondCorp", url: "lectures/2/slide-1.html" },
+      { title: "Тема 2.2 — Secure SDLC", desc: "DevSecOps, SAST/DAST, безпечна розробка", url: "lectures/2/slide-2.html" },
+      { title: "Тема 2.3 — Безпека мікросервісів", desc: "Контейнери, Kubernetes, service mesh, secrets", url: "lectures/2/slide-3.html" },
+      { title: "Тема 2.4 — Захист API", desc: "OAuth 2.0, API Gateway, rate limiting, валідація", url: "lectures/2/slide-4.html" }
     ]
   },
   {
@@ -57,12 +57,12 @@ const lectures = [
       { title: "Моделі авторизації: RBAC, ABAC, ReBAC", desc: "Role-Based, Attribute-Based, Relationship-Based Access Control; Policy-as-Code; OPA" },
       { title: "IAM та управління привілейованим доступом", desc: "Identity lifecycle, SSO, Federation, SCIM; PAM (CyberArk, HashiCorp Vault); розділення обов'язків (SoD)" }
     ],
-    conspect: "conspects/lecture-3.html",
+    conspect: "lectures/3/conspect.html",
     presentations: [
-      { title: "Тема 3.1 — Механізми автентифікації", desc: "Паролі, MFA, FIDO2, біометрія, passwordless", url: "slides/lecture-3-1.html" },
-      { title: "Тема 3.2 — Токени та протоколи", desc: "JWT, OAuth 2.0, OpenID Connect, session management", url: "slides/lecture-3-2.html" },
-      { title: "Тема 3.3 — Моделі авторизації", desc: "RBAC, ABAC, ReBAC, Policy-as-Code, OPA", url: "slides/lecture-3-3.html" },
-      { title: "Тема 3.4 — IAM та PAM", desc: "Identity lifecycle, SSO, SCIM, CyberArk, Vault, SoD", url: "slides/lecture-3-4.html" }
+      { title: "Тема 3.1 — Механізми автентифікації", desc: "Паролі, MFA, FIDO2, біометрія, passwordless", url: "lectures/3/slide-1.html" },
+      { title: "Тема 3.2 — Токени та протоколи", desc: "JWT, OAuth 2.0, OpenID Connect, session management", url: "lectures/3/slide-2.html" },
+      { title: "Тема 3.3 — Моделі авторизації", desc: "RBAC, ABAC, ReBAC, Policy-as-Code, OPA", url: "lectures/3/slide-3.html" },
+      { title: "Тема 3.4 — IAM та PAM", desc: "Identity lifecycle, SSO, SCIM, CyberArk, Vault, SoD", url: "lectures/3/slide-4.html" }
     ]
   },
   {
@@ -79,12 +79,12 @@ const lectures = [
       { title: "Атаки на клієнтське сховище", desc: "крадіжка cookies та токенів, localStorage pitfalls, session hijacking, формджекінг" },
       { title: "Захист від клієнтських атак", desc: "CSP, SRI, secure headers, output encoding, DOMPurify, trusted types" }
     ],
-    conspect: "conspects/lecture-4.html",
+    conspect: "lectures/4/conspect.html",
     presentations: [
-      { title: "Тема 4.1 — Cross-Site Scripting", desc: "Reflected, Stored, DOM-based XSS у фінансових додатках", url: "slides/lecture-4-1.html" },
-      { title: "Тема 4.2 — CSRF та Clickjacking", desc: "Підробка запитів, UI redressing, захисні механізми", url: "slides/lecture-4-2.html" },
-      { title: "Тема 4.3 — Атаки на клієнтське сховище", desc: "Cookies, токени, session hijacking, формджекінг", url: "slides/lecture-4-3.html" },
-      { title: "Тема 4.4 — Захист від клієнтських атак", desc: "CSP, SRI, secure headers, sanitization, trusted types", url: "slides/lecture-4-4.html" }
+      { title: "Тема 4.1 — Cross-Site Scripting", desc: "Reflected, Stored, DOM-based XSS у фінансових додатках", url: "lectures/4/slide-1.html" },
+      { title: "Тема 4.2 — CSRF та Clickjacking", desc: "Підробка запитів, UI redressing, захисні механізми", url: "lectures/4/slide-2.html" },
+      { title: "Тема 4.3 — Атаки на клієнтське сховище", desc: "Cookies, токени, session hijacking, формджекінг", url: "lectures/4/slide-3.html" },
+      { title: "Тема 4.4 — Захист від клієнтських атак", desc: "CSP, SRI, secure headers, sanitization, trusted types", url: "lectures/4/slide-4.html" }
     ]
   },
   {
@@ -101,12 +101,12 @@ const lectures = [
       { title: "Безпека баз даних", desc: "шифрування at rest та in transit, розмежування доступу, аудит, backup security" },
       { title: "Комплексний захист серверної частини", desc: "параметризовані запити, ORM best practices, WAF, input validation, database hardening" }
     ],
-    conspect: "conspects/lecture-5.html",
+    conspect: "lectures/5/conspect.html",
     presentations: [
-      { title: "Тема 5.1 — SQL-ін'єкції", desc: "Classic, blind, time-based SQLi, ORM injection", url: "slides/lecture-5-1.html" },
-      { title: "Тема 5.2 — Серверні ін'єкції та SSRF", desc: "Command Injection, SSRF, XXE, SSTI", url: "slides/lecture-5-2.html" },
-      { title: "Тема 5.3 — Безпека баз даних", desc: "Шифрування, доступ, аудит, backup security", url: "slides/lecture-5-3.html" },
-      { title: "Тема 5.4 — Комплексний захист серверу", desc: "Параметризовані запити, WAF, hardening", url: "slides/lecture-5-4.html" }
+      { title: "Тема 5.1 — SQL-ін'єкції", desc: "Classic, blind, time-based SQLi, ORM injection", url: "lectures/5/slide-1.html" },
+      { title: "Тема 5.2 — Серверні ін'єкції та SSRF", desc: "Command Injection, SSRF, XXE, SSTI", url: "lectures/5/slide-2.html" },
+      { title: "Тема 5.3 — Безпека баз даних", desc: "Шифрування, доступ, аудит, backup security", url: "lectures/5/slide-3.html" },
+      { title: "Тема 5.4 — Комплексний захист серверу", desc: "Параметризовані запити, WAF, hardening", url: "lectures/5/slide-4.html" }
     ]
   },
   {
@@ -123,12 +123,12 @@ const lectures = [
       { title: "Методологія аудиту безпеки", desc: "OWASP Testing Guide, PTES, типи тестування, penetration testing lifecycle" },
       { title: "Оцінка вразливостей та управління ними", desc: "CVSS scoring, vulnerability management lifecycle, bug bounty, responsible disclosure" }
     ],
-    conspect: "conspects/lecture-6.html",
+    conspect: "lectures/6/conspect.html",
     presentations: [
-      { title: "Тема 6.1 — OWASP Top 10", desc: "A01-A10 вразливості у контексті фінансових додатків", url: "slides/lecture-6-1.html" },
-      { title: "Тема 6.2 — OWASP ASVS", desc: "Рівні верифікації, security requirements, MASVS", url: "slides/lecture-6-2.html" },
-      { title: "Тема 6.3 — Методологія аудиту", desc: "Testing Guide, PTES, penetration testing lifecycle", url: "slides/lecture-6-3.html" },
-      { title: "Тема 6.4 — Оцінка вразливостей", desc: "CVSS, vulnerability management, bug bounty", url: "slides/lecture-6-4.html" }
+      { title: "Тема 6.1 — OWASP Top 10", desc: "A01-A10 вразливості у контексті фінансових додатків", url: "lectures/6/slide-1.html" },
+      { title: "Тема 6.2 — OWASP ASVS", desc: "Рівні верифікації, security requirements, MASVS", url: "lectures/6/slide-2.html" },
+      { title: "Тема 6.3 — Методологія аудиту", desc: "Testing Guide, PTES, penetration testing lifecycle", url: "lectures/6/slide-3.html" },
+      { title: "Тема 6.4 — Оцінка вразливостей", desc: "CVSS, vulnerability management, bug bounty", url: "lectures/6/slide-4.html" }
     ]
   },
   {
@@ -145,12 +145,12 @@ const lectures = [
       { title: "Мобільні та електронні платежі", desc: "Apple Pay, Google Pay, NFC, e-wallets, QR-платежі, Open Banking (PSD2)" },
       { title: "Fraud detection та моніторинг транзакцій", desc: "rule-based та ML-системи, поведінковий аналіз, real-time scoring, chargeback" }
     ],
-    conspect: "conspects/lecture-7.html",
+    conspect: "lectures/7/conspect.html",
     presentations: [
-      { title: "Тема 7.1 — PCI DSS", desc: "12 вимог, рівні комплаєнсу, SAQ, сертифікація", url: "slides/lecture-7-1.html" },
-      { title: "Тема 7.2 — Безпека карткових транзакцій", desc: "EMV, токенізація, 3D Secure 2.0, P2PE", url: "slides/lecture-7-2.html" },
-      { title: "Тема 7.3 — Мобільні та електронні платежі", desc: "Apple Pay, Google Pay, e-wallets, Open Banking", url: "slides/lecture-7-3.html" },
-      { title: "Тема 7.4 — Fraud detection", desc: "ML-системи, поведінковий аналіз, real-time scoring", url: "slides/lecture-7-4.html" }
+      { title: "Тема 7.1 — PCI DSS", desc: "12 вимог, рівні комплаєнсу, SAQ, сертифікація", url: "lectures/7/slide-1.html" },
+      { title: "Тема 7.2 — Безпека карткових транзакцій", desc: "EMV, токенізація, 3D Secure 2.0, P2PE", url: "lectures/7/slide-2.html" },
+      { title: "Тема 7.3 — Мобільні та електронні платежі", desc: "Apple Pay, Google Pay, e-wallets, Open Banking", url: "lectures/7/slide-3.html" },
+      { title: "Тема 7.4 — Fraud detection", desc: "ML-системи, поведінковий аналіз, real-time scoring", url: "lectures/7/slide-4.html" }
     ]
   },
   {
@@ -167,12 +167,12 @@ const lectures = [
       { title: "Психологія жертви", desc: "Принципи Чалдіні, когнітивні упередження, експлуатація емоцій та авторитету" },
       { title: "Захист від соціальної інженерії", desc: "Awareness-тренінги, phishing-симуляції, reporting culture, технічні контролі" }
     ],
-    conspect: "conspects/lecture-8.html",
+    conspect: "lectures/8/conspect.html",
     presentations: [
-      { title: "Тема 8.1 — Фішинг та його різновиди", desc: "Email phishing, spear phishing, whaling, smishing, vishing", url: "slides/lecture-8-1.html" },
-      { title: "Тема 8.2 — Pretexting та маніпулятивні техніки", desc: "Impersonation, tailgating, baiting, watering hole", url: "slides/lecture-8-2.html" },
-      { title: "Тема 8.3 — Психологія жертви", desc: "Принципи Чалдіні, когнітивні упередження, емоційна маніпуляція", url: "slides/lecture-8-3.html" },
-      { title: "Тема 8.4 — Захист від соціальної інженерії", desc: "Awareness-тренінги, phishing-симуляції, технічні контролі", url: "slides/lecture-8-4.html" }
+      { title: "Тема 8.1 — Фішинг та його різновиди", desc: "Email phishing, spear phishing, whaling, smishing, vishing", url: "lectures/8/slide-1.html" },
+      { title: "Тема 8.2 — Pretexting та маніпулятивні техніки", desc: "Impersonation, tailgating, baiting, watering hole", url: "lectures/8/slide-2.html" },
+      { title: "Тема 8.3 — Психологія жертви", desc: "Принципи Чалдіні, когнітивні упередження, емоційна маніпуляція", url: "lectures/8/slide-3.html" },
+      { title: "Тема 8.4 — Захист від соціальної інженерії", desc: "Awareness-тренінги, phishing-симуляції, технічні контролі", url: "lectures/8/slide-4.html" }
     ]
   },
   {
@@ -189,12 +189,12 @@ const lectures = [
       { title: "Генеративний AI та нові загрози", desc: "AI-фішинг, deepfake-голоси, автоматизація атак, LLM-вразливості" },
       { title: "Захист AI-систем та відповідальний AI", desc: "Adversarial attacks, model security, AI governance, EU AI Act" }
     ],
-    conspect: "conspects/lecture-9.html",
+    conspect: "lectures/9/conspect.html",
     presentations: [
-      { title: "Тема 9.1 — AI/ML для виявлення загроз", desc: "Anomaly detection, UEBA, автоматизований threat hunting", url: "slides/lecture-9-1.html" },
-      { title: "Тема 9.2 — AI у фінансовому моніторингу", desc: "ML для fraud detection, AML-скринінг, deepfake detection", url: "slides/lecture-9-2.html" },
-      { title: "Тема 9.3 — Генеративний AI та нові загрози", desc: "AI-фішинг, deepfake-голоси, LLM-вразливості", url: "slides/lecture-9-3.html" },
-      { title: "Тема 9.4 — Захист AI-систем", desc: "Adversarial attacks, model security, AI governance", url: "slides/lecture-9-4.html" }
+      { title: "Тема 9.1 — AI/ML для виявлення загроз", desc: "Anomaly detection, UEBA, автоматизований threat hunting", url: "lectures/9/slide-1.html" },
+      { title: "Тема 9.2 — AI у фінансовому моніторингу", desc: "ML для fraud detection, AML-скринінг, deepfake detection", url: "lectures/9/slide-2.html" },
+      { title: "Тема 9.3 — Генеративний AI та нові загрози", desc: "AI-фішинг, deepfake-голоси, LLM-вразливості", url: "lectures/9/slide-3.html" },
+      { title: "Тема 9.4 — Захист AI-систем", desc: "Adversarial attacks, model security, AI governance", url: "lectures/9/slide-4.html" }
     ]
   },
   {
@@ -211,12 +211,12 @@ const lectures = [
       { title: "Безпека DeFi-протоколів", desc: "Flash loans, oracle manipulation, rug pulls, impermanent loss" },
       { title: "Безпека бірж та регулювання", desc: "Proof of Reserves, cold storage, ліцензування, MiCA" }
     ],
-    conspect: "conspects/lecture-10.html",
+    conspect: "lectures/10/conspect.html",
     presentations: [
-      { title: "Тема 10.1 — Криптогаманці та ключі", desc: "Hot/cold wallets, seed phrase, multisig, hardware wallets", url: "slides/lecture-10-1.html" },
-      { title: "Тема 10.2 — Вразливості смарт-контрактів", desc: "Reentrancy, overflow, access control, аудит", url: "slides/lecture-10-2.html" },
-      { title: "Тема 10.3 — Безпека DeFi", desc: "Flash loans, oracle manipulation, rug pulls", url: "slides/lecture-10-3.html" },
-      { title: "Тема 10.4 — Біржі та регулювання", desc: "Proof of Reserves, cold storage, MiCA", url: "slides/lecture-10-4.html" }
+      { title: "Тема 10.1 — Криптогаманці та ключі", desc: "Hot/cold wallets, seed phrase, multisig, hardware wallets", url: "lectures/10/slide-1.html" },
+      { title: "Тема 10.2 — Вразливості смарт-контрактів", desc: "Reentrancy, overflow, access control, аудит", url: "lectures/10/slide-2.html" },
+      { title: "Тема 10.3 — Безпека DeFi", desc: "Flash loans, oracle manipulation, rug pulls", url: "lectures/10/slide-3.html" },
+      { title: "Тема 10.4 — Біржі та регулювання", desc: "Proof of Reserves, cold storage, MiCA", url: "lectures/10/slide-4.html" }
     ]
   },
   {
@@ -233,12 +233,12 @@ const lectures = [
       { title: "Системи фінансового моніторингу", desc: "Transaction monitoring, STR, threshold reporting, risk scoring" },
       { title: "FATF та українське законодавство", desc: "40 рекомендацій FATF, Держфінмоніторинг, закон 361-IX" }
     ],
-    conspect: "conspects/lecture-11.html",
+    conspect: "lectures/11/conspect.html",
     presentations: [
-      { title: "Тема 11.1 — Відмивання коштів", desc: "Placement, layering, integration, типові схеми", url: "slides/lecture-11-1.html" },
-      { title: "Тема 11.2 — KYC та CDD", desc: "Ідентифікація, верифікація, EDD, PEP-скринінг", url: "slides/lecture-11-2.html" },
-      { title: "Тема 11.3 — Фінансовий моніторинг", desc: "Transaction monitoring, STR, risk scoring", url: "slides/lecture-11-3.html" },
-      { title: "Тема 11.4 — FATF та законодавство", desc: "40 рекомендацій, Держфінмоніторинг, закон 361-IX", url: "slides/lecture-11-4.html" }
+      { title: "Тема 11.1 — Відмивання коштів", desc: "Placement, layering, integration, типові схеми", url: "lectures/11/slide-1.html" },
+      { title: "Тема 11.2 — KYC та CDD", desc: "Ідентифікація, верифікація, EDD, PEP-скринінг", url: "lectures/11/slide-2.html" },
+      { title: "Тема 11.3 — Фінансовий моніторинг", desc: "Transaction monitoring, STR, risk scoring", url: "lectures/11/slide-3.html" },
+      { title: "Тема 11.4 — FATF та законодавство", desc: "40 рекомендацій, Держфінмоніторинг, закон 361-IX", url: "lectures/11/slide-4.html" }
     ]
   },
   {
@@ -255,12 +255,12 @@ const lectures = [
       { title: "Аналіз інцидентів", desc: "Malware analysis, memory forensics, network forensics, log analysis" },
       { title: "Побудова CSIRT та post-incident", desc: "CSIRT структура, lessons learned, reporting, кіберстрахування" }
     ],
-    conspect: "conspects/lecture-12.html",
+    conspect: "lectures/12/conspect.html",
     presentations: [
-      { title: "Тема 12.1 — Incident Response", desc: "NIST SP 800-61, фази реагування, playbooks", url: "slides/lecture-12-1.html" },
-      { title: "Тема 12.2 — Збір цифрових доказів", desc: "Chain of custody, forensic imaging, volatile data", url: "slides/lecture-12-2.html" },
-      { title: "Тема 12.3 — Аналіз інцидентів", desc: "Malware analysis, memory forensics, log analysis", url: "slides/lecture-12-3.html" },
-      { title: "Тема 12.4 — CSIRT та post-incident", desc: "CSIRT структура, lessons learned, кіберстрахування", url: "slides/lecture-12-4.html" }
+      { title: "Тема 12.1 — Incident Response", desc: "NIST SP 800-61, фази реагування, playbooks", url: "lectures/12/slide-1.html" },
+      { title: "Тема 12.2 — Збір цифрових доказів", desc: "Chain of custody, forensic imaging, volatile data", url: "lectures/12/slide-2.html" },
+      { title: "Тема 12.3 — Аналіз інцидентів", desc: "Malware analysis, memory forensics, log analysis", url: "lectures/12/slide-3.html" },
+      { title: "Тема 12.4 — CSIRT та post-incident", desc: "CSIRT структура, lessons learned, кіберстрахування", url: "lectures/12/slide-4.html" }
     ]
   },
   {
@@ -277,12 +277,12 @@ const lectures = [
       { title: "Безпека пристроїв та мереж", desc: "Endpoint security, Wi-Fi, VPN, IoT, оновлення" },
       { title: "Фінансова безпека онлайн", desc: "Безпечні платежі, захист від шахрайства, інвестиційні сками" }
     ],
-    conspect: "conspects/lecture-13.html",
+    conspect: "lectures/13/conspect.html",
     presentations: [
-      { title: "Тема 13.1 — Паролі та акаунти", desc: "Password managers, MFA, passkeys, breach monitoring", url: "slides/lecture-13-1.html" },
-      { title: "Тема 13.2 — Захист персональних даних", desc: "GDPR, приватність, data minimization", url: "slides/lecture-13-2.html" },
-      { title: "Тема 13.3 — Безпека пристроїв", desc: "Endpoint security, Wi-Fi, VPN, оновлення", url: "slides/lecture-13-3.html" },
-      { title: "Тема 13.4 — Фінансова безпека онлайн", desc: "Безпечні платежі, захист від шахрайства", url: "slides/lecture-13-4.html" }
+      { title: "Тема 13.1 — Паролі та акаунти", desc: "Password managers, MFA, passkeys, breach monitoring", url: "lectures/13/slide-1.html" },
+      { title: "Тема 13.2 — Захист персональних даних", desc: "GDPR, приватність, data minimization", url: "lectures/13/slide-2.html" },
+      { title: "Тема 13.3 — Безпека пристроїв", desc: "Endpoint security, Wi-Fi, VPN, оновлення", url: "lectures/13/slide-3.html" },
+      { title: "Тема 13.4 — Фінансова безпека онлайн", desc: "Безпечні платежі, захист від шахрайства", url: "lectures/13/slide-4.html" }
     ]
   },
   {
@@ -299,12 +299,12 @@ const lectures = [
       { title: "Архітектура та функціонування SOC", desc: "SOC tiers, SIEM, EDR, SOAR, threat intelligence, 24/7 monitoring" },
       { title: "Метрики та зрілість кібербезпеки", desc: "KPI/KRI, MTTD/MTTR, SOC maturity model, continuous improvement" }
     ],
-    conspect: "conspects/lecture-14.html",
+    conspect: "lectures/14/conspect.html",
     presentations: [
-      { title: "Тема 14.1 — Фреймворки ризик-менеджменту", desc: "ISO 27005, NIST RMF, FAIR, risk appetite", url: "slides/lecture-14-1.html" },
-      { title: "Тема 14.2 — Оцінка та обробка ризиків", desc: "Якісна та кількісна оцінка, ALE, risk treatment", url: "slides/lecture-14-2.html" },
-      { title: "Тема 14.3 — Архітектура SOC", desc: "SOC tiers, SIEM, EDR, SOAR, 24/7 monitoring", url: "slides/lecture-14-3.html" },
-      { title: "Тема 14.4 — Метрики кібербезпеки", desc: "KPI/KRI, MTTD/MTTR, SOC maturity model", url: "slides/lecture-14-4.html" }
+      { title: "Тема 14.1 — Фреймворки ризик-менеджменту", desc: "ISO 27005, NIST RMF, FAIR, risk appetite", url: "lectures/14/slide-1.html" },
+      { title: "Тема 14.2 — Оцінка та обробка ризиків", desc: "Якісна та кількісна оцінка, ALE, risk treatment", url: "lectures/14/slide-2.html" },
+      { title: "Тема 14.3 — Архітектура SOC", desc: "SOC tiers, SIEM, EDR, SOAR, 24/7 monitoring", url: "lectures/14/slide-3.html" },
+      { title: "Тема 14.4 — Метрики кібербезпеки", desc: "KPI/KRI, MTTD/MTTR, SOC maturity model", url: "lectures/14/slide-4.html" }
     ]
   },
   {
@@ -321,12 +321,12 @@ const lectures = [
       { title: "Кібербезпека в умовах війни", desc: "Досвід України, атаки на фінінфраструктуру, resilience, IT Army" },
       { title: "Стратегічні пріоритети", desc: "Кадри, інновації, міжнародна співпраця, цифрова трансформація" }
     ],
-    conspect: "conspects/lecture-15.html",
+    conspect: "lectures/15/conspect.html",
     presentations: [
-      { title: "Тема 15.1 — НБУ та CERT-UA", desc: "Роль НБУ, CERT-UA, міжвідомча координація", url: "slides/lecture-15-1.html" },
-      { title: "Тема 15.2 — Міжнародні стандарти", desc: "NIS2, DORA, SWIFT CSCF, Basel III", url: "slides/lecture-15-2.html" },
-      { title: "Тема 15.3 — Кібербезпека в умовах війни", desc: "Досвід України, атаки на фінінфраструктуру", url: "slides/lecture-15-3.html" },
-      { title: "Тема 15.4 — Стратегічні пріоритети", desc: "Кадри, інновації, міжнародна співпраця", url: "slides/lecture-15-4.html" }
+      { title: "Тема 15.1 — НБУ та CERT-UA", desc: "Роль НБУ, CERT-UA, міжвідомча координація", url: "lectures/15/slide-1.html" },
+      { title: "Тема 15.2 — Міжнародні стандарти", desc: "NIS2, DORA, SWIFT CSCF, Basel III", url: "lectures/15/slide-2.html" },
+      { title: "Тема 15.3 — Кібербезпека в умовах війни", desc: "Досвід України, атаки на фінінфраструктуру", url: "lectures/15/slide-3.html" },
+      { title: "Тема 15.4 — Стратегічні пріоритети", desc: "Кадри, інновації, міжнародна співпраця", url: "lectures/15/slide-4.html" }
     ]
   }
 ];

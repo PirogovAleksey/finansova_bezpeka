@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Конспект лекції 12: Цифрова форензика та реагування на інциденти — IR, збір доказів, CSIRT.">
+  <meta name="author" content="Кафедра ТЕІБ, Ужгородський національний університет">
+  <meta name="theme-color" content="#0ea5e9">
+  <title>Конспект: Лекція 12 — Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
+</head>
+<body>
+
+  <aside>
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        Фінансова<br>Безпека
+        <span>онлайн-курс</span>
+      </div>
+    </div>
+    <nav aria-label="Головна навігація">
+      <a href="../../index.html" class="active"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>Лекції</a>
+      <a href="../../practicals.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>Практичні</a>
+      <a href="../../tests.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Тести</a>
+      <a href="../../materials.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg></span>Матеріали</a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Перемкнути тему">
+        <svg id="theme-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <span id="theme-label">Темна тема</span>
+      </button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="lecture-nav-top">
+      <a href="../../lecture.html?id=12" class="back-link">&larr; Назад до лекції 12</a>
+      <span class="lecture-badge">Конспект лекції 12</span>
+    </div>
+
+    <article class="lecture-content">
+      <h1>Цифрова форензика та реагування на інциденти</h1>
+      <div class="lecture-info">
+        <span>⏱ 2 год</span>
+        <span class="badge badge-new">Конспект</span>
+      </div>
+
+      <section>
+        <h2>12.1 Incident Response Framework</h2>
+        <p>Incident Response (IR) — це структурований процес виявлення, аналізу, стримування та усунення кіберінцидентів. Для фінансових установ ефективний IR є критичним: середня вартість витоку даних у фінансовому секторі становить $5.9 млн (IBM Cost of a Data Breach 2024), а час виявлення (Mean Time to Detect, MTTD) — в середньому 204 дні.</p>
+        <p><strong>NIST SP 800-61 — чотири фази Incident Response:</strong></p>
+        <ol>
+          <li><strong>Preparation (підготовка)</strong> — формування CSIRT-команди, розробка IR-плану та playbooks, впровадження інструментів (SIEM, EDR, SOAR), тренування через tabletop exercises та red team/blue team вправи.</li>
+          <li><strong>Detection & Analysis (виявлення та аналіз)</strong> — моніторинг алертів з SIEM/EDR, тріаж інцидентів за severity (Critical/High/Medium/Low), визначення scope та impact, класифікація за типом (malware, unauthorized access, data breach, DDoS).</li>
+          <li><strong>Containment, Eradication & Recovery (стримування, ліквідація, відновлення)</strong> — ізоляція уражених систем (short-term containment), видалення загрози та закриття вектора атаки (eradication), відновлення систем із чистих резервних копій (recovery).</li>
+          <li><strong>Post-Incident Activity (пост-інцидентна діяльність)</strong> — lessons learned нарада, оновлення playbooks, звітування регуляторам (НБУ вимагає повідомлення про кіберінциденти), покращення захисту.</li>
+        </ol>
+        <p><strong>Playbooks</strong> — заздалегідь підготовлені покрокові інструкції для типових інцидентів: ransomware, phishing, data breach, insider threat, DDoS. Кожен playbook визначає: хто відповідальний, які кроки, кого повідомити, які інструменти використати. Автоматизація через SOAR (Security Orchestration, Automation and Response) дозволяє виконувати стандартні дії автоматично.</p>
+      </section>
+
+      <section>
+        <h2>12.2 Збір цифрових доказів</h2>
+        <p>Цифрова форензика (Digital Forensics) — це процес збору, збереження, аналізу та представлення цифрових доказів у спосіб, що забезпечує їх допустимість у суді. Ключовий принцип: доказ повинен бути автентичним, цілісним та отриманим законним шляхом.</p>
+        <p><strong>Chain of Custody (ланцюжок зберігання):</strong></p>
+        <ul>
+          <li>Документування кожного кроку роботи з доказом: хто, коли, що робив, де зберігався доказ.</li>
+          <li>Порушення chain of custody може зробити доказ недопустимим у суді.</li>
+          <li>Кожна передача доказу фіксується: дата, час, від кого, кому, мета передачі.</li>
+        </ul>
+        <p><strong>Order of Volatility (порядок збору за волатильністю):</strong></p>
+        <ol>
+          <li><strong>Registers, cache</strong> — зникають миттєво при вимкненні.</li>
+          <li><strong>RAM (оперативна пам'ять)</strong> — процеси, мережеві з'єднання, ключі шифрування, malware в пам'яті.</li>
+          <li><strong>Swap/temp файли</strong> — можуть містити дані з RAM.</li>
+          <li><strong>Disk (жорсткий диск)</strong> — файлова система, логи, deleted files.</li>
+          <li><strong>Logs (віддалені)</strong> — SIEM, мережеві пристрої, хмарні сервіси.</li>
+          <li><strong>Архівні дані</strong> — бекапи, стрічки.</li>
+        </ol>
+        <p><strong>Forensic imaging</strong> — створення побітової копії (bit-for-bit image) диска з використанням write blocker (апаратний пристрій, що запобігає запису на оригінальний носій). Інструменти: FTK Imager, dd, dc3dd. Цілісність підтверджується хеш-сумою (SHA-256) оригіналу та копії.</p>
+        <p><strong>Memory forensics</strong> — аналіз дампу оперативної пам'яті за допомогою Volatility Framework: виявлення malware, що працює лише в пам'яті (fileless malware), отримання ключів шифрування, аналіз мережевих з'єднань, виявлення прихованих процесів.</p>
+      </section>
+
+      <section>
+        <h2>12.3 Аналіз інцидентів</h2>
+        <p>Після збору доказів проводиться їх аналіз для відповіді на ключові питання: що сталося? Як зловмисник отримав доступ? Які дані скомпрометовано? Хто стоїть за атакою?</p>
+        <p><strong>Malware Analysis:</strong></p>
+        <ul>
+          <li><strong>Static analysis</strong> — аналіз без запуску: strings, PE-заголовки, imports, хеші (VirusTotal), packer detection.</li>
+          <li><strong>Dynamic analysis</strong> — запуск у sandbox (ANY.RUN, Joe Sandbox): моніторинг файлових операцій, реєстру, мережевих з'єднань, C2-комунікацій.</li>
+          <li><strong>Reverse engineering</strong> — дизасемблювання (IDA Pro, Ghidra) для глибокого розуміння логіки malware.</li>
+        </ul>
+        <p><strong>Network Forensics:</strong></p>
+        <ul>
+          <li>Аналіз PCAP-файлів (Wireshark, NetworkMiner) для відстеження мережевої активності зловмисника.</li>
+          <li>Виявлення C2-каналів, data exfiltration, lateral movement через аналіз NetFlow та DNS-логів.</li>
+          <li>Timeline reconstruction: побудова хронології подій на основі мережевих логів, firewall та proxy.</li>
+        </ul>
+        <p><strong>Log Analysis:</strong></p>
+        <ul>
+          <li>Кореляція логів з різних джерел: Windows Event Logs, Syslog, веб-сервери, бази даних, хмарні платформи.</li>
+          <li>SIEM (Splunk, Elastic SIEM, Microsoft Sentinel) для централізованого пошуку та кореляції подій.</li>
+          <li>Sigma rules — стандартизований формат правил для виявлення загроз у логах, сумісний з різними SIEM.</li>
+        </ul>
+        <p><strong>MITRE ATT&CK Framework</strong> — використовується для класифікації тактик та технік зловмисника: Initial Access → Execution → Persistence → Privilege Escalation → Defense Evasion → Credential Access → Discovery → Lateral Movement → Collection → Exfiltration → Impact.</p>
+      </section>
+
+      <section>
+        <h2>12.4 Побудова CSIRT та post-incident</h2>
+        <p>CSIRT (Computer Security Incident Response Team) — спеціалізована команда для реагування на кіберінциденти. Для фінансових установ наявність CSIRT є де-факто вимогою регуляторів.</p>
+        <p><strong>Структура CSIRT:</strong></p>
+        <ul>
+          <li><strong>Incident Manager</strong> — координує реагування, комунікація з керівництвом та регуляторами.</li>
+          <li><strong>SOC Analysts (L1/L2/L3)</strong> — моніторинг, тріаж, розслідування інцидентів.</li>
+          <li><strong>Forensic Analyst</strong> — збір та аналіз цифрових доказів.</li>
+          <li><strong>Threat Intelligence</strong> — аналіз загроз, IOC, attribution.</li>
+          <li><strong>Communications</strong> — зв'язок із клієнтами, медіа, регуляторами.</li>
+          <li><strong>Legal</strong> — юридичні аспекти, compliance, взаємодія з правоохоронцями.</li>
+        </ul>
+        <p><strong>Lessons Learned:</strong></p>
+        <ul>
+          <li>Нарада протягом 1-2 тижнів після закриття інциденту з усіма учасниками.</li>
+          <li>Питання: що спрацювало? Що ні? Де були затримки? Які покращення потрібні?</li>
+          <li>Оновлення playbooks, політик, технічних контролів на основі отриманого досвіду.</li>
+        </ul>
+        <p><strong>Кіберстрахування</strong> — страховий поліс, що покриває збитки від кіберінцидентів: витрати на IR, forensics, юридичні послуги, повідомлення клієнтів, втрачений прибуток, штрафи регуляторів. Вартість полісу залежить від рівня безпеки організації, що стимулює покращення захисту.</p>
+        <p><strong>Regulatory reporting у фінансовому секторі:</strong> НБУ вимагає повідомлення про значні кіберінциденти протягом визначеного терміну. GDPR вимагає повідомлення про витоки персональних даних протягом 72 годин. PCI DSS вимагає негайного повідомлення платіжних брендів при компрометації карткових даних.</p>
+      </section>
+
+      <section>
+        <h2>Підсумок</h2>
+        <p>Ефективне реагування на кіберінциденти вимагає підготовки: CSIRT-команда, playbooks, інструменти та регулярні тренування. Збір цифрових доказів повинен дотримуватися chain of custody та order of volatility для забезпечення допустимості у суді.</p>
+        <p>Аналіз інцидентів включає malware analysis, network forensics та log correlation з використанням MITRE ATT&CK для класифікації. Post-incident lessons learned та кіберстрахування завершують цикл реагування, а regulatory reporting є обов'язковим для фінансових установ.</p>
+        <p><strong>У наступній лекції</strong> ми розглянемо кібергігієну та захист кінцевого користувача: управління паролями, захист персональних даних, безпеку пристроїв та фінансову безпеку онлайн.</p>
+      </section>
+    </article>
+
+    <div class="lecture-nav-bottom">
+      <a href="../../lecture.html?id=12" class="nav-btn">&larr; Назад до лекції</a>
+      <span></span>
+    </div>
+    <footer></footer>
+  </main>
+
+  <script src="../../js/main.js"></script>
+</body>
+</html>

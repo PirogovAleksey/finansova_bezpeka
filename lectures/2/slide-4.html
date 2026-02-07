@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.4 Захист API | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../../lecture.html?id=2">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <!-- 1. Title -->
+    <section class="slide active">
+      <span class="slide-icon">🔌</span>
+      <h1>Захист API та інтеграцій</h1>
+      <p class="subtitle">Лекція 2.4</p>
+      <span class="tag tag-cyan" style="margin-top: 1rem;">OAuth 2.0, API Gateway, Input Validation</span>
+    </section>
+
+    <!-- 2. API = серце FinTech -->
+    <section class="slide">
+      <h1>API — серце FinTech</h1>
+      <h2>Чому API-безпека критична</h2>
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-value">83%</div>
+          <div class="stat-label">веб-трафіку — це API-запити</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">+300%</div>
+          <div class="stat-label">зростання API-атак за 2 роки</div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-value">$6.1M</div>
+          <div class="stat-label">середня вартість API-breach</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.5rem;">
+        <p>Мобільний банкінг, Open Banking, партнерські інтеграції — все працює через API. Незахищене API = відкриті двері.</p>
+      </div>
+    </section>
+
+    <!-- 3. OWASP API Top 10 -->
+    <section class="slide">
+      <h1>OWASP API Security Top 10</h1>
+      <h2>Найпоширеніші вразливості API (2023)</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔓</span>
+          <span class="il-text"><strong>BOLA</strong> — Broken Object Level Authorization (IDOR)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔑</span>
+          <span class="il-text"><strong>Broken Auth</strong> — слабка автентифікація, витік токенів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📝</span>
+          <span class="il-text"><strong>Mass Assignment</strong> — зміна полів, до яких немає доступу</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🌊</span>
+          <span class="il-text"><strong>Resource Consumption</strong> — відсутність rate limiting, DoS</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚙️</span>
+          <span class="il-text"><strong>BFLA</strong> — Broken Function Level Authorization</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. BOLA приклад -->
+    <section class="slide">
+      <h1>BOLA — #1 вразливість API</h1>
+      <h2>Broken Object Level Authorization</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">❌</span>
+            <div class="card-title">Вразливий код</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.85rem; font-family: monospace; line-height: 1.7;">
+              GET /api/accounts/12345<br><br>
+              // Повертає баланс<br>
+              // account_id з URL<br>
+              // Без перевірки власника!
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">✅</span>
+            <div class="card-title">Безпечний код</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.85rem; font-family: monospace; line-height: 1.7;">
+              GET /api/accounts/12345<br><br>
+              // Перевіряємо:<br>
+              // account.owner == user.id<br>
+              // → 403 Forbidden
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>Зміна account_id в URL НЕ ПОВИННА давати доступ до чужих даних. Завжди перевіряйте права на об'єкт!</p>
+      </div>
+    </section>
+
+    <!-- 5. OAuth 2.0 -->
+    <section class="slide">
+      <h1>OAuth 2.0 для FinTech</h1>
+      <h2>Стандарт авторизації API</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">📱</span>
+          <div class="card-title">Authorization Code + PKCE</div>
+          <div class="card-text">Для мобільних та SPA. PKCE захищає від перехоплення коду</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🖥️</span>
+          <div class="card-title">Client Credentials</div>
+          <div class="card-text">Для server-to-server. Сервіс автентифікується напряму</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🎫</span>
+          <div class="card-title">Scopes</div>
+          <div class="card-text">read:balance, transfer:create — обмеження прав токена</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">⏰</span>
+          <div class="card-title">Short-lived tokens</div>
+          <div class="card-text">Access Token: 15 хв. Refresh Token: 7 днів. Ротація обов'язкова</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. API Gateway -->
+    <section class="slide">
+      <h1>API Gateway — єдина точка входу</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔐</span>
+          <span class="il-text"><strong>Автентифікація</strong> — перевірка JWT/OAuth токенів на вході</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⏱️</span>
+          <span class="il-text"><strong>Rate Limiting</strong> — 100 req/min для читання, 5 req/min для переказів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📋</span>
+          <span class="il-text"><strong>Request Validation</strong> — перевірка структури за OpenAPI схемою</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>WAF</strong> — блокування SQL injection, XSS, path traversal</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>Logging</strong> — всі запити логуються для аудиту та аналізу</span>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 1.2rem;">
+        <div class="stat-box blue">
+          <div class="stat-value">Kong</div>
+          <div class="stat-label">Open Source</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">AWS API GW</div>
+          <div class="stat-label">Serverless</div>
+        </div>
+        <div class="stat-box purple">
+          <div class="stat-value">Apigee</div>
+          <div class="stat-label">Enterprise</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Webhook Security -->
+    <section class="slide">
+      <h1>Безпека Webhooks</h1>
+      <h2>Захист зворотних викликів від Stripe, Plaid, платіжних систем</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Signature</div>
+          <div class="step-desc">Перевірка HMAC-підпису</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">IP Whitelist</div>
+          <div class="step-desc">Тільки з відомих IP</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Timestamp</div>
+          <div class="step-desc">Відхилення старих (>5 хв)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Idempotency</div>
+          <div class="step-desc">Один раз = один раз</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.5rem;">
+        <p>Без верифікації підпису зловмисник може надсилати фейкові webhooks: «платіж успішний» для замовлення, яке не оплачено.</p>
+      </div>
+    </section>
+
+    <!-- 8. Підсумок -->
+    <section class="slide">
+      <span class="slide-icon">🔒</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>BOLA</strong> — перевіряйте права на об'єкт для кожного запиту</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>OAuth 2.0 + PKCE</strong> — стандарт для мобільних та SPA додатків</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>API Gateway</strong> — rate limiting, validation, WAF на вході</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Input Validation</strong> — остання лінія оборони, валідуйте все</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../../js/slides.js"></script>
+
+</body>
+</html>

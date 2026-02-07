@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>14.3 Архітектура SOC | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/slides.css">
+</head>
+<body>
+  <div class="top-controls">
+    <a href="../../lecture.html?id=14"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>До лекції</a>
+    <button onclick="toggleTheme()"><span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span><span id="theme-label">Світла</span></button>
+  </div>
+  <div class="slide-deck">
+    <section class="slide active">
+      <span class="slide-icon">🖥️</span>
+      <h1>Архітектура SOC</h1>
+      <p class="subtitle">Лекція 14.3</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">SOC Tiers, SIEM, EDR, SOAR, 24/7</span>
+    </section>
+    <section class="slide">
+      <h1>Що таке SOC?</h1>
+      <div class="highlight-box">
+        <strong>Security Operations Center</strong> — централізований підрозділ для безперервного моніторингу, виявлення та реагування на кіберзагрози. Для великих фінансових установ — <strong>24/7/365</strong>.
+      </div>
+      <div class="stat-row" style="margin-top: 2rem;">
+        <div class="stat-box"><div class="stat-value">24/7</div><div class="stat-label">Безперервний моніторинг</div></div>
+        <div class="stat-box"><div class="stat-value">~10K</div><div class="stat-label">Алертів / день (великий банк)</div></div>
+        <div class="stat-box"><div class="stat-value">&lt;1%</div><div class="stat-label">Стають реальними інцидентами</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>SOC Tiers — рівні аналітиків</h1>
+      <div class="steps">
+        <div class="step"><div class="step-num">T1</div><div class="step-title">Alert Triage</div><div class="step-desc">Моніторинг алертів, класифікація, ескалація. Runbooks</div></div>
+        <div class="step"><div class="step-num">T2</div><div class="step-title">Incident Analysis</div><div class="step-desc">Глибокий аналіз, кореляція даних, scope та impact</div></div>
+        <div class="step"><div class="step-num">T3</div><div class="step-title">Threat Hunting</div><div class="step-desc">Проактивний пошук загроз, malware analysis, detection rules</div></div>
+        <div class="step"><div class="step-num">MGR</div><div class="step-title">SOC Manager</div><div class="step-desc">Координація, метрики, reporting, взаємодія з бізнесом</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Ключові технології SOC</h1>
+      <div class="card-grid">
+        <div class="card accent-blue"><span class="card-icon">📊</span><div class="card-title">SIEM</div><div class="card-text">Збір та кореляція логів. Splunk, Microsoft Sentinel, Elastic SIEM</div></div>
+        <div class="card accent-green"><span class="card-icon">💻</span><div class="card-title">EDR</div><div class="card-text">Моніторинг endpoints. CrowdStrike, Defender for Endpoint, SentinelOne</div></div>
+        <div class="card accent-orange"><span class="card-icon">⚡</span><div class="card-title">SOAR</div><div class="card-text">Автоматизація реагування. Palo Alto XSOAR, Splunk SOAR</div></div>
+        <div class="card accent-purple"><span class="card-icon">🔍</span><div class="card-title">TIP</div><div class="card-text">Threat Intelligence Platform. Агрегація IOC, збагачення алертів</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>SIEM — серце SOC</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">📥</span><span class="il-text"><strong>Збір логів</strong> — firewall, AD, endpoints, applications, cloud — усе в одному місці</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔗</span><span class="il-text"><strong>Кореляція</strong> — правила зв'язують події з різних джерел у єдину картину</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔔</span><span class="il-text"><strong>Алерти</strong> — автоматичне оповіщення аналітиків при спрацюванні правил</span></div>
+        <div class="icon-list-item"><span class="il-icon">📈</span><span class="il-text"><strong>Dashboards</strong> — візуалізація стану безпеки в реальному часі</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔎</span><span class="il-text"><strong>Forensic search</strong> — ретроспективний пошук по збережених логах</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>SOC Models</h1>
+      <div class="card-grid">
+        <div class="card accent-blue"><span class="card-icon">🏢</span><div class="card-title">In-house SOC</div><div class="card-text">Повний контроль, глибоке знання бізнесу. Дорого: $2-5M/рік</div></div>
+        <div class="card accent-green"><span class="card-icon">🤝</span><div class="card-title">MSSP / MDR</div><div class="card-text">Аутсорсинг моніторингу. Дешевше, швидкий старт. Менше контролю</div></div>
+        <div class="card accent-orange"><span class="card-icon">🔄</span><div class="card-title">Hybrid SOC</div><div class="card-text">Критичні функції in-house, решта — MSSP. Оптимальний баланс</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>SOC = люди + процеси + технології</strong> — всі три компоненти критичні</span></div>
+        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>SIEM + EDR + SOAR</strong> — технологічний фундамент сучасного SOC</span></div>
+        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Tiered model</strong> — T1 triage → T2 analysis → T3 hunting ефективно розподіляє навантаження</span></div>
+        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>Hybrid SOC</strong> — оптимальний вибір для більшості фінансових установ</span></div>
+      </div>
+    </section>
+  </div>
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+  <div class="controls"><button onclick="prev()">&#8592;</button><button onclick="next()">&#8594;</button></div>
+  <script src="../../js/slides.js"></script>
+</body>
+</html>

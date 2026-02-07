@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Конспект лекції 6: Стандартизація OWASP та аудит безпеки фінансових систем.">
+  <meta name="author" content="Кафедра ТЕІБ, Ужгородський національний університет">
+  <meta name="theme-color" content="#0ea5e9">
+  <title>Конспект: Лекція 6 — Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
+</head>
+<body>
+
+  <aside>
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        Фінансова<br>Безпека
+        <span>онлайн-курс</span>
+      </div>
+    </div>
+
+    <nav aria-label="Головна навігація">
+      <a href="../../index.html" class="active">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>
+        Лекції
+      </a>
+      <a href="../../practicals.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+        Практичні
+      </a>
+      <a href="../../tests.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+        Тести
+      </a>
+      <a href="../../materials.html">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg></span>
+        Матеріали
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Перемкнути тему">
+        <svg id="theme-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <span id="theme-label">Темна тема</span>
+      </button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="lecture-nav-top">
+      <a href="../../lecture.html?id=6" class="back-link">&larr; Назад до лекції 6</a>
+      <span class="lecture-badge">Конспект лекції 6</span>
+    </div>
+
+    <article class="lecture-content">
+      <h1>Стандартизація OWASP та аудит</h1>
+      <div class="lecture-info">
+        <span>⏱ 2 год</span>
+        <span class="badge badge-new">Конспект</span>
+      </div>
+
+      <!-- Section 6.1 -->
+      <section>
+        <h2>6.1 OWASP Top 10 для фінансових додатків</h2>
+
+        <p>OWASP Top 10 — це регулярно оновлюваний список десяти найкритичніших вразливостей веб-додатків. Цей документ є де-факто стандартом обізнаності у сфері application security і використовується регуляторами, аудиторами та командами розробки по всьому світу. Для фінансового сектору OWASP Top 10 є базовою вимогою: PCI DSS, регулятори ЄС (EBA) та НБУ посилаються на нього як мінімальний стандарт безпеки.</p>
+
+        <p><strong>OWASP Top 10 (2021) у фінансовому контексті:</strong></p>
+        <ol>
+          <li><strong>A01: Broken Access Control</strong> — найпоширеніша вразливість. У фінансових додатках: доступ до чужих рахунків через маніпуляцію ID (IDOR), горизонтальна ескалація привілеїв (касир виконує дії менеджера), обхід авторизації API-endpoints.</li>
+          <li><strong>A02: Cryptographic Failures</strong> — недоліки криптографії. PAN кредитних карток без шифрування, MD5/SHA1 для хешування паролів, передача чутливих даних через HTTP, слабкі ключі шифрування.</li>
+          <li><strong>A03: Injection</strong> — SQL, NoSQL, OS command, LDAP-ін'єкції. У фінансових системах: SQLi для крадіжки даних клієнтів, command injection через генератори звітів, LDAP-ін'єкція для обходу корпоративної автентифікації.</li>
+          <li><strong>A04: Insecure Design</strong> — вразливості на рівні архітектури, які неможливо виправити патчем. Відсутність rate limiting на операціях переказу, відсутність threat modeling, бізнес-логіка без перевірки (negative amount transfer).</li>
+          <li><strong>A05: Security Misconfiguration</strong> — default credentials, відкриті debug-сторінки, зайві HTTP-методи, directory listing, stack traces у помилках з інформацією про інфраструктуру.</li>
+          <li><strong>A06: Vulnerable and Outdated Components</strong> — використання бібліотек з відомими CVE. Log4Shell (CVE-2021-44228) вразив тисячі фінансових систем. Struts2 CVE-2017-5638 призвів до витоку Equifax (147 мільйонів записів).</li>
+          <li><strong>A07: Identification and Authentication Failures</strong> — слабка автентифікація: credential stuffing без rate limiting, слабка політика паролів, відсутність MFA для адміністраторів.</li>
+          <li><strong>A08: Software and Data Integrity Failures</strong> — supply chain атаки: компрометовані CI/CD pipelines, шкідливі npm/PyPI-пакети, відсутність перевірки цілісності оновлень.</li>
+          <li><strong>A09: Security Logging and Monitoring Failures</strong> — відсутність логування подій безпеки: невдалі логіни, зміни привілеїв, критичні транзакції не логуються або логи не моніторяться.</li>
+          <li><strong>A10: Server-Side Request Forgery (SSRF)</strong> — сервер виконує запити за вказівкою зловмисника: доступ до cloud metadata, сканування внутрішньої мережі банку.</li>
+        </ol>
+
+        <p><strong>Еволюція OWASP Top 10:</strong> список оновлюється кожні 3-4 роки на основі аналізу реальних інцидентів. У 2021 році Broken Access Control піднявся з 5-го на 1-ше місце, а Insecure Design та SSRF з'явились вперше, відображаючи зростання хмарних середовищ та складності архітектур.</p>
+      </section>
+
+      <!-- Section 6.2 -->
+      <section>
+        <h2>6.2 OWASP ASVS та стандарти верифікації</h2>
+
+        <p>OWASP Application Security Verification Standard (ASVS) — це детальний каталог вимог безпеки для веб-додатків. Якщо OWASP Top 10 — це «що може піти не так», то ASVS — це «як правильно». ASVS містить понад 280 конкретних вимог, організованих у 14 категорій, що дозволяє використовувати його як чеклист для розробки, тестування та аудиту.</p>
+
+        <p><strong>Три рівні верифікації ASVS:</strong></p>
+        <ul>
+          <li><strong>Level 1 (Opportunistic)</strong> — базовий рівень, що захищає від найпоширеніших вразливостей. Мінімальний стандарт для будь-якого додатку. Може бути досягнутий через автоматизоване тестування (DAST/SAST). Приклад вимог: параметризовані SQL-запити, output encoding, HTTPS для всіх сторінок.</li>
+          <li><strong>Level 2 (Standard)</strong> — рекомендований рівень для додатків, що обробляють чутливі дані. Більшість фінансових додатків повинні відповідати цьому рівню. Включає: повноцінне управління сесіями, захист від CSRF, правильна криптографія, логування подій безпеки. Вимагає ручного тестування та code review.</li>
+          <li><strong>Level 3 (Advanced)</strong> — найвищий рівень для критичних додатків: платіжних систем, core banking, SWIFT-інтерфейсів. Вимагає: threat modeling, повний пентест, аналіз архітектури, верифікація всіх компонентів, захист від Advanced Persistent Threats.</li>
+        </ul>
+
+        <p><strong>Категорії ASVS (V1-V14):</strong></p>
+        <ul>
+          <li>V1: Architecture, Design, Threat Modeling</li>
+          <li>V2: Authentication — 60+ вимог до автентифікації</li>
+          <li>V3: Session Management — управління сесіями</li>
+          <li>V4: Access Control — авторизація та контроль доступу</li>
+          <li>V5: Validation, Sanitization, Encoding — обробка вхідних даних</li>
+          <li>V6: Stored Cryptography — шифрування даних</li>
+          <li>V7: Error Handling and Logging — обробка помилок та логування</li>
+          <li>V8-V14: Files, Communications, Business Logic, APIs та інші</li>
+        </ul>
+
+        <p><strong>OWASP MASVS (Mobile Application Security Verification Standard)</strong> — аналог ASVS для мобільних додатків. Критично важливий для мобільного банкінгу: захист локального сховища (keychain, encrypted storage), certificate pinning, root/jailbreak detection, anti-tampering, безпечна міжпроцесна комунікація. Monobank, Приват24, ПУМБ Online та інші українські банківські додатки повинні відповідати MASVS Level 2 як мінімум.</p>
+
+        <p><strong>Практичне використання ASVS у FinTech:</strong> команда безпеки обирає рівень ASVS відповідно до критичності додатку, адаптує вимоги під контекст (наприклад, додає PCI DSS-специфічні вимоги), створює чеклист для розробників та тестувальників, інтегрує перевірки ASVS у CI/CD pipeline (автоматизовані для L1, ручні для L2-L3).</p>
+      </section>
+
+      <!-- Section 6.3 -->
+      <section>
+        <h2>6.3 Методологія аудиту безпеки</h2>
+
+        <p>Аудит безпеки — це систематична оцінка захищеності інформаційної системи. У фінансовому секторі регулярний аудит є не лише best practice, а вимогою регуляторів: PCI DSS вимагає щорічний аудит, НБУ — періодичну оцінку кіберризиків, SOX — контроль фінансових систем.</p>
+
+        <p><strong>Типи тестування безпеки:</strong></p>
+        <ul>
+          <li><strong>Vulnerability Assessment (VA)</strong> — автоматизоване сканування на відомі вразливості. Інструменти: Nessus, Qualys, OpenVAS. Широке покриття, але поверхневе — виявляє відомі CVE та misconfigurations, не знаходить логічні вразливості.</li>
+          <li><strong>Penetration Testing (Pentest)</strong> — імітація реальної атаки етичним хакером. Комбінує автоматизовані інструменти з ручним аналізом та творчим підходом. Знаходить складні вразливості: бізнес-логіка, ланцюжки атак, ескалація привілеїв.</li>
+          <li><strong>Red Team Assessment</strong> — повномасштабна імітація APT-атаки. Команда атакуючих намагається досягти конкретної мети (наприклад, отримати доступ до SWIFT-термінала) будь-якими засобами: фішинг, соціальна інженерія, фізичне проникнення, технічні атаки. Тестує не лише технічний захист, а й процеси реагування (Blue Team).</li>
+          <li><strong>Bug Bounty</strong> — залучення зовнішніх дослідників для пошуку вразливостей за винагороду. Постійний процес, що доповнює періодичні пентести.</li>
+        </ul>
+
+        <p><strong>OWASP Testing Guide (OTG)</strong> — найбільш повна методологія тестування веб-додатків. Містить 91 тест-кейс, згрупований за категоріями: Information Gathering, Configuration Management, Identity Management, Authentication, Authorization, Session Management, Input Validation, Error Handling, Cryptography, Business Logic, Client-Side.</p>
+
+        <p><strong>Penetration Testing Execution Standard (PTES)</strong> — стандарт проведення пентестів:</p>
+        <ol>
+          <li><strong>Pre-engagement</strong> — визначення scope, правил (rules of engagement), юридичних аспектів.</li>
+          <li><strong>Intelligence Gathering</strong> — збір інформації про ціль: домени, IP, технології, співробітники.</li>
+          <li><strong>Threat Modeling</strong> — визначення найбільш ймовірних векторів атаки.</li>
+          <li><strong>Vulnerability Analysis</strong> — виявлення вразливостей (автоматизоване + ручне).</li>
+          <li><strong>Exploitation</strong> — експлуатація знайдених вразливостей для підтвердження ризику.</li>
+          <li><strong>Post-Exploitation</strong> — оцінка масштабу компрометації: lateral movement, data exfiltration.</li>
+          <li><strong>Reporting</strong> — звіт з описом вразливостей, ризиків та рекомендацій.</li>
+        </ol>
+
+        <p><strong>Особливості пентесту фінансових систем:</strong> тестування лише на staging/pre-production середовищі (не на production з реальними даними клієнтів), погодження вікна тестування (щоб не вплинути на операції), обов'язкова NDA та договір з чіткими обмеженнями, наявність kill switch для екстреного зупинення тесту, залучення QSA (Qualified Security Assessor) для PCI DSS scope.</p>
+      </section>
+
+      <!-- Section 6.4 -->
+      <section>
+        <h2>6.4 Оцінка вразливостей та управління ними</h2>
+
+        <p>Виявлення вразливості — лише початок. Ефективне управління вразливостями (Vulnerability Management) — це безперервний процес пріоритизації, виправлення та верифікації.</p>
+
+        <p><strong>CVSS (Common Vulnerability Scoring System)</strong> — стандарт оцінки серйозності вразливостей за шкалою 0-10:</p>
+        <ul>
+          <li><strong>Base Score</strong> — технічна серйозність: Attack Vector (Network/Adjacent/Local/Physical), Attack Complexity (Low/High), Privileges Required, User Interaction, Scope, CIA Impact.</li>
+          <li><strong>Temporal Score</strong> — поточний стан: чи існує exploit, чи доступний патч.</li>
+          <li><strong>Environmental Score</strong> — вплив на конкретну організацію: критичність активу, наявність compensating controls.</li>
+          <li><strong>Шкала:</strong> 0.0 (None), 0.1-3.9 (Low), 4.0-6.9 (Medium), 7.0-8.9 (High), 9.0-10.0 (Critical).</li>
+          <li><strong>Приклад:</strong> SQL-ін'єкція в API інтернет-банкінгу: AV:Network, AC:Low, PR:None, UI:None, S:Unchanged, C:High, I:High, A:High = CVSS 9.8 (Critical).</li>
+        </ul>
+
+        <p><strong>Vulnerability Management Lifecycle:</strong></p>
+        <ol>
+          <li><strong>Discovery</strong> — виявлення через сканери (Qualys, Nessus), SAST/DAST, пентести, bug bounty, threat intelligence feeds.</li>
+          <li><strong>Prioritization</strong> — ранжування за CVSS + бізнес-контекст. SQLi у production API банку (CVSS 9.8, internet-facing, PII data) = негайне виправлення. XSS у внутрішній адмін-панелі (CVSS 6.1, internal only) = наступний спринт.</li>
+          <li><strong>Remediation</strong> — виправлення: патч, code fix, configuration change, virtual patching через WAF як тимчасовий захід.</li>
+          <li><strong>Verification</strong> — перевірка, що вразливість дійсно виправлена через re-testing.</li>
+          <li><strong>Reporting</strong> — метрики: MTTR (Mean Time to Remediate), кількість відкритих вразливостей за серйозністю, тренди.</li>
+        </ol>
+
+        <p><strong>SLA для виправлення вразливостей у фінансовому секторі:</strong> Critical (CVSS 9.0-10.0) — 24-72 години; High (7.0-8.9) — 7-14 днів; Medium (4.0-6.9) — 30 днів; Low (0.1-3.9) — 90 днів або наступний реліз.</p>
+
+        <p><strong>Bug Bounty у фінансовому секторі.</strong> Програми bug bounty стають нормою для фінансових компаній: PayPal, Mastercard, Goldman Sachs, monobank мають публічні або приватні програми. Переваги: безперервне тестування тисячами дослідників, оплата лише за результат, виявлення вразливостей до зловмисників. Платформи: HackerOne, Bugcrowd, Intigriti. Важливо: чітко визначений scope (що можна тестувати), responsible disclosure policy, safe harbor для дослідників.</p>
+      </section>
+
+      <!-- Summary -->
+      <section>
+        <h2>Підсумок</h2>
+        <p>У цій лекції ми розглянули фундаментальні стандарти та методології безпеки додатків. OWASP Top 10 визначає найкритичніші вразливості, ASVS надає детальний каталог вимог безпеки для різних рівнів критичності, а OWASP Testing Guide та PTES забезпечують системний підхід до тестування. CVSS стандартизує оцінку серйозності, а процес vulnerability management забезпечує своєчасне виправлення вразливостей.</p>
+        <p>Для фінансового сектору ці стандарти є не опціональними, а обов'язковими: PCI DSS, регулятори ЄС та НБУ вимагають регулярний аудит, тестування на проникнення та управління вразливостями як частину compliance-програми.</p>
+        <p><strong>У наступній лекції</strong> ми розглянемо безпеку платіжних систем: PCI DSS, захист карткових транзакцій, мобільні платежі та системи виявлення шахрайства.</p>
+      </section>
+    </article>
+
+    <div class="lecture-nav-bottom">
+      <a href="../../lecture.html?id=6" class="nav-btn">&larr; Назад до лекції</a>
+      <span></span>
+    </div>
+
+    <footer></footer>
+  </main>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+</html>

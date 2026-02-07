@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.1 Сучасний стан кіберзагроз | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../../lecture.html?id=1">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <!-- 1. Title -->
+    <section class="slide active">
+      <span class="slide-icon">🏦</span>
+      <h1>Сучасний стан кіберзагроз у фінансовому секторі</h1>
+      <p class="subtitle">Лекція 1.1</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Модуль 1 — Ландшафт кіберзагроз</span>
+    </section>
+
+    <!-- 2. Ключові цифри -->
+    <section class="slide">
+      <h1>Фінанси — ціль №1</h1>
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-value">23%</div>
+          <div class="stat-label">усіх кібератак спрямовані на фінансовий сектор</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">$5.9M</div>
+          <div class="stat-label">середня вартість одного витоку даних</div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-value">+25%</div>
+          <div class="stat-label">щорічне зростання кількості атак</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.5rem;">
+        <p>За даними IBM X-Force та Verizon DBIR, фінансовий сектор випереджає державний та енергетичний за кількістю інцидентів.</p>
+      </div>
+    </section>
+
+    <!-- 3. Чому фінанси -->
+    <section class="slide">
+      <h1>Чому атакують фінансовий сектор?</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">💰</span>
+          <span class="il-text"><strong>Прямий доступ до грошей</strong> — банківські рахунки, SWIFT-перекази, картки</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📋</span>
+          <span class="il-text"><strong>Масиви конфіденційних даних</strong> — ПІБ, паспорти, фінансова історія клієнтів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔗</span>
+          <span class="il-text"><strong>Складна інфраструктура</strong> — сотні інтеграцій, legacy-системи, API</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⏱️</span>
+          <span class="il-text"><strong>Критичність простою</strong> — хвилини без сервісу = мільйони збитків</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. APT-групи -->
+    <section class="slide">
+      <h1>APT-групи проти фінансів</h1>
+      <h2>Хто стоїть за найбільшими атаками</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-red">
+          <span class="card-icon">🎭</span>
+          <div class="card-title">Carbanak / FIN7</div>
+          <div class="card-text">$1+ млрд викрадено з банків у 40 країнах з 2013 року</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🇰🇵</span>
+          <div class="card-title">Lazarus Group</div>
+          <div class="card-text">Атака на Bangladesh Bank — $81 млн через SWIFT</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🤫</span>
+          <div class="card-title">Silence</div>
+          <div class="card-text">Банки СНД та Східної Європи, знання внутрішніх процесів</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>APT-групи — це не одинаки. Це організовані команди з бюджетами, R&D та місяцями підготовки.</p>
+      </div>
+    </section>
+
+    <!-- 5. Bangladesh Bank -->
+    <section class="slide">
+      <h1>🏦 Bangladesh Bank, 2016</h1>
+      <h2>Анатомія крадіжки $81 млн</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Spear-phishing</div>
+          <div class="step-desc">Фішинговий лист зі шкідливим PDF</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Проникнення</div>
+          <div class="step-desc">Бекдор у внутрішню мережу</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">SWIFT-доступ</div>
+          <div class="step-desc">Компрометація SWIFT-терміналів</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">35 запитів</div>
+          <div class="step-desc">Спроба переказу $951 млн</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">$81 млн</div>
+          <div class="step-desc">Виведено через казино Філіппін</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. NotPetya -->
+    <section class="slide">
+      <h1>💥 NotPetya, 2017</h1>
+      <h2>Supply chain атака, що вразила весь світ</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="icon-list">
+            <div class="icon-list-item">
+              <span class="il-icon">📦</span>
+              <span class="il-text">Поширення через оновлення M.E.Doc</span>
+            </div>
+            <div class="icon-list-item">
+              <span class="il-icon">🌍</span>
+              <span class="il-text">64 країни за 24 години</span>
+            </div>
+            <div class="icon-list-item">
+              <span class="il-icon">🏢</span>
+              <span class="il-text">Maersk, Merck, FedEx, банки</span>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="stat-box red" style="max-width: 100%;">
+            <div class="stat-value">$10+ млрд</div>
+            <div class="stat-label">глобальні збитки — найдорожча кібератака в історії</div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>Компрометація одного постачальника ПЗ паралізувала тисячі організацій по всьому світу.</p>
+      </div>
+    </section>
+
+    <!-- 7. Тренди -->
+    <section class="slide">
+      <h1>Тренди кіберзагроз 2024-2025</h1>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🔐</span>
+          <div class="card-title">Ransomware-as-a-Service</div>
+          <div class="card-text">Готові інструменти за підпискою знижують поріг входу для злочинців</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🤖</span>
+          <div class="card-title">AI-шахрайство</div>
+          <div class="card-text">Deepfake голосу CEO для авторизації переказів. Генерація фішингу через LLM</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔗</span>
+          <div class="card-title">Supply Chain</div>
+          <div class="card-text">Атаки через залежності, SaaS-провайдерів та сторонні API</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🪙</span>
+          <div class="card-title">Крадіжка крипто</div>
+          <div class="card-text">$3.8 млрд вкрадено у 2022 році. Мости, DEX, смарт-контракти</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Підсумок -->
+    <section class="slide">
+      <span class="slide-icon">🎯</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text">Фінансовий сектор — <strong>найприбутковіша ціль</strong> для кіберзлочинців</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text">APT-групи діють як <strong>корпорації</strong> з бюджетами та R&D</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text">Збитки від одного інциденту — <strong>мільярди доларів</strong></span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text">AI та supply chain — <strong>нові виклики</strong> для фінансової безпеки</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../../js/slides.js"></script>
+
+</body>
+</html>

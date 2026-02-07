@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>13.3 Безпека пристроїв | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/slides.css">
+</head>
+<body>
+  <div class="top-controls">
+    <a href="../../lecture.html?id=13"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>До лекції</a>
+    <button onclick="toggleTheme()"><span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span><span id="theme-label">Світла</span></button>
+  </div>
+  <div class="slide-deck">
+    <section class="slide active">
+      <span class="slide-icon">💻</span>
+      <h1>Безпека пристроїв</h1>
+      <p class="subtitle">Лекція 13.3</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Endpoint security, Wi-Fi, VPN, оновлення</span>
+    </section>
+    <section class="slide">
+      <h1>Endpoint Security</h1>
+      <div class="card-grid">
+        <div class="card accent-blue"><span class="card-icon">🔄</span><div class="card-title">Оновлення</div><div class="card-text">Auto-update ОС та додатків. 60% атак через відомі, але невиправлені vuln</div></div>
+        <div class="card accent-green"><span class="card-icon">🛡️</span><div class="card-title">Антивірус / EDR</div><div class="card-text">Windows Defender — базово. CrowdStrike, SentinelOne — корпоративно</div></div>
+        <div class="card accent-orange"><span class="card-icon">🔐</span><div class="card-title">Disk Encryption</div><div class="card-text">BitLocker / FileVault / LUKS. Крадіжка пристрою ≠ крадіжка даних</div></div>
+        <div class="card accent-purple"><span class="card-icon">🔒</span><div class="card-title">Screen Lock</div><div class="card-text">Auto-lock 1-5 хв, PIN/біометрія. Не залишайте розблокованим</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Безпека мережі</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">📶</span><span class="il-text"><strong>Домашній Wi-Fi</strong> — WPA3, складний пароль, зміна admin credentials роутера</span></div>
+        <div class="icon-list-item"><span class="il-icon">☕</span><span class="il-text"><strong>Публічний Wi-Fi</strong> — НІКОЛИ фінансові операції без VPN. MITM тривіальний</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔒</span><span class="il-text"><strong>VPN</strong> — WireGuard для особистого, корпоративний VPN для роботи</span></div>
+        <div class="icon-list-item"><span class="il-icon">🏠</span><span class="il-text"><strong>IoT</strong> — розумні пристрої в окрему мережу (guest network), оновлення firmware</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Мобільна безпека</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">✅</span>
+            <div class="card-title">Робіть</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Оновлюйте ОС та додатки<br>Завантажуйте з офіц. stores<br>Увімкніть Find My Device<br>Біометрія + PIN для lock<br>Перевіряйте permissions</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">🚫</span>
+            <div class="card-title">Не робіть</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Root / jailbreak<br>APK з невідомих джерел<br>Public Wi-Fi без VPN<br>Підключення до чужих USB<br>Ігнорування оновлень</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>Оновлення</strong> — #1 захист: auto-update закриває 60% відомих вразливостей</span></div>
+        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>Full Disk Encryption</strong> — BitLocker/FileVault на кожному пристрої</span></div>
+        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Public Wi-Fi</strong> — тільки з VPN, ніколи фінансові операції без захисту</span></div>
+        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>IoT</strong> — окрема мережа для розумних пристроїв</span></div>
+      </div>
+    </section>
+  </div>
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+  <div class="controls"><button onclick="prev()">&#8592;</button><button onclick="next()">&#8594;</button></div>
+  <script src="../../js/slides.js"></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5.3 Безпека баз даних | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../../lecture.html?id=5">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <!-- 1. Title -->
+    <section class="slide active">
+      <span class="slide-icon">🔐</span>
+      <h1>Безпека баз даних</h1>
+      <p class="subtitle">Лекція 5.3</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Шифрування, доступ, аудит, backup</span>
+    </section>
+
+    <!-- 2. Шифрування -->
+    <section class="slide">
+      <h1>Шифрування даних</h1>
+      <h2>Багаторівневий захист фінансових даних</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">💾</span>
+          <div class="card-title">At Rest (TDE)</div>
+          <div class="card-text">Файли БД зашифровані на диску. Oracle TDE, SQL Server TDE, pgcrypto</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🔄</span>
+          <div class="card-title">In Transit</div>
+          <div class="card-text">TLS/SSL між додатком та БД. За замовчуванням — відкритий текст!</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">📊</span>
+          <div class="card-title">Column-level</div>
+          <div class="card-text">Окремі стовпці: PAN, CVV, SSN. Навіть DBA не бачить</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🏗️</span>
+          <div class="card-title">Application-level</div>
+          <div class="card-text">Шифрування ДО збереження. Компрометація БД не дає дані</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Розмежування доступу -->
+    <section class="slide">
+      <h1>Розмежування доступу</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔑</span>
+          <span class="il-text"><strong>Least Privilege:</strong> сервіс аналітики — тільки SELECT, платежі — SELECT/INSERT/UPDATE</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>Row-Level Security:</strong> менеджер бачить лише клієнтів свого відділення</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🎭</span>
+          <span class="il-text"><strong>Dynamic Masking:</strong> call-центр бачить **** **** **** 1234 замість повного PAN</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🚫</span>
+          <span class="il-text"><strong>No direct access:</strong> розробники — через затверджені інструменти з аудитом</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Окремий DB user для кожного мікросервісу. Сервіс нотифікацій НЕ потребує доступу до таблиці transactions.</p>
+      </div>
+    </section>
+
+    <!-- 4. Database Activity Monitoring -->
+    <section class="slide">
+      <h1>Database Activity Monitoring</h1>
+      <h2>Виявлення аномальних запитів</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🚨</span>
+          <div class="card-title">Mass Export</div>
+          <div class="card-text">SELECT * з таблиці мільйонів клієнтів — аларм!</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🌙</span>
+          <div class="card-title">Off-hours</div>
+          <div class="card-text">Запити до production о 3:00 AM — підозріло</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔧</span>
+          <div class="card-title">DDL Changes</div>
+          <div class="card-text">ALTER TABLE, DROP — повинні бути заплановані</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📋</span>
+          <div class="card-title">Audit Trail</div>
+          <div class="card-text">IBM Guardium, Imperva, Oracle Audit Vault</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Backup Security -->
+    <section class="slide">
+      <h1>Безпека резервних копій</h1>
+      <h2>Backup = повна копія ВСІХ даних</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔐</span>
+          <span class="il-text"><strong>Шифрування:</strong> AES-256 для всіх backup-файлів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔑</span>
+          <span class="il-text"><strong>Доступ:</strong> окремі credentials для backup storage</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🌍</span>
+          <span class="il-text"><strong>Geo-separation:</strong> backup в іншій локації/регіоні</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🧪</span>
+          <span class="il-text"><strong>Тестування:</strong> регулярне відновлення для перевірки цілісності</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Кейс 2020: незашифрований backup PostgreSQL банку → публічний S3 bucket → 500K клієнтів скомпрометовано.</p>
+      </div>
+    </section>
+
+    <!-- 6. PCI DSS вимоги -->
+    <section class="slide">
+      <h1>PCI DSS для баз даних</h1>
+      <h2>Обов'язкові вимоги для карткових даних</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Req 3:</strong> Шифрувати PAN at rest. Ніколи не зберігати CVV після авторизації</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Req 4:</strong> Шифрування in transit через TLS 1.2+ для карткових даних</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">7️⃣</span>
+          <span class="il-text"><strong>Req 7:</strong> Доступ до карткових даних тільки за business need-to-know</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔟</span>
+          <span class="il-text"><strong>Req 10:</strong> Логування та моніторинг всього доступу до карткових даних</span>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>Штрафи PCI DSS за non-compliance: $5,000 — $100,000 на місяць. Плюс відповідальність за витік.</p>
+      </div>
+    </section>
+
+    <!-- 7. Tokenization -->
+    <section class="slide">
+      <h1>Tokenization</h1>
+      <h2>Заміна PAN на безпечний токен</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">PAN → Vault</div>
+          <div class="step-desc">Реальний номер картки зберігається у захищеному сховищі</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Token</div>
+          <div class="step-desc">Замість PAN видається випадковий токен</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Використання</div>
+          <div class="step-desc">Додаток працює з токеном, не з PAN</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Детокенізація</div>
+          <div class="step-desc">Лише при оплаті — PAN повертається процесору</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Tokenization зменшує scope PCI DSS: більшість систем ніколи не бачать реальний PAN.</p>
+      </div>
+    </section>
+
+    <!-- 8. Підсумок -->
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>Шифрування</strong> — at rest + in transit + column-level для PAN/CVV</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>Least Privilege</strong> — окремий DB user для кожного сервісу</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>Моніторинг</strong> — DAM для виявлення аномалій та аудиту</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Tokenization</strong> — замінює PAN токеном, зменшує PCI DSS scope</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../../js/slides.js"></script>
+
+</body>
+</html>

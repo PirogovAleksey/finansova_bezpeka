@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>15.3 Кібербезпека в умовах війни | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/slides.css">
+</head>
+<body>
+  <div class="top-controls">
+    <a href="../../lecture.html?id=15"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>До лекції</a>
+    <button onclick="toggleTheme()"><span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span><span id="theme-label">Світла</span></button>
+  </div>
+  <div class="slide-deck">
+    <section class="slide active">
+      <span class="slide-icon">⚔️</span>
+      <h1>Кібербезпека в умовах війни</h1>
+      <p class="subtitle">Лекція 15.3</p>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Досвід України, кібервійна, resilience</span>
+    </section>
+    <section class="slide">
+      <h1>Атаки на фінансову інфраструктуру</h1>
+      <div class="card-grid">
+        <div class="card accent-red"><span class="card-icon">💀</span><div class="card-title">WhisperGate / HermeticWiper</div><div class="card-text">Деструктивне malware для знищення даних. Січень-лютий 2022, напередодні вторгнення</div></div>
+        <div class="card accent-orange"><span class="card-icon">🌊</span><div class="card-title">DDoS-атаки</div><div class="card-text">Масові DDoS на ПриватБанк, Ощадбанк для дестабілізації та паніки</div></div>
+        <div class="card accent-purple"><span class="card-icon">🎣</span><div class="card-title">Spear Phishing</div><div class="card-text">Від імені НБУ, банків, Держспецзв'язку. Збір credentials, розповсюдження malware</div></div>
+        <div class="card accent-blue"><span class="card-icon">🔗</span><div class="card-title">Supply Chain</div><div class="card-text">Атаки на ІТ-постачальників фінансових установ як вектор проникнення</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Хронологія кібератак 2022</h1>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><div class="step-title">Січень 2022</div><div class="step-desc">WhisperGate — wiper атака на державні сайти</div></div>
+        <div class="step"><div class="step-num">02</div><div class="step-title">15 лютого</div><div class="step-desc">Масовий DDoS на банки та Міноброни</div></div>
+        <div class="step"><div class="step-num">03</div><div class="step-title">23 лютого</div><div class="step-desc">HermeticWiper — знищення даних перед вторгненням</div></div>
+        <div class="step"><div class="step-num">04</div><div class="step-title">24 лютого+</div><div class="step-desc">Безперервні кібератаки паралельно з військовими діями</div></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Уроки та досягнення</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">☁️</span><span class="il-text"><strong>Cloud migration</strong> — перенесення критичних систем у хмару забезпечило безперервність при фізичних загрозах</span></div>
+        <div class="icon-list-item"><span class="il-icon">💪</span><span class="il-text"><strong>Resilience</strong> — СЕП, безготівкові платежі, інтернет-банкінг працювали безперервно</span></div>
+        <div class="icon-list-item"><span class="il-icon">🌍</span><span class="il-text"><strong>Міжнародна допомога</strong> — CISA (США), ENISA (ЄС), Microsoft, Google, Cloudflare</span></div>
+        <div class="icon-list-item"><span class="il-icon">🤝</span><span class="il-text"><strong>Координація</strong> — посилена взаємодія CERT-UA, НБУ, банків та партнерів</span></div>
+      </div>
+    </section>
+    <section class="slide">
+      <h1>Фінансова система витримала</h1>
+      <div class="stat-row">
+        <div class="stat-box"><div class="stat-value">0 днів</div><div class="stat-label">Простою платіжної системи</div></div>
+        <div class="stat-box"><div class="stat-value">24/7</div><div class="stat-label">Робота СЕП та інтернет-банкінгу</div></div>
+        <div class="stat-box"><div class="stat-value">100+</div><div class="stat-label">Відбитих великих кібератак</div></div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.5rem;">Україна довела: фінансова система може працювати навіть під <strong>безпрецедентним кібертиском</strong>, якщо є підготовка, координація та resilience</div>
+    </section>
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>Кібервійна</strong> — невід'ємна частина сучасного збройного конфлікту</span></div>
+        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>Cloud migration</strong> — критичний фактор виживання під фізичними загрозами</span></div>
+        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Resilience</strong> — платіжна система України працювала безперервно</span></div>
+        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>Досвід України</strong> — унікальна цінність для глобальної кібербезпеки</span></div>
+      </div>
+    </section>
+  </div>
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+  <div class="controls"><button onclick="prev()">&#8592;</button><button onclick="next()">&#8594;</button></div>
+  <script src="../../js/slides.js"></script>
+</body>
+</html>

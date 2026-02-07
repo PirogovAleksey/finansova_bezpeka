@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4.1 Cross-Site Scripting (XSS) | Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/slides.css">
+</head>
+<body>
+
+  <div class="top-controls">
+    <a href="../../lecture.html?id=4">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      До лекції
+    </a>
+    <button onclick="toggleTheme()">
+      <span id="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>
+      <span id="theme-label">Світла</span>
+    </button>
+  </div>
+
+  <div class="slide-deck">
+
+    <!-- 1. Title -->
+    <section class="slide active">
+      <span class="slide-icon">💉</span>
+      <h1>Cross-Site Scripting (XSS)</h1>
+      <p class="subtitle">Лекція 4.1</p>
+      <span class="tag tag-red" style="margin-top: 1rem;">Найпоширеніша веб-вразливість</span>
+    </section>
+
+    <!-- 2. Що таке XSS -->
+    <section class="slide">
+      <h1>Що таке XSS?</h1>
+      <h2>Впровадження JavaScript у веб-сторінку</h2>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">#1</div>
+          <div class="stat-label">у bug bounty за кількістю звітів</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">OWASP</div>
+          <div class="stat-label">у кожному релізі Top 10</div>
+        </div>
+      </div>
+      <div class="icon-list" style="margin-top: 1.2rem;">
+        <div class="icon-list-item">
+          <span class="il-icon">💰</span>
+          <span class="il-text"><strong>Крадіжка сесій</strong> — перехоплення cookie інтернет-банкінгу</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔄</span>
+          <span class="il-text"><strong>Підміна реквізитів</strong> — зміна IBAN отримувача у формі платежу</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💳</span>
+          <span class="il-text"><strong>Keylogging</strong> — запис натискань клавіш у полях введення картки</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Три типи XSS -->
+    <section class="slide">
+      <h1>Три типи XSS</h1>
+      <div class="card-grid cols-3">
+        <div class="card accent-orange">
+          <span class="card-icon">↩️</span>
+          <div class="card-title">Reflected</div>
+          <div class="card-text">Payload у URL → відображається у відповіді. Потрібне посилання</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">💾</span>
+          <div class="card-title">Stored</div>
+          <div class="card-text">Зберігається в БД → вражає всіх відвідувачів. Найнебезпечніший</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🌐</span>
+          <div class="card-title">DOM-based</div>
+          <div class="card-text">Виконується в DOM без участі сервера. WAF не бачить</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Stored XSS у полі «Призначення платежу» → скрипт виконується в браузері оператора банку з його привілеями.</p>
+      </div>
+    </section>
+
+    <!-- 4. Reflected XSS -->
+    <section class="slide">
+      <h1>Reflected XSS</h1>
+      <h2>Payload через URL-параметр</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Підготовка</div>
+          <div class="step-desc">Зловмисник створює URL з payload</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Доставка</div>
+          <div class="step-desc">Фішинг-лист з посиланням на домен банку</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Відображення</div>
+          <div class="step-desc">Сервер вставляє payload без екранування</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Виконання</div>
+          <div class="step-desc">JS виконується в контексті bank.com</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Жертва бачить легітимний домен bank.com.ua в адресному рядку і довіряє сторінці.</p>
+      </div>
+    </section>
+
+    <!-- 5. Stored XSS -->
+    <section class="slide">
+      <h1>Stored XSS — найнебезпечніший</h1>
+      <h2>Payload зберігається на сервері</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📝</span>
+          <span class="il-text"><strong>Вектори:</strong> коментарі, ім'я отримувача, призначення платежу, профіль</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">👥</span>
+          <span class="il-text"><strong>Масштаб:</strong> вражає ВСІХ, хто переглядає сторінку — тисячі користувачів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔓</span>
+          <span class="il-text"><strong>Кейс 2019:</strong> XSS в імені рахунку → JS в панелі адміна банку</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚡</span>
+          <span class="il-text"><strong>Не потрібна взаємодія</strong> — жертва просто відкриває сторінку</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Одна Stored XSS = масова компрометація. Зловмисник створює рахунок із шкідливим ім'ям → всі оператори вражені.</p>
+      </div>
+    </section>
+
+    <!-- 6. DOM-based XSS -->
+    <section class="slide">
+      <h1>DOM-based XSS</h1>
+      <h2>Sources → Sinks (без участі сервера)</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">📥</span>
+            <div class="card-title">Sources (джерела)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              location.hash<br>
+              location.search<br>
+              document.referrer<br>
+              window.name<br>
+              postMessage
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">📤</span>
+            <div class="card-title">Sinks (приймачі)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              innerHTML<br>
+              document.write()<br>
+              eval()<br>
+              setTimeout(string)<br>
+              jQuery.html()
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>Payload через fragment (#) не передається на сервер → серверні WAF безсилі. Тільки клієнтський захист.</p>
+      </div>
+    </section>
+
+    <!-- 7. Контексти ін'єкції -->
+    <section class="slide">
+      <h1>Контексти ін'єкції</h1>
+      <h2>Різний контекст = різне екранування</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">📄</span>
+          <div class="card-title">HTML body</div>
+          <div class="card-text">&lt; → &amp;lt; &gt; → &amp;gt;</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🏷️</span>
+          <div class="card-title">HTML attribute</div>
+          <div class="card-text">+ екранування лапок " '</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">⚙️</span>
+          <div class="card-title">JavaScript</div>
+          <div class="card-text">Unicode-escape \uXXXX</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔗</span>
+          <div class="card-title">URL parameter</div>
+          <div class="card-text">Percent-encoding %XX</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Універсального захисту не існує! Екранування для HTML не працює в JavaScript-контексті і навпаки.</p>
+      </div>
+    </section>
+
+    <!-- 8. Підсумок -->
+    <section class="slide">
+      <span class="slide-icon">🛡️</span>
+      <h1>Ключові висновки</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">1️⃣</span>
+          <span class="il-text"><strong>Reflected</strong> — через URL, потрібне посилання, email-фішинг</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">2️⃣</span>
+          <span class="il-text"><strong>Stored</strong> — у БД, вражає всіх, найнебезпечніший для FinTech</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">3️⃣</span>
+          <span class="il-text"><strong>DOM-based</strong> — без серверу, невидимий для WAF</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">4️⃣</span>
+          <span class="il-text"><strong>Контекст важливий</strong> — кожне місце вимагає свого encoding</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="slide-counter" id="counter"></div>
+  <div class="slide-progress" id="progress"></div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <button onclick="next()">&#8594;</button>
+  </div>
+
+  <script src="../../js/slides.js"></script>
+
+</body>
+</html>
