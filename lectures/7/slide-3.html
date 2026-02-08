@@ -27,7 +27,7 @@
       <span class="slide-icon">📱</span>
       <h1>Мобільні та електронні платежі</h1>
       <p class="subtitle">Лекція 7.3</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Apple Pay, Google Pay, Open Banking</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Apple Pay, Google Pay, відкритий банкінг</span>
     </section>
 
     <section class="slide">
@@ -36,12 +36,12 @@
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">🔐</span>
-          <div class="card-title">Secure Element</div>
+          <div class="card-title">Захищений елемент (Secure Element)</div>
           <div class="card-text">Ізольований чіп для Device Account Number. Навіть ОС не має доступу</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">🔄</span>
-          <div class="card-title">Dynamic Crypto</div>
+          <div class="card-title">Динамічна криптограма (Dynamic Crypto)</div>
           <div class="card-text">Одноразовий криптограм для кожної транзакції, як EMV-чіп</div>
         </div>
         <div class="card accent-purple">
@@ -51,7 +51,7 @@
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔒</span>
-          <div class="card-title">Privacy</div>
+          <div class="card-title">Конфіденційність (Privacy)</div>
           <div class="card-text">Apple/Google не знають деталей. Merchant не бачить PAN</div>
         </div>
       </div>
@@ -63,7 +63,7 @@
         <div class="col">
           <div class="card accent-orange" style="height: 100%;">
             <span class="card-icon">🏪</span>
-            <div class="card-title">Merchant QR</div>
+            <div class="card-title">QR торговця (Merchant QR)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Торговець показує QR<br>
               Клієнт сканує та платить<br>
@@ -75,7 +75,7 @@
         <div class="col">
           <div class="card accent-green" style="height: 100%;">
             <span class="card-icon">👤</span>
-            <div class="card-title">Customer QR</div>
+            <div class="card-title">QR клієнта (Customer QR)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Клієнт показує QR<br>
               Динамічний одноразовий токен<br>
@@ -119,22 +119,22 @@
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">🔐</span>
-          <div class="card-title">Encrypted Storage</div>
+          <div class="card-title">Зашифроване сховище (Encrypted Storage)</div>
           <div class="card-text">Дані картки зашифровані, не в plaintext</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">👆</span>
-          <div class="card-title">Biometric Lock</div>
+          <div class="card-title">Біометричний замок (Biometric Lock)</div>
           <div class="card-text">Face ID / Touch ID для кожного входу та платежу</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">📌</span>
-          <div class="card-title">Certificate Pinning</div>
+          <div class="card-title">Закріплення сертифіката (Certificate Pinning)</div>
           <div class="card-text">Захист від MITM: додаток перевіряє сертифікат сервера</div>
         </div>
         <div class="card accent-red">
           <span class="card-icon">🔍</span>
-          <div class="card-title">Root Detection</div>
+          <div class="card-title">Виявлення root-доступу (Root Detection)</div>
           <div class="card-text">Блокування на root/jailbreak пристроях</div>
         </div>
       </div>
@@ -194,17 +194,17 @@
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">🧠</span>
-          <div class="card-title">Knowledge</div>
+          <div class="card-title">Знання (Knowledge)</div>
           <div class="card-text">Щось, що знає клієнт: PIN, пароль, секретне питання. Перший фактор</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">📱</span>
-          <div class="card-title">Possession</div>
+          <div class="card-title">Володіння (Possession)</div>
           <div class="card-text">Щось, що має клієнт: телефон (OTP/push), апаратний токен, SIM-картка</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">👆</span>
-          <div class="card-title">Inherence</div>
+          <div class="card-title">Властивість (Inherence)</div>
           <div class="card-text">Щось, чим є клієнт: відбиток пальця, Face ID, голос, поведінкова біометрія</div>
         </div>
         <div class="card accent-orange">
@@ -229,7 +229,7 @@
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Consent Request</div>
+          <div class="step-title">Запит згоди (Consent Request)</div>
           <div class="step-desc">TPP запитує consent через API. Клієнт перенаправляється до банку для підтвердження</div>
         </div>
         <div class="step">
@@ -239,12 +239,12 @@
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Access Token</div>
+          <div class="step-title">Токен доступу (Access Token)</div>
           <div class="step-desc">Банк видає OAuth2 access token з обмеженим scope та терміном дії (90 днів для AIS)</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">API Calls</div>
+          <div class="step-title">API-виклики (API Calls)</div>
           <div class="step-desc">TPP працює через RESTful API з mTLS, підписаними запитами (JWS) та rate limiting</div>
         </div>
       </div>
@@ -256,12 +256,12 @@
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">⚠️</span>
-          <div class="card-title">QR Overlay Attack</div>
+          <div class="card-title">Атака накладання QR (QR Overlay Attack)</div>
           <div class="card-text">Шахрай наклеює свій QR поверх легітимного. Кошти йдуть на рахунок атакуючого</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔗</span>
-          <div class="card-title">Phishing QR</div>
+          <div class="card-title">Фішинговий QR (Phishing QR)</div>
           <div class="card-text">QR веде на фішингову сторінку, що імітує платіжний інтерфейс банку</div>
         </div>
         <div class="card accent-green">

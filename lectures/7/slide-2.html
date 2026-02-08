@@ -27,7 +27,7 @@
       <span class="slide-icon">🔒</span>
       <h1>Безпека карткових транзакцій</h1>
       <p class="subtitle">Лекція 7.2</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">EMV, Tokenization, 3D Secure 2.0</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">EMV, Токенізація (Tokenization), 3D Secure 2.0</span>
     </section>
 
     <section class="slide">
@@ -52,14 +52,14 @@
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Унікальний криптограм<br>
               Неможливо клонувати<br>
-              Dynamic authentication<br>
+              Динамічна автентифікація<br>
               Fraud: -76%
             </div>
           </div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Liability shift: якщо термінал не підтримує чіп — відповідальність за fraud на торговці.</p>
+        <p>Перенесення відповідальності (Liability Shift): якщо термінал не підтримує чіп — відповідальність за шахрайство на торговці.</p>
       </div>
     </section>
 
@@ -83,12 +83,12 @@
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Detokenization</div>
+          <div class="step-title">Детокенізація (Detokenization)</div>
           <div class="step-desc">Лише при оплаті — PAN повертається</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Tokenization зменшує PCI DSS scope: системи з токенами не підпадають під повні вимоги.</p>
+        <p>Токенізація (Tokenization) зменшує обсяг вимог PCI DSS: системи з токенами не підпадають під повні вимоги.</p>
       </div>
     </section>
 
@@ -102,15 +102,15 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Risk-based</strong> — 150+ data points: device, IP, history, merchant</span>
+          <span class="il-text"><strong>На основі ризику (Risk-based)</strong> — 150+ параметрів: пристрій, IP, історія, торговець</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">✨</span>
-          <span class="il-text"><strong>Frictionless flow</strong> — 95% low-risk транзакцій без додаткової перевірки</span>
+          <span class="il-text"><strong>Безперешкодний потік (Frictionless Flow)</strong> — 95% низько-ризикових транзакцій без додаткової перевірки</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔄</span>
-          <span class="il-text"><strong>Liability shift</strong> — при 3DS fraud відповідальність → issuer банк</span>
+          <span class="il-text"><strong>Перенесення відповідальності (Liability Shift)</strong> — при 3DS шахрайство → відповідальність на банку-емітенті</span>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -124,23 +124,23 @@
       <div class="card-grid">
         <div class="card accent-green">
           <span class="card-icon">🔐</span>
-          <div class="card-title">Encrypted at Swipe</div>
+          <div class="card-title">Шифрування при зчитуванні</div>
           <div class="card-text">Дані шифруються в момент зчитування на терміналі</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🔒</span>
-          <div class="card-title">Never in Cleartext</div>
+          <div class="card-title">Ніколи у відкритому вигляді</div>
           <div class="card-text">Дані НІКОЛИ не з'являються у відкритому вигляді в мережі</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">📉</span>
-          <div class="card-title">Reduced Scope</div>
-          <div class="card-text">Значне зменшення PCI DSS scope для торговця</div>
+          <div class="card-title">Зменшення обсягу вимог</div>
+          <div class="card-text">Значне зменшення обсягу вимог PCI DSS для торговця</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🛡️</span>
-          <div class="card-title">Malware Proof</div>
-          <div class="card-text">POS-malware не може перехопити дані — вже зашифровані</div>
+          <div class="card-title">Захист від шкідливого ПЗ</div>
+          <div class="card-text">Шкідливе ПЗ на POS не може перехопити дані — вже зашифровані</div>
         </div>
       </div>
     </section>
@@ -150,22 +150,22 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Cardholder</div>
+          <div class="step-title">Власник картки (Cardholder)</div>
           <div class="step-desc">POS / Online → зчитування картки</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Acquirer</div>
+          <div class="step-title">Банк-еквайєр (Acquirer)</div>
           <div class="step-desc">Банк торговця приймає транзакцію</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Card Network</div>
+          <div class="step-title">Карткова мережа (Card Network)</div>
           <div class="step-desc">Visa / Mastercard маршрутизує</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Issuer</div>
+          <div class="step-title">Банк-емітент (Issuer)</div>
           <div class="step-desc">Банк клієнта авторизує / відхиляє</div>
         </div>
       </div>
@@ -175,27 +175,27 @@
     </section>
 
     <section class="slide">
-      <h1>EMV Chip Transaction Flow</h1>
+      <h1>Потік EMV-транзакції з чіпом</h1>
       <h2>Покрокова обробка чіпової транзакції</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Application Selection</div>
+          <div class="step-title">Вибір додатка (Application Selection)</div>
           <div class="step-desc">Термінал читає AID з чіпа, обирає платіжний додаток (Visa/MC)</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Data Authentication</div>
+          <div class="step-title">Автентифікація даних (Data Authentication)</div>
           <div class="step-desc">SDA/DDA/CDA — перевірка автентичності даних картки через RSA-підписи</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Cardholder Verification</div>
-          <div class="step-desc">PIN Online / PIN Offline / Signature / No CVM (contactless low-value)</div>
+          <div class="step-title">Верифікація власника (Cardholder Verification)</div>
+          <div class="step-desc">PIN Online / PIN Offline / Підпис / Без CVM (безконтактні малі суми)</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Risk Management</div>
+          <div class="step-title">Управління ризиками (Risk Management)</div>
           <div class="step-desc">Чіп перевіряє: floor limit, velocity, offline counter. Рішення: approve/decline/go online</div>
         </div>
         <div class="step">
@@ -212,22 +212,22 @@
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">🏦</span>
-          <div class="card-title">Token Service Provider</div>
+          <div class="card-title">Постачальник токен-сервісу (Token Service Provider)</div>
           <div class="card-text">Visa VTS / MC MDES — генерація, зберігання маппінгу token↔PAN, lifecycle management</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">🗄️</span>
-          <div class="card-title">Token Vault</div>
+          <div class="card-title">Токен-сховище (Token Vault)</div>
           <div class="card-text">HSM-захищене сховище. PAN зашифрований AES-256. Доступ лише через API з mTLS</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔄</span>
-          <div class="card-title">Token Types</div>
+          <div class="card-title">Типи токенів (Token Types)</div>
           <div class="card-text">Payment token (для транзакцій), Security token (для зберігання), Device token (прив'язаний до пристрою)</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">📋</span>
-          <div class="card-title">Domain Restriction</div>
+          <div class="card-title">Доменне обмеження (Domain Restriction)</div>
           <div class="card-text">Токен обмежений: конкретний merchant, канал (e-com/POS), пристрій. Викрадений токен — марний</div>
         </div>
       </div>
@@ -252,12 +252,12 @@
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Risk Assessment</div>
+          <div class="step-title">Оцінка ризиків (Risk Assessment)</div>
           <div class="step-desc">ACS аналізує 150+ data points: device, history, сума, merchant risk, геолокація</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Frictionless / Challenge</div>
+          <div class="step-title">Безперешкодний / Перевірка (Frictionless / Challenge)</div>
           <div class="step-desc">Low risk → frictionless (автоматичне OK). High risk → challenge (OTP, push, біометрія)</div>
         </div>
         <div class="step">

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
@@ -35,22 +35,22 @@
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">🎯</span>
-          <div class="card-title">Evasion</div>
+          <div class="card-title">Ухилення (Evasion)</div>
           <div class="card-text">Мінімальна зміна input для обходу моделі. Fraud, що мімікрує легітимну</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">☠️</span>
-          <div class="card-title">Poisoning</div>
+          <div class="card-title">Отруєння (Poisoning)</div>
           <div class="card-text">Шкідливі дані у навчальному датасеті → backdoor у моделі</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔍</span>
-          <div class="card-title">Model Extraction</div>
+          <div class="card-title">Вилучення моделі (Model Extraction)</div>
           <div class="card-text">Тисячі запитів до API → відтворення логіки моделі</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🔓</span>
-          <div class="card-title">Model Inversion</div>
+          <div class="card-title">Інверсія моделі (Model Inversion)</div>
           <div class="card-text">Витік навчальних даних через аналіз outputs моделі</div>
         </div>
       </div>
@@ -89,7 +89,7 @@
         <div class="col">
           <div class="card accent-red" style="height: 100%;">
             <span class="card-icon">⬛</span>
-            <div class="card-title">Black Box</div>
+            <div class="card-title">Чорна скринька (Black Box)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               «Транзакцію заблоковано»<br>
               Чому? Невідомо<br>
@@ -101,7 +101,7 @@
         <div class="col">
           <div class="card accent-green" style="height: 100%;">
             <span class="card-icon">🔍</span>
-            <div class="card-title">Explainable AI</div>
+            <div class="card-title">Пояснюваний ШІ (Explainable AI)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               SHAP: внесок кожної ознаки<br>
               LIME: локальне пояснення<br>
@@ -149,7 +149,7 @@
         </div>
         <div class="card accent-orange">
           <span class="card-icon">⚠️</span>
-          <div class="card-title">High-risk</div>
+          <div class="card-title">Високоризиковий (High-risk)</div>
           <div class="card-text">Credit scoring, fraud detection, insurance. Human oversight обов'язковий</div>
         </div>
         <div class="card accent-blue">
@@ -171,7 +171,7 @@
         <div class="col">
           <div class="card accent-red" style="height: 100%;">
             <span class="card-icon">💳</span>
-            <div class="card-title">Evasion у Fraud Detection</div>
+            <div class="card-title">Ухилення у виявленні шахрайства (Evasion in Fraud Detection)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Розбити $10K на 47 транзакцій<br>
               Додати легітимні покупки між fraud<br>
@@ -203,17 +203,17 @@
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">💉</span>
-          <div class="card-title">Data Poisoning</div>
+          <div class="card-title">Отруєння даних (Data Poisoning)</div>
           <div class="card-text">Впровадження шкідливих зразків у навчальні дані: fraud-транзакції маркуються як легітимні</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🚪</span>
-          <div class="card-title">Backdoor Attack</div>
+          <div class="card-title">Атака через бекдор (Backdoor Attack)</div>
           <div class="card-text">Тригер у input (конкретний merchant + час) = модель завжди пропускає fraud</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔧</span>
-          <div class="card-title">Model Tampering</div>
+          <div class="card-title">Підробка моделі (Model Tampering)</div>
           <div class="card-text">Несанкціонована зміна ваг моделі у production через supply chain compromise</div>
         </div>
         <div class="card accent-blue">
@@ -229,27 +229,27 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Inventory</div>
+          <div class="step-title">Інвентаризація (Inventory)</div>
           <div class="step-desc">Реєстр усіх AI/ML моделей: ціль, дані, ризик, відповідальний власник</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Risk Assessment</div>
+          <div class="step-title">Оцінка ризиків (Risk Assessment)</div>
           <div class="step-desc">Класифікація моделей за рівнем ризику: low / medium / high / critical</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Validation</div>
+          <div class="step-title">Валідація (Validation)</div>
           <div class="step-desc">Незалежна валідація: accuracy, fairness, robustness, explainability тести</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Monitoring</div>
+          <div class="step-title">Моніторинг (Monitoring)</div>
           <div class="step-desc">Production моніторинг: drift detection, performance degradation, bias alerts</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">Audit Trail</div>
+          <div class="step-title">Журнал аудиту (Audit Trail)</div>
           <div class="step-desc">Повний аудит: версії моделей, дані навчання, рішення, зміни для регулятора</div>
         </div>
       </div>
@@ -317,3 +317,4 @@
 
 </body>
 </html>
+

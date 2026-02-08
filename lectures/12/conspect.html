@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Конспект лекції 12: Цифрова форензика та реагування на інциденти — IR, збір доказів, CSIRT.">
+  <meta name="description" content="Конспект лекції 12: Цифрова форензика (Digital Forensics) та реагування на інциденти (Incident Response) — збір доказів, CSIRT.">
   <meta name="author" content="Кафедра ТЕІБ, Ужгородський національний університет">
   <meta name="theme-color" content="#0ea5e9">
   <title>Конспект: Лекція 12 — Фінансова Безпека</title>
@@ -55,16 +55,16 @@
       </div>
 
       <section>
-        <h2>12.1 Incident Response Framework</h2>
-        <p>Incident Response (IR) — це структурований процес виявлення, аналізу, стримування та усунення кіберінцидентів. Для фінансових установ ефективний IR є критичним: середня вартість витоку даних у фінансовому секторі становить $5.9 млн (IBM Cost of a Data Breach 2024), а час виявлення (Mean Time to Detect, MTTD) — в середньому 204 дні.</p>
-        <p><strong>NIST SP 800-61 — чотири фази Incident Response:</strong></p>
+        <h2>12.1 Фреймворк реагування на інциденти (Incident Response Framework)</h2>
+        <p>Реагування на інциденти (Incident Response, IR) — це структурований процес виявлення, аналізу, стримування та усунення кіберінцидентів. Для фінансових установ ефективний IR є критичним: середня вартість витоку даних у фінансовому секторі становить $5.9 млн (IBM Cost of a Data Breach 2024), а час виявлення (Mean Time to Detect, MTTD) — в середньому 204 дні.</p>
+        <p><strong>NIST SP 800-61 — чотири фази реагування на інциденти (Incident Response):</strong></p>
         <ol>
-          <li><strong>Preparation (підготовка)</strong> — формування CSIRT-команди, розробка IR-плану та playbooks, впровадження інструментів (SIEM, EDR, SOAR), тренування через tabletop exercises та red team/blue team вправи.</li>
-          <li><strong>Detection & Analysis (виявлення та аналіз)</strong> — моніторинг алертів з SIEM/EDR, тріаж інцидентів за severity (Critical/High/Medium/Low), визначення scope та impact, класифікація за типом (malware, unauthorized access, data breach, DDoS).</li>
-          <li><strong>Containment, Eradication & Recovery (стримування, ліквідація, відновлення)</strong> — ізоляція уражених систем (short-term containment), видалення загрози та закриття вектора атаки (eradication), відновлення систем із чистих резервних копій (recovery).</li>
-          <li><strong>Post-Incident Activity (пост-інцидентна діяльність)</strong> — lessons learned нарада, оновлення playbooks, звітування регуляторам (НБУ вимагає повідомлення про кіберінциденти), покращення захисту.</li>
+          <li><strong>Підготовка (Preparation)</strong> — формування CSIRT-команди, розробка IR-плану та playbooks, впровадження інструментів (SIEM, EDR, SOAR), тренування через tabletop exercises та red team/blue team вправи.</li>
+          <li><strong>Виявлення та аналіз (Detection & Analysis)</strong> — моніторинг алертів з SIEM/EDR, тріаж інцидентів за severity (Critical/High/Medium/Low), визначення scope та impact, класифікація за типом (malware, unauthorized access, data breach, DDoS).</li>
+          <li><strong>Стримування, ліквідація та відновлення (Containment, Eradication & Recovery)</strong> — ізоляція уражених систем (short-term containment), видалення загрози та закриття вектора атаки (eradication), відновлення систем із чистих резервних копій (recovery).</li>
+          <li><strong>Пост-інцидентна діяльність (Post-Incident Activity)</strong> — lessons learned нарада, оновлення playbooks, звітування регуляторам (НБУ вимагає повідомлення про кіберінциденти), покращення захисту.</li>
         </ol>
-        <p><strong>Playbooks</strong> — заздалегідь підготовлені покрокові інструкції для типових інцидентів: ransomware, phishing, data breach, insider threat, DDoS. Кожен playbook визначає: хто відповідальний, які кроки, кого повідомити, які інструменти використати. Автоматизація через SOAR (Security Orchestration, Automation and Response) дозволяє виконувати стандартні дії автоматично.</p>
+        <p><strong>Сценарії реагування (Playbooks)</strong> — заздалегідь підготовлені покрокові інструкції для типових інцидентів: ransomware, phishing, data breach, insider threat, DDoS. Кожен playbook визначає: хто відповідальний, які кроки, кого повідомити, які інструменти використати. Автоматизація через SOAR (Security Orchestration, Automation and Response) дозволяє виконувати стандартні дії автоматично.</p>
 
         <h3>Фази NIST SP 800-61 — зведена таблиця</h3>
 <pre><code>┌─────────────────────────────────┬──────────────────────────────────────────────────────┬──────────────────────────────────┐
@@ -136,7 +136,7 @@
     ☐ Клієнти — якщо скомпрометовані персональні дані (72 год GDPR)
     ☐ Страхова компанія (кіберстрахування) — протягом 24 годин</code></pre>
 
-        <h3>Класифікація інцидентів за рівнем критичності (Severity)</h3>
+        <h3>Класифікація інцидентів за рівнем критичності</h3>
 <pre><code>┌──────────┬───────────────────────────────┬───────────────────────────────────────┬──────────────┬──────────────────┐
 │ Severity │ Опис                          │ Приклади                              │ Час реакції  │ Ескалація        │
 ├──────────┼───────────────────────────────┼───────────────────────────────────────┼──────────────┼──────────────────┤
@@ -199,13 +199,13 @@
       <section>
         <h2>12.2 Збір цифрових доказів</h2>
         <p>Цифрова форензика (Digital Forensics) — це процес збору, збереження, аналізу та представлення цифрових доказів у спосіб, що забезпечує їх допустимість у суді. Ключовий принцип: доказ повинен бути автентичним, цілісним та отриманим законним шляхом.</p>
-        <p><strong>Chain of Custody (ланцюжок зберігання):</strong></p>
+        <p><strong>Ланцюжок зберігання доказів (Chain of Custody):</strong></p>
         <ul>
           <li>Документування кожного кроку роботи з доказом: хто, коли, що робив, де зберігався доказ.</li>
           <li>Порушення chain of custody може зробити доказ недопустимим у суді.</li>
           <li>Кожна передача доказу фіксується: дата, час, від кого, кому, мета передачі.</li>
         </ul>
-        <p><strong>Order of Volatility (порядок збору за волатильністю):</strong></p>
+        <p><strong>Порядок збору за волатильністю (Order of Volatility):</strong></p>
         <ol>
           <li><strong>Registers, cache</strong> — зникають миттєво при вимкненні.</li>
           <li><strong>RAM (оперативна пам'ять)</strong> — процеси, мережеві з'єднання, ключі шифрування, malware в пам'яті.</li>
@@ -214,8 +214,8 @@
           <li><strong>Logs (віддалені)</strong> — SIEM, мережеві пристрої, хмарні сервіси.</li>
           <li><strong>Архівні дані</strong> — бекапи, стрічки.</li>
         </ol>
-        <p><strong>Forensic imaging</strong> — створення побітової копії (bit-for-bit image) диска з використанням write blocker (апаратний пристрій, що запобігає запису на оригінальний носій). Інструменти: FTK Imager, dd, dc3dd. Цілісність підтверджується хеш-сумою (SHA-256) оригіналу та копії.</p>
-        <p><strong>Memory forensics</strong> — аналіз дампу оперативної пам'яті за допомогою Volatility Framework: виявлення malware, що працює лише в пам'яті (fileless malware), отримання ключів шифрування, аналіз мережевих з'єднань, виявлення прихованих процесів.</p>
+        <p><strong>Криміналістичне копіювання (Forensic Imaging)</strong> — створення побітової копії (bit-for-bit image) диска з використанням write blocker (апаратний пристрій, що запобігає запису на оригінальний носій). Інструменти: FTK Imager, dd, dc3dd. Цілісність підтверджується хеш-сумою (SHA-256) оригіналу та копії.</p>
+        <p><strong>Форензика пам'яті (Memory Forensics)</strong> — аналіз дампу оперативної пам'яті за допомогою Volatility Framework: виявлення malware, що працює лише в пам'яті (fileless malware), отримання ключів шифрування, аналіз мережевих з'єднань, виявлення прихованих процесів.</p>
 
         <h3>Створення форензичного образу диска за допомогою dd/dc3dd</h3>
 <pre><code># ============================================================
@@ -457,27 +457,27 @@ $ sha256sum /mnt/usb/memory_dump.lime</code></pre>
       <section>
         <h2>12.3 Аналіз інцидентів</h2>
         <p>Після збору доказів проводиться їх аналіз для відповіді на ключові питання: що сталося? Як зловмисник отримав доступ? Які дані скомпрометовано? Хто стоїть за атакою?</p>
-        <p><strong>Malware Analysis:</strong></p>
+        <p><strong>Аналіз шкідливого ПЗ (Malware Analysis):</strong></p>
         <ul>
-          <li><strong>Static analysis</strong> — аналіз без запуску: strings, PE-заголовки, imports, хеші (VirusTotal), packer detection.</li>
-          <li><strong>Dynamic analysis</strong> — запуск у sandbox (ANY.RUN, Joe Sandbox): моніторинг файлових операцій, реєстру, мережевих з'єднань, C2-комунікацій.</li>
-          <li><strong>Reverse engineering</strong> — дизасемблювання (IDA Pro, Ghidra) для глибокого розуміння логіки malware.</li>
+          <li><strong>Статичний аналіз (Static Analysis)</strong> — аналіз без запуску: strings, PE-заголовки, imports, хеші (VirusTotal), packer detection.</li>
+          <li><strong>Динамічний аналіз (Dynamic Analysis)</strong> — запуск у sandbox (ANY.RUN, Joe Sandbox): моніторинг файлових операцій, реєстру, мережевих з'єднань, C2-комунікацій.</li>
+          <li><strong>Зворотна інженерія (Reverse Engineering)</strong> — дизасемблювання (IDA Pro, Ghidra) для глибокого розуміння логіки malware.</li>
         </ul>
-        <p><strong>Network Forensics:</strong></p>
+        <p><strong>Мережева форензика (Network Forensics):</strong></p>
         <ul>
           <li>Аналіз PCAP-файлів (Wireshark, NetworkMiner) для відстеження мережевої активності зловмисника.</li>
           <li>Виявлення C2-каналів, data exfiltration, lateral movement через аналіз NetFlow та DNS-логів.</li>
-          <li>Timeline reconstruction: побудова хронології подій на основі мережевих логів, firewall та proxy.</li>
+          <li>Реконструкція хронології (Timeline Reconstruction): побудова хронології подій на основі мережевих логів, firewall та proxy.</li>
         </ul>
-        <p><strong>Log Analysis:</strong></p>
+        <p><strong>Аналіз журналів (Log Analysis):</strong></p>
         <ul>
           <li>Кореляція логів з різних джерел: Windows Event Logs, Syslog, веб-сервери, бази даних, хмарні платформи.</li>
           <li>SIEM (Splunk, Elastic SIEM, Microsoft Sentinel) для централізованого пошуку та кореляції подій.</li>
-          <li>Sigma rules — стандартизований формат правил для виявлення загроз у логах, сумісний з різними SIEM.</li>
+          <li>Правила Sigma (Sigma Rules) — стандартизований формат правил для виявлення загроз у логах, сумісний з різними SIEM.</li>
         </ul>
         <p><strong>MITRE ATT&CK Framework</strong> — використовується для класифікації тактик та технік зловмисника: Initial Access → Execution → Persistence → Privilege Escalation → Defense Evasion → Credential Access → Discovery → Lateral Movement → Collection → Exfiltration → Impact.</p>
 
-        <h3>Sigma Rule — виявлення Lateral Movement (PsExec)</h3>
+        <h3>Правило Sigma — виявлення бічного переміщення (Lateral Movement) через PsExec</h3>
 <pre><code># ============================================================
 # Sigma Rule: Виявлення Lateral Movement через PsExec
 # MITRE ATT&amp;CK: T1021.002 (Remote Services: SMB/Windows Admin Shares)
@@ -535,7 +535,7 @@ falsepositives:
 # Конвертація в Elastic Query:
 # event.code: "7045" AND winlog.event_data.ServiceName: *PSEXESVC*</code></pre>
 
-        <h3>YARA Rule — виявлення банківського malware</h3>
+        <h3>Правило YARA — виявлення банківського шкідливого ПЗ</h3>
 <pre><code>/*
  * YARA Rule: Виявлення банківського трояна (Emotet-like behavior)
  * Використання: yara -r banking_trojan.yar /path/to/suspicious/files/
@@ -588,7 +588,7 @@ rule Banking_Trojan_Emotet_Indicators
  * $ yara -r banking_trojan.yar -p 4 /mnt/disk_image/  # 4 потоки
  */</code></pre>
 
-        <h3>Volatility Framework — аналіз дампу пам'яті</h3>
+        <h3>Аналіз дампу пам'яті за допомогою Volatility Framework</h3>
 <pre><code># ============================================================
 # Volatility 3 — Memory Forensics Commands
 # Аналіз дампу пам'яті скомпрометованої системи
@@ -643,7 +643,7 @@ $ vol3 -f memory_dump.raw windows.registry.printkey \
 # REG_SZ  WindowsUpdate  C:\Users\admin\AppData\Local\Temp\svchost.exe
 #                         ↑ ПІДОЗРІЛО: легітимний svchost НЕ в Temp!</code></pre>
 
-        <h3>Аналіз логів за допомогою grep/awk — виявлення підозрілої активності</h3>
+        <h3>Аналіз журналів за допомогою grep/awk — виявлення підозрілої активності</h3>
 <pre><code># ============================================================
 # Log Analysis — пошук слідів атаки в системних логах
 # ============================================================
@@ -691,7 +691,7 @@ $ sort -t' ' -k1,2 \
     grep "Oct 15" | \
     awk '$0 ~ /09:4[0-9]/' &gt; timeline_0940_0950.txt</code></pre>
 
-        <h3>Wireshark Display Filters — аналіз C2 трафіку</h3>
+        <h3>Фільтри відображення Wireshark (Display Filters) — аналіз C2-трафіку</h3>
 <pre><code># ============================================================
 # Wireshark Display Filters для виявлення C2 та exfiltration
 # Застосовувати до PCAP-файлів, зібраних під час інциденту
@@ -750,25 +750,25 @@ kerberos.cipher_type == 23   # RC4 (downgrade attack indicator)
       </section>
 
       <section>
-        <h2>12.4 Побудова CSIRT та post-incident</h2>
+        <h2>12.4 Побудова CSIRT та пост-інцидентна діяльність</h2>
         <p>CSIRT (Computer Security Incident Response Team) — спеціалізована команда для реагування на кіберінциденти. Для фінансових установ наявність CSIRT є де-факто вимогою регуляторів.</p>
         <p><strong>Структура CSIRT:</strong></p>
         <ul>
-          <li><strong>Incident Manager</strong> — координує реагування, комунікація з керівництвом та регуляторами.</li>
-          <li><strong>SOC Analysts (L1/L2/L3)</strong> — моніторинг, тріаж, розслідування інцидентів.</li>
-          <li><strong>Forensic Analyst</strong> — збір та аналіз цифрових доказів.</li>
-          <li><strong>Threat Intelligence</strong> — аналіз загроз, IOC, attribution.</li>
-          <li><strong>Communications</strong> — зв'язок із клієнтами, медіа, регуляторами.</li>
-          <li><strong>Legal</strong> — юридичні аспекти, compliance, взаємодія з правоохоронцями.</li>
+          <li><strong>Менеджер інцидентів (Incident Manager)</strong> — координує реагування, комунікація з керівництвом та регуляторами.</li>
+          <li><strong>Аналітики SOC (L1/L2/L3)</strong> — моніторинг, тріаж, розслідування інцидентів.</li>
+          <li><strong>Форензик-аналітик (Forensic Analyst)</strong> — збір та аналіз цифрових доказів.</li>
+          <li><strong>Аналіз загроз (Threat Intelligence)</strong> — аналіз загроз, IOC, атрибуція.</li>
+          <li><strong>Комунікації (Communications)</strong> — зв'язок із клієнтами, медіа, регуляторами.</li>
+          <li><strong>Юридична підтримка (Legal)</strong> — юридичні аспекти, compliance, взаємодія з правоохоронцями.</li>
         </ul>
-        <p><strong>Lessons Learned:</strong></p>
+        <p><strong>Засвоєні уроки (Lessons Learned):</strong></p>
         <ul>
           <li>Нарада протягом 1-2 тижнів після закриття інциденту з усіма учасниками.</li>
           <li>Питання: що спрацювало? Що ні? Де були затримки? Які покращення потрібні?</li>
           <li>Оновлення playbooks, політик, технічних контролів на основі отриманого досвіду.</li>
         </ul>
         <p><strong>Кіберстрахування</strong> — страховий поліс, що покриває збитки від кіберінцидентів: витрати на IR, forensics, юридичні послуги, повідомлення клієнтів, втрачений прибуток, штрафи регуляторів. Вартість полісу залежить від рівня безпеки організації, що стимулює покращення захисту.</p>
-        <p><strong>Regulatory reporting у фінансовому секторі:</strong> НБУ вимагає повідомлення про значні кіберінциденти протягом визначеного терміну. GDPR вимагає повідомлення про витоки персональних даних протягом 72 годин. PCI DSS вимагає негайного повідомлення платіжних брендів при компрометації карткових даних.</p>
+        <p><strong>Звітування перед регуляторами (Regulatory Reporting) у фінансовому секторі:</strong> НБУ вимагає повідомлення про значні кіберінциденти протягом визначеного терміну. GDPR вимагає повідомлення про витоки персональних даних протягом 72 годин. PCI DSS вимагає негайного повідомлення платіжних брендів при компрометації карткових даних.</p>
 
         <h3>Організаційна структура CSIRT — ролі та відповідальності</h3>
 <pre><code>┌────────────────────────┬──────────────────────────────────────────────┬────────────────────────────────────┐
@@ -818,7 +818,7 @@ kerberos.cipher_type == 23   # RC4 (downgrade attack indicator)
   • Середній банк (500-5000):           10-20 осіб
   • Великий банк (5000+):              30-50+ осіб, 24/7 SOC</code></pre>
 
-        <h3>Шаблон Post-Incident Lessons Learned</h3>
+        <h3>Шаблон засвоєних уроків (Post-Incident Lessons Learned)</h3>
 <pre><code># ============================================================
 # POST-INCIDENT REVIEW — LESSONS LEARNED
 # ============================================================
@@ -892,7 +892,7 @@ kerberos.cipher_type == 23   # RC4 (downgrade attack indicator)
   Покриття кіберстрахуванням:                      $1,500,000
   Чисті збитки:                                    $650,000</code></pre>
 
-        <h3>Метрики ефективності реагування на інциденти (Incident Metrics Dashboard)</h3>
+        <h3>Метрики ефективності реагування на інциденти</h3>
 <pre><code>┌──────────────────────────────────────┬───────────────┬───────────────┬───────────────┬──────────────────┐
 │ Метрика                              │ Поточне       │ Попередній    │ Ціль          │ Галузевий        │
 │                                      │ значення      │ квартал       │               │ benchmark        │

@@ -27,7 +27,7 @@
       <span class="slide-icon">✅</span>
       <h1>OWASP ASVS</h1>
       <p class="subtitle">Лекція 6.2</p>
-      <span class="tag tag-green" style="margin-top: 1rem;">Application Security Verification Standard</span>
+      <span class="tag tag-green" style="margin-top: 1rem;">Стандарт верифікації безпеки додатків (ASVS)</span>
     </section>
 
     <section class="slide">
@@ -40,7 +40,7 @@
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               «Що може піти не так»<br>
               10 категорій загроз<br>
-              Awareness document<br>
+              Документ обізнаності<br>
               Мінімальний стандарт
             </div>
           </div>
@@ -65,18 +65,18 @@
       <div class="card-grid cols-3">
         <div class="card accent-blue">
           <span class="card-icon">🟢</span>
-          <div class="card-title">L1: Opportunistic</div>
-          <div class="card-text">Базовий. Автоматизоване тестування. Мінімум для будь-якого додатку</div>
+          <div class="card-title">L1: Базовий (Opportunistic)</div>
+          <div class="card-text">Автоматизоване тестування. Мінімум для будь-якого додатку</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🟡</span>
-          <div class="card-title">L2: Standard</div>
-          <div class="card-text">Для чутливих даних. Ручне тестування + code review. Більшість FinTech</div>
+          <div class="card-title">L2: Стандартний (Standard)</div>
+          <div class="card-text">Для чутливих даних. Ручне тестування + огляд коду. Більшість FinTech</div>
         </div>
         <div class="card accent-red">
           <span class="card-icon">🔴</span>
-          <div class="card-title">L3: Advanced</div>
-          <div class="card-text">Критичні системи: core banking, SWIFT, платіжні процесори. Threat modeling + повний пентест</div>
+          <div class="card-title">L3: Просунутий (Advanced)</div>
+          <div class="card-text">Критичні системи: core banking, SWIFT, платіжні процесори. Моделювання загроз + повний пентест</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -90,27 +90,27 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">V1</span>
-          <span class="il-text"><strong>Architecture</strong> — threat modeling, secure design principles</span>
+          <span class="il-text"><strong>Архітектура (Architecture)</strong> — моделювання загроз, принципи безпечного проєктування</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">V2</span>
-          <span class="il-text"><strong>Authentication</strong> — 60+ вимог: MFA, password policy, credential storage</span>
+          <span class="il-text"><strong>Автентифікація (Authentication)</strong> — 60+ вимог: MFA, парольна політика, зберігання облікових даних</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">V3</span>
-          <span class="il-text"><strong>Session Mgmt</strong> — timeout, fixation, concurrent sessions</span>
+          <span class="il-text"><strong>Управління сесіями (Session Management)</strong> — таймаут, фіксація, паралельні сесії</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">V4</span>
-          <span class="il-text"><strong>Access Control</strong> — RBAC/ABAC, IDOR prevention, least privilege</span>
+          <span class="il-text"><strong>Контроль доступу (Access Control)</strong> — RBAC/ABAC, запобігання IDOR, принцип найменших привілеїв</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">V5</span>
-          <span class="il-text"><strong>Validation</strong> — input/output handling, encoding, sanitization</span>
+          <span class="il-text"><strong>Валідація (Validation)</strong> — обробка вхідних/вихідних даних, кодування, санітизація</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">V6</span>
-          <span class="il-text"><strong>Cryptography</strong> — алгоритми, key management, TLS</span>
+          <span class="il-text"><strong>Криптографія (Cryptography)</strong> — алгоритми, управління ключами, TLS</span>
         </div>
       </div>
     </section>
@@ -121,23 +121,23 @@
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">💾</span>
-          <div class="card-title">Storage</div>
-          <div class="card-text">Keychain / Encrypted SharedPrefs. Ніяких секретів у plaintext</div>
+          <div class="card-title">Сховище (Storage)</div>
+          <div class="card-text">Keychain / Encrypted SharedPrefs. Жодних секретів у відкритому вигляді</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">📌</span>
-          <div class="card-title">Certificate Pinning</div>
-          <div class="card-text">Захист від MITM-атак та SSL interception</div>
+          <div class="card-title">Закріплення сертифіката (Certificate Pinning)</div>
+          <div class="card-text">Захист від MITM-атак та перехоплення SSL</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔍</span>
-          <div class="card-title">Root Detection</div>
+          <div class="card-title">Виявлення root (Root Detection)</div>
           <div class="card-text">Виявлення root/jailbreak для блокування ризикових пристроїв</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🛡️</span>
-          <div class="card-title">Anti-Tampering</div>
-          <div class="card-text">Захист від модифікації коду додатку та reverse engineering</div>
+          <div class="card-title">Захист від модифікації (Anti-Tampering)</div>
+          <div class="card-text">Захист від модифікації коду додатку та зворотної розробки (reverse engineering)</div>
         </div>
       </div>
     </section>
@@ -147,23 +147,23 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">L1 Auto</div>
+          <div class="step-title">L1 Автоматизація</div>
           <div class="step-desc">SAST/DAST перевіряють L1 вимоги при кожному коміті</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">L2 Review</div>
-          <div class="step-desc">Manual code review та security testing перед релізом</div>
+          <div class="step-title">L2 Огляд коду</div>
+          <div class="step-desc">Ручний огляд коду та тестування безпеки перед релізом</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">L3 Audit</div>
-          <div class="step-desc">Повний пентест + threat modeling щоквартально</div>
+          <div class="step-title">L3 Аудит</div>
+          <div class="step-desc">Повний пентест + моделювання загроз щоквартально</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Tracking</div>
-          <div class="step-desc">Dashboard з відповідністю вимогам ASVS</div>
+          <div class="step-title">Відстеження</div>
+          <div class="step-desc">Панель моніторингу відповідності вимогам ASVS</div>
         </div>
       </div>
     </section>
@@ -174,18 +174,18 @@
       <div class="card-grid cols-3">
         <div class="card accent-blue">
           <span class="card-icon">🟢</span>
-          <div class="card-title">L1: Opportunistic</div>
-          <div class="card-text">~130 вимог. Автоматизований SAST/DAST. Базовий input validation, HTTPS, password hashing. Достатньо для маркетингових сайтів</div>
+          <div class="card-title">L1: Базовий (Opportunistic)</div>
+          <div class="card-text">~130 вимог. Автоматизований SAST/DAST. Базова валідація вводу, HTTPS, хешування паролів. Достатньо для маркетингових сайтів</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🟡</span>
-          <div class="card-title">L2: Standard</div>
-          <div class="card-text">~230 вимог. Code review, threat modeling, MFA, session management, API security, secure SDLC. Стандарт для інтернет-банкінгу</div>
+          <div class="card-title">L2: Стандартний (Standard)</div>
+          <div class="card-text">~230 вимог. Огляд коду, моделювання загроз, MFA, управління сесіями, безпека API, безпечний SDLC. Стандарт для інтернет-банкінгу</div>
         </div>
         <div class="card accent-red">
           <span class="card-icon">🔴</span>
-          <div class="card-title">L3: Advanced</div>
-          <div class="card-text">~280 вимог. Повний пентест, HSM для ключів, anti-tampering, secure boot, повний threat model. Для core banking, SWIFT</div>
+          <div class="card-title">L3: Просунутий (Advanced)</div>
+          <div class="card-text">~280 вимог. Повний пентест, HSM для ключів, захист від модифікації, безпечне завантаження, повна модель загроз. Для core banking, SWIFT</div>
         </div>
       </div>
       <div class="stat-row" style="margin-top: 1.2rem;">
@@ -205,8 +205,8 @@
     </section>
 
     <section class="slide">
-      <h1>Security Requirements Template</h1>
-      <h2>Як формулювати вимоги з ASVS</h2>
+      <h1>Шаблон вимог безпеки</h1>
+      <h2>Як формулювати вимоги на основі ASVS</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">V2.1</span>
@@ -218,7 +218,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">V4.2</span>
-          <span class="il-text"><strong>Доступ:</strong> deny by default, server-side enforcement, IDOR prevention через indirect references</span>
+          <span class="il-text"><strong>Доступ:</strong> заборона за замовчуванням, серверна перевірка, запобігання IDOR через непрямі посилання</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">V6.2</span>
@@ -276,7 +276,7 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Gap Analysis</div>
+          <div class="step-title">Аналіз прогалин (Gap Analysis)</div>
           <div class="step-desc">Аудит поточного стану: які вимоги ASVS вже виконані, які ні. Чеклист у Excel/Jira</div>
         </div>
         <div class="step">
@@ -286,8 +286,8 @@
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Roadmap</div>
-          <div class="step-desc">Пріоритизувати вимоги за ризиком: критичні (auth, crypto) першими, nice-to-have останніми</div>
+          <div class="step-title">Дорожня карта</div>
+          <div class="step-desc">Пріоритизувати вимоги за ризиком: критичні (автентифікація, криптографія) першими, бажані — останніми</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>

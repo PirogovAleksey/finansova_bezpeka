@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
@@ -57,22 +57,22 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Withdraw</div>
+          <div class="step-title">Виведення (Withdraw)</div>
           <div class="step-desc">Зловмисник запитує вивід коштів</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Callback</div>
+          <div class="step-title">Зворотний виклик (Callback)</div>
           <div class="step-desc">Контракт надсилає ETH → зловмисний fallback</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Re-enter</div>
+          <div class="step-title">Повторний вхід (Re-enter)</div>
           <div class="step-desc">Fallback знову викликає withdraw (баланс не оновлено!)</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Drain</div>
+          <div class="step-title">Злив коштів (Drain)</div>
           <div class="step-desc">Цикл повторюється — весь баланс вичерпано</div>
         </div>
       </div>
@@ -86,22 +86,22 @@
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">🔢</span>
-          <div class="card-title">Integer Overflow</div>
+          <div class="card-title">Переповнення цілого числа (Integer Overflow)</div>
           <div class="card-text">0 - 1 = MAX_UINT256. Solidity 0.8+ має захист, старі — ні</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔓</span>
-          <div class="card-title">Access Control</div>
+          <div class="card-title">Контроль доступу (Access Control)</div>
           <div class="card-text">Критичні функції без onlyOwner = будь-хто може викликати</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">⏩</span>
-          <div class="card-title">Front-running</div>
+          <div class="card-title">Фронтранінг (Front-running)</div>
           <div class="card-text">Зловмисник бачить mempool → вища gas price → виконується першим</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">📡</span>
-          <div class="card-title">Oracle Manipulation</div>
+          <div class="card-title">Маніпуляція оракулом (Oracle Manipulation)</div>
           <div class="card-text">Маніпуляція зовнішньою ціною → дешевий кредит → вилучення коштів</div>
         </div>
       </div>
@@ -144,12 +144,12 @@
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Exploit</div>
+          <div class="step-title">Експлуатація (Exploit)</div>
           <div class="step-desc">Fallback → повторний виклик splitDAO() до оновлення балансу: $60M вкрадено</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Hard Fork</div>
+          <div class="step-title">Хард-форк (Hard Fork)</div>
           <div class="step-desc">Ethereum спільнота відкотила транзакції → розкол на ETH та ETC</div>
         </div>
       </div>
@@ -282,3 +282,4 @@
 
 </body>
 </html>
+

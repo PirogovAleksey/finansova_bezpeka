@@ -28,7 +28,7 @@
       <span class="slide-icon">🏗️</span>
       <h1>Комплексний захист серверу</h1>
       <p class="subtitle">Лекція 5.4</p>
-      <span class="tag tag-green" style="margin-top: 1rem;">Prepared Statements, WAF, Validation, Hardening</span>
+      <span class="tag tag-green" style="margin-top: 1rem;">Підготовлені запити, WAF, Валідація, Зміцнення</span>
     </section>
 
     <!-- 2. Prepared Statements -->
@@ -73,17 +73,17 @@
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">📝</span>
-          <div class="card-title">Signature-based</div>
+          <div class="card-title">На основі сигнатур (Signature-based)</div>
           <div class="card-text">Відомі патерни: UNION SELECT, &lt;script&gt;, ../etc/passwd</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">📊</span>
-          <div class="card-title">Anomaly Detection</div>
+          <div class="card-title">Виявлення аномалій (Anomaly Detection)</div>
           <div class="card-text">Незвично довгі параметри, нетипові символи, частота</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🩹</span>
-          <div class="card-title">Virtual Patching</div>
+          <div class="card-title">Віртуальне патчування (Virtual Patching)</div>
           <div class="card-text">Блокування відомої CVE до виправлення коду. Критично для legacy</div>
         </div>
         <div class="card accent-purple">
@@ -157,17 +157,17 @@
       <div class="card-grid cols-3">
         <div class="card accent-red">
           <span class="card-icon">🔑</span>
-          <div class="card-title">Credentials</div>
+          <div class="card-title">Облікові дані (Credentials)</div>
           <div class="card-text">Змінити default паролі. Унікальні credentials для кожного сервісу</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🚫</span>
-          <div class="card-title">Disable Unused</div>
+          <div class="card-title">Вимкнення невикористовуваних (Disable Unused)</div>
           <div class="card-text">xp_cmdshell, LOAD_FILE, UTL_HTTP — вимкнути все зайве</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🌐</span>
-          <div class="card-title">Network</div>
+          <div class="card-title">Мережевий рівень (Network)</div>
           <div class="card-text">БД не виставляти в інтернет. Тільки внутрішня мережа + firewall</div>
         </div>
       </div>
@@ -183,7 +183,7 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Input Validation</div>
+          <div class="step-title">Валідація вводу (Input Validation)</div>
           <div class="step-desc">Whitelist на API Gateway</div>
         </div>
         <div class="step">
@@ -193,12 +193,12 @@
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Prepared Statements</div>
+          <div class="step-title">Підготовлені запити (Prepared Statements)</div>
           <div class="step-desc">Параметризація 100% запитів</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">DB Hardening</div>
+          <div class="step-title">Зміцнення БД (DB Hardening)</div>
           <div class="step-desc">Least privilege + monitoring</div>
         </div>
       </div>
@@ -299,7 +299,7 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Edge (CDN/WAF)</div>
+          <div class="step-title">Периметр (Edge / CDN / WAF)</div>
           <div class="step-desc">DDoS захист, WAF правила, rate limiting, geo-blocking</div>
         </div>
         <div class="step">
@@ -309,12 +309,12 @@
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Application</div>
+          <div class="step-title">Прикладний рівень (Application)</div>
           <div class="step-desc">Prepared statements, ORM, business logic validation, output encoding</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Database</div>
+          <div class="step-title">Рівень БД (Database)</div>
           <div class="step-desc">Least privilege, RLS, encryption, audit logging, hardening</div>
         </div>
       </div>

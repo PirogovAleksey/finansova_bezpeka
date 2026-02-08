@@ -27,7 +27,7 @@
       <span class="slide-icon">🔍</span>
       <h1>Методологія аудиту безпеки</h1>
       <p class="subtitle">Лекція 6.3</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Testing Guide, PTES, Penetration Testing</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Посібник з тестування, PTES, тестування на проникнення</span>
     </section>
 
     <section class="slide">
@@ -35,17 +35,17 @@
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">🤖</span>
-          <div class="card-title">Vulnerability Assessment</div>
+          <div class="card-title">Оцінка вразливостей (Vulnerability Assessment)</div>
           <div class="card-text">Автоматизоване сканування: Nessus, Qualys. Широко, але поверхнево</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🎯</span>
-          <div class="card-title">Penetration Testing</div>
+          <div class="card-title">Тестування на проникнення (Penetration Testing)</div>
           <div class="card-text">Імітація атаки етичним хакером. Ручний аналіз + творчий підхід</div>
         </div>
         <div class="card accent-red">
           <span class="card-icon">🔴</span>
-          <div class="card-title">Red Team</div>
+          <div class="card-title">Червона команда (Red Team)</div>
           <div class="card-text">Повномасштабна APT-імітація: фішинг + техніка + фізичний доступ</div>
         </div>
         <div class="card accent-green">
@@ -57,32 +57,32 @@
     </section>
 
     <section class="slide">
-      <h1>PTES — Penetration Testing Standard</h1>
+      <h1>PTES — стандарт тестування на проникнення</h1>
       <h2>7 фаз пентесту</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Pre-engagement</div>
-          <div class="step-desc">Scope, rules, юридичні аспекти</div>
+          <div class="step-title">Підготовка (Pre-engagement)</div>
+          <div class="step-desc">Обсяг робіт, правила, юридичні аспекти</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Recon</div>
+          <div class="step-title">Розвідка (Recon)</div>
           <div class="step-desc">Збір інформації: домени, IP, технології</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Threat Modeling</div>
+          <div class="step-title">Моделювання загроз (Threat Modeling)</div>
           <div class="step-desc">Визначення векторів атаки</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Exploitation</div>
-          <div class="step-desc">Експлуатація + post-exploitation</div>
+          <div class="step-title">Експлуатація (Exploitation)</div>
+          <div class="step-desc">Експлуатація + пост-експлуатація</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Фаза 5-7: Post-Exploitation (lateral movement, data access) → Reporting (вразливості, ризики, рекомендації).</p>
+        <p>Фаза 5-7: Пост-експлуатація (латеральний рух, доступ до даних) → Звітування (вразливості, ризики, рекомендації).</p>
       </div>
     </section>
 
@@ -92,48 +92,48 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">🔍</span>
-          <span class="il-text"><strong>Information Gathering</strong> — fingerprinting, discovery, enumeration</span>
+          <span class="il-text"><strong>Збір інформації (Information Gathering)</strong> — ідентифікація технологій, виявлення, перелічення</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🪪</span>
-          <span class="il-text"><strong>Authentication</strong> — brute force, default credentials, password policy</span>
+          <span class="il-text"><strong>Автентифікація (Authentication)</strong> — перебір паролів, стандартні облікові дані, парольна політика</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔓</span>
-          <span class="il-text"><strong>Authorization</strong> — IDOR, privilege escalation, path traversal</span>
+          <span class="il-text"><strong>Авторизація (Authorization)</strong> — IDOR, ескалація привілеїв, обхід шляхів</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">💉</span>
-          <span class="il-text"><strong>Input Validation</strong> — SQLi, XSS, command injection, XXE</span>
+          <span class="il-text"><strong>Валідація вводу (Input Validation)</strong> — SQLi, XSS, ін'єкція команд, XXE</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">💼</span>
-          <span class="il-text"><strong>Business Logic</strong> — negative amount, race conditions, workflow bypass</span>
+          <span class="il-text"><strong>Бізнес-логіка (Business Logic)</strong> — від'ємні суми, стан гонки (race conditions), обхід робочого процесу</span>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Black / Grey / White Box</h1>
+      <h1>Типи тестування за обсягом знань</h1>
       <div class="card-grid cols-3">
         <div class="card accent-red">
           <span class="card-icon">⬛</span>
-          <div class="card-title">Black Box</div>
+          <div class="card-title">Чорна скринька (Black Box)</div>
           <div class="card-text">Нуль інформації. Імітація реального зловмисника. Найбільш реалістичний</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔲</span>
-          <div class="card-title">Grey Box</div>
-          <div class="card-text">Часткова інформація: credentials, API-документація. Оптимальний для FinTech</div>
+          <div class="card-title">Сіра скринька (Grey Box)</div>
+          <div class="card-text">Часткова інформація: облікові дані, API-документація. Оптимальний для FinTech</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">⬜</span>
-          <div class="card-title">White Box</div>
-          <div class="card-text">Повний доступ: код, архітектура, credentials. Максимальне покриття</div>
+          <div class="card-title">Біла скринька (White Box)</div>
+          <div class="card-text">Повний доступ: код, архітектура, облікові дані. Максимальне покриття</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Для фінансових систем: grey box — баланс між реалістичністю та ефективністю тестування.</p>
+        <p>Для фінансових систем: сіра скринька (grey box) — баланс між реалістичністю та ефективністю тестування.</p>
       </div>
     </section>
 
@@ -161,50 +161,50 @@
     </section>
 
     <section class="slide">
-      <h1>Penetration Testing: фази детально</h1>
+      <h1>Тестування на проникнення: фази детально</h1>
       <h2>Від розвідки до звіту</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Reconnaissance</div>
-          <div class="step-desc">OSINT, DNS enumeration, Shodan, Google Dorking, збір email-адрес, субдомени</div>
+          <div class="step-title">Розвідка (Reconnaissance)</div>
+          <div class="step-desc">OSINT, перелічення DNS, Shodan, Google Dorking, збір email-адрес, субдомени</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Scanning</div>
-          <div class="step-desc">Nmap (порти/сервіси), Nikto (веб), directory brute-force (ffuf/gobuster)</div>
+          <div class="step-title">Сканування (Scanning)</div>
+          <div class="step-desc">Nmap (порти/сервіси), Nikto (веб), перебір директорій (ffuf/gobuster)</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Exploitation</div>
-          <div class="step-desc">PoC-експлойти, SQLi/XSS, privilege escalation, отримання shell-доступу</div>
+          <div class="step-title">Експлуатація (Exploitation)</div>
+          <div class="step-desc">PoC-експлойти, SQLi/XSS, ескалація привілеїв, отримання shell-доступу</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Post-Exploitation</div>
-          <div class="step-desc">Lateral movement, pivoting, доступ до БД, ексфільтрація тестових даних</div>
+          <div class="step-title">Пост-експлуатація (Post-Exploitation)</div>
+          <div class="step-desc">Латеральний рух, pivoting, доступ до БД, ексфільтрація тестових даних</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">Reporting</div>
-          <div class="step-desc">Executive summary, технічний звіт, CVSS-оцінки, PoC, рекомендації, retest plan</div>
+          <div class="step-title">Звітування (Reporting)</div>
+          <div class="step-desc">Резюме для керівництва, технічний звіт, CVSS-оцінки, PoC, рекомендації, план повторного тестування</div>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Burp Suite Workflow</h1>
+      <h1>Робочий процес Burp Suite</h1>
       <h2>Основний інструмент веб-пентестера</h2>
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">🔄</span>
-          <div class="card-title">Proxy</div>
+          <div class="card-title">Проксі (Proxy)</div>
           <div class="card-text">Перехоплення HTTP/HTTPS трафіку між браузером і сервером. Аналіз кожного запиту/відповіді</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🕷️</span>
-          <div class="card-title">Scanner</div>
-          <div class="card-text">Автоматичне виявлення SQLi, XSS, SSRF, path traversal. Active та passive режими сканування</div>
+          <div class="card-title">Сканер (Scanner)</div>
+          <div class="card-text">Автоматичне виявлення SQLi, XSS, SSRF, обходу шляхів. Активний та пасивний режими сканування</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">🔁</span>

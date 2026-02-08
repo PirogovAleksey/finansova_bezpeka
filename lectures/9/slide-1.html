@@ -27,7 +27,7 @@
       <span class="slide-icon">🤖</span>
       <h1>AI/ML для виявлення загроз</h1>
       <p class="subtitle">Лекція 9.1</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Anomaly detection, UEBA, автоматизований threat hunting</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Виявлення аномалій (Anomaly Detection), UEBA, автоматизований пошук загроз</span>
     </section>
 
     <section class="slide">
@@ -62,27 +62,27 @@
     </section>
 
     <section class="slide">
-      <h1>Anomaly Detection</h1>
+      <h1>Виявлення аномалій (Anomaly Detection)</h1>
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">📊</span>
-          <div class="card-title">Supervised</div>
-          <div class="card-text">Random Forest, XGBoost, NN. Навчення на labeled data</div>
+          <div class="card-title">З учителем (Supervised)</div>
+          <div class="card-text">Random Forest, XGBoost, NN. Навчання на розмічених даних</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔍</span>
-          <div class="card-title">Unsupervised</div>
-          <div class="card-text">Isolation Forest, Autoencoders. Без labels, виявлення відхилень</div>
+          <div class="card-title">Без учителя (Unsupervised)</div>
+          <div class="card-text">Isolation Forest, Autoencoders. Без міток, виявлення відхилень</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">🔄</span>
-          <div class="card-title">Semi-supervised</div>
+          <div class="card-title">Напівкероване (Semi-supervised)</div>
           <div class="card-text">Модель «нормального». Все інше = аномалія</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">⚡</span>
-          <div class="card-title">Deep Learning</div>
-          <div class="card-text">LSTM, Transformer для sequence analysis у часових рядах</div>
+          <div class="card-title">Глибоке навчання (Deep Learning)</div>
+          <div class="card-text">LSTM, Transformer для аналізу послідовностей у часових рядах</div>
         </div>
       </div>
     </section>
@@ -93,23 +93,23 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Baseline</div>
+          <div class="step-title">Базовий профіль</div>
           <div class="step-desc">Час входу, ресурси, обсяг даних, геолокація</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Monitor</div>
-          <div class="step-desc">Кожна дія порівнюється з baseline профілем</div>
+          <div class="step-title">Моніторинг</div>
+          <div class="step-desc">Кожна дія порівнюється з базовим профілем</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Score</div>
-          <div class="step-desc">Відхилення збільшує динамічний risk score</div>
+          <div class="step-title">Оцінка ризику</div>
+          <div class="step-desc">Відхилення збільшує динамічний показник ризику</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Alert</div>
-          <div class="step-desc">High score → alert SOC-аналітику з контекстом</div>
+          <div class="step-title">Сповіщення</div>
+          <div class="step-desc">Високий показник → сповіщення SOC-аналітику з контекстом</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -118,7 +118,7 @@
     </section>
 
     <section class="slide">
-      <h1>Network Traffic Analysis</h1>
+      <h1>Аналіз мережевого трафіку</h1>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">🔍</span>
@@ -130,7 +130,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📤</span>
-          <span class="il-text"><strong>Data Exfiltration</strong> — аномальний обсяг вихідних даних, незвичні протоколи</span>
+          <span class="il-text"><strong>Витік даних (Data Exfiltration)</strong> — аномальний обсяг вихідних даних, незвичні протоколи</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🛡️</span>
@@ -140,7 +140,7 @@
     </section>
 
     <section class="slide">
-      <h1>Automated Threat Hunting</h1>
+      <h1>Автоматизований пошук загроз</h1>
       <div class="stat-row">
         <div class="stat-box red">
           <div class="stat-value">10K+</div>
@@ -152,7 +152,7 @@
         </div>
         <div class="stat-box blue">
           <div class="stat-value">-80%</div>
-          <div class="stat-label">зменшення alert fatigue</div>
+          <div class="stat-label">зменшення втоми від сповіщень</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -166,22 +166,22 @@
         <div class="card accent-blue">
           <span class="card-icon">🌲</span>
           <div class="card-title">Random Forest</div>
-          <div class="card-text">Точність 92-95%, швидкий inference, інтерпретабельний. Найкращий для табличних даних</div>
+          <div class="card-text">Точність 92-95%, швидке передбачення, інтерпретабельний. Найкращий для табличних даних</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">⚡</span>
           <div class="card-title">XGBoost / LightGBM</div>
-          <div class="card-text">Точність 95-97%, gradient boosting. Лідер Kaggle-змагань з fraud detection</div>
+          <div class="card-text">Точність 95-97%, градієнтний бустинг. Лідер Kaggle-змагань з виявлення шахрайства</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🧠</span>
-          <div class="card-title">Deep Learning (LSTM)</div>
+          <div class="card-title">Глибоке навчання (LSTM)</div>
           <div class="card-text">Точність 93-96% для послідовностей. Ідеальний для часових рядів та мережевого трафіку</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔮</span>
           <div class="card-title">Isolation Forest</div>
-          <div class="card-text">Unsupervised, не потребує labels. Виявляє нові типи атак без попереднього навчання</div>
+          <div class="card-text">Без учителя, не потребує міток. Виявляє нові типи атак без попереднього навчання</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -194,27 +194,27 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Data Collection</div>
+          <div class="step-title">Збір даних</div>
           <div class="step-desc">AD logs, VPN, email, файлові сервери, endpoint → Data Lake</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Feature Extraction</div>
-          <div class="step-desc">Час, частота, обсяг, ресурси, peer group → вектор ознак</div>
+          <div class="step-title">Витяг ознак</div>
+          <div class="step-desc">Час, частота, обсяг, ресурси, група колег → вектор ознак</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">ML Engine</div>
-          <div class="step-desc">Autoencoder будує baseline, відхилення = anomaly score (0-100)</div>
+          <div class="step-title">ML-рушій</div>
+          <div class="step-desc">Autoencoder будує базовий профіль, відхилення = оцінка аномалії (0-100)</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Risk Aggregation</div>
-          <div class="step-desc">Множинні аномалії з різних джерел → єдиний risk score сутності</div>
+          <div class="step-title">Агрегація ризиків</div>
+          <div class="step-desc">Множинні аномалії з різних джерел → єдиний показник ризику сутності</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">Response</div>
+          <div class="step-title">Реагування</div>
           <div class="step-desc">SOAR-інтеграція: автоматичне блокування, ізоляція, ескалація до SOC</div>
         </div>
       </div>
@@ -228,11 +228,11 @@
             <span class="card-icon">📊</span>
             <div class="card-title">Що аналізується</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              Flow metadata (NetFlow/IPFIX)<br>
+              Метадані потоків (NetFlow/IPFIX)<br>
               Розмір та частота пакетів<br>
               DNS-запити та їх ентропія<br>
-              TLS fingerprinting (JA3/JA4)<br>
-              Lateral movement патерни
+              TLS-відбитки (JA3/JA4)<br>
+              Патерни бокового переміщення
             </div>
           </div>
         </div>
@@ -241,11 +241,11 @@
             <span class="card-icon">🚨</span>
             <div class="card-title">Що виявляється</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              C2 beaconing (періодичні з'єднання)<br>
-              DNS tunneling (високий ентропія)<br>
-              Data exfiltration (аномальний upload)<br>
+              C2-маячки (періодичні з'єднання)<br>
+              DNS-тунелювання (висока ентропія)<br>
+              Витік даних (аномальне вивантаження)<br>
               Криптомайнінг (Stratum протокол)<br>
-              Brute-force та password spray
+              Перебір паролів та password spray
             </div>
           </div>
         </div>
@@ -296,7 +296,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>UEBA</strong> — baseline + risk scoring для insider threats та compromised accounts</span>
+          <span class="il-text"><strong>UEBA</strong> — базовий профіль + оцінка ризику для внутрішніх загроз та скомпрометованих акаунтів</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
@@ -304,7 +304,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Threat Hunting</strong> — AI зменшує alert fatigue на 80%+</span>
+          <span class="il-text"><strong>Пошук загроз (Threat Hunting)</strong> — AI зменшує втому від сповіщень на 80%+</span>
         </div>
       </div>
     </section>

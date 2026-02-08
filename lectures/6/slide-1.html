@@ -27,7 +27,7 @@
       <span class="slide-icon">📋</span>
       <h1>OWASP Top 10</h1>
       <p class="subtitle">Лекція 6.1</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">10 найкритичніших вразливостей</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">10 найкритичніших вразливостей веб-додатків</span>
     </section>
 
     <section class="slide">
@@ -57,23 +57,23 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">🔓</span>
-          <span class="il-text"><strong>A01: Broken Access Control</strong> — IDOR, горизонтальна ескалація, обхід авторизації API</span>
+          <span class="il-text"><strong>A01: Порушення контролю доступу (Broken Access Control)</strong> — IDOR, горизонтальна ескалація, обхід авторизації API</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔐</span>
-          <span class="il-text"><strong>A02: Cryptographic Failures</strong> — PAN без шифрування, MD5 для паролів, HTTP</span>
+          <span class="il-text"><strong>A02: Криптографічні недоліки (Cryptographic Failures)</strong> — PAN без шифрування, MD5 для паролів, HTTP</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">💉</span>
-          <span class="il-text"><strong>A03: Injection</strong> — SQL, Command, LDAP-ін'єкції у фінансових системах</span>
+          <span class="il-text"><strong>A03: Ін'єкції (Injection)</strong> — SQL, Command, LDAP-ін'єкції у фінансових системах</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📐</span>
-          <span class="il-text"><strong>A04: Insecure Design</strong> — архітектурні вразливості, відсутність threat modeling</span>
+          <span class="il-text"><strong>A04: Небезпечне проєктування (Insecure Design)</strong> — архітектурні вразливості, відсутність моделювання загроз</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">⚙️</span>
-          <span class="il-text"><strong>A05: Security Misconfiguration</strong> — default passwords, debug pages, stack traces</span>
+          <span class="il-text"><strong>A05: Помилки конфігурації (Security Misconfiguration)</strong> — стандартні паролі, debug-сторінки, stack traces</span>
         </div>
       </div>
     </section>
@@ -83,19 +83,19 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">📦</span>
-          <span class="il-text"><strong>A06: Vulnerable Components</strong> — Log4Shell, Struts2 → Equifax (147M записів)</span>
+          <span class="il-text"><strong>A06: Вразливі компоненти (Vulnerable Components)</strong> — Log4Shell, Struts2 → Equifax (147M записів)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🪪</span>
-          <span class="il-text"><strong>A07: Auth Failures</strong> — credential stuffing без rate limiting, відсутність MFA</span>
+          <span class="il-text"><strong>A07: Помилки автентифікації (Auth Failures)</strong> — credential stuffing без обмеження частоти, відсутність MFA</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔗</span>
-          <span class="il-text"><strong>A08: Integrity Failures</strong> — supply chain атаки, компрометовані CI/CD</span>
+          <span class="il-text"><strong>A08: Порушення цілісності (Integrity Failures)</strong> — атаки на ланцюг постачання, компрометовані CI/CD</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>A09: Logging Failures</strong> — невдалі логіни не логуються, логи не моніторяться</span>
+          <span class="il-text"><strong>A09: Недоліки логування (Logging Failures)</strong> — невдалі логіни не логуються, логи не моніторяться</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🌐</span>
@@ -115,25 +115,25 @@
         </div>
         <div class="card accent-orange">
           <span class="card-icon">⬆️</span>
-          <div class="card-title">Privilege Escalation</div>
-          <div class="card-text">Касир отримує права менеджера через маніпуляцію role параметром</div>
+          <div class="card-title">Ескалація привілеїв (Privilege Escalation)</div>
+          <div class="card-text">Касир отримує права менеджера через маніпуляцію параметром ролі</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔌</span>
-          <div class="card-title">API Bypass</div>
-          <div class="card-text">Адмін-endpoint /api/admin/users доступний без перевірки ролі</div>
+          <div class="card-title">Обхід API (API Bypass)</div>
+          <div class="card-text">Адмін-ендпоінт /api/admin/users доступний без перевірки ролі</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">📁</span>
-          <div class="card-title">Path Traversal</div>
-          <div class="card-text">../../../etc/passwd через download endpoint</div>
+          <div class="card-title">Обхід шляхів (Path Traversal)</div>
+          <div class="card-text">../../../etc/passwd через ендпоінт завантаження</div>
         </div>
       </div>
     </section>
 
     <section class="slide">
       <h1>Equifax — A06 у дії</h1>
-      <h2>Vulnerable Component → 147 мільйонів записів</h2>
+      <h2>Вразливий компонент → 147 мільйонів записів</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
@@ -200,18 +200,18 @@
       <div class="card-grid cols-3">
         <div class="card accent-red">
           <span class="card-icon">🔓</span>
-          <div class="card-title">A01: Broken Access Control</div>
-          <div class="card-text">94% додатків мають проблеми. IDOR, горизонтальна/вертикальна ескалація, CORS misconfiguration, force browsing до адмін-панелей</div>
+          <div class="card-title">A01: Порушення контролю доступу</div>
+          <div class="card-text">94% додатків мають проблеми. IDOR, горизонтальна/вертикальна ескалація, помилки CORS, примусовий перегляд (force browsing) адмін-панелей</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔐</span>
-          <div class="card-title">A02: Cryptographic Failures</div>
-          <div class="card-text">Передача PAN у відкритому вигляді, використання SHA-1/MD5, жорстко закодовані ключі, відсутність TLS 1.2+, слабкий entropy для токенів</div>
+          <div class="card-title">A02: Криптографічні недоліки</div>
+          <div class="card-text">Передача PAN у відкритому вигляді, використання SHA-1/MD5, жорстко закодовані ключі, відсутність TLS 1.2+, слабка ентропія для токенів</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">💉</span>
-          <div class="card-title">A03: Injection</div>
-          <div class="card-text">SQL, NoSQL, OS Command, LDAP, XSS (тепер тут). ORM не панацея: HQL injection, Sequelize raw queries. Parameterized queries обов'язкові</div>
+          <div class="card-title">A03: Ін'єкції</div>
+          <div class="card-text">SQL, NoSQL, OS Command, LDAP, XSS (тепер тут). ORM не панацея: HQL-ін'єкція, Sequelize raw-запити. Параметризовані запити обов'язкові</div>
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
@@ -225,19 +225,19 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">📐</span>
-          <span class="il-text"><strong>A04: Insecure Design</strong> — відсутність threat modeling, бізнес-логіка без abuse cases. Приклад: необмежена кількість спроб OTP у мобільному банкінгу</span>
+          <span class="il-text"><strong>A04: Небезпечне проєктування (Insecure Design)</strong> — відсутність моделювання загроз (threat modeling), бізнес-логіка без сценаріїв зловживань. Приклад: необмежена кількість спроб OTP у мобільному банкінгу</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">⚙️</span>
-          <span class="il-text"><strong>A05: Security Misconfiguration</strong> — default credentials (admin/admin), відкриті S3 buckets, stack traces у production, XML external entities enabled</span>
+          <span class="il-text"><strong>A05: Помилки конфігурації (Security Misconfiguration)</strong> — стандартні облікові дані (admin/admin), відкриті S3 buckets, stack traces у production, увімкнені XML external entities</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📦</span>
-          <span class="il-text"><strong>A06: Vulnerable Components</strong> — 80% коду — open source. SCA-інструменти: Dependabot, Snyk, OWASP Dependency-Check. SBOM як вимога регуляторів</span>
+          <span class="il-text"><strong>A06: Вразливі компоненти (Vulnerable Components)</strong> — 80% коду — open source. SCA-інструменти: Dependabot, Snyk, OWASP Dependency-Check. SBOM (перелік компонентів ПЗ) як вимога регуляторів</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🪪</span>
-          <span class="il-text"><strong>A07: Auth Failures</strong> — credential stuffing (мільярди паролів у відкритому доступі), відсутність MFA, слабкий rate limiting, session fixation</span>
+          <span class="il-text"><strong>A07: Помилки автентифікації (Auth Failures)</strong> — підстановка облікових даних (credential stuffing), відсутність MFA, слабке обмеження частоти запитів, фіксація сесії (session fixation)</span>
         </div>
       </div>
     </section>
@@ -287,8 +287,8 @@
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🔗</span>
-          <div class="card-title">Open Banking API</div>
-          <div class="card-text">OAuth2 misconfiguration, broken object-level auth, excessive data exposure через PSD2 API</div>
+          <div class="card-title">Відкритий банкінг (Open Banking API)</div>
+          <div class="card-text">Помилки конфігурації OAuth2, порушення авторизації на рівні об'єктів, надмірне розкриття даних через PSD2 API</div>
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
@@ -302,15 +302,15 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Broken Access Control</strong> — #1 загроза для фінансових додатків</span>
+          <span class="il-text"><strong>Порушення контролю доступу (Broken Access Control)</strong> — загроза №1 для фінансових додатків</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Vulnerable Components</strong> — одна бібліотека = мільйони записів (Equifax)</span>
+          <span class="il-text"><strong>Вразливі компоненти (Vulnerable Components)</strong> — одна бібліотека = мільйони записів (Equifax)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>Insecure Design</strong> — нова категорія, не виправити патчем</span>
+          <span class="il-text"><strong>Небезпечне проєктування (Insecure Design)</strong> — нова категорія, не виправити патчем</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>

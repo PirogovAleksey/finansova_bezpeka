@@ -18,7 +18,7 @@
       <span class="slide-icon">📈</span>
       <h1>Метрики кібербезпеки</h1>
       <p class="subtitle">Лекція 14.4</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">KPI/KRI, MTTD, MTTR, SOC Maturity Model</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">KPI/KRI, MTTD, MTTR, модель зрілості SOC</span>
     </section>
     <section class="slide">
       <h1>Навіщо метрики?</h1>
@@ -27,14 +27,14 @@
         <div class="col">
           <div class="card accent-blue" style="height: 100%;">
             <span class="card-icon">📊</span>
-            <div class="card-title">KPI</div>
+            <div class="card-title">Ключові показники ефективності (KPI)</div>
             <div class="card-text">Key Performance Indicators — вимірюють ефективність поточних процесів</div>
           </div>
         </div>
         <div class="col">
           <div class="card accent-red" style="height: 100%;">
             <span class="card-icon">⚠️</span>
-            <div class="card-title">KRI</div>
+            <div class="card-title">Ключові індикатори ризику (KRI)</div>
             <div class="card-text">Key Risk Indicators — ранні сигнали зростання ризиків</div>
           </div>
         </div>
@@ -43,36 +43,36 @@
     <section class="slide">
       <h1>Ключові метрики SOC</h1>
       <div class="card-grid">
-        <div class="card accent-blue"><span class="card-icon">🔍</span><div class="card-title">MTTD</div><div class="card-text">Mean Time to Detect. Ціль: &lt;24 год. Industry average: 204 дні!</div></div>
-        <div class="card accent-green"><span class="card-icon">⚡</span><div class="card-title">MTTR</div><div class="card-text">Mean Time to Respond. Ціль: &lt;4 год для critical інцидентів</div></div>
-        <div class="card accent-orange"><span class="card-icon">🎯</span><div class="card-title">Alert-to-Incident</div><div class="card-text">Скільки алертів стають реальними інцидентами. Якість detection rules</div></div>
-        <div class="card accent-red"><span class="card-icon">🚨</span><div class="card-title">False Positive Rate</div><div class="card-text">Хибні спрацювання. Високий FP = alert fatigue = пропущені загрози</div></div>
+        <div class="card accent-blue"><span class="card-icon">🔍</span><div class="card-title">Час виявлення (MTTD)</div><div class="card-text">Mean Time to Detect. Ціль: &lt;24 год. Середній у галузі: 204 дні!</div></div>
+        <div class="card accent-green"><span class="card-icon">⚡</span><div class="card-title">Час реагування (MTTR)</div><div class="card-text">Mean Time to Respond. Ціль: &lt;4 год для критичних інцидентів</div></div>
+        <div class="card accent-orange"><span class="card-icon">🎯</span><div class="card-title">Алерт-до-інциденту</div><div class="card-text">Скільки алертів стають реальними інцидентами. Якість правил виявлення</div></div>
+        <div class="card accent-red"><span class="card-icon">🚨</span><div class="card-title">Хибні спрацювання (FP Rate)</div><div class="card-text">Рівень хибних спрацювань. Високий FP = втома від алертів = пропущені загрози</div></div>
       </div>
     </section>
     <section class="slide">
       <h1>Додаткові метрики</h1>
       <div class="icon-list">
-        <div class="icon-list-item"><span class="il-icon">🔄</span><span class="il-text"><strong>Patch compliance</strong> — % систем з актуальними патчами. Ціль: &gt;95% протягом SLA</span></div>
-        <div class="icon-list-item"><span class="il-icon">🎣</span><span class="il-text"><strong>Phishing click rate</strong> — результати phishing-симуляцій. Ціль: &lt;5%</span></div>
-        <div class="icon-list-item"><span class="il-icon">⏱️</span><span class="il-text"><strong>Vulnerability remediation time</strong> — час від виявлення до виправлення вразливості</span></div>
-        <div class="icon-list-item"><span class="il-icon">📊</span><span class="il-text"><strong>Coverage</strong> — % активів під моніторингом SOC. Ціль: 100% критичних</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔄</span><span class="il-text"><strong>Рівень оновлень (Patch Compliance)</strong> — % систем з актуальними патчами. Ціль: &gt;95% протягом SLA</span></div>
+        <div class="icon-list-item"><span class="il-icon">🎣</span><span class="il-text"><strong>Рівень кліків на фішинг (Phishing Click Rate)</strong> — результати фішинг-симуляцій. Ціль: &lt;5%</span></div>
+        <div class="icon-list-item"><span class="il-icon">⏱️</span><span class="il-text"><strong>Час усунення вразливостей (Vulnerability Remediation Time)</strong> — час від виявлення до виправлення вразливості</span></div>
+        <div class="icon-list-item"><span class="il-icon">📊</span><span class="il-text"><strong>Покриття (Coverage)</strong> — % активів під моніторингом SOC. Ціль: 100% критичних</span></div>
       </div>
     </section>
     <section class="slide">
-      <h1>SOC Maturity Model</h1>
+      <h1>Модель зрілості SOC</h1>
       <div class="steps">
-        <div class="step"><div class="step-num">1</div><div class="step-title">Initial</div><div class="step-desc">Reactive, ad hoc, мінімальний моніторинг</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-title">Managed</div><div class="step-desc">Базовий SIEM, визначені процеси, runbooks</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-title">Defined</div><div class="step-desc">Повний SOC, threat hunting, SOAR, TI</div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-title">Quantitative</div><div class="step-desc">Metrics-driven, predictive analytics, CI</div></div>
-        <div class="step"><div class="step-num">5</div><div class="step-title">Optimizing</div><div class="step-desc">AI-driven SOC, автономне реагування</div></div>
+        <div class="step"><div class="step-num">1</div><div class="step-title">Початковий (Initial)</div><div class="step-desc">Реактивний, ad hoc, мінімальний моніторинг</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Керований (Managed)</div><div class="step-desc">Базовий SIEM, визначені процеси, робочі інструкції</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Визначений (Defined)</div><div class="step-desc">Повний SOC, полювання на загрози, SOAR, TI</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Кількісний (Quantitative)</div><div class="step-desc">Рішення на основі метрик, предиктивна аналітика</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-title">Оптимізуючий (Optimizing)</div><div class="step-desc">SOC на основі ШІ, автономне реагування</div></div>
       </div>
     </section>
     <section class="slide">
-      <h1>Reporting для керівництва</h1>
-      <div class="highlight-box">Не «blocked 10K attacks», а «<strong>зменшили ризик втрати на $2M</strong> через покращення detection»</div>
+      <h1>Звітування для керівництва</h1>
+      <div class="highlight-box">Не «заблоковано 10 тис. атак», а «<strong>зменшили ризик втрати на $2M</strong> через покращення виявлення загроз»</div>
       <div class="icon-list" style="margin-top: 1.5rem;">
-        <div class="icon-list-item"><span class="il-icon">📊</span><span class="il-text"><strong>CISO Dashboard</strong> — KRI, risk posture, compliance status, incident trends</span></div>
+        <div class="icon-list-item"><span class="il-icon">📊</span><span class="il-text"><strong>Панель CISO (Dashboard)</strong> — KRI, стан ризиків, статус відповідності, тренди інцидентів</span></div>
         <div class="icon-list-item"><span class="il-icon">💬</span><span class="il-text"><strong>Мова бізнесу</strong> — гроші, ризики, compliance — не техніка</span></div>
         <div class="icon-list-item"><span class="il-icon">📅</span><span class="il-text"><strong>Регулярність</strong> — щомісячний звіт для правління, щотижневий для менеджменту</span></div>
       </div>
@@ -83,14 +83,14 @@
         <div class="col">
           <div class="card accent-blue" style="height: 100%;">
             <span class="card-icon">📊</span>
-            <div class="card-title">KPI (ефективність)</div>
+            <div class="card-title">KPI (показники ефективності)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">MTTD: 4.2 год (ціль: &lt;24 год) <span style="color: green;">&#10003;</span><br>MTTR: 2.1 год (ціль: &lt;4 год) <span style="color: green;">&#10003;</span><br>Patch compliance: 97% <span style="color: green;">&#10003;</span><br>Phishing click rate: 3.2% <span style="color: green;">&#10003;</span><br>SOC coverage: 94% <span style="color: orange;">&#9888;</span></div>
           </div>
         </div>
         <div class="col">
           <div class="card accent-red" style="height: 100%;">
             <span class="card-icon">⚠️</span>
-            <div class="card-title">KRI (ранні сигнали)</div>
+            <div class="card-title">KRI (індикатори ризику)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Нові critical CVE: 12 (тренд &#8593;) <span style="color: red;">&#10007;</span><br>Невідомі активи: 34 <span style="color: orange;">&#9888;</span><br>Відкриті інциденти: 7 <span style="color: green;">&#10003;</span><br>Third-party ризики: 3 high <span style="color: orange;">&#9888;</span><br>Turnover SOC: 15% <span style="color: red;">&#10007;</span></div>
           </div>
         </div>
@@ -102,9 +102,9 @@
       <div class="highlight-box"><strong>MTTD</strong> (Mean Time to Detect) та <strong>MTTR</strong> (Mean Time to Respond) — ключові метрики швидкості SOC</div>
       <div class="card-grid" style="margin-top: 1.5rem;">
         <div class="card accent-red"><span class="card-icon">🐌</span><div class="card-title">Без SOC</div><div class="card-text">MTTD: 204 дні<br>MTTR: 73 дні<br>Джерело: IBM 2024</div></div>
-        <div class="card accent-orange"><span class="card-icon">📊</span><div class="card-title">Базовий SOC</div><div class="card-text">MTTD: 24-72 год<br>MTTR: 4-24 год<br>SIEM + T1 аналітики</div></div>
+        <div class="card accent-orange"><span class="card-icon">📊</span><div class="card-title">Базовий SOC</div><div class="card-text">MTTD: 24-72 год<br>MTTR: 4-24 год<br>SIEM + аналітики Т1</div></div>
         <div class="card accent-green"><span class="card-icon">⚡</span><div class="card-title">Зрілий SOC</div><div class="card-text">MTTD: 1-4 год<br>MTTR: 30 хв - 2 год<br>SIEM + EDR + SOAR</div></div>
-        <div class="card accent-blue"><span class="card-icon">🤖</span><div class="card-title">AI-Driven SOC</div><div class="card-text">MTTD: хвилини<br>MTTR: автоматичний<br>ML-детектування + авто-containment</div></div>
+        <div class="card accent-blue"><span class="card-icon">🤖</span><div class="card-title">SOC на основі ШІ</div><div class="card-text">MTTD: хвилини<br>MTTR: автоматичний<br>ML-детектування + автостримування</div></div>
       </div>
       <div class="icon-list" style="margin-top: 1rem;">
         <div class="icon-list-item"><span class="il-icon">💰</span><span class="il-text">Кожен день скорочення MTTD економить в середньому <strong>$25K</strong> вартості breach</span></div>
@@ -113,11 +113,11 @@
     <section class="slide">
       <h1>Рівні зрілості SOC</h1>
       <div class="steps">
-        <div class="step"><div class="step-num">1</div><div class="step-title">Initial (Reactive)</div><div class="step-desc">Ad hoc реагування, відсутність SIEM, мінімальний моніторинг. Інциденти виявляють зовнішні сторони</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-title">Managed (Foundational)</div><div class="step-desc">Базовий SIEM, документовані runbooks, T1 аналітики 8/5. Реактивний підхід</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-title">Defined (Proactive)</div><div class="step-desc">24/7 моніторинг, threat hunting, SOAR, TI інтеграція. Проактивний пошук загроз</div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-title">Quantitative (Data-Driven)</div><div class="step-desc">Metrics-driven рішення, predictive analytics, кореляція з бізнес-ризиками</div></div>
-        <div class="step"><div class="step-num">5</div><div class="step-title">Optimizing (Autonomous)</div><div class="step-desc">AI/ML детектування, автоматичне реагування, continuous improvement. Мета для top-tier банків</div></div>
+        <div class="step"><div class="step-num">1</div><div class="step-title">Початковий (Reactive)</div><div class="step-desc">Ad hoc реагування, відсутність SIEM, мінімальний моніторинг. Інциденти виявляють зовнішні сторони</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Керований (Foundational)</div><div class="step-desc">Базовий SIEM, документовані робочі інструкції, аналітики Т1, режим 8/5. Реактивний підхід</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Визначений (Proactive)</div><div class="step-desc">Моніторинг 24/7, полювання на загрози, SOAR, інтеграція TI. Проактивний пошук загроз</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Кількісний (Data-Driven)</div><div class="step-desc">Рішення на основі метрик, предиктивна аналітика, кореляція з бізнес-ризиками</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-title">Оптимізуючий (Autonomous)</div><div class="step-desc">AI/ML детектування, автоматичне реагування, безперервне вдосконалення. Мета для провідних банків</div></div>
       </div>
       <div class="highlight-box" style="margin-top: 1rem;">Більшість українських банків знаходяться на рівні <strong>2-3</strong>. Ціль — рівень 4 протягом 2-3 років</div>
     </section>

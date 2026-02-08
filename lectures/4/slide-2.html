@@ -28,18 +28,18 @@
       <span class="slide-icon">🎭</span>
       <h1>CSRF та Clickjacking</h1>
       <p class="subtitle">Лекція 4.2</p>
-      <span class="tag tag-red" style="margin-top: 1rem;">Підробка запитів та UI Redressing</span>
+      <span class="tag tag-red" style="margin-top: 1rem;">Підробка запитів та підміна інтерфейсу</span>
     </section>
 
     <!-- 2. Що таке CSRF -->
     <section class="slide">
-      <h1>Cross-Site Request Forgery</h1>
+      <h1>Підробка міжсайтових запитів (CSRF)</h1>
       <h2>Браузер автоматично додає cookies!</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-title">Жертва авторизована</div>
-          <div class="step-desc">Session cookie банку активний</div>
+          <div class="step-desc">Сесійний cookie банку активний</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
@@ -78,13 +78,13 @@
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔄</span>
-          <div class="card-title">Double Submit</div>
-          <div class="card-text">CSRF-токен у cookie І в body/header. Сервер порівнює обидва</div>
+          <div class="card-title">Подвійне надсилання</div>
+          <div class="card-text">CSRF-токен у cookie і в тілі запиту/заголовку. Сервер порівнює обидва</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">📋</span>
-          <div class="card-title">Custom Headers</div>
-          <div class="card-text">X-Requested-With потребує CORS preflight. Блокує cross-origin запити</div>
+          <div class="card-title">Власні заголовки</div>
+          <div class="card-text">X-Requested-With потребує CORS preflight. Блокує міждоменні запити</div>
         </div>
       </div>
     </section>
@@ -117,7 +117,7 @@
 
     <!-- 5. Clickjacking -->
     <section class="slide">
-      <h1>Clickjacking</h1>
+      <h1>Клікджекінг (Clickjacking)</h1>
       <h2>Прозорий iframe поверх шкідливої сторінки</h2>
       <div class="icon-list">
         <div class="icon-list-item">
@@ -130,11 +130,11 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">👍</span>
-          <span class="il-text"><strong>Likejacking</strong> — приховані «Like» кнопки соцмереж</span>
+          <span class="il-text"><strong>Лайкджекінг (Likejacking)</strong> — приховані кнопки «Подобається» соцмереж</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🖱️</span>
-          <span class="il-text"><strong>Cursorjacking</strong> — курсор відображається не там, де насправді</span>
+          <span class="il-text"><strong>Курсорджекінг (Cursorjacking)</strong> — курсор відображається не там, де насправді</span>
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
@@ -144,7 +144,7 @@
 
     <!-- 6. Захист від Clickjacking -->
     <section class="slide">
-      <h1>Захист від Clickjacking</h1>
+      <h1>Захист від клікджекінгу</h1>
       <div class="two-col">
         <div class="col">
           <div class="card accent-blue" style="height: 100%;">
@@ -278,8 +278,8 @@
 
     <!-- 10. Clickjacking — шари атаки -->
     <section class="slide">
-      <h1>Clickjacking — структура шарів</h1>
-      <h2>Візуалізація UI Redressing атаки</h2>
+      <h1>Клікджекінг — структура шарів</h1>
+      <h2>Візуалізація атаки підміни інтерфейсу (UI Redressing)</h2>
       <div class="two-col">
         <div class="col">
           <div class="card accent-red" style="height: 100%;">
@@ -309,7 +309,7 @@
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Multi-step clickjacking: серія кліків для заповнення суми, IBAN і підтвердження переказу.</p>
+        <p>Багатокроковий клікджекінг: серія кліків для заповнення суми, IBAN і підтвердження переказу.</p>
       </div>
     </section>
 
@@ -340,7 +340,7 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Захист: CSRF-токен + re-authentication (пароль/OTP) для критичних операцій + SameSite=Strict.</p>
+        <p>Захист: CSRF-токен + повторна автентифікація (пароль/OTP) для критичних операцій + SameSite=Strict.</p>
       </div>
     </section>
 
@@ -359,11 +359,11 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>Clickjacking</strong> — прозорий iframe, захист через X-Frame-Options / CSP</span>
+          <span class="il-text"><strong>Клікджекінг</strong> — прозорий iframe, захист через X-Frame-Options / CSP</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Defense in depth</strong> — CSRF token + SameSite + re-auth для переказів</span>
+          <span class="il-text"><strong>Глибокий захист (Defense in depth)</strong> — CSRF-токен + SameSite + повторна автентифікація для переказів</span>
         </div>
       </div>
     </section>

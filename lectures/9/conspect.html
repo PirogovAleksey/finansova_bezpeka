@@ -74,29 +74,29 @@
 
         <p>Традиційні системи кібербезпеки базуються на сигнатурному аналізі: антивірус порівнює файл із базою відомих загроз. Проблема: zero-day атаки та polymorphic malware не мають відомих сигнатур. AI/ML дозволяє виявляти невідомі загрози через аналіз поведінки та виявлення аномалій.</p>
 
-        <p><strong>Anomaly Detection (виявлення аномалій):</strong></p>
+        <p><strong>Виявлення аномалій (Anomaly Detection):</strong></p>
         <ul>
-          <li><strong>Supervised learning</strong> — моделі навчені на розмічених даних (normal vs malicious). Random Forest, Gradient Boosting, Neural Networks класифікують мережевий трафік, файли, поведінку користувачів. Вимагає якісного датасету з обома класами.</li>
-          <li><strong>Unsupervised learning</strong> — виявлення аномалій без розмічених даних. Isolation Forest, Autoencoders, DBSCAN будують модель «нормальної» поведінки та виявляють відхилення. Ефективно проти zero-day, але вищий false positive rate.</li>
-          <li><strong>Semi-supervised learning</strong> — модель навчена переважно на нормальних даних (яких завжди більше) та виявляє все, що відхиляється від норми.</li>
+          <li><strong>Навчання з учителем (Supervised Learning)</strong> — моделі навчені на розмічених даних (normal vs malicious). Random Forest, Gradient Boosting, Neural Networks класифікують мережевий трафік, файли, поведінку користувачів. Вимагає якісного датасету з обома класами.</li>
+          <li><strong>Навчання без учителя (Unsupervised Learning)</strong> — виявлення аномалій без розмічених даних. Isolation Forest, Autoencoders, DBSCAN будують модель «нормальної» поведінки та виявляють відхилення. Ефективно проти zero-day, але вищий рівень хибних спрацювань (false positive rate).</li>
+          <li><strong>Напівкероване навчання (Semi-supervised Learning)</strong> — модель навчена переважно на нормальних даних (яких завжди більше) та виявляє все, що відхиляється від норми.</li>
         </ul>
 
         <p><strong>UEBA (User and Entity Behavior Analytics):</strong></p>
         <ul>
-          <li>Створення baseline поведінки для кожного користувача та пристрою: час входу, типові ресурси, обсяг даних, геолокація.</li>
-          <li>Виявлення insider threats: працівник банку, який раптово почав звертатися до баз даних клієнтів, які не входять в його зону відповідальності.</li>
-          <li>Виявлення compromised accounts: обліковий запис, який зазвичай працює 9-18 у Києві, раптом активний о 3 AM з IP в Росії.</li>
-          <li>Risk scoring: кожному користувачу присвоюється динамічний risk score на основі відхилень від baseline.</li>
+          <li>Створення базового профілю (baseline) поведінки для кожного користувача та пристрою: час входу, типові ресурси, обсяг даних, геолокація.</li>
+          <li>Виявлення внутрішніх загроз (insider threats): працівник банку, який раптово почав звертатися до баз даних клієнтів, які не входять в його зону відповідальності.</li>
+          <li>Виявлення скомпрометованих облікових записів (compromised accounts): обліковий запис, який зазвичай працює 9-18 у Києві, раптом активний о 3 AM з IP в Росії.</li>
+          <li>Оцінка ризику (Risk Scoring): кожному користувачу присвоюється динамічний показник ризику (risk score) на основі відхилень від базового профілю.</li>
         </ul>
 
-        <p><strong>Network Traffic Analysis з AI:</strong></p>
+        <p><strong>Аналіз мережевого трафіку (Network Traffic Analysis) з AI:</strong></p>
         <ul>
-          <li>Deep Packet Inspection з ML для виявлення C2-комунікацій, data exfiltration, lateral movement.</li>
+          <li>Глибока інспекція пакетів (Deep Packet Inspection) з ML для виявлення C2-комунікацій, витоку даних (data exfiltration), бокового переміщення (lateral movement).</li>
           <li>Виявлення DNS tunneling, encrypted C2 через аналіз метаданих трафіку (розмір пакетів, інтервали, ентропія).</li>
-          <li>Network Detection and Response (NDR) — платформи типу Darktrace, Vectra AI автоматично виявляють та реагують на загрози в мережі.</li>
+          <li>Виявлення та реагування в мережі (Network Detection and Response, NDR) — платформи типу Darktrace, Vectra AI автоматично виявляють та реагують на загрози в мережі.</li>
         </ul>
 
-        <p><strong>Automated Threat Hunting:</strong> AI-системи автоматично генерують гіпотези про загрози на основі аналізу логів, мережевого трафіку та endpoint-телеметрії. SOC-аналітик отримує пріоритизований список інцидентів замість тисяч alerts — це значно зменшує alert fatigue.</p>
+        <p><strong>Автоматизований пошук загроз (Automated Threat Hunting):</strong> AI-системи автоматично генерують гіпотези про загрози на основі аналізу логів, мережевого трафіку та endpoint-телеметрії. SOC-аналітик отримує пріоритизований список інцидентів замість тисяч сповіщень (alerts) — це значно зменшує втому від сповіщень (alert fatigue).</p>
 
         <p><strong>Приклад: Виявлення аномалій у мережевому трафіку за допомогою Isolation Forest (Python):</strong></p>
 <pre><code>import numpy as np
@@ -213,39 +213,39 @@ tags:
           </thead>
           <tbody>
             <tr>
-              <td>Supervised Learning</td>
+              <td>Навчання з учителем (Supervised Learning)</td>
               <td>Random Forest, XGBoost, CNN</td>
-              <td>Висока точність; низький false positive</td>
+              <td>Висока точність; низький рівень хибних спрацювань</td>
               <td>Потребує розмічених даних; не бачить zero-day</td>
-              <td>Malware classification, spam detection</td>
+              <td>Класифікація шкідливого ПЗ, виявлення спаму</td>
             </tr>
             <tr>
-              <td>Unsupervised Learning</td>
+              <td>Навчання без учителя (Unsupervised Learning)</td>
               <td>Isolation Forest, Autoencoder, DBSCAN</td>
               <td>Виявляє невідомі загрози; не потребує міток</td>
-              <td>Високий false positive rate; складне налаштування</td>
-              <td>Anomaly detection, zero-day, insider threats</td>
+              <td>Високий рівень хибних спрацювань; складне налаштування</td>
+              <td>Виявлення аномалій, zero-day, внутрішні загрози</td>
             </tr>
             <tr>
-              <td>Semi-supervised</td>
+              <td>Напівкероване (Semi-supervised)</td>
               <td>One-Class SVM, Variational Autoencoder</td>
               <td>Мало розмічених даних; гарний баланс</td>
               <td>Чутливий до якості «нормальних» даних</td>
-              <td>UEBA, network anomaly detection</td>
+              <td>UEBA, виявлення мережевих аномалій</td>
             </tr>
             <tr>
-              <td>Reinforcement Learning</td>
+              <td>Навчання з підкріпленням (Reinforcement Learning)</td>
               <td>Deep Q-Network, Policy Gradient</td>
               <td>Адаптація до нових загроз у реальному часі</td>
               <td>Складність навчання; потребує середовища</td>
-              <td>Automated response, honeypot management</td>
+              <td>Автоматичне реагування, керування honeypot</td>
             </tr>
             <tr>
-              <td>Deep Learning</td>
+              <td>Глибоке навчання (Deep Learning)</td>
               <td>LSTM, Transformer, GNN</td>
               <td>Аналіз послідовностей; складні залежності</td>
               <td>Потребує GPU; чорний ящик; багато даних</td>
-              <td>Log analysis, APT detection, NLP для threat intel</td>
+              <td>Аналіз логів, виявлення APT, NLP для розвідки загроз</td>
             </tr>
           </tbody>
         </table>
@@ -268,26 +268,26 @@ tags:
 
         <p>Фінансовий сектор є одним із найбільших споживачів AI/ML-технологій для безпеки. Обсяги транзакцій, швидкість обробки та вартість помилок роблять ML незамінним.</p>
 
-        <p><strong>ML для Fraud Detection:</strong></p>
+        <p><strong>ML для виявлення шахрайства (Fraud Detection):</strong></p>
         <ul>
-          <li><strong>Feature engineering</strong> — створення ознак для моделі: сума транзакції / середня сума клієнта, кількість транзакцій за останню годину, відстань від попередньої транзакції (impossible travel), час доби vs типовий час.</li>
-          <li><strong>Ensemble models</strong> — комбінація кількох моделей (Random Forest + XGBoost + Neural Network) для зменшення false positive та збільшення detection rate.</li>
-          <li><strong>Real-time inference</strong> — модель повинна видавати score за &lt;100 мс. Оптимізація: model compression, feature stores з pre-computed features, edge deployment.</li>
-          <li><strong>Imbalanced data</strong> — fraud становить &lt;0.1% транзакцій. Техніки: SMOTE (oversampling), cost-sensitive learning, focal loss.</li>
+          <li><strong>Конструювання ознак (Feature Engineering)</strong> — створення ознак для моделі: сума транзакції / середня сума клієнта, кількість транзакцій за останню годину, відстань від попередньої транзакції (impossible travel), час доби vs типовий час.</li>
+          <li><strong>Ансамблеві моделі (Ensemble Models)</strong> — комбінація кількох моделей (Random Forest + XGBoost + Neural Network) для зменшення хибних спрацювань та збільшення рівня виявлення.</li>
+          <li><strong>Оцінка в реальному часі (Real-time Inference)</strong> — модель повинна видавати score за &lt;100 мс. Оптимізація: стиснення моделі (model compression), сховища ознак (feature stores) з попередньо обчисленими ознаками, розгортання на межі мережі (edge deployment).</li>
+          <li><strong>Незбалансовані дані (Imbalanced Data)</strong> — шахрайство становить &lt;0.1% транзакцій. Техніки: SMOTE (oversampling), навчання з урахуванням вартості помилок (cost-sensitive learning), focal loss.</li>
         </ul>
 
-        <p><strong>AI для AML (Anti-Money Laundering):</strong></p>
+        <p><strong>AI для протидії відмиванню коштів (Anti-Money Laundering, AML):</strong></p>
         <ul>
-          <li>Традиційні rule-based AML-системи генерують >95% false positives (legitimate alerts). ML-моделі зменшують false positive до 50-70%, дозволяючи аналітикам фокусуватися на справжніх ризиках.</li>
-          <li>Graph Neural Networks (GNN) для виявлення money laundering мереж: аналіз графу транзакцій виявляє підозрілі кластери та ланцюжки.</li>
-          <li>Natural Language Processing (NLP) для аналізу adverse media: автоматичний скринінг новин на згадки про санкції, корупцію, fraud для PEP-перевірок.</li>
+          <li>Традиційні AML-системи на основі правил (rule-based) генерують >95% хибних спрацювань (false positives). ML-моделі зменшують хибні спрацювання до 50-70%, дозволяючи аналітикам фокусуватися на справжніх ризиках.</li>
+          <li>Графові нейронні мережі (Graph Neural Networks, GNN) для виявлення мереж відмивання коштів: аналіз графу транзакцій виявляє підозрілі кластери та ланцюжки.</li>
+          <li>Обробка природної мови (Natural Language Processing, NLP) для аналізу негативних згадок у медіа (adverse media): автоматичний скринінг новин на згадки про санкції, корупцію, шахрайство для PEP-перевірок.</li>
         </ul>
 
-        <p><strong>Deepfake Detection у KYC:</strong></p>
+        <p><strong>Виявлення дипфейків (Deepfake Detection) у KYC:</strong></p>
         <ul>
-          <li>Remote KYC (відеоверифікація) вразливий до deepfake-атак: зловмисник може використати deepfake-відео для проходження ідентифікації.</li>
-          <li>AI-based liveness detection: аналіз мікрорухів обличчя, текстури шкіри, відблисків світла, артефактів генерації.</li>
-          <li>Presentation Attack Detection (PAD): виявлення фото, відео, 3D-масок, deepfakes під час біометричної верифікації.</li>
+          <li>Дистанційна ідентифікація (Remote KYC) через відеоверифікацію вразлива до deepfake-атак: зловмисник може використати deepfake-відео для проходження ідентифікації.</li>
+          <li>Перевірка живої присутності (Liveness Detection) на основі AI: аналіз мікрорухів обличчя, текстури шкіри, відблисків світла, артефактів генерації.</li>
+          <li>Виявлення атак на представлення (Presentation Attack Detection, PAD): виявлення фото, відео, 3D-масок, deepfakes під час біометричної верифікації.</li>
         </ul>
 
         <p><strong>Приклад: ML-модель для виявлення шахрайських транзакцій (Python):</strong></p>
@@ -359,7 +359,7 @@ y_pred = model.predict(X_test)
 print(classification_report(y_test, y_pred, target_names=["Legit", "Fraud"]))
 </code></pre>
 
-        <p><strong>Приклад: ML Pipeline для real-time transaction scoring:</strong></p>
+        <p><strong>Приклад: ML-конвеєр для оцінки транзакцій у реальному часі (Real-time Transaction Scoring):</strong></p>
 <pre><code># Архітектура ML Pipeline для scoring транзакцій у реальному часі
 #
 # ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
@@ -454,7 +454,7 @@ def calculate_aml_risk(client, transactions, graph_data):
     return {"score": total_score, "level": risk_level, "factors": risk_factors}
 </code></pre>
 
-        <p><strong>Інтерпретація Confusion Matrix для Fraud Detection:</strong></p>
+        <p><strong>Інтерпретація матриці помилок (Confusion Matrix) для виявлення шахрайства:</strong></p>
         <table>
           <thead>
             <tr>
@@ -469,7 +469,7 @@ def calculate_aml_risk(client, transactions, graph_data):
               <td><strong>Фактично: Легітимна</strong></td>
               <td>True Negative (TN) = 99,850</td>
               <td>False Positive (FP) = 100</td>
-              <td>FP = клієнт заблокований помилково (customer friction)</td>
+              <td>FP = клієнт заблокований помилково (незручність для клієнта)</td>
             </tr>
             <tr>
               <td><strong>Фактично: Fraud</strong></td>
@@ -479,16 +479,16 @@ def calculate_aml_risk(client, transactions, graph_data):
             </tr>
           </tbody>
         </table>
-        <p>Для фінансового сектору критично мінімізувати FN (пропуск шахрайства), навіть ціною збільшення FP. Типові метрики: <strong>Precision</strong> = TP/(TP+FP) = 31%, <strong>Recall</strong> = TP/(TP+FN) = 90%, <strong>F1-score</strong> = 47%. Recall (повнота) є пріоритетом: краще перевірити 100 зайвих транзакцій, ніж пропустити 1 шахрайську.</p>
+        <p>Для фінансового сектору критично мінімізувати FN (пропуск шахрайства), навіть ціною збільшення FP. Типові метрики: <strong>Точність (Precision)</strong> = TP/(TP+FP) = 31%, <strong>Повнота (Recall)</strong> = TP/(TP+FN) = 90%, <strong>F1-score</strong> = 47%. Повнота (Recall) є пріоритетом: краще перевірити 100 зайвих транзакцій, ніж пропустити 1 шахрайську.</p>
 
         <div class="control-questions">
           <h3>Контрольні запитання</h3>
           <ol>
-            <li>Що таке feature engineering у контексті fraud detection? Наведіть 3-4 приклади ознак, які можуть свідчити про шахрайство.</li>
-            <li>Чому дані про шахрайство є imbalanced і які техніки використовуються для вирішення цієї проблеми? Поясніть роль SMOTE.</li>
-            <li>Що таке confusion matrix? Чому для fraud detection recall (повнота) важливіший за precision (точність)?</li>
-            <li>Яким чином Graph Neural Networks допомагають виявляти схеми відмивання коштів, які неможливо виявити rule-based системами?</li>
-            <li>Поясніть архітектуру ML Pipeline для real-time scoring транзакцій. Чому латентність моделі має бути менше 100 мс?</li>
+            <li>Що таке конструювання ознак (Feature Engineering) у контексті виявлення шахрайства? Наведіть 3-4 приклади ознак, які можуть свідчити про шахрайство.</li>
+            <li>Чому дані про шахрайство є незбалансованими (imbalanced) і які техніки використовуються для вирішення цієї проблеми? Поясніть роль SMOTE.</li>
+            <li>Що таке матриця помилок (Confusion Matrix)? Чому для виявлення шахрайства повнота (Recall) важливіша за точність (Precision)?</li>
+            <li>Яким чином графові нейронні мережі (Graph Neural Networks) допомагають виявляти схеми відмивання коштів, які неможливо виявити системами на основі правил?</li>
+            <li>Поясніть архітектуру ML-конвеєра для оцінки транзакцій у реальному часі. Чому латентність моделі має бути менше 100 мс?</li>
           </ol>
         </div>
       </section>
@@ -499,25 +499,25 @@ def calculate_aml_risk(client, transactions, graph_data):
 
         <p>Генеративний AI (GPT, Midjourney, voice cloning) створює нові загрози для фінансового сектору, значно знижуючи бар'єр входу для зловмисників та підвищуючи якість атак.</p>
 
-        <p><strong>AI-powered фішинг:</strong></p>
+        <p><strong>Фішинг на основі AI (AI-powered Phishing):</strong></p>
         <ul>
-          <li>LLM (Large Language Models) генерують ідеальні фішингові листи без граматичних помилок, з правильним стилем та контекстом. Традиційна порада «шукайте помилки у тексті» стає неефективною.</li>
+          <li>Великі мовні моделі (Large Language Models, LLM) генерують ідеальні фішингові листи без граматичних помилок, з правильним стилем та контекстом. Традиційна порада «шукайте помилки у тексті» стає неефективною.</li>
           <li>Персоналізація: AI може аналізувати профіль жертви в соцмережах та генерувати листи з релевантним контекстом (згадки про хобі, проєкти, колег).</li>
           <li>Масштабування: те, що раніше вимагало ручної роботи для spear phishing, тепер можна автоматизувати для тисяч цілей.</li>
         </ul>
 
-        <p><strong>Deepfake-голоси та відео:</strong></p>
+        <p><strong>Дипфейк-голоси та відео:</strong></p>
         <ul>
-          <li><strong>Voice cloning</strong> — для створення переконливого клону голосу достатньо 3-5 секунд зразка. Реальний кейс: у 2023 році зловмисники використали deepfake голосу CEO для авторизації переказу $25 млн у гонконгській компанії.</li>
-          <li><strong>Video deepfakes</strong> — real-time deepfake під час відеодзвінка для обходу KYC або авторизації операцій. Технологія стає доступною через open-source інструменти.</li>
-          <li><strong>Аудіо-фішинг</strong> — автоматизовані дзвінки з AI-голосом, що імітує працівника банку. Масштабування вішингу на тисячі одночасних дзвінків.</li>
+          <li><strong>Клонування голосу (Voice Cloning)</strong> — для створення переконливого клону голосу достатньо 3-5 секунд зразка. Реальний кейс: у 2023 році зловмисники використали дипфейк голосу CEO для авторизації переказу $25 млн у гонконгській компанії.</li>
+          <li><strong>Відео-дипфейки (Video Deepfakes)</strong> — дипфейк у реальному часі під час відеодзвінка для обходу KYC або авторизації операцій. Технологія стає доступною через open-source інструменти.</li>
+          <li><strong>Аудіо-фішинг (Vishing)</strong> — автоматизовані дзвінки з AI-голосом, що імітує працівника банку. Масштабування вішингу на тисячі одночасних дзвінків.</li>
         </ul>
 
-        <p><strong>LLM-вразливості та зловживання:</strong></p>
+        <p><strong>Вразливості LLM та зловживання:</strong></p>
         <ul>
-          <li><strong>Prompt injection</strong> — маніпуляція AI-асистентами через спеціально сформовані запити для отримання конфіденційної інформації або виконання несанкціонованих дій.</li>
-          <li><strong>Генерація malware</strong> — LLM можуть допомагати у написанні exploit-коду, обфускації malware, створенні соціальної інженерії.</li>
-          <li><strong>Data poisoning</strong> — маніпуляція навчальними даними для впровадження backdoors у ML-моделі, які використовуються для прийняття фінансових рішень.</li>
+          <li><strong>Ін'єкція промптів (Prompt Injection)</strong> — маніпуляція AI-асистентами через спеціально сформовані запити для отримання конфіденційної інформації або виконання несанкціонованих дій.</li>
+          <li><strong>Генерація шкідливого ПЗ (Malware Generation)</strong> — LLM можуть допомагати у написанні exploit-коду, обфускації шкідливого ПЗ, створенні соціальної інженерії.</li>
+          <li><strong>Отруєння даних (Data Poisoning)</strong> — маніпуляція навчальними даними для впровадження прихованих вразливостей (backdoors) у ML-моделі, які використовуються для прийняття фінансових рішень.</li>
         </ul>
 
         <p><strong>Приклад: AI-генерований фішинговий лист (демонстрація якості):</strong></p>
@@ -707,32 +707,32 @@ def secure_ai_pipeline(user_input, context):
               <td>AI-детектори, DMARC, навчання персоналу</td>
             </tr>
             <tr>
-              <td>Voice deepfake</td>
-              <td>Voice cloning (VALL-E, RVC)</td>
-              <td>Авторизація переказів, CEO fraud</td>
+              <td>Дипфейк голосу</td>
+              <td>Клонування голосу (VALL-E, RVC)</td>
+              <td>Авторизація переказів, шахрайство від імені CEO</td>
               <td>Дуже висока — реальний голос</td>
-              <td>Кодові слова, multi-channel verification</td>
+              <td>Кодові слова, багатоканальна верифікація</td>
             </tr>
             <tr>
-              <td>Video deepfake</td>
+              <td>Відео-дипфейк</td>
               <td>DeepFaceLab, FaceSwap</td>
               <td>Обхід KYC, біометрична верифікація</td>
-              <td>Висока — real-time генерація</td>
-              <td>Liveness detection, PAD, 3D face analysis</td>
+              <td>Висока — генерація в реальному часі</td>
+              <td>Перевірка живої присутності, PAD, 3D-аналіз обличчя</td>
             </tr>
             <tr>
-              <td>Prompt Injection</td>
+              <td>Ін'єкція промптів (Prompt Injection)</td>
               <td>Спеціально сформовані запити</td>
               <td>Витік даних, несанкціоновані дії AI</td>
               <td>Середня — можна виявити патерни</td>
-              <td>Input sanitization, guardrails, HITL</td>
+              <td>Валідація вхідних даних, захисні бар'єри, людина в циклі (HITL)</td>
             </tr>
             <tr>
-              <td>AI-генерований malware</td>
+              <td>AI-генероване шкідливе ПЗ</td>
               <td>LLM для генерації коду</td>
-              <td>Бекдори, ransomware, інфостілери</td>
-              <td>Висока — polymorphic код</td>
-              <td>Behavioral analysis, EDR, sandboxing</td>
+              <td>Бекдори, програми-вимагачі, інфостілери</td>
+              <td>Висока — поліморфний код</td>
+              <td>Поведінковий аналіз, EDR, пісочниця (sandboxing)</td>
             </tr>
           </tbody>
         </table>
@@ -753,26 +753,26 @@ def secure_ai_pipeline(user_input, context):
       <section>
         <h2>9.4 Захист AI-систем та відповідальний AI</h2>
 
-        <p>AI-системи самі потребують захисту від adversarial attacks та маніпуляцій. Крім того, регулятори вимагають прозорості та відповідальності при використанні AI у фінансових рішеннях.</p>
+        <p>AI-системи самі потребують захисту від змагальних атак (adversarial attacks) та маніпуляцій. Крім того, регулятори вимагають прозорості та відповідальності при використанні AI у фінансових рішеннях.</p>
 
-        <p><strong>Adversarial Attacks на ML-моделі:</strong></p>
+        <p><strong>Змагальні атаки (Adversarial Attacks) на ML-моделі:</strong></p>
         <ul>
-          <li><strong>Evasion attacks</strong> — модифікація вхідних даних для обходу ML-моделі. Наприклад, fraud transaction, що мімікрує під легітимну шляхом мінімальних змін параметрів (сума, час, merchant category).</li>
-          <li><strong>Poisoning attacks</strong> — впровадження шкідливих даних у навчальний датасет. Якщо модель fraud detection навчається на заражених даних, вона може пропускати певні типи fraud.</li>
-          <li><strong>Model extraction</strong> — зловмисник надсилає тисячі запитів до API моделі та відтворює її логіку, після чого знаходить способи обходу.</li>
-          <li><strong>Захист:</strong> adversarial training, input validation, model monitoring (drift detection), rate limiting API, ensemble methods.</li>
+          <li><strong>Атаки ухилення (Evasion Attacks)</strong> — модифікація вхідних даних для обходу ML-моделі. Наприклад, шахрайська транзакція, що мімікрує під легітимну шляхом мінімальних змін параметрів (сума, час, категорія продавця).</li>
+          <li><strong>Атаки отруєння (Poisoning Attacks)</strong> — впровадження шкідливих даних у навчальний датасет. Якщо модель виявлення шахрайства навчається на заражених даних, вона може пропускати певні типи шахрайства.</li>
+          <li><strong>Витяг моделі (Model Extraction)</strong> — зловмисник надсилає тисячі запитів до API моделі та відтворює її логіку, після чого знаходить способи обходу.</li>
+          <li><strong>Захист:</strong> змагальне навчання (adversarial training), валідація вхідних даних, моніторинг моделі (drift detection), обмеження запитів до API, ансамблеві методи.</li>
         </ul>
 
         <p><strong>AI Governance у фінансовому секторі:</strong></p>
         <ul>
-          <li><strong>Explainability (XAI)</strong> — регулятори вимагають пояснення рішень AI. SHAP, LIME дозволяють пояснити, чому модель заблокувала транзакцію або відхилила кредитну заявку. «Black box» неприйнятний для фінансових рішень.</li>
-          <li><strong>Bias та fairness</strong> — AI-моделі можуть дискримінувати за ознаками раси, статі, віку. У фінансовому секторі це пряме порушення антидискримінаційного законодавства. Регулярний аудит моделей на bias.</li>
-          <li><strong>Model Risk Management</strong> — SR 11-7 (Federal Reserve) вимагає: незалежну валідацію моделей, документування, моніторинг performance, процедури виведення з експлуатації.</li>
+          <li><strong>Пояснюваність (Explainability, XAI)</strong> — регулятори вимагають пояснення рішень AI. SHAP, LIME дозволяють пояснити, чому модель заблокувала транзакцію або відхилила кредитну заявку. «Чорний ящик» (Black Box) неприйнятний для фінансових рішень.</li>
+          <li><strong>Упередженість та справедливість (Bias & Fairness)</strong> — AI-моделі можуть дискримінувати за ознаками раси, статі, віку. У фінансовому секторі це пряме порушення антидискримінаційного законодавства. Регулярний аудит моделей на упередженість.</li>
+          <li><strong>Управління модельними ризиками (Model Risk Management)</strong> — SR 11-7 (Federal Reserve) вимагає: незалежну валідацію моделей, документування, моніторинг продуктивності, процедури виведення з експлуатації.</li>
         </ul>
 
         <p><strong>EU AI Act та регулювання:</strong></p>
         <ul>
-          <li>EU AI Act класифікує AI-системи за рівнем ризику. Фінансовий сектор (credit scoring, fraud detection, insurance) — «high-risk» категорія з обов'язковими вимогами: human oversight, transparency, data governance, robustness testing.</li>
+          <li>EU AI Act класифікує AI-системи за рівнем ризику. Фінансовий сектор (кредитний скоринг, виявлення шахрайства, страхування) — категорія «високого ризику» (high-risk) з обов'язковими вимогами: людський нагляд (human oversight), прозорість, управління даними (data governance), тестування стійкості (robustness testing).</li>
           <li>Право на пояснення: клієнт має право знати, чому AI відхилив його заявку або заблокував транзакцію.</li>
           <li>В Україні НКЦБФР та НБУ починають формувати рекомендації щодо використання AI у фінансових послугах, орієнтуючись на європейські стандарти.</li>
         </ul>
@@ -858,62 +858,62 @@ def adversarial_training(model, train_loader, epsilon=0.03, epochs=10):
           <tbody>
             <tr>
               <td>Дані</td>
-              <td>Data provenance</td>
+              <td>Походження даних (Data Provenance)</td>
               <td>Документування джерел даних, перевірка цілісності навчального датасету</td>
               <td>Критичний</td>
             </tr>
             <tr>
               <td>Дані</td>
-              <td>Poisoning detection</td>
-              <td>Статистичний аналіз датасету на аномальні патерни, outlier detection</td>
+              <td>Виявлення отруєння (Poisoning Detection)</td>
+              <td>Статистичний аналіз датасету на аномальні патерни, виявлення викидів</td>
               <td>Критичний</td>
             </tr>
             <tr>
               <td>Модель</td>
-              <td>Adversarial robustness</td>
-              <td>Тестування моделі на adversarial examples (FGSM, PGD, C&W)</td>
+              <td>Змагальна стійкість (Adversarial Robustness)</td>
+              <td>Тестування моделі на змагальних прикладах (FGSM, PGD, C&W)</td>
               <td>Високий</td>
             </tr>
             <tr>
               <td>Модель</td>
-              <td>Model encryption</td>
-              <td>Захист вагів моделі від extraction (шифрування, secure enclaves)</td>
+              <td>Шифрування моделі (Model Encryption)</td>
+              <td>Захист вагів моделі від витягу (шифрування, захищені анклави)</td>
               <td>Середній</td>
             </tr>
             <tr>
               <td>API</td>
-              <td>Rate limiting</td>
-              <td>Обмеження запитів до API моделі для запобігання model extraction</td>
+              <td>Обмеження частоти запитів (Rate Limiting)</td>
+              <td>Обмеження запитів до API моделі для запобігання витягу моделі</td>
               <td>Високий</td>
             </tr>
             <tr>
               <td>API</td>
-              <td>Input validation</td>
-              <td>Перевірка вхідних даних на аномальні значення та adversarial patterns</td>
+              <td>Валідація вхідних даних (Input Validation)</td>
+              <td>Перевірка вхідних даних на аномальні значення та змагальні патерни</td>
               <td>Критичний</td>
             </tr>
             <tr>
               <td>Моніторинг</td>
-              <td>Drift detection</td>
+              <td>Виявлення дрейфу (Drift Detection)</td>
               <td>Виявлення зміни розподілу даних (data drift) та деградації моделі</td>
               <td>Високий</td>
             </tr>
             <tr>
               <td>Моніторинг</td>
-              <td>Prediction monitoring</td>
-              <td>Відстеження аномальних патернів у predictions (різкі зміни score)</td>
+              <td>Моніторинг передбачень (Prediction Monitoring)</td>
+              <td>Відстеження аномальних патернів у передбаченнях (різкі зміни оцінки)</td>
               <td>Високий</td>
             </tr>
             <tr>
               <td>Governance</td>
-              <td>Explainability</td>
+              <td>Пояснюваність (Explainability)</td>
               <td>SHAP/LIME для кожного рішення моделі; документування логіки</td>
               <td>Критичний</td>
             </tr>
             <tr>
               <td>Governance</td>
-              <td>Bias audit</td>
-              <td>Регулярна перевірка моделі на дискримінацію за protected attributes</td>
+              <td>Аудит упередженості (Bias Audit)</td>
+              <td>Регулярна перевірка моделі на дискримінацію за захищеними ознаками</td>
               <td>Критичний</td>
             </tr>
           </tbody>
@@ -932,33 +932,33 @@ def adversarial_training(model, train_loader, epsilon=0.03, epochs=10):
           <tbody>
             <tr>
               <td>Стратегічний</td>
-              <td>AI Ethics Board</td>
-              <td>C-suite, Legal, Compliance</td>
-              <td>AI-стратегія, етичні принципи, risk appetite</td>
+              <td>Рада з етики AI (AI Ethics Board)</td>
+              <td>Вище керівництво, юридичний відділ, комплаєнс</td>
+              <td>AI-стратегія, етичні принципи, схильність до ризику</td>
             </tr>
             <tr>
               <td>Тактичний</td>
-              <td>Model Risk Management</td>
-              <td>Risk Management, Internal Audit</td>
-              <td>Валідація моделей, SR 11-7 compliance, model inventory</td>
+              <td>Управління модельними ризиками (Model Risk Management)</td>
+              <td>Управління ризиками, внутрішній аудит</td>
+              <td>Валідація моделей, відповідність SR 11-7, реєстр моделей</td>
             </tr>
             <tr>
               <td>Операційний</td>
-              <td>MLOps Pipeline</td>
-              <td>Data Science, ML Engineering</td>
-              <td>CI/CD для моделей, A/B testing, canary deployments</td>
+              <td>Конвеєр MLOps (MLOps Pipeline)</td>
+              <td>Data Science, ML-інженерія</td>
+              <td>CI/CD для моделей, A/B-тестування, канаркові розгортання</td>
             </tr>
             <tr>
               <td>Моніторинг</td>
-              <td>Model Performance</td>
-              <td>Data Science, Business Owners</td>
-              <td>KPI tracking, drift detection, retraining triggers</td>
+              <td>Продуктивність моделей (Model Performance)</td>
+              <td>Data Science, бізнес-власники</td>
+              <td>Відстеження KPI, виявлення дрейфу, тригери перенавчання</td>
             </tr>
             <tr>
               <td>Аудит</td>
-              <td>Compliance Reporting</td>
-              <td>Compliance, External Auditors</td>
-              <td>Регуляторна звітність, bias audits, explainability reports</td>
+              <td>Звітність з комплаєнсу (Compliance Reporting)</td>
+              <td>Комплаєнс, зовнішні аудитори</td>
+              <td>Регуляторна звітність, аудити упередженості, звіти з пояснюваності</td>
             </tr>
           </tbody>
         </table>
@@ -976,14 +976,14 @@ def adversarial_training(model, train_loader, epsilon=0.03, epochs=10):
           <tbody>
             <tr>
               <td><strong>Неприйнятний (заборонено)</strong></td>
-              <td>Social scoring клієнтів; масове біометричне спостереження</td>
+              <td>Соціальний рейтинг (social scoring) клієнтів; масове біометричне спостереження</td>
               <td>Повна заборона використання</td>
               <td>До 35 млн EUR або 7% обороту</td>
             </tr>
             <tr>
               <td><strong>Високий ризик</strong></td>
-              <td>Credit scoring; fraud detection; AML-скринінг; страхове ціноутворення</td>
-              <td>Conformity assessment, human oversight, transparency, data governance, robustness testing, risk management system</td>
+              <td>Кредитний скоринг; виявлення шахрайства; AML-скринінг; страхове ціноутворення</td>
+              <td>Оцінка відповідності, людський нагляд, прозорість, управління даними, тестування стійкості, система управління ризиками</td>
               <td>До 15 млн EUR або 3% обороту</td>
             </tr>
             <tr>
@@ -1005,10 +1005,10 @@ def adversarial_training(model, train_loader, epsilon=0.03, epochs=10):
           <h3>Контрольні запитання</h3>
           <ol>
             <li>Поясніть принцип роботи FGSM-атаки. Чому мінімальні зміни вхідних даних можуть кардинально змінити рішення ML-моделі?</li>
-            <li>Назвіть три основних типи adversarial attacks на ML-моделі (evasion, poisoning, extraction) та опишіть методи захисту від кожного.</li>
-            <li>Чому «чорний ящик» (black box) є неприйнятним для AI-систем у фінансовому секторі? Які інструменти забезпечують explainability?</li>
-            <li>Опишіть класифікацію AI-систем за EU AI Act. До якої категорії ризику належить система credit scoring і які вимоги вона має виконувати?</li>
-            <li>Що таке Model Risk Management (SR 11-7)? Які основні компоненти AI Governance Framework має мати фінансова установа?</li>
+            <li>Назвіть три основних типи змагальних атак на ML-моделі (ухилення, отруєння, витяг) та опишіть методи захисту від кожного.</li>
+            <li>Чому «чорний ящик» є неприйнятним для AI-систем у фінансовому секторі? Які інструменти забезпечують пояснюваність (Explainability)?</li>
+            <li>Опишіть класифікацію AI-систем за EU AI Act. До якої категорії ризику належить система кредитного скорингу і які вимоги вона має виконувати?</li>
+            <li>Що таке управління модельними ризиками (Model Risk Management, SR 11-7)? Які основні компоненти системи управління AI (AI Governance Framework) має мати фінансова установа?</li>
           </ol>
         </div>
       </section>
@@ -1016,8 +1016,8 @@ def adversarial_training(model, train_loader, epsilon=0.03, epochs=10):
       <!-- Summary -->
       <section>
         <h2>Підсумок</h2>
-        <p>Штучний інтелект трансформує кібербезпеку фінансового сектору з обох сторін барикад. AI/ML дозволяє виявляти загрози, які неможливо знайти традиційними методами: anomaly detection, UEBA, automated threat hunting. У фінансовому моніторингу ML значно зменшує false positive rate та виявляє складні схеми відмивання коштів через graph analytics.</p>
-        <p>Водночас генеративний AI створює нові загрози: AI-powered фішинг, deepfake-голоси для авторизації переказів, автоматизація атак. Захист AI-систем від adversarial attacks, забезпечення explainability та fairness стають обов'язковими вимогами регуляторів (EU AI Act).</p>
+        <p>Штучний інтелект трансформує кібербезпеку фінансового сектору з обох сторін барикад. AI/ML дозволяє виявляти загрози, які неможливо знайти традиційними методами: виявлення аномалій, UEBA, автоматизований пошук загроз. У фінансовому моніторингу ML значно зменшує рівень хибних спрацювань та виявляє складні схеми відмивання коштів через графову аналітику.</p>
+        <p>Водночас генеративний AI створює нові загрози: фішинг на основі AI, дипфейк-голоси для авторизації переказів, автоматизація атак. Захист AI-систем від змагальних атак, забезпечення пояснюваності та справедливості стають обов'язковими вимогами регуляторів (EU AI Act).</p>
         <p><strong>У наступній лекції</strong> ми розглянемо безпеку криптоактивів: захист криптовалютних гаманців, вразливості смарт-контрактів, безпеку DeFi-протоколів та ризики централізованих бірж.</p>
       </section>
     </article>

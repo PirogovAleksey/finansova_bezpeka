@@ -28,7 +28,7 @@
       <span class="slide-icon">🏛️</span>
       <h1>IAM та PAM</h1>
       <p class="subtitle">Лекція 3.4</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Identity & Privileged Access Management</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Управління ідентифікацією та привілейованим доступом</span>
     </section>
 
     <!-- 2. Identity Lifecycle -->
@@ -38,17 +38,17 @@
       <div class="card-grid cols-3">
         <div class="card accent-green">
           <span class="card-icon">🚪</span>
-          <div class="card-title">Joiner</div>
+          <div class="card-title">Новий працівник (Joiner)</div>
           <div class="card-text">Новий працівник: автоматичне створення акаунтів з HR-системи (SAP → AD)</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔄</span>
-          <div class="card-title">Mover</div>
+          <div class="card-title">Переведення (Mover)</div>
           <div class="card-text">Зміна посади: старі дозволи ← відкликати, нові → надати</div>
         </div>
         <div class="card accent-red">
           <span class="card-icon">🚫</span>
-          <div class="card-title">Leaver</div>
+          <div class="card-title">Звільнення (Leaver)</div>
           <div class="card-text">Звільнення: негайне блокування всіх акаунтів (SLA — хвилини)</div>
         </div>
       </div>
@@ -101,12 +101,12 @@
       <div class="card-grid" style="margin-top: 1.2rem;">
         <div class="card accent-blue">
           <span class="card-icon">🔒</span>
-          <div class="card-title">Password Vault</div>
+          <div class="card-title">Сховище паролів (Password Vault)</div>
           <div class="card-text">CyberArk, HashiCorp Vault — централізоване зберігання credentials</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">🎥</span>
-          <div class="card-title">Session Recording</div>
+          <div class="card-title">Запис сесій (Session Recording)</div>
           <div class="card-text">Запис кожної дії адміністратора у production</div>
         </div>
         <div class="card accent-purple">
@@ -116,7 +116,7 @@
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔑</span>
-          <div class="card-title">Secrets Rotation</div>
+          <div class="card-title">Ротація секретів (Secrets Rotation)</div>
           <div class="card-text">Автоматична зміна паролів кожні 24 години</div>
         </div>
       </div>
@@ -134,17 +134,17 @@
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Dynamic Secrets</div>
+          <div class="step-title">Динамічні секрети (Dynamic Secrets)</div>
           <div class="step-desc">Генерація тимчасових credentials на льоту</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Auto-Rotation</div>
+          <div class="step-title">Автоматична ротація (Auto-Rotation)</div>
           <div class="step-desc">Ротація кожні 24 год без втручання людини</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Audit Log</div>
+          <div class="step-title">Журнал аудиту (Audit Log)</div>
           <div class="step-desc">Хто, коли, який секрет запитував</div>
         </div>
       </div>
@@ -222,28 +222,28 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Provisioning</div>
+          <div class="step-title">Створення облікового запису (Provisioning)</div>
           <div class="step-desc">HR створює запис → автоматичне створення AD, email, доступ до АБС за шаблоном посади</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Authentication Setup</div>
+          <div class="step-title">Налаштування автентифікації (Authentication Setup)</div>
           <div class="step-desc">Реєстрація MFA (TOTP, FIDO2), видача корпоративного сертифіката, підписання NDA</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Access Governance</div>
+          <div class="step-title">Управління доступом (Access Governance)</div>
           <div class="step-desc">Щоквартальний перегляд дозволів, запити через ServiceNow з approval workflow</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Role Changes (Mover)</div>
+          <div class="step-title">Зміна ролей (Role Changes / Mover)</div>
           <div class="step-desc">Переведення → автоматичне відкликання старих + надання нових дозволів за шаблоном</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
           <div class="step-desc">Деактивація облікового запису протягом 30 хвилин, відкликання сертифікатів, архівація даних</div>
-          <div class="step-title">Deprovisioning (Leaver)</div>
+          <div class="step-title">Деактивація (Deprovisioning / Leaver)</div>
         </div>
       </div>
       <div class="highlight-box warning" style="margin-top: 1.2rem;">
@@ -302,12 +302,12 @@
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">🔒</span>
-          <div class="card-title">Password Vault</div>
+          <div class="card-title">Сховище паролів (Password Vault)</div>
           <div class="card-text">Централізоване зберігання root/admin паролів. AES-256 шифрування. Ніхто не знає пароль — лише vault</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🖥️</span>
-          <div class="card-title">Session Manager</div>
+          <div class="card-title">Менеджер сесій (Session Manager)</div>
           <div class="card-text">Проксі для SSH/RDP. Запис відео-сесій. Keystroke logging. Real-time моніторинг команд</div>
         </div>
         <div class="card accent-green">
@@ -317,7 +317,7 @@
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔄</span>
-          <div class="card-title">Credential Rotation</div>
+          <div class="card-title">Ротація облікових даних (Credential Rotation)</div>
           <div class="card-text">Автоматична зміна паролів після кожного check-in. Інтеграція з AD, DB, Linux, мережеве обладнання</div>
         </div>
       </div>

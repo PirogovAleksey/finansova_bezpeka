@@ -18,7 +18,7 @@
       <span class="slide-icon">🔑</span>
       <h1>Паролі та акаунти</h1>
       <p class="subtitle">Лекція 13.1</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Password managers, MFA, passkeys, breach monitoring</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Менеджери паролів, MFA, Passkeys, моніторинг витоків</span>
     </section>
     <section class="slide">
       <h1>Проблема паролів</h1>
@@ -32,12 +32,12 @@
       </div>
     </section>
     <section class="slide">
-      <h1>Password Manager</h1>
+      <h1>Менеджер паролів (Password Manager)</h1>
       <div class="icon-list">
         <div class="icon-list-item"><span class="il-icon">🔐</span><span class="il-text"><strong>Генерація</strong> — унікальний 20+ символів пароль для кожного сервісу</span></div>
         <div class="icon-list-item"><span class="il-icon">💾</span><span class="il-text"><strong>Зберігання</strong> — зашифроване сховище (Bitwarden, 1Password, KeePass)</span></div>
-        <div class="icon-list-item"><span class="il-icon">🔑</span><span class="il-text"><strong>Master password</strong> — єдиний пароль 16+ символів, який потрібно запам'ятати</span></div>
-        <div class="icon-list-item"><span class="il-icon">🛡️</span><span class="il-text"><strong>Anti-phishing</strong> — автозаповнення перевіряє домен, не заповнить фейковий сайт</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔑</span><span class="il-text"><strong>Майстер-пароль (Master Password)</strong> — єдиний пароль 16+ символів, який потрібно запам'ятати</span></div>
+        <div class="icon-list-item"><span class="il-icon">🛡️</span><span class="il-text"><strong>Захист від фішингу (Anti-Phishing)</strong> — автозаповнення перевіряє домен, не заповнить фейковий сайт</span></div>
       </div>
     </section>
     <section class="slide">
@@ -45,16 +45,16 @@
       <div class="card-grid">
         <div class="card accent-orange"><span class="card-icon">📱</span><div class="card-title">SMS OTP</div><div class="card-text">Найслабший: SIM-swap, SS7. Краще ніж нічого</div></div>
         <div class="card accent-blue"><span class="card-icon">⏱️</span><div class="card-title">TOTP</div><div class="card-text">Google Authenticator, Authy. Значно безпечніший за SMS</div></div>
-        <div class="card accent-green"><span class="card-icon">🔑</span><div class="card-title">FIDO2 / Passkeys</div><div class="card-text">Криптографічна auth, phishing-resistant. Майбутнє!</div></div>
-        <div class="card accent-purple"><span class="card-icon">🔧</span><div class="card-title">Hardware Key</div><div class="card-text">YubiKey: фізичний FIDO2. Золотий стандарт безпеки</div></div>
+        <div class="card accent-green"><span class="card-icon">🔑</span><div class="card-title">FIDO2 / Passkeys</div><div class="card-text">Криптографічна автентифікація, стійка до фішингу. Майбутнє!</div></div>
+        <div class="card accent-purple"><span class="card-icon">🔧</span><div class="card-title">Апаратний ключ (Hardware Key)</div><div class="card-text">YubiKey: фізичний FIDO2. Золотий стандарт безпеки</div></div>
       </div>
     </section>
     <section class="slide">
-      <h1>Breach Monitoring</h1>
+      <h1>Моніторинг витоків (Breach Monitoring)</h1>
       <div class="icon-list">
         <div class="icon-list-item"><span class="il-icon">🔍</span><span class="il-text"><strong>Have I Been Pwned</strong> — перевірка email у відомих витоках (безкоштовно)</span></div>
-        <div class="icon-list-item"><span class="il-icon">🔔</span><span class="il-text"><strong>Alerts</strong> — автоматичне повідомлення при новому витоку з вашим email</span></div>
-        <div class="icon-list-item"><span class="il-icon">🏥</span><span class="il-text"><strong>Vault Health</strong> — Bitwarden/1Password перевіряє слабкі та скомпрометовані паролі</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔔</span><span class="il-text"><strong>Сповіщення (Alerts)</strong> — автоматичне повідомлення при новому витоку з вашим email</span></div>
+        <div class="icon-list-item"><span class="il-icon">🏥</span><span class="il-text"><strong>Перевірка сховища (Vault Health)</strong> — Bitwarden/1Password перевіряє слабкі та скомпрометовані паролі</span></div>
         <div class="icon-list-item"><span class="il-icon">⚡</span><span class="il-text"><strong>Дія:</strong> негайна зміна пароля на скомпрометованих акаунтах + увімкнення MFA</span></div>
       </div>
     </section>
@@ -88,7 +88,7 @@
       <h1>Passkeys — майбутнє автентифікації</h1>
       <div class="icon-list">
         <div class="icon-list-item"><span class="il-icon">🔑</span><span class="il-text"><strong>Що це?</strong> — FIDO2 криптографічні ключі замість паролів. Приватний ключ на пристрої, публічний на сервері</span></div>
-        <div class="icon-list-item"><span class="il-icon">🛡️</span><span class="il-text"><strong>Phishing-proof</strong> — прив'язка до домену: passkey для google.com не спрацює на g00gle.com</span></div>
+        <div class="icon-list-item"><span class="il-icon">🛡️</span><span class="il-text"><strong>Захист від фішингу (Phishing-Proof)</strong> — прив'язка до домену: passkey для google.com не спрацює на g00gle.com</span></div>
         <div class="icon-list-item"><span class="il-icon">📱</span><span class="il-text"><strong>Біометрія</strong> — розблокування через Face ID / Touch ID / Windows Hello замість введення пароля</span></div>
         <div class="icon-list-item"><span class="il-icon">🔄</span><span class="il-text"><strong>Синхронізація</strong> — iCloud Keychain, Google Password Manager, 1Password зберігають passkeys між пристроями</span></div>
       </div>
@@ -101,7 +101,7 @@
       <div class="card-grid">
         <div class="card accent-blue"><span class="card-icon">🔍</span><div class="card-title">Have I Been Pwned</div><div class="card-text">Безкоштовна перевірка email у 700+ витоках. API для автоматизації</div></div>
         <div class="card accent-green"><span class="card-icon">🔔</span><div class="card-title">Firefox Monitor</div><div class="card-text">Інтеграція з HIBP, автоматичні сповіщення при нових витоках</div></div>
-        <div class="card accent-orange"><span class="card-icon">🌑</span><div class="card-title">Dark Web Monitoring</div><div class="card-text">1Password Watchtower, Bitwarden Reports — пошук паролів у dark web</div></div>
+        <div class="card accent-orange"><span class="card-icon">🌑</span><div class="card-title">Моніторинг темної мережі (Dark Web Monitoring)</div><div class="card-text">1Password Watchtower, Bitwarden Reports — пошук паролів у dark web</div></div>
         <div class="card accent-red"><span class="card-icon">⚡</span><div class="card-title">Дії при витоку</div><div class="card-text">1) Змінити пароль, 2) Увімкнути MFA, 3) Перевірити активні сесії, 4) Відкликати токени</div></div>
       </div>
     </section>
@@ -109,10 +109,10 @@
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">
-        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>Password manager</strong> — обов'язковий інструмент для кожного</span></div>
+        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>Менеджер паролів (Password Manager)</strong> — обов'язковий інструмент для кожного</span></div>
         <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>MFA</strong> — FIDO2/Passkeys > TOTP > SMS. Увімкніть хоча б SMS</span></div>
         <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Унікальні паролі</strong> — один пароль = один сервіс, без виключень</span></div>
-        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>Breach monitoring</strong> — HIBP + Vault Health для раннього виявлення</span></div>
+        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>Моніторинг витоків (Breach Monitoring)</strong> — HIBP + Vault Health для раннього виявлення</span></div>
       </div>
     </section>
   </div>

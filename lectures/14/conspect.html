@@ -36,7 +36,7 @@
 
       <section>
         <h2>14.1 Фреймворки ризик-менеджменту</h2>
-        <p>Управління кіберризиками — це систематичний процес ідентифікації, оцінки та обробки ризиків, що загрожують інформаційним активам організації. Для фінансових установ ризик-менеджмент є не просто best practice, а регуляторною вимогою (НБУ, Basel III, DORA).</p>
+        <p>Управління кіберризиками — це систематичний процес ідентифікації, оцінки та обробки ризиків, що загрожують інформаційним активам організації. Для фінансових установ ризик-менеджмент є не просто найкращою практикою (best practice), а регуляторною вимогою (НБУ, Basel III, DORA).</p>
         <p><strong>Ключові фреймворки:</strong></p>
         <ul>
           <li><strong>ISO 27005</strong> — міжнародний стандарт управління ризиками інформаційної безпеки. Визначає процес: context establishment → risk identification → risk analysis → risk evaluation → risk treatment → monitoring & review.</li>
@@ -44,11 +44,11 @@
           <li><strong>NIST Cybersecurity Framework (CSF) 2.0</strong> — 6 функцій: Govern, Identify, Protect, Detect, Respond, Recover. Гнучкий фреймворк для організацій будь-якого розміру.</li>
           <li><strong>FAIR (Factor Analysis of Information Risk)</strong> — кількісна модель для оцінки кіберризиків у фінансових термінах (долари/гривні). Дозволяє порівнювати ризики з іншими бізнес-ризиками.</li>
         </ul>
-        <p><strong>Risk Appetite та Risk Tolerance:</strong></p>
+        <p><strong>Схильність до ризику (Risk Appetite) та толерантність до ризику (Risk Tolerance):</strong></p>
         <ul>
-          <li><strong>Risk appetite</strong> — загальний рівень ризику, який організація готова прийняти для досягнення бізнес-цілей. Визначається правлінням/наглядовою радою.</li>
-          <li><strong>Risk tolerance</strong> — допустимі відхилення від risk appetite для конкретних ризиків.</li>
-          <li><strong>Risk register</strong> — реєстр усіх ідентифікованих ризиків з оцінкою ймовірності, впливу, поточних контролів та планів обробки.</li>
+          <li><strong>Схильність до ризику (Risk Appetite)</strong> — загальний рівень ризику, який організація готова прийняти для досягнення бізнес-цілей. Визначається правлінням/наглядовою радою.</li>
+          <li><strong>Толерантність до ризику (Risk Tolerance)</strong> — допустимі відхилення від визначеної схильності до ризику для конкретних ризиків.</li>
+          <li><strong>Реєстр ризиків (Risk Register)</strong> — реєстр усіх ідентифікованих ризиків з оцінкою ймовірності, впливу, поточних контролів та планів обробки.</li>
         </ul>
 
         <h3>Порівняння фреймворків ризик-менеджменту</h3>
@@ -70,7 +70,7 @@
 │               │                          │ цілями              │ регуляторів           │
 └───────────────┴──────────────────────────┴─────────────────────┴───────────────────────┘</code></pre>
 
-        <h3>Шаблон реєстру ризиків (Risk Register)</h3>
+        <h3>Шаблон реєстру ризиків</h3>
         <pre><code>┌─────┬──────────────────────┬───────────┬────────┬────────┬──────────────────┬──────────────┬─────────┐
 │ ID  │ Ризик                │ Категорія │ Ймовір-│ Вплив  │ Поточні контролі │ План обробки │ Власник │
 │     │                      │           │ ність  │        │                  │              │         │
@@ -92,7 +92,7 @@
 │     │                      │           │        │ (3/5)  │                  │ ризик &lt;5 хв │         │
 └─────┴──────────────────────┴───────────┴────────┴────────┴──────────────────┴──────────────┴─────────┘</code></pre>
 
-        <h3>Приклад Risk Appetite Statement для банку</h3>
+        <h3>Приклад заяви про схильність до ризику (Risk Appetite Statement) для банку</h3>
         <pre><code>═══════════════════════════════════════════════════════════════════════
   RISK APPETITE STATEMENT — АТ «УкрФінБанк» (приклад)
 ═══════════════════════════════════════════════════════════════════════
@@ -151,14 +151,14 @@
           <li>FAIR model дозволяє Monte Carlo симуляцію для розрахунку розподілу можливих збитків.</li>
           <li>Переваги: об'єктивність, фінансова мова для правління. Недоліки: вимагає даних, складніша.</li>
         </ul>
-        <p><strong>Risk Treatment (обробка ризиків):</strong></p>
+        <p><strong>Обробка ризиків (Risk Treatment):</strong></p>
         <ul>
           <li><strong>Mitigate (зменшити)</strong> — впровадити контролі для зниження ймовірності або впливу. Найпоширеніший варіант.</li>
           <li><strong>Transfer (передати)</strong> — кіберстрахування, аутсорсинг безпеки (MSSP).</li>
           <li><strong>Accept (прийняти)</strong> — ризик в межах appetite, вартість mitigation перевищує потенційні збитки.</li>
           <li><strong>Avoid (уникнути)</strong> — відмовитися від діяльності, що створює ризик (наприклад, не зберігати певні дані).</li>
         </ul>
-        <p><strong>Residual risk</strong> — ризик, що залишається після застосування контролів. Повинен бути в межах risk appetite. Якщо ні — потрібні додаткові заходи або acceptance від керівництва.</p>
+        <p><strong>Залишковий ризик (Residual Risk)</strong> — ризик, що залишається після застосування контролів. Повинен бути в межах схильності до ризику (Risk Appetite). Якщо ні — потрібні додаткові заходи або формальне прийняття (acceptance) від керівництва.</p>
 
         <h3>Розрахунок ALE — числовий приклад</h3>
         <pre><code>═══════════════════════════════════════════════════════════════
@@ -305,22 +305,22 @@
 
       <section>
         <h2>14.3 Архітектура та функціонування SOC</h2>
-        <p>Security Operations Center (SOC) — це централізований підрозділ, що забезпечує безперервний моніторинг, виявлення та реагування на кіберзагрози. Для великих фінансових установ SOC працює 24/7/365.</p>
-        <p><strong>SOC Tiers (рівні аналітиків):</strong></p>
+        <p>Центр безпекових операцій (Security Operations Center, SOC) — це централізований підрозділ, що забезпечує безперервний моніторинг, виявлення та реагування на кіберзагрози. Для великих фінансових установ SOC працює 24/7/365.</p>
+        <p><strong>Рівні аналітиків SOC (SOC Tiers):</strong></p>
         <ul>
-          <li><strong>Tier 1 (Alert Triage)</strong> — моніторинг алертів, початкова класифікація, ескалація. Використовує runbooks для стандартних процедур.</li>
-          <li><strong>Tier 2 (Incident Analysis)</strong> — глибокий аналіз ескальованих інцидентів, кореляція даних з різних джерел, визначення scope та impact.</li>
-          <li><strong>Tier 3 (Threat Hunting / Advanced)</strong> — проактивний пошук загроз, аналіз malware, розробка detection rules, threat intelligence.</li>
-          <li><strong>SOC Manager</strong> — координація команди, метрики, reporting, взаємодія з бізнесом та регуляторами.</li>
+          <li><strong>Рівень 1 — Сортування алертів (Alert Triage)</strong> — моніторинг алертів, початкова класифікація, ескалація. Використовує робочі інструкції (runbooks) для стандартних процедур.</li>
+          <li><strong>Рівень 2 — Аналіз інцидентів (Incident Analysis)</strong> — глибокий аналіз ескальованих інцидентів, кореляція даних з різних джерел, визначення масштабу (scope) та впливу (impact).</li>
+          <li><strong>Рівень 3 — Полювання на загрози (Threat Hunting)</strong> — проактивний пошук загроз, аналіз шкідливого ПЗ (malware), розробка правил виявлення (detection rules), розвідка загроз (Threat Intelligence).</li>
+          <li><strong>Менеджер SOC (SOC Manager)</strong> — координація команди, метрики, звітування (reporting), взаємодія з бізнесом та регуляторами.</li>
         </ul>
         <p><strong>Ключові технології SOC:</strong></p>
         <ul>
-          <li><strong>SIEM (Security Information and Event Management)</strong> — централізований збір та кореляція логів з усіх джерел: Splunk, Microsoft Sentinel, Elastic SIEM. Правила кореляції, dashboards, alerting.</li>
-          <li><strong>EDR (Endpoint Detection and Response)</strong> — моніторинг endpoints у реальному часі: CrowdStrike Falcon, Microsoft Defender for Endpoint, SentinelOne. Виявлення malware, lateral movement, fileless attacks.</li>
+          <li><strong>SIEM (Security Information and Event Management)</strong> — централізований збір та кореляція логів з усіх джерел: Splunk, Microsoft Sentinel, Elastic SIEM. Правила кореляції, інформаційні панелі (dashboards), оповіщення (alerting).</li>
+          <li><strong>EDR (Endpoint Detection and Response)</strong> — моніторинг кінцевих точок (endpoints) у реальному часі: CrowdStrike Falcon, Microsoft Defender for Endpoint, SentinelOne. Виявлення шкідливого ПЗ, бокового переміщення (lateral movement), безфайлових атак (fileless attacks).</li>
           <li><strong>SOAR (Security Orchestration, Automation and Response)</strong> — автоматизація реагування: Palo Alto XSOAR, Splunk SOAR. Автоматична ізоляція хостів, блокування IP, збагачення алертів.</li>
-          <li><strong>Threat Intelligence Platform (TIP)</strong> — агрегація IOC з зовнішніх та внутрішніх джерел, автоматичне збагачення алертів контекстом.</li>
+          <li><strong>Платформа розвідки загроз (Threat Intelligence Platform, TIP)</strong> — агрегація індикаторів компрометації (IOC) з зовнішніх та внутрішніх джерел, автоматичне збагачення алертів контекстом.</li>
         </ul>
-        <p><strong>SOC Models:</strong> In-house SOC (повний контроль, дорого), MSSP/MDR (Managed Security Service Provider — аутсорсинг, дешевше), Hybrid (критичні функції in-house, решта — MSSP).</p>
+        <p><strong>Моделі SOC:</strong> Внутрішній SOC (In-house — повний контроль, дорого), зовнішній провайдер MSSP/MDR (Managed Security Service Provider — аутсорсинг, дешевше), гібридна модель (Hybrid — критичні функції всередині, решта — MSSP).</p>
 
         <h3>Архітектура SOC (текстова діаграма)</h3>
         <pre><code>═══════════════════════════════════════════════════════════════════════════
@@ -568,22 +568,22 @@ rule detect_credential_dumping {
         <p>Метрики дозволяють вимірювати ефективність кібербезпеки, обґрунтовувати інвестиції та демонструвати прогрес керівництву та регуляторам.</p>
         <p><strong>Ключові метрики (KPI/KRI):</strong></p>
         <ul>
-          <li><strong>MTTD (Mean Time to Detect)</strong> — середній час від початку інциденту до його виявлення. Ціль: &lt;24 години (industry average: 204 дні).</li>
-          <li><strong>MTTR (Mean Time to Respond)</strong> — середній час від виявлення до containment. Ціль: &lt;4 години для critical.</li>
-          <li><strong>Alert-to-incident ratio</strong> — скільки алертів стають реальними інцидентами. Показує якість detection rules.</li>
-          <li><strong>False positive rate</strong> — відсоток хибних спрацювань. Високий FP = alert fatigue = пропущені реальні загрози.</li>
-          <li><strong>Patch compliance</strong> — відсоток систем з актуальними патчами. Ціль: >95% протягом SLA.</li>
-          <li><strong>Phishing click rate</strong> — результати phishing-симуляцій. Ціль: &lt;5%.</li>
+          <li><strong>MTTD (Mean Time to Detect)</strong> — середній час виявлення: від початку інциденту до його виявлення. Ціль: &lt;24 години (середній показник у галузі: 204 дні).</li>
+          <li><strong>MTTR (Mean Time to Respond)</strong> — середній час реагування: від виявлення до стримування (containment). Ціль: &lt;4 години для критичних інцидентів.</li>
+          <li><strong>Співвідношення алертів до інцидентів (Alert-to-Incident Ratio)</strong> — скільки алертів стають реальними інцидентами. Показує якість правил виявлення.</li>
+          <li><strong>Рівень хибних спрацювань (False Positive Rate)</strong> — відсоток хибних спрацювань. Високий FP = втома від алертів (alert fatigue) = пропущені реальні загрози.</li>
+          <li><strong>Рівень оновлень (Patch Compliance)</strong> — відсоток систем з актуальними патчами. Ціль: >95% протягом SLA.</li>
+          <li><strong>Рівень кліків на фішинг (Phishing Click Rate)</strong> — результати фішинг-симуляцій. Ціль: &lt;5%.</li>
         </ul>
-        <p><strong>SOC Maturity Model (CMM):</strong></p>
+        <p><strong>Модель зрілості SOC (SOC Maturity Model, CMM):</strong></p>
         <ul>
-          <li><strong>Level 1 — Initial:</strong> reactive, ad hoc процеси, мінімальний моніторинг.</li>
-          <li><strong>Level 2 — Managed:</strong> базовий SIEM, визначені процеси, runbooks для типових інцидентів.</li>
-          <li><strong>Level 3 — Defined:</strong> повноцінний SOC, threat hunting, автоматизація через SOAR, threat intelligence.</li>
-          <li><strong>Level 4 — Quantitatively Managed:</strong> метрики-driven, predictive analytics, continuous improvement.</li>
-          <li><strong>Level 5 — Optimizing:</strong> AI-driven SOC, автономне реагування, інноваційні підходи.</li>
+          <li><strong>Рівень 1 — Початковий (Initial):</strong> реактивний підхід, ad hoc процеси, мінімальний моніторинг.</li>
+          <li><strong>Рівень 2 — Керований (Managed):</strong> базовий SIEM, визначені процеси, робочі інструкції (runbooks) для типових інцидентів.</li>
+          <li><strong>Рівень 3 — Визначений (Defined):</strong> повноцінний SOC, полювання на загрози (Threat Hunting), автоматизація через SOAR, розвідка загроз (Threat Intelligence).</li>
+          <li><strong>Рівень 4 — Кількісно керований (Quantitatively Managed):</strong> рішення на основі метрик, предиктивна аналітика (Predictive Analytics), безперервне вдосконалення.</li>
+          <li><strong>Рівень 5 — Оптимізуючий (Optimizing):</strong> SOC на основі ШІ (AI-driven), автономне реагування, інноваційні підходи.</li>
         </ul>
-        <p><strong>Reporting для керівництва:</strong> CISO dashboard з ключовими KRI, risk posture, compliance status, incident trends. Мова бізнесу: не «blocked 10K attacks», а «зменшили ризик втрати на $2M через покращення detection».</p>
+        <p><strong>Звітування для керівництва (Reporting):</strong> інформаційна панель CISO з ключовими KRI, станом ризиків (risk posture), статусом відповідності (compliance status), тенденціями інцидентів. Мова бізнесу: не «заблоковано 10 тис. атак», а «зменшили ризик втрати на $2M через покращення виявлення загроз».</p>
 
         <h3>KPI/KRI Dashboard — таблиця з цільовими значеннями</h3>
         <pre><code>═══════════════════════════════════════════════════════════════════════════
@@ -822,7 +822,7 @@ rule detect_credential_dumping {
       <section>
         <h2>Підсумок</h2>
         <p>Ризик-менеджмент визначає стратегію кібербезпеки: фреймворки (ISO 27005, NIST, FAIR) допомагають систематично ідентифікувати, оцінювати та обробляти ризики. Кількісна оцінка (ALE, FAIR) дозволяє обґрунтувати інвестиції фінансовою мовою.</p>
-        <p>SOC є оперативним ядром кібербезпеки: 24/7 моніторинг через SIEM/EDR, автоматизація реагування через SOAR, проактивний threat hunting. Метрики (MTTD, MTTR, false positive rate) та SOC maturity model забезпечують вимірюваний прогрес.</p>
+        <p>SOC є оперативним ядром кібербезпеки: цілодобовий моніторинг через SIEM/EDR, автоматизація реагування через SOAR, проактивне полювання на загрози (Threat Hunting). Метрики (MTTD, MTTR, рівень хибних спрацювань) та модель зрілості SOC забезпечують вимірюваний прогрес.</p>
         <p><strong>У наступній лекції</strong> ми розглянемо національну стратегію фінансової кібербезпеки: роль НБУ та CERT-UA, міжнародні стандарти NIS2 та DORA, досвід кібербезпеки в умовах війни та стратегічні пріоритети розвитку.</p>
       </section>
     </article>

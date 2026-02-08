@@ -28,7 +28,7 @@
       <span class="slide-icon">🔐</span>
       <h1>Механізми автентифікації</h1>
       <p class="subtitle">Лекція 3.1</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Від паролів до passwordless</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Від паролів до безпарольної автентифікації (Passwordless)</span>
     </section>
 
     <!-- 2. Три фактори -->
@@ -37,22 +37,22 @@
       <div class="card-grid cols-3">
         <div class="card accent-blue">
           <span class="card-icon">🧠</span>
-          <div class="card-title">Knowledge</div>
+          <div class="card-title">Знання (Knowledge)</div>
           <div class="card-text">Щось, що ви знаєте: пароль, PIN, секретне питання</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">📱</span>
-          <div class="card-title">Possession</div>
+          <div class="card-title">Володіння (Possession)</div>
           <div class="card-text">Щось, що ви маєте: токен, смартфон, YubiKey</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">👆</span>
-          <div class="card-title">Inherence</div>
+          <div class="card-title">Властивість (Inherence)</div>
           <div class="card-text">Щось, що ви є: відбиток пальця, Face ID, голос</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>MFA = комбінація 2+ факторів. Пароль + SMS = два фактори. Пароль + PIN = один фактор (обидва Knowledge).</p>
+        <p>Багатофакторна автентифікація (MFA) = комбінація 2+ факторів. Пароль + SMS = два фактори. Пароль + PIN = один фактор (обидва — знання).</p>
       </div>
     </section>
 
@@ -63,7 +63,7 @@
       <div class="stat-row">
         <div class="stat-box red">
           <div class="stat-value">80%</div>
-          <div class="stat-label">зламів через слабкі credentials</div>
+          <div class="stat-label">зламів через слабкі облікові дані (credentials)</div>
         </div>
         <div class="stat-box orange">
           <div class="stat-value">15 млрд</div>
@@ -77,7 +77,7 @@
       <div class="icon-list" style="margin-top: 1.2rem;">
         <div class="icon-list-item">
           <span class="il-icon">🎣</span>
-          <span class="il-text"><strong>Credential stuffing</strong> — автоматичний підбір з баз витоків</span>
+          <span class="il-text"><strong>Підстановка облікових даних (Credential stuffing)</strong> — автоматичний підбір з баз витоків</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📋</span>
@@ -93,22 +93,22 @@
         <div class="card accent-green">
           <span class="card-icon">⏱️</span>
           <div class="card-title">TOTP</div>
-          <div class="card-text">Код кожні 30 сек. Працює офлайн. Вразливий до real-time фішингу</div>
+          <div class="card-text">Код кожні 30 сек. Працює офлайн. Вразливий до фішингу в реальному часі</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🔑</span>
           <div class="card-title">FIDO2/WebAuthn</div>
-          <div class="card-text">Криптографія з публічним ключем. Стійкий до фішингу (origin binding)</div>
+          <div class="card-text">Криптографія з публічним ключем. Стійкий до фішингу (прив'язка до домену)</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">📲</span>
           <div class="card-title">Push-нотифікації</div>
-          <div class="card-text">Підтвердження в додатку. Ризик: MFA fatigue (атака на Uber 2022)</div>
+          <div class="card-text">Підтвердження в додатку. Ризик: втома від MFA-запитів (MFA fatigue, атака на Uber 2022)</div>
         </div>
         <div class="card accent-red">
           <span class="card-icon">💬</span>
           <div class="card-title">SMS OTP</div>
-          <div class="card-text">Найменш безпечний. SIM-swapping, SS7-атаки. NIST: restricted</div>
+          <div class="card-text">Найменш безпечний. Підміна SIM (SIM-swapping), SS7-атаки. NIST: обмежений метод</div>
         </div>
       </div>
     </section>
@@ -116,7 +116,7 @@
     <!-- 5. FIDO2 deep dive -->
     <section class="slide">
       <h1>FIDO2 — майбутнє автентифікації</h1>
-      <h2>Чому FIDO2 стійкий до фішингу</h2>
+      <h2>Чому FIDO2 стійкий до фішингу?</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
@@ -125,13 +125,13 @@
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Challenge</div>
-          <div class="step-desc">Сервер надсилає випадковий challenge</div>
+          <div class="step-title">Виклик (Challenge)</div>
+          <div class="step-desc">Сервер надсилає випадковий виклик</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-title">Підпис</div>
-          <div class="step-desc">Пристрій підписує challenge + origin домену</div>
+          <div class="step-desc">Пристрій підписує виклик + домен джерела (origin)</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
@@ -140,7 +140,7 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Origin binding: ключ прив'язаний до bank.com.ua — фішинговий bank-com.ua не отримає валідний підпис.</p>
+        <p>Прив'язка до домену (Origin binding): ключ прив'язаний до bank.com.ua — фішинговий bank-com.ua не отримає валідний підпис.</p>
       </div>
     </section>
 
@@ -151,7 +151,7 @@
         <div class="col">
           <div class="card accent-green" style="height: 100%;">
             <span class="card-icon">✅</span>
-            <div class="card-title">Переваги</div>
+            <div class="card-title">Переваги біометрії</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Зручність для користувача<br>
               Не можна забути чи втратити<br>
@@ -164,13 +164,13 @@
         <div class="col">
           <div class="card accent-red" style="height: 100%;">
             <span class="card-icon">⚠️</span>
-            <div class="card-title">Ризики</div>
+            <div class="card-title">Ризики біометрії</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Не можна замінити після витоку<br>
-              Deepfake-атаки<br>
+              Атаки підробки (Deepfake)<br>
               Примусове розблокування<br>
               Зберігання лише локально<br>
-              Liveness detection обов'язковий
+              Перевірка живої людини (Liveness detection) обов'язкова
             </div>
           </div>
         </div>
@@ -179,7 +179,7 @@
 
     <!-- 7. Passwordless -->
     <section class="slide">
-      <h1>Passwordless та Passkeys</h1>
+      <h1>Безпарольна автентифікація (Passwordless) та ключі доступу (Passkeys)</h1>
       <h2>Вхід без пароля — стандарт FIDO Alliance</h2>
       <div class="icon-list">
         <div class="icon-list-item">
@@ -200,7 +200,7 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Passkeys усувають 80% векторів атак: фішинг, credential stuffing, brute force, password reuse.</p>
+        <p>Ключі доступу (Passkeys) усувають 80% векторів атак: фішинг, підстановка облікових даних, повний перебір (brute force), повторне використання паролів.</p>
       </div>
     </section>
 
@@ -212,7 +212,7 @@
         <div class="card accent-red">
           <span class="card-icon">🔓</span>
           <div class="card-title">«password» — 0 біт</div>
-          <div class="card-text">Словникове слово. Зламується миттєво через dictionary attack</div>
+          <div class="card-text">Словникове слово. Зламується миттєво через словникову атаку (dictionary attack)</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🟠</span>
@@ -222,12 +222,12 @@
         <div class="card accent-blue">
           <span class="card-icon">🔵</span>
           <div class="card-title">«Xk9$mL2!qR» — 60 біт</div>
-          <div class="card-text">Випадковий, але важко запам'ятати. Brute force — роки</div>
+          <div class="card-text">Випадковий, але важко запам'ятати. Повний перебір (Brute force) — роки</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">🟢</span>
           <div class="card-title">«correct horse battery staple» — 77 біт</div>
-          <div class="card-text">4 випадкових слова (Diceware). Легко запам'ятати, centuries to crack</div>
+          <div class="card-text">4 випадкових слова (Diceware). Легко запам'ятати, зламати — століття</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -247,8 +247,8 @@
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Attestation Response</div>
-          <div class="step-desc">Публічний ключ + attestation зберігається на сервері (Relying Party)</div>
+          <div class="step-title">Відповідь атестації (Attestation Response)</div>
+          <div class="step-desc">Публічний ключ + атестація зберігається на сервері (довірча сторона)</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
@@ -257,24 +257,24 @@
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">User Verification</div>
+          <div class="step-title">Верифікація користувача (User Verification)</div>
           <div class="step-desc">Біометрика або PIN на пристрої — розблокування приватного ключа</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">Assertion Response</div>
-          <div class="step-desc">Підпис challenge + clientDataJSON (origin, type) → сервер верифікує</div>
+          <div class="step-title">Відповідь підтвердження (Assertion Response)</div>
+          <div class="step-desc">Підпис виклику + clientDataJSON (домен, тип) → сервер верифікує</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>clientDataJSON включає origin: фішинговий сайт fake-bank.com не зможе отримати підпис для bank.com — захист на рівні протоколу.</p>
+        <p>clientDataJSON включає домен (origin): фішинговий сайт fake-bank.com не зможе отримати підпис для bank.com — захист на рівні протоколу.</p>
       </div>
     </section>
 
     <!-- 10. Біометрична таблиця порівняння -->
     <section class="slide">
       <h1>Порівняння біометричних методів</h1>
-      <h2>FAR vs FRR для фінансових систем</h2>
+      <h2>Хибне прийняття (FAR) та хибне відхилення (FRR) для фінансових систем</h2>
       <div class="card-grid cols-3">
         <div class="card accent-blue">
           <span class="card-icon">👆</span>
@@ -295,15 +295,15 @@
       <div class="stat-row" style="margin-top: 1.2rem;">
         <div class="stat-box blue">
           <div class="stat-value">FAR</div>
-          <div class="stat-label">False Accept Rate — хибне прийняття чужого</div>
+          <div class="stat-label">Частота хибного прийняття (False Accept Rate)</div>
         </div>
         <div class="stat-box orange">
           <div class="stat-value">FRR</div>
-          <div class="stat-label">False Reject Rate — хибне відхилення свого</div>
+          <div class="stat-label">Частота хибного відхилення (False Reject Rate)</div>
         </div>
         <div class="stat-box green">
           <div class="stat-value">Liveness</div>
-          <div class="stat-label">Визначення живої людини vs фото/маска</div>
+          <div class="stat-label">Перевірка живої людини (Liveness detection)</div>
         </div>
       </div>
     </section>
@@ -315,19 +315,19 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">🎣</span>
-          <span class="il-text"><strong>Real-time phishing (Evilginx2)</strong> — проксі-сервер перехоплює токен після введення MFA коду жертвою</span>
+          <span class="il-text"><strong>Фішинг у реальному часі (Real-time phishing, Evilginx2)</strong> — проксі-сервер перехоплює токен після введення MFA-коду жертвою</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📱</span>
-          <span class="il-text"><strong>SIM-swapping</strong> — зловмисник переносить номер жертви на свою SIM-карту (SMS OTP)</span>
+          <span class="il-text"><strong>Підміна SIM (SIM-swapping)</strong> — зловмисник переносить номер жертви на свою SIM-карту (SMS OTP)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔔</span>
-          <span class="il-text"><strong>MFA fatigue (prompt bombing)</strong> — масові push-запити поки жертва не натисне «Дозволити» (Uber 2022)</span>
+          <span class="il-text"><strong>Втома від MFA-запитів (MFA fatigue, prompt bombing)</strong> — масові push-запити поки жертва не натисне «Дозволити» (Uber 2022)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🍪</span>
-          <span class="il-text"><strong>Session hijacking</strong> — крадіжка cookie після успішної MFA (pass-the-cookie)</span>
+          <span class="il-text"><strong>Викрадення сесії (Session hijacking)</strong> — крадіжка cookie після успішної MFA (pass-the-cookie)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🛡️</span>
@@ -335,7 +335,7 @@
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Захист: FIDO2 стійкий до всіх цих атак завдяки origin binding та криптографічному підпису. Number matching у push знижує MFA fatigue.</p>
+        <p>Захист: FIDO2 стійкий до всіх цих атак завдяки прив'язці до домену (origin binding) та криптографічному підпису. Зіставлення номерів (Number matching) у push знижує втому від MFA-запитів.</p>
       </div>
     </section>
 
@@ -346,7 +346,7 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Паролі — вразливі</strong> — 80% зламів через скомпрометовані credentials</span>
+          <span class="il-text"><strong>Паролі — вразливі</strong> — 80% зламів через скомпрометовані облікові дані</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
@@ -358,7 +358,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Passkeys — майбутнє</strong> — passwordless, phishing-resistant, зручний</span>
+          <span class="il-text"><strong>Ключі доступу (Passkeys) — майбутнє</strong> — безпарольний, стійкий до фішингу, зручний</span>
         </div>
       </div>
     </section>

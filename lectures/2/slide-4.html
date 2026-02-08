@@ -28,7 +28,7 @@
       <span class="slide-icon">🔌</span>
       <h1>Захист API та інтеграцій</h1>
       <p class="subtitle">Лекція 2.4</p>
-      <span class="tag tag-cyan" style="margin-top: 1rem;">OAuth 2.0, API Gateway, Input Validation</span>
+      <span class="tag tag-cyan" style="margin-top: 1rem;">OAuth 2.0, API-шлюз, Валідація вводу</span>
     </section>
 
     <!-- 2. API = серце FinTech -->
@@ -124,22 +124,22 @@
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">📱</span>
-          <div class="card-title">Authorization Code + PKCE</div>
+          <div class="card-title">Код авторизації (Authorization Code) + PKCE</div>
           <div class="card-text">Для мобільних та SPA. PKCE захищає від перехоплення коду</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🖥️</span>
-          <div class="card-title">Client Credentials</div>
+          <div class="card-title">Облікові дані клієнта (Client Credentials)</div>
           <div class="card-text">Для server-to-server. Сервіс автентифікується напряму</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🎫</span>
-          <div class="card-title">Scopes</div>
+          <div class="card-title">Обсяги доступу (Scopes)</div>
           <div class="card-text">read:balance, transfer:create — обмеження прав токена</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">⏰</span>
-          <div class="card-title">Short-lived tokens</div>
+          <div class="card-title">Короткоживучі токени (Short-lived tokens)</div>
           <div class="card-text">Access Token: 15 хв. Refresh Token: 7 днів. Ротація обов'язкова</div>
         </div>
       </div>
@@ -193,7 +193,7 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Signature</div>
+          <div class="step-title">Підпис (Signature)</div>
           <div class="step-desc">Перевірка HMAC-підпису</div>
         </div>
         <div class="step">
@@ -203,12 +203,12 @@
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Timestamp</div>
+          <div class="step-title">Часова мітка (Timestamp)</div>
           <div class="step-desc">Відхилення старих (>5 хв)</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Idempotency</div>
+          <div class="step-title">Ідемпотентність (Idempotency)</div>
           <div class="step-desc">Один раз = один раз</div>
         </div>
       </div>
@@ -224,22 +224,22 @@
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">📱</span>
-          <div class="card-title">Auth Code + PKCE</div>
+          <div class="card-title">Код авторизації (Auth Code) + PKCE</div>
           <div class="card-text">Мобільні додатки, SPA. Найбезпечніший для публічних клієнтів. PKCE захищає від перехоплення</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🖥️</span>
-          <div class="card-title">Client Credentials</div>
+          <div class="card-title">Облікові дані клієнта (Client Credentials)</div>
           <div class="card-text">Server-to-server. Без участі користувача. Ідеально для мікросервісів та batch-процесів</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔄</span>
-          <div class="card-title">Device Code</div>
+          <div class="card-title">Код пристрою (Device Code)</div>
           <div class="card-text">Smart TV, IoT-пристрої. Користувач авторизує на іншому пристрої через код</div>
         </div>
         <div class="card accent-red">
           <span class="card-icon">⚠️</span>
-          <div class="card-title">Implicit (deprecated)</div>
+          <div class="card-title">Неявний, застарілий (Implicit, deprecated)</div>
           <div class="card-text">НЕ використовувати! Токен у URL, немає refresh. Замінений на Auth Code + PKCE</div>
         </div>
       </div>
@@ -287,17 +287,17 @@
       <div class="card-grid cols-3">
         <div class="card accent-blue">
           <span class="card-icon">🪣</span>
-          <div class="card-title">Token Bucket</div>
+          <div class="card-title">Кошик токенів (Token Bucket)</div>
           <div class="card-text">Токени додаються з фіксованою швидкістю. Дозволяє короткі burst-навантаження</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🪟</span>
-          <div class="card-title">Sliding Window</div>
+          <div class="card-title">Ковзне вікно (Sliding Window)</div>
           <div class="card-text">Ковзне вікно часу. Точніший підрахунок, запобігає edge-case burst на межі вікна</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">📊</span>
-          <div class="card-title">Adaptive</div>
+          <div class="card-title">Адаптивний (Adaptive)</div>
           <div class="card-text">Динамічні ліміти на основі навантаження сервера та поведінки клієнта</div>
         </div>
       </div>

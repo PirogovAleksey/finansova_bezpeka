@@ -76,16 +76,16 @@
 
         <p><strong>Типи гаманців за зберіганням ключів:</strong></p>
         <ul>
-          <li><strong>Hot wallets (онлайн)</strong> — приватний ключ зберігається на пристрої, підключеному до інтернету: мобільні додатки (Trust Wallet, MetaMask Mobile), десктопні (Exodus, Electrum), веб-гаманці (MetaMask browser extension). Зручні для щоденних операцій, але вразливі до malware, фішингу та remote attacks.</li>
-          <li><strong>Cold wallets (офлайн)</strong> — приватний ключ ніколи не контактує з інтернетом: hardware wallets (Ledger, Trezor), paper wallets, air-gapped комп'ютери. Максимальний рівень безпеки, але менш зручні для частих операцій.</li>
-          <li><strong>Custodial wallets</strong> — ключами управляє третя сторона (біржа, сервіс). Зручно, але «not your keys, not your coins» — при зломі біржі користувач втрачає кошти (Mt. Gox, FTX).</li>
+          <li><strong>Гарячі гаманці (Hot Wallets)</strong> — приватний ключ зберігається на пристрої, підключеному до інтернету: мобільні додатки (Trust Wallet, MetaMask Mobile), десктопні (Exodus, Electrum), веб-гаманці (MetaMask browser extension). Зручні для щоденних операцій, але вразливі до шкідливого ПЗ (Malware), фішингу та віддалених атак (Remote Attacks).</li>
+          <li><strong>Холодні гаманці (Cold Wallets)</strong> — приватний ключ ніколи не контактує з інтернетом: апаратні гаманці (Hardware Wallets) — Ledger, Trezor; паперові гаманці (Paper Wallets); ізольовані комп'ютери (Air-gapped). Максимальний рівень безпеки, але менш зручні для частих операцій.</li>
+          <li><strong>Кастодіальні гаманці (Custodial Wallets)</strong> — ключами управляє третя сторона (біржа, сервіс). Зручно, але «не ваші ключі — не ваші монети» (Not Your Keys, Not Your Coins) — при зломі біржі користувач втрачає кошти (Mt. Gox, FTX).</li>
         </ul>
 
-        <p><strong>Seed phrase (мнемонічна фраза)</strong> — 12 або 24 слова (BIP-39), що є резервною копією всіх ключів у гаманці. Зберігання: на фізичному носії (металева пластина, папір у сейфі), НІКОЛИ в цифровому вигляді (фото, cloud, email). Компрометація seed phrase = втрата всіх коштів.</p>
+        <p><strong>Сід-фраза (Seed Phrase)</strong>, або мнемонічна фраза — 12 або 24 слова (BIP-39), що є резервною копією всіх ключів у гаманці. Зберігання: на фізичному носії (металева пластина, папір у сейфі), НІКОЛИ в цифровому вигляді (фото, хмарне сховище, email). Компрометація сід-фрази = втрата всіх коштів.</p>
 
-        <p><strong>Multisig (мультипідпис)</strong> — для підписання транзакції потрібно M з N ключів (наприклад, 2 з 3). Використовується корпоративними treasury, DAO, біржами для захисту від компрометації одного ключа. Gnosis Safe — найпопулярніше рішення для Ethereum multisig.</p>
+        <p><strong>Мультипідпис (Multisig)</strong> — для підписання транзакції потрібно M з N ключів (наприклад, 2 з 3). Використовується корпоративними скарбницями (Treasury), DAO, біржами для захисту від компрометації одного ключа. Gnosis Safe — найпопулярніше рішення для Ethereum мультипідпису.</p>
 
-        <p><strong>MPC (Multi-Party Computation)</strong> — сучасна альтернатива multisig: приватний ключ розділяється на частини (shares), які ніколи не збираються разом. Кожна сторона підписує свою частину, і лише комбінація shares утворює валідний підпис. Переваги: сумісність з будь-яким блокчейном, менший gas cost, гнучкість у зміні схеми підписання.</p>
+        <p><strong>Багатосторонні обчислення (MPC — Multi-Party Computation)</strong> — сучасна альтернатива мультипідпису: приватний ключ розділяється на частки (Shares), які ніколи не збираються разом. Кожна сторона підписує свою частину, і лише комбінація часток утворює валідний підпис. Переваги: сумісність з будь-яким блокчейном, менша вартість газу (Gas Cost), гнучкість у зміні схеми підписання.</p>
 
         <h3>Порівняльна таблиця типів гаманців</h3>
         <table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%; margin:1em 0;">
@@ -100,35 +100,35 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>Hot wallet</strong></td>
+              <td><strong>Гарячий (Hot Wallet)</strong></td>
               <td>MetaMask, Trust Wallet, Exodus</td>
               <td>Низька-середня</td>
               <td>Висока</td>
-              <td>Malware, фішинг, keyloggers</td>
+              <td>Шкідливе ПЗ (Malware), фішинг, кілогери (Keyloggers)</td>
             </tr>
             <tr>
-              <td><strong>Cold wallet (hardware)</strong></td>
+              <td><strong>Холодний апаратний (Cold Hardware Wallet)</strong></td>
               <td>Ledger Nano X, Trezor Model T</td>
               <td>Висока</td>
               <td>Середня</td>
-              <td>Фізична втрата, supply chain атаки</td>
+              <td>Фізична втрата, атаки на ланцюг постачання (Supply Chain)</td>
             </tr>
             <tr>
-              <td><strong>Paper wallet</strong></td>
+              <td><strong>Паперовий (Paper Wallet)</strong></td>
               <td>Bitaddress.org (офлайн)</td>
               <td>Висока (якщо правильно створено)</td>
               <td>Низька</td>
               <td>Знищення, витік при друці</td>
             </tr>
             <tr>
-              <td><strong>Custodial</strong></td>
+              <td><strong>Кастодіальний (Custodial)</strong></td>
               <td>Binance, Coinbase, Kraken</td>
               <td>Залежить від біржі</td>
               <td>Дуже висока</td>
               <td>Злом біржі, банкрутство (FTX)</td>
             </tr>
             <tr>
-              <td><strong>Multisig</strong></td>
+              <td><strong>Мультипідпис (Multisig)</strong></td>
               <td>Gnosis Safe, Electrum multisig</td>
               <td>Дуже висока</td>
               <td>Низька</td>
@@ -273,11 +273,11 @@ console.log("Tx hash:", executeTxResponse.hash);
         <div class="control-questions">
           <h3>Контрольні запитання</h3>
           <ol>
-            <li>Порівняйте hot wallet та cold wallet з точки зору безпеки та зручності. У яких сценаріях доцільно використовувати кожен тип?</li>
+            <li>Порівняйте гарячий (Hot Wallet) та холодний (Cold Wallet) гаманці з точки зору безпеки та зручності. У яких сценаріях доцільно використовувати кожен тип?</li>
             <li>Поясніть процес деривації ключів у HD-гаманці (BIP-32/BIP-39/BIP-44). Чому одна seed-фраза може генерувати необмежену кількість адрес?</li>
-            <li>Що означає принцип «not your keys, not your coins»? Наведіть реальні приклади, коли custodial зберігання призвело до втрати коштів.</li>
-            <li>Як працює схема multisig (M-з-N)? Яку перевагу дає 2-з-3 multisig порівняно із звичайним одиночним ключем для корпоративного treasury?</li>
-            <li>Порівняйте multisig та MPC (Multi-Party Computation) підходи до управління ключами. Які переваги MPC над класичним multisig?</li>
+            <li>Що означає принцип «не ваші ключі — не ваші монети» (Not Your Keys, Not Your Coins)? Наведіть реальні приклади, коли кастодіальне (Custodial) зберігання призвело до втрати коштів.</li>
+            <li>Як працює схема мультипідпису (Multisig, M-з-N)? Яку перевагу дає 2-з-3 мультипідпис порівняно із звичайним одиночним ключем для корпоративної скарбниці (Treasury)?</li>
+            <li>Порівняйте мультипідпис (Multisig) та багатосторонні обчислення (MPC) як підходи до управління ключами. Які переваги MPC над класичним мультипідписом?</li>
           </ol>
         </div>
       </section>
@@ -286,23 +286,23 @@ console.log("Tx hash:", executeTxResponse.hash);
       <section>
         <h2>10.2 Вразливості смарт-контрактів</h2>
 
-        <p>Смарт-контракт — це програма, що виконується на блокчейні та автоматично реалізує умови угоди. Особливість: після деплою код є незмінним (immutable) та публічним. Помилка в коді = вразливість, яку може експлуатувати будь-хто, і виправити її без спеціальних механізмів неможливо.</p>
+        <p>Смарт-контракт (Smart Contract) — це програма, що виконується на блокчейні та автоматично реалізує умови угоди. Особливість: після розгортання (Deploy) код є незмінним (Immutable) та публічним. Помилка в коді = вразливість, яку може експлуатувати будь-хто, і виправити її без спеціальних механізмів неможливо.</p>
 
         <p><strong>Найпоширеніші вразливості (за OWASP Smart Contract Top 10):</strong></p>
         <ul>
-          <li><strong>Reentrancy</strong> — зловмисний контракт повторно викликає функцію жертви до завершення попереднього виклику. Класичний кейс: The DAO hack (2016) — крадіжка $60 млн ETH через reentrancy, що призвела до форку Ethereum.</li>
-          <li><strong>Integer overflow/underflow</strong> — арифметичні помилки при переповненні типу uint256. Наприклад, баланс 0 мінус 1 дає максимальне число замість помилки. Solidity 0.8+ має вбудований захист, але старі контракти вразливі.</li>
-          <li><strong>Access control</strong> — відсутність або неправильна реалізація перевірки прав доступу. Критичні функції (mint, withdraw, pause) без модифікатора onlyOwner доступні будь-кому.</li>
-          <li><strong>Front-running</strong> — зловмисник бачить pending транзакцію в mempool та надсилає свою з вищим gas price, щоб виконатися першим. Актуально для DEX та аукціонів.</li>
-          <li><strong>Oracle manipulation</strong> — маніпуляція зовнішніми даними (ціна активу), від яких залежить логіка контракту. Якщо oracle повертає маніпульовану ціну, зловмисник може вилучити кошти з протоколу.</li>
-          <li><strong>Unchecked return values</strong> — ігнорування результатів зовнішніх викликів (send, call), що може призвести до продовження виконання при невдалому переказі.</li>
+          <li><strong>Повторний вхід (Reentrancy)</strong> — зловмисний контракт повторно викликає функцію жертви до завершення попереднього виклику. Класичний кейс: злом The DAO (2016) — крадіжка $60 млн ETH через reentrancy, що призвела до форку Ethereum.</li>
+          <li><strong>Цілочисельне переповнення (Integer Overflow/Underflow)</strong> — арифметичні помилки при переповненні типу uint256. Наприклад, баланс 0 мінус 1 дає максимальне число замість помилки. Solidity 0.8+ має вбудований захист, але старі контракти вразливі.</li>
+          <li><strong>Контроль доступу (Access Control)</strong> — відсутність або неправильна реалізація перевірки прав доступу. Критичні функції (mint, withdraw, pause) без модифікатора onlyOwner доступні будь-кому.</li>
+          <li><strong>Випередження транзакцій (Front-running)</strong> — зловмисник бачить очікувану транзакцію в мемпулі (Mempool) та надсилає свою з вищою ціною газу (Gas Price), щоб виконатися першим. Актуально для DEX та аукціонів.</li>
+          <li><strong>Маніпуляція оракулами (Oracle Manipulation)</strong> — маніпуляція зовнішніми даними (ціна активу), від яких залежить логіка контракту. Якщо оракул повертає маніпульовану ціну, зловмисник може вилучити кошти з протоколу.</li>
+          <li><strong>Неперевірені повернені значення (Unchecked Return Values)</strong> — ігнорування результатів зовнішніх викликів (send, call), що може призвести до продовження виконання при невдалому переказі.</li>
         </ul>
 
         <p><strong>Захист смарт-контрактів:</strong></p>
         <ul>
           <li><strong>Аудит коду</strong> — незалежна перевірка коду спеціалізованими фірмами (Trail of Bits, OpenZeppelin, Consensys Diligence). Мінімум 2 незалежні аудити для DeFi-протоколів з TVL >$10 млн.</li>
-          <li><strong>Formal verification</strong> — математичний доказ коректності коду. Certora, K Framework дозволяють формально перевірити властивості контракту.</li>
-          <li><strong>Bug bounty</strong> — Immunefi, HackerOne для безперервного тестування community. Виплати до $10 млн за критичні вразливості.</li>
+          <li><strong>Формальна верифікація (Formal Verification)</strong> — математичний доказ коректності коду. Certora, K Framework дозволяють формально перевірити властивості контракту.</li>
+          <li><strong>Програми винагород за вразливості (Bug Bounty)</strong> — Immunefi, HackerOne для безперервного тестування спільнотою. Виплати до $10 млн за критичні вразливості.</li>
           <li><strong>Використання перевірених бібліотек</strong> — OpenZeppelin Contracts як стандарт для ERC-20, ERC-721, access control.</li>
         </ul>
 
@@ -532,43 +532,43 @@ contract SecureDAO is AccessControl {
           </thead>
           <tbody>
             <tr>
-              <td><strong>Reentrancy</strong></td>
-              <td>Checks-Effects-Interactions паттерн, ReentrancyGuard</td>
+              <td><strong>Повторний вхід (Reentrancy)</strong></td>
+              <td>Патерн «Перевірки-Ефекти-Взаємодії» (Checks-Effects-Interactions), ReentrancyGuard</td>
               <td>Slither, Mythril</td>
             </tr>
             <tr>
-              <td><strong>Overflow/Underflow</strong></td>
+              <td><strong>Переповнення (Overflow/Underflow)</strong></td>
               <td>Solidity 0.8+ або SafeMath, перевірка unchecked блоків</td>
               <td>Slither, Securify</td>
             </tr>
             <tr>
-              <td><strong>Access Control</strong></td>
+              <td><strong>Контроль доступу (Access Control)</strong></td>
               <td>onlyOwner / AccessControl для всіх привілейованих функцій</td>
               <td>Slither, ручний аудит</td>
             </tr>
             <tr>
-              <td><strong>Front-running</strong></td>
-              <td>Commit-reveal схеми, приватний mempool (Flashbots)</td>
+              <td><strong>Випередження (Front-running)</strong></td>
+              <td>Схеми «зобов'язання-розкриття» (Commit-Reveal), приватний мемпул (Flashbots)</td>
               <td>Tenderly simulation</td>
             </tr>
             <tr>
-              <td><strong>Oracle</strong></td>
+              <td><strong>Оракул (Oracle)</strong></td>
               <td>TWAP замість spot price, Chainlink Data Feeds</td>
               <td>Ручний аудит, fuzzing</td>
             </tr>
             <tr>
-              <td><strong>Unchecked calls</strong></td>
-              <td>Перевірка return values для call, send, delegatecall</td>
+              <td><strong>Неперевірені виклики (Unchecked Calls)</strong></td>
+              <td>Перевірка повернених значень (Return Values) для call, send, delegatecall</td>
               <td>Slither, Mythril</td>
             </tr>
             <tr>
-              <td><strong>Upgradability</strong></td>
-              <td>Proxy storage collision, ініціалізація в proxy</td>
+              <td><strong>Оновлюваність (Upgradability)</strong></td>
+              <td>Колізії сховища проксі (Proxy Storage Collision), ініціалізація в proxy</td>
               <td>OpenZeppelin Upgrades Plugin</td>
             </tr>
             <tr>
-              <td><strong>Gas &amp; DoS</strong></td>
-              <td>Unbounded loops, block gas limit DoS</td>
+              <td><strong>Газ та відмова в обслуговуванні (Gas &amp; DoS)</strong></td>
+              <td>Необмежені цикли (Unbounded Loops), DoS через ліміт газу блоку</td>
               <td>Hardhat Gas Reporter</td>
             </tr>
           </tbody>
@@ -577,11 +577,11 @@ contract SecureDAO is AccessControl {
         <div class="control-questions">
           <h3>Контрольні запитання</h3>
           <ol>
-            <li>Поясніть механізм атаки reentrancy на прикладі The DAO. Чому паттерн Checks-Effects-Interactions запобігає цій вразливості?</li>
-            <li>Що таке integer overflow/underflow у контексті смарт-контрактів? Як Solidity 0.8+ вирішує цю проблему і чому блок unchecked{} може бути небезпечним?</li>
+            <li>Поясніть механізм атаки повторного входу (Reentrancy) на прикладі The DAO. Чому патерн «Перевірки-Ефекти-Взаємодії» (Checks-Effects-Interactions) запобігає цій вразливості?</li>
+            <li>Що таке цілочисельне переповнення (Integer Overflow/Underflow) у контексті смарт-контрактів? Як Solidity 0.8+ вирішує цю проблему і чому блок unchecked{} може бути небезпечним?</li>
             <li>Чому публічність коду смарт-контрактів одночасно є і перевагою (прозорість), і ризиком (вразливості видно всім)? Як це впливає на безпеку?</li>
             <li>Назвіть основні етапи аудиту безпеки смарт-контракту. Які автоматизовані інструменти (Slither, Mythril) доповнюють ручний аудит?</li>
-            <li>Порівняйте підходи до access control: простий onlyOwner vs рольова модель OpenZeppelin AccessControl. У яких сценаріях доцільний кожен підхід?</li>
+            <li>Порівняйте підходи до контролю доступу (Access Control): простий onlyOwner та рольова модель OpenZeppelin AccessControl. У яких сценаріях доцільний кожен підхід?</li>
           </ol>
         </div>
       </section>
@@ -590,23 +590,23 @@ contract SecureDAO is AccessControl {
       <section>
         <h2>10.3 Безпека DeFi-протоколів</h2>
 
-        <p>DeFi (Decentralized Finance) — фінансові послуги на блокчейні без посередників: кредитування, обмін, деривативи. Total Value Locked (TVL) у DeFi перевищував $100 млрд. Водночас DeFi — найбільш атакований сегмент крипто: у 2022-2023 роках зломи DeFi принесли збитки понад $3 млрд.</p>
+        <p>Децентралізовані фінанси (DeFi) — фінансові послуги на блокчейні без посередників: кредитування, обмін, деривативи. Загальна заблокована вартість (TVL — Total Value Locked) у DeFi перевищувала $100 млрд. Водночас DeFi — найбільш атакований сегмент крипто: у 2022-2023 роках зломи DeFi принесли збитки понад $3 млрд.</p>
 
-        <p><strong>Flash loan атаки:</strong></p>
+        <p><strong>Атаки миттєвих позик (Flash Loan):</strong></p>
         <ul>
-          <li>Flash loan — кредит, який береться та повертається в одній транзакції (без застави). Легітимне використання: арбітраж, рефінансування.</li>
-          <li>Атака: зловмисник бере flash loan на мільйони доларів → маніпулює ціну на DEX → використовує маніпульовану ціну в іншому протоколі → повертає кредит з прибутком. Все в одній atomic транзакції.</li>
-          <li>Захист: використання TWAP (Time-Weighted Average Price) oracle замість spot price, Chainlink як надійний oracle.</li>
+          <li>Миттєва позика (Flash Loan) — кредит, який береться та повертається в одній транзакції (без застави). Легітимне використання: арбітраж, рефінансування.</li>
+          <li>Атака: зловмисник бере миттєву позику на мільйони доларів → маніпулює ціну на DEX → використовує маніпульовану ціну в іншому протоколі → повертає кредит з прибутком. Все в одній атомарній (Atomic) транзакції.</li>
+          <li>Захист: використання середньозваженої ціни за часом (TWAP — Time-Weighted Average Price) замість спотової ціни (Spot Price), Chainlink як надійний оракул.</li>
         </ul>
 
-        <p><strong>Rug pulls та exit scams:</strong></p>
+        <p><strong>Вивід ліквідності (Rug Pull) та шахрайство з виходом (Exit Scam):</strong></p>
         <ul>
-          <li><strong>Rug pull</strong> — розробники створюють токен, залучають ліквідність, а потім виводять всі кошти з пулу. У 2021 році rug pulls склали $2.8 млрд збитків.</li>
-          <li>Ознаки: анонімна команда, немає аудиту, необмежені mint-права, можливість зміни комісій, locked liquidity відсутня.</li>
-          <li>Захист: перевірка контракту на TokenSniffer/GoPlus, locked liquidity, renounced ownership, наявність аудиту.</li>
+          <li><strong>Rug Pull</strong> — розробники створюють токен, залучають ліквідність, а потім виводять всі кошти з пулу. У 2021 році такі схеми склали $2.8 млрд збитків.</li>
+          <li>Ознаки: анонімна команда, немає аудиту, необмежені права карбування (Mint), можливість зміни комісій, заблокована ліквідність (Locked Liquidity) відсутня.</li>
+          <li>Захист: перевірка контракту на TokenSniffer/GoPlus, заблокована ліквідність, відмова від прав власника (Renounced Ownership), наявність аудиту.</li>
         </ul>
 
-        <p><strong>Bridge attacks</strong> — атаки на міжмережеві мости (cross-chain bridges), які є одними з найвразливіших точок DeFi:</p>
+        <p><strong>Атаки на мости (Bridge Attacks)</strong> — атаки на міжмережеві мости (Cross-chain Bridges), які є одними з найвразливіших точок DeFi:</p>
         <ul>
           <li>Ronin Bridge (2022) — $625 млн: компрометація 5 з 9 валідаторів через social engineering.</li>
           <li>Wormhole (2022) — $320 млн: вразливість у верифікації підписів.</li>
@@ -821,42 +821,42 @@ function emergencyWithdraw() external onlyOwner {
           </thead>
           <tbody>
             <tr>
-              <td><strong>Flash Loan</strong></td>
+              <td><strong>Миттєва позика (Flash Loan)</strong></td>
               <td>Маніпуляція ціни через безкоштовний кредит в одній транзакції</td>
               <td>bZx (2020), Pancake Bunny (2021), Cream Finance (2021)</td>
               <td>$300M+</td>
               <td>TWAP oracle, Chainlink, обмеження ліквідності</td>
             </tr>
             <tr>
-              <td><strong>Rug Pull</strong></td>
+              <td><strong>Вивід ліквідності (Rug Pull)</strong></td>
               <td>Розробники виводять ліквідність або друкують токени</td>
               <td>Squid Game Token (2021), AnubisDAO (2021)</td>
               <td>$2.8B (2021)</td>
               <td>Locked liquidity, аудит, renounced ownership</td>
             </tr>
             <tr>
-              <td><strong>Bridge Exploit</strong></td>
+              <td><strong>Злом мосту (Bridge Exploit)</strong></td>
               <td>Компрометація валідаторів або вразливість у верифікації</td>
               <td>Ronin ($625M), Wormhole ($320M), Nomad ($190M)</td>
               <td>$2B+</td>
               <td>Децентралізовані валідатори, fraud proofs, optimistic verification</td>
             </tr>
             <tr>
-              <td><strong>Oracle Manipulation</strong></td>
+              <td><strong>Маніпуляція оракулами (Oracle Manipulation)</strong></td>
               <td>Підміна цінових даних для вигідних операцій</td>
               <td>Mango Markets ($114M), Harvest Finance ($34M)</td>
               <td>$400M+</td>
               <td>Chainlink, TWAP, multiple oracle sources</td>
             </tr>
             <tr>
-              <td><strong>Governance Attack</strong></td>
-              <td>Захоплення голосів через flash loan для зміни протоколу</td>
+              <td><strong>Атака на управління (Governance Attack)</strong></td>
+              <td>Захоплення голосів через миттєву позику для зміни протоколу</td>
               <td>Beanstalk ($182M), Build Finance ($470K)</td>
               <td>$200M+</td>
               <td>Timelock, token lockup для голосування, quorum</td>
             </tr>
             <tr>
-              <td><strong>Reentrancy</strong></td>
+              <td><strong>Повторний вхід (Reentrancy)</strong></td>
               <td>Повторний виклик функції до оновлення стану</td>
               <td>The DAO ($60M), Cream Finance ($130M)</td>
               <td>$200M+</td>
@@ -868,11 +868,11 @@ function emergencyWithdraw() external onlyOwner {
         <div class="control-questions">
           <h3>Контрольні запитання</h3>
           <ol>
-            <li>Опишіть покроковий механізм flash loan атаки. Чому вона можлива лише на блокчейні і неможлива у традиційних фінансах?</li>
-            <li>Чому використання spot price з DEX (Uniswap) як oracle є вразливим? Порівняйте підходи Chainlink та TWAP для захисту від маніпуляції цінами.</li>
-            <li>Назвіть 5 червоних прапорів (red flags) у коді токен-контракту, які вказують на потенційний rug pull. Які інструменти допомагають їх виявити?</li>
-            <li>Чому cross-chain bridges є одними з найвразливіших компонентів DeFi? Проаналізуйте причини атаки на Ronin Bridge ($625 млн).</li>
-            <li>Яку роль відіграє atomic nature транзакцій у блокчейні для flash loan атак? Як timelock та governance delay можуть захистити від governance attacks?</li>
+            <li>Опишіть покроковий механізм атаки миттєвої позики (Flash Loan). Чому вона можлива лише на блокчейні і неможлива у традиційних фінансах?</li>
+            <li>Чому використання спотової ціни (Spot Price) з DEX (Uniswap) як оракула є вразливим? Порівняйте підходи Chainlink та TWAP для захисту від маніпуляції цінами.</li>
+            <li>Назвіть 5 червоних прапорів у коді токен-контракту, які вказують на потенційний вивід ліквідності (Rug Pull). Які інструменти допомагають їх виявити?</li>
+            <li>Чому міжмережеві мости (Cross-chain Bridges) є одними з найвразливіших компонентів DeFi? Проаналізуйте причини атаки на Ronin Bridge ($625 млн).</li>
+            <li>Яку роль відіграє атомарна природа (Atomic Nature) транзакцій у блокчейні для атак миттєвих позик? Як часова затримка (Timelock) та затримка управління (Governance Delay) можуть захистити від атак на управління (Governance Attacks)?</li>
           </ol>
         </div>
       </section>
@@ -885,16 +885,16 @@ function emergencyWithdraw() external onlyOwner {
 
         <p><strong>Безпека біржової інфраструктури:</strong></p>
         <ul>
-          <li><strong>Cold/hot storage розподіл</strong> — 95%+ активів у cold storage (multisig, HSM), лише 5% у hot wallet для операційної ліквідності.</li>
-          <li><strong>Proof of Reserves (PoR)</strong> — криптографічне підтвердження наявності активів на біржі. Merkle tree + аудитор. Після краху FTX PoR став де-факто стандартом.</li>
-          <li><strong>Withdrawal security</strong> — whitelist адрес, cooling period для нових адрес (24-72 години), MFA, email-підтвердження, ліміти виведення.</li>
-          <li><strong>Insurance funds</strong> — резервні фонди для компенсації збитків (Binance SAFU fund — $1 млрд).</li>
+          <li><strong>Розподіл холодного/гарячого сховища (Cold/Hot Storage)</strong> — 95%+ активів у холодному сховищі (мультипідпис, HSM), лише 5% у гарячому гаманці для операційної ліквідності.</li>
+          <li><strong>Підтвердження резервів (Proof of Reserves, PoR)</strong> — криптографічне підтвердження наявності активів на біржі. Дерево Меркла (Merkle Tree) + аудитор. Після краху FTX PoR став де-факто стандартом.</li>
+          <li><strong>Безпека виведення коштів (Withdrawal Security)</strong> — білий список адрес (Whitelist), період охолодження (Cooling Period) для нових адрес (24-72 години), MFA, email-підтвердження, ліміти виведення.</li>
+          <li><strong>Страхові фонди (Insurance Funds)</strong> — резервні фонди для компенсації збитків (Binance SAFU fund — $1 млрд).</li>
         </ul>
 
         <p><strong>Регулювання криптоактивів:</strong></p>
         <ul>
           <li><strong>EU MiCA (Markets in Crypto-Assets)</strong> — перший комплексний регуляторний фреймворк для крипто в ЄС. Вимоги до ліцензування, AML, custody, stablecoin reserves, consumer protection.</li>
-          <li><strong>Travel Rule (FATF Recommendation 16)</strong> — при переказі криптоактивів понад поріг ($1000) біржі повинні обмінюватися інформацією про відправника та отримувача, аналогічно банківським переказам.</li>
+          <li><strong>Правило подорожі (Travel Rule, FATF Recommendation 16)</strong> — при переказі криптоактивів понад поріг ($1000) біржі повинні обмінюватися інформацією про відправника та отримувача, аналогічно банківським переказам.</li>
           <li><strong>Україна</strong> — Закон «Про віртуальні активи» (2022) встановлює правовий фреймворк, НКЦБФР як регулятор, вимоги до реєстрації та AML-compliance для VASP (Virtual Asset Service Providers).</li>
         </ul>
 
@@ -1075,17 +1075,17 @@ print(f"User A баланс підтверджено: {is_valid}")  # True</code
           <tbody>
             <tr>
               <td><strong>Ліцензування CASP</strong></td>
-              <td>Обов'язкова ліцензія для Crypto-Asset Service Providers</td>
+              <td>Обов'язкова ліцензія для постачальників послуг з криптоактивів (Crypto-Asset Service Providers)</td>
               <td>Єдиний «паспорт» для роботи у всіх країнах ЄС, мінімальний капітал залежно від послуг</td>
             </tr>
             <tr>
-              <td><strong>Stablecoins (EMT/ART)</strong></td>
-              <td>E-Money Tokens та Asset-Referenced Tokens</td>
+              <td><strong>Стейблкоїни (EMT/ART)</strong></td>
+              <td>Токени електронних грошей (E-Money Tokens) та токени, прив'язані до активів (Asset-Referenced Tokens)</td>
               <td>100% резерви для EMT, диверсифіковані резерви для ART, регулярний аудит резервів</td>
             </tr>
             <tr>
-              <td><strong>Whitepaper</strong></td>
-              <td>Обов'язковий whitepaper для публічного розміщення</td>
+              <td><strong>Біла книга (Whitepaper)</strong></td>
+              <td>Обов'язкова біла книга для публічного розміщення</td>
               <td>Опис технології, ризиків, прав власників; відповідальність емітента за точність</td>
             </tr>
             <tr>
@@ -1094,19 +1094,19 @@ print(f"User A баланс підтверджено: {is_valid}")  # True</code
               <td>Верифікація клієнтів, моніторинг транзакцій, звітування про підозрілі операції</td>
             </tr>
             <tr>
-              <td><strong>Custody</strong></td>
+              <td><strong>Зберігання (Custody)</strong></td>
               <td>Вимоги до зберігання активів клієнтів</td>
               <td>Сегрегація активів, страхування, прозора політика зберігання ключів</td>
             </tr>
             <tr>
               <td><strong>Захист споживачів</strong></td>
-              <td>Прозорість, розкриття ризиків, right of withdrawal</td>
-              <td>14-денний cooling period для роздрібних інвесторів, заборона misleading marketing</td>
+              <td>Прозорість, розкриття ризиків, право на відмову (Right of Withdrawal)</td>
+              <td>14-денний період охолодження для роздрібних інвесторів, заборона оманливого маркетингу (Misleading Marketing)</td>
             </tr>
             <tr>
-              <td><strong>Market Abuse</strong></td>
+              <td><strong>Зловживання на ринку (Market Abuse)</strong></td>
               <td>Заборона маніпуляцій ринком та інсайдерської торгівлі</td>
-              <td>Wash trading, pump-and-dump, front-running — кримінальна відповідальність</td>
+              <td>Фіктивна торгівля (Wash Trading), штучне накачування та скидання (Pump-and-Dump), випередження (Front-running) — кримінальна відповідальність</td>
             </tr>
           </tbody>
         </table>
@@ -1123,42 +1123,42 @@ print(f"User A баланс підтверджено: {is_valid}")  # True</code
           <tbody>
             <tr>
               <td><strong>Зберігання активів</strong></td>
-              <td>Cold storage (80%+), multisig (3-з-5+), HSM, географічний розподіл</td>
+              <td>Холодне сховище (Cold Storage) (80%+), мультипідпис (3-з-5+), HSM, географічний розподіл</td>
               <td>Критичний</td>
             </tr>
             <tr>
               <td><strong>Автентифікація</strong></td>
-              <td>MFA (TOTP/FIDO2), anti-phishing код, session management, device fingerprinting</td>
+              <td>Багатофакторна автентифікація (MFA — TOTP/FIDO2), антифішинговий код, управління сесіями (Session Management), відбиток пристрою (Device Fingerprinting)</td>
               <td>Критичний</td>
             </tr>
             <tr>
               <td><strong>Виведення коштів</strong></td>
-              <td>Whitelist адрес, cooling period (24-72 год), email-підтвердження, ліміти</td>
+              <td>Білий список адрес (Whitelist), період охолодження (24-72 год), email-підтвердження, ліміти</td>
               <td>Критичний</td>
             </tr>
             <tr>
-              <td><strong>Proof of Reserves</strong></td>
-              <td>Щомісячний PoR (Merkle Tree), незалежний аудитор, on-chain верифікація</td>
+              <td><strong>Підтвердження резервів (Proof of Reserves)</strong></td>
+              <td>Щомісячний PoR (дерево Меркла), незалежний аудитор, верифікація в мережі (On-chain)</td>
               <td>Високий</td>
             </tr>
             <tr>
               <td><strong>Мережева безпека</strong></td>
-              <td>WAF, DDoS protection, IDS/IPS, мережева сегментація, VPN для адмінів</td>
+              <td>WAF, захист від DDoS, IDS/IPS, мережева сегментація, VPN для адміністраторів</td>
               <td>Високий</td>
             </tr>
             <tr>
               <td><strong>Моніторинг</strong></td>
-              <td>Real-time аномалії, Chainalysis/Elliptic для AML, SIEM, 24/7 SOC</td>
+              <td>Виявлення аномалій у реальному часі, Chainalysis/Elliptic для AML, SIEM, цілодобовий SOC</td>
               <td>Високий</td>
             </tr>
             <tr>
               <td><strong>Страхування</strong></td>
-              <td>Insurance fund (SAFU), зовнішній страховий поліс, reserve ratio</td>
+              <td>Страховий фонд (SAFU), зовнішній страховий поліс, коефіцієнт резервування (Reserve Ratio)</td>
               <td>Середній</td>
             </tr>
             <tr>
-              <td><strong>Compliance</strong></td>
-              <td>KYC/AML, Travel Rule, MiCA ліцензування, регулярні аудити</td>
+              <td><strong>Відповідність вимогам (Compliance)</strong></td>
+              <td>KYC/AML, правило подорожі (Travel Rule), MiCA ліцензування, регулярні аудити</td>
               <td>Високий</td>
             </tr>
           </tbody>
@@ -1167,11 +1167,11 @@ print(f"User A баланс підтверджено: {is_valid}")  # True</code
         <div class="control-questions">
           <h3>Контрольні запитання</h3>
           <ol>
-            <li>Поясніть принцип роботи Proof of Reserves на основі Merkle Tree. Як користувач може самостійно перевірити, що його баланс включено у звіт біржі?</li>
-            <li>Опишіть архітектуру cold/hot/warm storage на криптобіржі. Чому рекомендується зберігати не менше 80% активів у cold storage?</li>
+            <li>Поясніть принцип роботи підтвердження резервів (Proof of Reserves) на основі дерева Меркла (Merkle Tree). Як користувач може самостійно перевірити, що його баланс включено у звіт біржі?</li>
+            <li>Опишіть архітектуру холодного/гарячого/теплого сховищ (Cold/Hot/Warm Storage) на криптобіржі. Чому рекомендується зберігати не менше 80% активів у холодному сховищі?</li>
             <li>Які основні вимоги MiCA (Markets in Crypto-Assets) до криптобірж та стейблкоїнів? Як MiCA змінює правила гри для криптоіндустрії в ЄС?</li>
-            <li>Що таке Travel Rule (FATF Recommendation 16) та як він впливає на приватність криптовалютних переказів? Яка роль VASP у його реалізації?</li>
-            <li>Проаналізуйте крах FTX з точки зору безпеки: які механізми (Proof of Reserves, сегрегація активів, аудит) могли б запобігти цій ситуації?</li>
+            <li>Що таке правило подорожі (Travel Rule, FATF Recommendation 16) та як воно впливає на приватність криптовалютних переказів? Яка роль постачальників послуг з віртуальних активів (VASP) у його реалізації?</li>
+            <li>Проаналізуйте крах FTX з точки зору безпеки: які механізми (підтвердження резервів, сегрегація активів, аудит) могли б запобігти цій ситуації?</li>
           </ol>
         </div>
       </section>
@@ -1179,8 +1179,8 @@ print(f"User A баланс підтверджено: {is_valid}")  # True</code
       <!-- Summary -->
       <section>
         <h2>Підсумок</h2>
-        <p>Безпека криптоактивів вимагає розуміння унікальних ризиків: незворотність транзакцій, публічність та незмінність смарт-контрактів, відсутність централізованого захисту. Управління приватними ключами через cold storage, multisig та MPC є фундаментом безпеки.</p>
-        <p>Смарт-контракти вразливі до reentrancy, oracle manipulation та access control помилок — аудит коду та formal verification є обов'язковими. DeFi-протоколи потерпають від flash loan атак, rug pulls та bridge exploits. Регулювання (MiCA, Travel Rule) поступово приводить крипто-індустрію до стандартів традиційних фінансів.</p>
+        <p>Безпека криптоактивів вимагає розуміння унікальних ризиків: незворотність транзакцій, публічність та незмінність смарт-контрактів, відсутність централізованого захисту. Управління приватними ключами через холодне сховище (Cold Storage), мультипідпис (Multisig) та багатосторонні обчислення (MPC) є фундаментом безпеки.</p>
+        <p>Смарт-контракти вразливі до повторного входу (Reentrancy), маніпуляції оракулами (Oracle Manipulation) та помилок контролю доступу (Access Control) — аудит коду та формальна верифікація (Formal Verification) є обов'язковими. DeFi-протоколи потерпають від атак миттєвих позик (Flash Loan), виводу ліквідності (Rug Pull) та зломів мостів (Bridge Exploits). Регулювання (MiCA, правило подорожі) поступово приводить крипто-індустрію до стандартів традиційних фінансів.</p>
         <p><strong>У наступній лекції</strong> ми розглянемо AML та фінансовий моніторинг: протидію відмиванню коштів, KYC-процедури, системи transaction monitoring та міжнародні стандарти FATF.</p>
       </section>
     </article>

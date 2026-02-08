@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>7.4 Fraud Detection | Фінансова Безпека</title>
+  <title>7.4 Виявлення шахрайства | Фінансова Безпека</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/slides.css">
@@ -25,9 +25,9 @@
 
     <section class="slide active">
       <span class="slide-icon">🔎</span>
-      <h1>Fraud Detection</h1>
+      <h1>Виявлення шахрайства (Fraud Detection)</h1>
       <p class="subtitle">Лекція 7.4</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">ML-системи, поведінковий аналіз, real-time scoring</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">ML-системи, поведінковий аналіз, оцінка в реальному часі</span>
     </section>
 
     <section class="slide">
@@ -52,12 +52,12 @@
     </section>
 
     <section class="slide">
-      <h1>Rule-based vs ML</h1>
+      <h1>На основі правил (Rule-based) vs ML</h1>
       <div class="two-col">
         <div class="col">
           <div class="card accent-orange" style="height: 100%;">
             <span class="card-icon">📋</span>
-            <div class="card-title">Rule-based</div>
+            <div class="card-title">На основі правил (Rule-based)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Статичні правила<br>
               Прозорість рішень<br>
@@ -70,7 +70,7 @@
         <div class="col">
           <div class="card accent-green" style="height: 100%;">
             <span class="card-icon">🤖</span>
-            <div class="card-title">ML-based</div>
+            <div class="card-title">На основі ML (ML-based)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Навчені на даних<br>
               Висока точність<br>
@@ -87,7 +87,7 @@
     </section>
 
     <section class="slide">
-      <h1>Real-time Scoring</h1>
+      <h1>Оцінка в реальному часі (Real-time Scoring)</h1>
       <h2>Fraud score для кожної транзакції</h2>
       <div class="icon-list">
         <div class="icon-list-item">
@@ -104,7 +104,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📱</span>
-          <span class="il-text"><strong>Device</strong> — новий пристрій? Змінений fingerprint?</span>
+          <span class="il-text"><strong>Пристрій (Device)</strong> — новий пристрій? Змінений fingerprint?</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🏪</span>
@@ -119,22 +119,22 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Baseline</div>
+          <div class="step-title">Базовий профіль (Baseline)</div>
           <div class="step-desc">Типові суми, merchant, час, локація</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Monitor</div>
+          <div class="step-title">Моніторинг (Monitor)</div>
           <div class="step-desc">Кожна транзакція порівнюється з профілем</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Score</div>
+          <div class="step-title">Оцінка (Score)</div>
           <div class="step-desc">Відхилення збільшує risk score</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Action</div>
+          <div class="step-title">Дія (Action)</div>
           <div class="step-desc">Low → OK, Mid → step-up, High → block</div>
         </div>
       </div>
@@ -144,34 +144,34 @@
     </section>
 
     <section class="slide">
-      <h1>Graph Analytics</h1>
+      <h1>Графова аналітика (Graph Analytics)</h1>
       <h2>Виявлення мереж шахрайства</h2>
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">🕸️</span>
-          <div class="card-title">Linked Accounts</div>
+          <div class="card-title">Пов'язані рахунки (Linked Accounts)</div>
           <div class="card-text">Спільний device, IP, email domain → підозріла мережа</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">💸</span>
-          <div class="card-title">Money Mules</div>
+          <div class="card-title">Грошові мули (Money Mules)</div>
           <div class="card-text">Ланцюжки переказів: A→B→C→D→зняття готівки</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🎭</span>
-          <div class="card-title">Synthetic Identity</div>
+          <div class="card-title">Синтетична ідентичність (Synthetic Identity)</div>
           <div class="card-text">Фіктивні особи з комбінації реальних та підроблених даних</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">📊</span>
-          <div class="card-title">Pattern Detection</div>
+          <div class="card-title">Виявлення патернів (Pattern Detection)</div>
           <div class="card-text">Кластеризація підозрілих транзакцій за спільними ознаками</div>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Chargeback Management</h1>
+      <h1>Управління зворотними платежами (Chargeback)</h1>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">💳</span>
@@ -208,7 +208,7 @@
         </div>
         <div class="card accent-orange">
           <span class="card-icon">📱</span>
-          <div class="card-title">Device & Network</div>
+          <div class="card-title">Пристрій та мережа (Device & Network)</div>
           <div class="card-text">Device fingerprint, IP геолокація, VPN/proxy detection, browser language</div>
         </div>
         <div class="card accent-red">
@@ -223,39 +223,39 @@
     </section>
 
     <section class="slide">
-      <h1>Real-time Scoring — архітектура</h1>
+      <h1>Оцінка в реальному часі (Real-time Scoring) — архітектура</h1>
       <h2>Обробка мільйонів транзакцій на секунду</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Transaction Ingestion</div>
+          <div class="step-title">Прийом транзакцій (Transaction Ingestion)</div>
           <div class="step-desc">Kafka/Kinesis приймає потік транзакцій. Збагачення даними: GeoIP, device, history</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Feature Store</div>
+          <div class="step-title">Сховище ознак (Feature Store)</div>
           <div class="step-desc">Redis/Aerospike зберігає pre-computed фічі клієнта. Оновлення в реальному часі</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">ML Inference</div>
+          <div class="step-title">ML-інференс (ML Inference)</div>
           <div class="step-desc">Модель повертає fraud score 0-1000 за &lt;10ms. GPU/FPGA для прискорення</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Rules Engine</div>
+          <div class="step-title">Механізм правил (Rules Engine)</div>
           <div class="step-desc">Post-ML правила: санкційні списки, velocity limits, merchant blacklist</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">Decision & Action</div>
+          <div class="step-title">Рішення та дія (Decision & Action)</div>
           <div class="step-desc">Approve / Step-up (OTP) / Decline / Queue for review. SLA: &lt;100ms end-to-end</div>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Chargeback Management — потік</h1>
+      <h1>Управління зворотними платежами (Chargeback) — потік</h1>
       <h2>Від диспуту до вирішення</h2>
       <div class="steps">
         <div class="step">
@@ -265,17 +265,17 @@
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">First Chargeback</div>
+          <div class="step-title">Перший чарджбек (First Chargeback)</div>
           <div class="step-desc">Issuer повертає кошти клієнту, стягує з acquirer. Reason code (Visa: 10.4, MC: 4837)</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Representment</div>
+          <div class="step-title">Повторне подання (Representment)</div>
           <div class="step-desc">Merchant оскаржує: надає докази (3DS proof, delivery confirmation, AVS match)</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Arbitration</div>
+          <div class="step-title">Арбітраж (Arbitration)</div>
           <div class="step-desc">Якщо не вирішено — арбітраж Visa/MC. Штраф $500+ програвшій стороні</div>
         </div>
       </div>
@@ -286,7 +286,7 @@
 
     <section class="slide">
       <h1>Поведінкова аналітика</h1>
-      <h2>Behavioral Biometrics та User Profiling</h2>
+      <h2>Поведінкова біометрія (Behavioral Biometrics) та профілювання (User Profiling)</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">⌨️</span>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>2.2 Secure SDLC | Фінансова Безпека</title>
+  <title>2.2 Безпечний SDLC | Фінансова Безпека</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/slides.css">
@@ -26,9 +26,9 @@
     <!-- 1. Title -->
     <section class="slide active">
       <span class="slide-icon">🔄</span>
-      <h1>Secure SDLC для FinTech</h1>
+      <h1>Безпечний SDLC для FinTech</h1>
       <p class="subtitle">Лекція 2.2</p>
-      <span class="tag tag-orange" style="margin-top: 1rem;">DevSecOps & Security by Design</span>
+      <span class="tag tag-orange" style="margin-top: 1rem;">DevSecOps та безпека за проєктом (Security by Design)</span>
     </section>
 
     <!-- 2. Вартість вразливості -->
@@ -50,80 +50,80 @@
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.5rem;">
-        <p>Вразливість у production коштує в <strong>100 разів</strong> дорожче, ніж виявлена на етапі проєктування. Shift Left Security!</p>
+        <p>Вразливість у production коштує в <strong>100 разів</strong> дорожче, ніж виявлена на етапі проєктування. Зсув безпеки вліво (Shift Left Security)!</p>
       </div>
     </section>
 
     <!-- 3. Фази SDLC -->
     <section class="slide">
-      <h1>Secure SDLC — 6 фаз</h1>
+      <h1>Безпечний SDLC — 6 фаз</h1>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Requirements</div>
-          <div class="step-desc">Security requirements</div>
+          <div class="step-title">Вимоги (Requirements)</div>
+          <div class="step-desc">Вимоги безпеки</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Design</div>
-          <div class="step-desc">Threat Modeling</div>
+          <div class="step-title">Проєктування (Design)</div>
+          <div class="step-desc">Моделювання загроз (Threat Modeling)</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Development</div>
-          <div class="step-desc">Secure Coding</div>
+          <div class="step-title">Розробка (Development)</div>
+          <div class="step-desc">Безпечне кодування (Secure Coding)</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Testing</div>
-          <div class="step-desc">SAST, DAST, Pentest</div>
+          <div class="step-title">Тестування (Testing)</div>
+          <div class="step-desc">SAST, DAST, пентест</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">Deploy</div>
-          <div class="step-desc">Hardening, IaC</div>
+          <div class="step-title">Розгортання (Deploy)</div>
+          <div class="step-desc">Зміцнення (Hardening), IaC</div>
         </div>
         <div class="step">
           <div class="step-num">6</div>
-          <div class="step-title">Maintain</div>
-          <div class="step-desc">Patching, CVE</div>
+          <div class="step-title">Підтримка (Maintain)</div>
+          <div class="step-desc">Оновлення (Patching), CVE</div>
         </div>
       </div>
     </section>
 
     <!-- 4. Threat Modeling -->
     <section class="slide">
-      <h1>Threat Modeling (STRIDE)</h1>
-      <h2>Систематичний аналіз загроз на етапі Design</h2>
+      <h1>Моделювання загроз (Threat Modeling) — STRIDE</h1>
+      <h2>Систематичний аналіз загроз на етапі проєктування</h2>
       <div class="card-grid cols-3">
         <div class="card accent-red">
           <span class="card-icon">🎭</span>
-          <div class="card-title">Spoofing</div>
+          <div class="card-title">Підробка (Spoofing)</div>
           <div class="card-text">Підміна ідентичності</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">✏️</span>
-          <div class="card-title">Tampering</div>
+          <div class="card-title">Підробка (Tampering)</div>
           <div class="card-text">Зміна даних</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🙅</span>
-          <div class="card-title">Repudiation</div>
+          <div class="card-title">Відмова від авторства (Repudiation)</div>
           <div class="card-text">Заперечення дій</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">👁️</span>
-          <div class="card-title">Info Disclosure</div>
+          <div class="card-title">Розголошення інформації (Info Disclosure)</div>
           <div class="card-text">Витік даних</div>
         </div>
         <div class="card accent-cyan">
           <span class="card-icon">🚫</span>
-          <div class="card-title">Denial of Service</div>
+          <div class="card-title">Відмова в обслуговуванні (Denial of Service)</div>
           <div class="card-text">Відмова в обслуговуванні</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">⬆️</span>
-          <div class="card-title">Elevation</div>
+          <div class="card-title">Підвищення привілеїв (Elevation)</div>
           <div class="card-text">Підвищення привілеїв</div>
         </div>
       </div>
@@ -266,12 +266,12 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Scope</div>
+          <div class="step-title">Обсяг (Scope)</div>
           <div class="step-desc">Визначити межі системи та Data Flow Diagram</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Identify</div>
+          <div class="step-title">Ідентифікація (Identify)</div>
           <div class="step-desc">Знайти активи: PII, фінансові дані, ключі</div>
         </div>
         <div class="step">
@@ -286,7 +286,7 @@
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">Mitigate</div>
+          <div class="step-title">Пом'якшення (Mitigate)</div>
           <div class="step-desc">Визначити контрзаходи для кожної загрози</div>
         </div>
       </div>

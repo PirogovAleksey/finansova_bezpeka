@@ -27,12 +27,12 @@
       <span class="slide-icon">💰</span>
       <h1>AI у фінансовому моніторингу</h1>
       <p class="subtitle">Лекція 9.2</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">ML для fraud detection, AML-скринінг, deepfake detection</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">ML для виявлення шахрайства, AML-скринінг, виявлення дипфейків</span>
     </section>
 
     <section class="slide">
-      <h1>ML для Fraud Detection</h1>
-      <h2>Feature Engineering</h2>
+      <h1>ML для виявлення шахрайства</h1>
+      <h2>Конструювання ознак (Feature Engineering)</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">💰</span>
@@ -118,7 +118,7 @@
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Liveness</div>
+          <div class="step-title">Перевірка живості (Liveness)</div>
           <div class="step-desc">AI-аналіз мікрорухів, текстури шкіри, відблисків</div>
         </div>
         <div class="step">
@@ -128,7 +128,7 @@
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Multi-layer</div>
+          <div class="step-title">Багатошаровий (Multi-layer)</div>
           <div class="step-desc">Document + face + liveness + device = надійна верифікація</div>
         </div>
       </div>
@@ -161,27 +161,27 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Ingestion</div>
+          <div class="step-title">Прийом даних (Ingestion)</div>
           <div class="step-desc">Kafka/Kinesis: потік транзакцій у реальному часі, 10K+ TPS</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Feature Store</div>
+          <div class="step-title">Сховище ознак (Feature Store)</div>
           <div class="step-desc">Redis/DynamoDB: pre-computed ознаки клієнта за останні 1h/24h/30d</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Scoring</div>
+          <div class="step-title">Оцінка (Scoring)</div>
           <div class="step-desc">ML-модель генерує fraud score 0-1000 за &lt;50ms (SageMaker/Vertex AI)</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Decision</div>
+          <div class="step-title">Рішення (Decision)</div>
           <div class="step-desc">Rules engine: approve / review / decline на основі score + бізнес-правил</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">Feedback Loop</div>
+          <div class="step-title">Зворотний зв'язок (Feedback Loop)</div>
           <div class="step-desc">Результати розслідувань повертаються для перенавчання моделі щотижня</div>
         </div>
       </div>
@@ -222,7 +222,7 @@
         <div class="col">
           <div class="card accent-red" style="height: 100%;">
             <span class="card-icon">📋</span>
-            <div class="card-title">Rule-based (legacy)</div>
+            <div class="card-title">На основі правил (Rule-based, legacy)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Пороги: сума > $10K → alert<br>
               Статичні правила: 500+ rules<br>

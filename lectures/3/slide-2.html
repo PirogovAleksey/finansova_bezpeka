@@ -34,21 +34,21 @@
     <!-- 2. JWT структура -->
     <section class="slide">
       <h1>Структура JWT</h1>
-      <h2>Header . Payload . Signature</h2>
+      <h2>Заголовок (Header) . Навантаження (Payload) . Підпис (Signature)</h2>
       <div class="card-grid cols-3">
         <div class="card accent-red">
           <span class="card-icon">📋</span>
-          <div class="card-title">Header</div>
+          <div class="card-title">Заголовок (Header)</div>
           <div class="card-text">Алгоритм (HS256, RS256), тип токена (JWT)</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">📦</span>
-          <div class="card-title">Payload</div>
-          <div class="card-text">sub, iat, exp, ролі, дозволи — Base64-encoded, НЕ зашифрований</div>
+          <div class="card-title">Навантаження (Payload)</div>
+          <div class="card-text">sub, iat, exp, ролі, дозволи — закодований Base64, НЕ зашифрований</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">✍️</span>
-          <div class="card-title">Signature</div>
+          <div class="card-title">Підпис (Signature)</div>
           <div class="card-text">HMAC або RSA підпис — гарантує цілісність токена</div>
         </div>
       </div>
@@ -64,23 +64,23 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">🚫</span>
-          <span class="il-text"><strong>Algorithm None</strong> — alg: «none» → сервер приймає без підпису</span>
+          <span class="il-text"><strong>Атака «без алгоритму» (Algorithm None)</strong> — alg: «none» → сервер приймає без підпису</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔄</span>
-          <span class="il-text"><strong>Algorithm Confusion</strong> — RS256→HS256, підпис публічним ключем як HMAC</span>
+          <span class="il-text"><strong>Плутанина алгоритмів (Algorithm Confusion)</strong> — RS256→HS256, підпис публічним ключем як HMAC</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">⏰</span>
-          <span class="il-text"><strong>No expiration</strong> — відсутній або ігнорований exp = безстроковий доступ</span>
+          <span class="il-text"><strong>Без терміну дії (No expiration)</strong> — відсутній або ігнорований exp = безстроковий доступ</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🗑️</span>
-          <span class="il-text"><strong>No revocation</strong> — JWT stateless, скомпрометований токен не анулювати</span>
+          <span class="il-text"><strong>Без відкликання (No revocation)</strong> — JWT без стану (stateless), скомпрометований токен не анулювати</span>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Рішення: короткий TTL (5-15 хв), whitelist алгоритмів, refresh token rotation, token blacklist.</p>
+        <p>Рішення: короткий час життя (TTL, 5-15 хв), список дозволених алгоритмів, ротація токенів оновлення (refresh token rotation), чорний список токенів.</p>
       </div>
     </section>
 
@@ -91,23 +91,23 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Authorization Request</div>
-          <div class="step-desc">Клієнт → Authorization Server</div>
+          <div class="step-title">Запит авторизації (Authorization Request)</div>
+          <div class="step-desc">Клієнт → Сервер авторизації</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">User Consent</div>
+          <div class="step-title">Згода користувача (User Consent)</div>
           <div class="step-desc">Користувач схвалює доступ</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Authorization Code</div>
+          <div class="step-title">Код авторизації (Authorization Code)</div>
           <div class="step-desc">Сервер повертає код</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Token Exchange</div>
-          <div class="step-desc">Код + PKCE → access token</div>
+          <div class="step-title">Обмін на токен (Token Exchange)</div>
+          <div class="step-desc">Код + PKCE → токен доступу (access token)</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -117,26 +117,26 @@
 
     <!-- 5. OAuth Flows -->
     <section class="slide">
-      <h1>OAuth 2.0 Flows</h1>
+      <h1>Потоки OAuth 2.0 (OAuth 2.0 Flows)</h1>
       <div class="card-grid cols-3">
         <div class="card accent-green">
           <span class="card-icon">📱</span>
-          <div class="card-title">Auth Code + PKCE</div>
-          <div class="card-text">Мобільні та SPA-додатки. Найбезпечніший flow для клієнтських додатків</div>
+          <div class="card-title">Код авторизації + PKCE</div>
+          <div class="card-text">Мобільні та SPA-додатки. Найбезпечніший потік для клієнтських додатків</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🖥️</span>
-          <div class="card-title">Client Credentials</div>
-          <div class="card-text">Server-to-server. Мікросервіс платежів → сервіс верифікації</div>
+          <div class="card-title">Облікові дані клієнта (Client Credentials)</div>
+          <div class="card-text">Сервер-сервер. Мікросервіс платежів → сервіс верифікації</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🏧</span>
-          <div class="card-title">Device Grant</div>
+          <div class="card-title">Авторизація пристрою (Device Grant)</div>
           <div class="card-text">Пристрої без браузера: IoT-термінали, банкомати, POS</div>
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Implicit Flow — DEPRECATED! Токен у URL = витік через browser history, referer headers, логи.</p>
+        <p>Неявний потік (Implicit Flow) — ЗАСТАРІЛИЙ! Токен у URL = витік через історію браузера, заголовки referer, логи.</p>
       </div>
     </section>
 
@@ -177,7 +177,7 @@
 
     <!-- 7. Session Management -->
     <section class="slide">
-      <h1>Session Management</h1>
+      <h1>Управління сесіями (Session Management)</h1>
       <h2>Вимоги до сесій у фінансових системах</h2>
       <div class="icon-list">
         <div class="icon-list-item">
@@ -186,19 +186,19 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔄</span>
-          <span class="il-text"><strong>Session fixation</strong> — новий session ID після кожного логіну</span>
+          <span class="il-text"><strong>Фіксація сесії (Session fixation)</strong> — новий ідентифікатор сесії після кожного входу</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🍪</span>
-          <span class="il-text"><strong>Secure cookies</strong> — HttpOnly, Secure, SameSite=Strict</span>
+          <span class="il-text"><strong>Захищені cookie (Secure cookies)</strong> — HttpOnly, Secure, SameSite=Strict</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">👥</span>
-          <span class="il-text"><strong>Concurrent control</strong> — 1 активна сесія на оператора</span>
+          <span class="il-text"><strong>Контроль одночасності (Concurrent control)</strong> — 1 активна сесія на оператора</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📍</span>
-          <span class="il-text"><strong>Context binding</strong> — прив'язка до IP, User-Agent, fingerprint</span>
+          <span class="il-text"><strong>Прив'язка до контексту (Context binding)</strong> — прив'язка до IP, User-Agent, відбитку пристрою</span>
         </div>
       </div>
     </section>
@@ -227,12 +227,12 @@
       <div class="card-grid" style="margin-top: 1.2rem;">
         <div class="card accent-blue">
           <span class="card-icon">📋</span>
-          <div class="card-title">Registered Claims</div>
-          <div class="card-text">iss (issuer), sub (subject), exp (expiry), iat (issued at), aud (audience), jti (unique ID)</div>
+          <div class="card-title">Зареєстровані заяви (Registered Claims)</div>
+          <div class="card-text">iss (видавець), sub (суб'єкт), exp (термін дії), iat (час видачі), aud (аудиторія), jti (унікальний ID)</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">🏦</span>
-          <div class="card-title">Custom Claims</div>
+          <div class="card-title">Користувацькі заяви (Custom Claims)</div>
           <div class="card-text">role, branch, permissions, transaction_limit — бізнес-логіка банку</div>
         </div>
       </div>
@@ -240,26 +240,26 @@
 
     <!-- 9. OAuth 2.0 Grant Types Comparison -->
     <section class="slide">
-      <h1>OAuth 2.0 — порівняння Grant Types</h1>
+      <h1>OAuth 2.0 — порівняння типів дозволів (Grant Types)</h1>
       <div class="card-grid">
         <div class="card accent-green">
           <span class="card-icon">📱</span>
-          <div class="card-title">Authorization Code + PKCE</div>
-          <div class="card-text">Для: SPA, мобільні додатки<br>Безпека: найвища<br>Використання: основний flow для Open Banking</div>
+          <div class="card-title">Код авторизації + PKCE</div>
+          <div class="card-text">Для: SPA, мобільні додатки<br>Безпека: найвища<br>Використання: основний потік для відкритого банкінгу (Open Banking)</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🖥️</span>
-          <div class="card-title">Client Credentials</div>
+          <div class="card-title">Клієнтські облікові дані (Client Credentials)</div>
           <div class="card-text">Для: сервер-сервер (M2M)<br>Безпека: висока (немає користувача)<br>Використання: API платежів, внутрішні мікросервіси</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔄</span>
-          <div class="card-title">Refresh Token</div>
+          <div class="card-title">Токен оновлення (Refresh Token)</div>
           <div class="card-text">Для: оновлення access token<br>Безпека: rotation обов'язкова<br>Використання: тривалі сесії без повторного логіну</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🏧</span>
-          <div class="card-title">Device Authorization</div>
+          <div class="card-title">Авторизація пристрою (Device Authorization)</div>
           <div class="card-text">Для: IoT, POS, Smart TV<br>Безпека: середня (out-of-band)<br>Використання: пристрої без клавіатури</div>
         </div>
       </div>
@@ -317,17 +317,17 @@
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">📌</span>
-          <div class="card-title">Session Fixation</div>
+          <div class="card-title">Фіксація сесії (Session Fixation)</div>
           <div class="card-text">Зловмисник нав'язує відомий session ID жертві до логіну. Захист: регенерація ID після автентифікації</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🕵️</span>
-          <div class="card-title">Session Hijacking</div>
+          <div class="card-title">Перехоплення сесії (Session Hijacking)</div>
           <div class="card-text">Перехоплення cookie через XSS, мережевий сніфінг. Захист: HttpOnly, Secure, TLS everywhere</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔁</span>
-          <div class="card-title">Session Replay</div>
+          <div class="card-title">Повтор сесії (Session Replay)</div>
           <div class="card-text">Повторне використання перехопленого токена. Захист: nonce, timestamp binding, короткий TTL</div>
         </div>
         <div class="card accent-blue">

@@ -18,7 +18,7 @@
       <span class="slide-icon">⚖️</span>
       <h1>Оцінка та обробка ризиків</h1>
       <p class="subtitle">Лекція 14.2</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Якісна та кількісна оцінка, ALE, Risk Treatment</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Якісна та кількісна оцінка, ALE, обробка ризиків</span>
     </section>
     <section class="slide">
       <h1>Два підходи до оцінки</h1>
@@ -53,21 +53,21 @@
       </div>
     </section>
     <section class="slide">
-      <h1>Risk Treatment — 4 стратегії</h1>
+      <h1>Обробка ризиків (Risk Treatment) — 4 стратегії</h1>
       <div class="card-grid">
-        <div class="card accent-blue"><span class="card-icon">🛡️</span><div class="card-title">Mitigate</div><div class="card-text">Впровадити контролі для зниження ймовірності або впливу. Найчастіший вибір</div></div>
-        <div class="card accent-green"><span class="card-icon">📄</span><div class="card-title">Transfer</div><div class="card-text">Кіберстрахування, аутсорсинг (MSSP). Передати фінансовий тягар третій стороні</div></div>
-        <div class="card accent-orange"><span class="card-icon">✅</span><div class="card-title">Accept</div><div class="card-text">Ризик у межах appetite, mitigation дорожче збитків. Формальне рішення керівництва</div></div>
-        <div class="card accent-red"><span class="card-icon">🚫</span><div class="card-title">Avoid</div><div class="card-text">Відмовитися від діяльності. Наприклад, не зберігати певні дані клієнтів</div></div>
+        <div class="card accent-blue"><span class="card-icon">🛡️</span><div class="card-title">Зменшити (Mitigate)</div><div class="card-text">Впровадити контролі для зниження ймовірності або впливу. Найчастіший вибір</div></div>
+        <div class="card accent-green"><span class="card-icon">📄</span><div class="card-title">Передати (Transfer)</div><div class="card-text">Кіберстрахування, аутсорсинг (MSSP). Передати фінансовий тягар третій стороні</div></div>
+        <div class="card accent-orange"><span class="card-icon">✅</span><div class="card-title">Прийняти (Accept)</div><div class="card-text">Ризик у межах допустимого, зменшення дорожче збитків. Формальне рішення керівництва</div></div>
+        <div class="card accent-red"><span class="card-icon">🚫</span><div class="card-title">Уникнути (Avoid)</div><div class="card-text">Відмовитися від діяльності. Наприклад, не зберігати певні дані клієнтів</div></div>
       </div>
     </section>
     <section class="slide">
-      <h1>Residual Risk</h1>
+      <h1>Залишковий ризик (Residual Risk)</h1>
       <div class="steps">
-        <div class="step"><div class="step-num">1</div><div class="step-title">Inherent Risk</div><div class="step-desc">Ризик до застосування контролів</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-title">Controls</div><div class="step-desc">Технічні та організаційні заходи</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-title">Residual Risk</div><div class="step-desc">Ризик після контролів</div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-title">Acceptance</div><div class="step-desc">Residual ≤ appetite? Якщо ні — додаткові заходи</div></div>
+        <div class="step"><div class="step-num">1</div><div class="step-title">Початковий ризик (Inherent)</div><div class="step-desc">Ризик до застосування контролів</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Контролі (Controls)</div><div class="step-desc">Технічні та організаційні заходи</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Залишковий ризик (Residual)</div><div class="step-desc">Ризик після контролів</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Прийняття (Acceptance)</div><div class="step-desc">Залишковий ≤ допустимий? Якщо ні — додаткові заходи</div></div>
       </div>
     </section>
     <section class="slide">
@@ -85,7 +85,7 @@
       <h1>Розрахунок ALE — практичний приклад</h1>
       <div class="highlight-box"><strong>Сценарій:</strong> Ransomware-атака на банківську систему онлайн-платежів</div>
       <div class="steps" style="margin-top: 1.5rem;">
-        <div class="step"><div class="step-num">1</div><div class="step-title">Asset Value</div><div class="step-desc">Система обробляє $50M транзакцій/рік</div></div>
+        <div class="step"><div class="step-num">1</div><div class="step-title">Вартість активу (AV)</div><div class="step-desc">Система обробляє $50M транзакцій/рік</div></div>
         <div class="step"><div class="step-num">2</div><div class="step-title">SLE = $3M</div><div class="step-desc">Простій 3 дні + відновлення + штрафи + репутація</div></div>
         <div class="step"><div class="step-num">3</div><div class="step-title">ARO = 0.15</div><div class="step-desc">15% ймовірність на рік (галузева статистика)</div></div>
         <div class="step"><div class="step-num">4</div><div class="step-title">ALE = $450K</div><div class="step-desc">$3M x 0.15 = $450K очікуваних збитків на рік</div></div>
@@ -113,23 +113,23 @@
     <section class="slide">
       <h1>Опції обробки ризиків — деталі</h1>
       <div class="icon-list">
-        <div class="icon-list-item"><span class="il-icon">🛡️</span><span class="il-text"><strong>Mitigate (Зниження)</strong> — впровадити MFA, WAF, шифрування, навчання. Знижує ймовірність або вплив. Найпоширеніший вибір (~60% рішень)</span></div>
-        <div class="icon-list-item"><span class="il-icon">📄</span><span class="il-text"><strong>Transfer (Передача)</strong> — кіберстрахування (покриття $1-10M), MSSP-контракт. Передає фінансовий ризик. Не знімає відповідальності!</span></div>
-        <div class="icon-list-item"><span class="il-icon">✅</span><span class="il-text"><strong>Accept (Прийняття)</strong> — формальне рішення risk owner з документацією. Тільки якщо residual risk менше за appetite. Потребує підпису керівника</span></div>
-        <div class="icon-list-item"><span class="il-icon">🚫</span><span class="il-text"><strong>Avoid (Уникнення)</strong> — відмова від ризикової діяльності: не зберігати PAN, не використовувати legacy-систему. Радикальне рішення</span></div>
+        <div class="icon-list-item"><span class="il-icon">🛡️</span><span class="il-text"><strong>Зменшення (Mitigate)</strong> — впровадити MFA, WAF, шифрування, навчання. Знижує ймовірність або вплив. Найпоширеніший вибір (~60% рішень)</span></div>
+        <div class="icon-list-item"><span class="il-icon">📄</span><span class="il-text"><strong>Передача (Transfer)</strong> — кіберстрахування (покриття $1-10M), MSSP-контракт. Передає фінансовий ризик. Не знімає відповідальності!</span></div>
+        <div class="icon-list-item"><span class="il-icon">✅</span><span class="il-text"><strong>Прийняття (Accept)</strong> — формальне рішення власника ризику з документацією. Тільки якщо залишковий ризик менше за допустимий. Потребує підпису керівника</span></div>
+        <div class="icon-list-item"><span class="il-icon">🚫</span><span class="il-text"><strong>Уникнення (Avoid)</strong> — відмова від ризикової діяльності: не зберігати PAN, не використовувати застарілу (legacy) систему. Радикальне рішення</span></div>
       </div>
       <div class="highlight-box" style="margin-top: 1rem;">Для кожного ризику може бути <strong>комбінація стратегій</strong>: mitigate + transfer (знизити + застрахувати залишок)</div>
     </section>
     <section class="slide">
       <h1>Оцінка залишкового ризику</h1>
-      <div class="highlight-box"><strong>Residual Risk = Inherent Risk - Control Effectiveness</strong><br>Залишковий ризик має бути в межах risk appetite, інакше потрібні додаткові заходи</div>
+      <div class="highlight-box"><strong>Залишковий ризик = Початковий ризик - Ефективність контролів</strong><br>Залишковий ризик має бути в межах схильності до ризику (Risk Appetite), інакше потрібні додаткові заходи</div>
       <div class="card-grid" style="margin-top: 1.5rem;">
-        <div class="card accent-red"><span class="card-icon">🔴</span><div class="card-title">Inherent Risk</div><div class="card-text">Ransomware на сервер БД<br>Ймовірність: 4/5<br>Вплив: 5/5<br><strong>Рівень: 20 (Critical)</strong></div></div>
-        <div class="card accent-blue"><span class="card-icon">🛡️</span><div class="card-title">Контролі</div><div class="card-text">EDR, сегментація мережі, backup 3-2-1, MFA, awareness<br><strong>Ефективність: 70%</strong></div></div>
-        <div class="card accent-green"><span class="card-icon">✅</span><div class="card-title">Residual Risk</div><div class="card-text">Ймовірність: 2/5<br>Вплив: 3/5<br><strong>Рівень: 6 (Medium)</strong><br>В межах appetite</div></div>
+        <div class="card accent-red"><span class="card-icon">🔴</span><div class="card-title">Початковий ризик</div><div class="card-text">Ransomware на сервер БД<br>Ймовірність: 4/5<br>Вплив: 5/5<br><strong>Рівень: 20 (Критичний)</strong></div></div>
+        <div class="card accent-blue"><span class="card-icon">🛡️</span><div class="card-title">Контролі</div><div class="card-text">EDR, сегментація мережі, backup 3-2-1, MFA, навчання<br><strong>Ефективність: 70%</strong></div></div>
+        <div class="card accent-green"><span class="card-icon">✅</span><div class="card-title">Залишковий ризик</div><div class="card-text">Ймовірність: 2/5<br>Вплив: 3/5<br><strong>Рівень: 6 (Середній)</strong><br>В межах допустимого</div></div>
       </div>
       <div class="icon-list" style="margin-top: 1rem;">
-        <div class="icon-list-item"><span class="il-icon">📋</span><span class="il-text">Документувати прийняття залишкового ризику з підписом <strong>risk owner</strong> та датою перегляду</span></div>
+        <div class="icon-list-item"><span class="il-icon">📋</span><span class="il-text">Документувати прийняття залишкового ризику з підписом <strong>власника ризику (Risk Owner)</strong> та датою перегляду</span></div>
       </div>
     </section>
     <section class="slide">
@@ -137,8 +137,8 @@
       <h1>Ключові висновки</h1>
       <div class="icon-list">
         <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>ALE = SLE × ARO</strong> — базова формула кількісної оцінки кіберризиків</span></div>
-        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>4 стратегії</strong> — Mitigate, Transfer, Accept, Avoid — обирайте за контекстом</span></div>
-        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Residual risk</strong> — завжди залишається, має бути ≤ risk appetite</span></div>
+        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>4 стратегії</strong> — Зменшити, Передати, Прийняти, Уникнути — обирайте за контекстом</span></div>
+        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Залишковий ризик (Residual Risk)</strong> — завжди залишається, має бути в межах допустимого</span></div>
         <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>ROI</strong> — кількісне обґрунтування інвестицій у безпеку</span></div>
       </div>
     </section>

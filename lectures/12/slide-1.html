@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>12.1 Incident Response | Фінансова Безпека</title>
+  <title>12.1 Реагування на інциденти (Incident Response) | Фінансова Безпека</title>
   <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/slides.css">
@@ -16,16 +16,16 @@
   <div class="slide-deck">
     <section class="slide active">
       <span class="slide-icon">🚨</span>
-      <h1>Incident Response</h1>
+      <h1>Реагування на інциденти (Incident Response)</h1>
       <p class="subtitle">Лекція 12.1</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">NIST SP 800-61, фази реагування, playbooks</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">NIST SP 800-61, фази реагування, сценарії реагування (playbooks)</span>
     </section>
     <section class="slide">
       <h1>Ціна інциденту</h1>
       <div class="stat-row">
-        <div class="stat-box red"><div class="stat-value">$5.9M</div><div class="stat-label">середня вартість breach у фінансах</div></div>
+        <div class="stat-box red"><div class="stat-value">$5.9M</div><div class="stat-label">середня вартість витоку (breach) у фінансах</div></div>
         <div class="stat-box orange"><div class="stat-value">204</div><div class="stat-label">днів — середній MTTD</div></div>
-        <div class="stat-box blue"><div class="stat-value">73</div><div class="stat-label">днів — середній час containment</div></div>
+        <div class="stat-box blue"><div class="stat-value">73</div><div class="stat-label">днів — середній час стримування (containment)</div></div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
         <p>Кожен день без виявлення = більший scope, більші збитки, більше скомпрометованих даних.</p>
@@ -33,38 +33,38 @@
     </section>
     <section class="slide">
       <h1>NIST SP 800-61</h1>
-      <h2>4 фази Incident Response</h2>
+      <h2>4 фази реагування на інциденти</h2>
       <div class="steps">
-        <div class="step"><div class="step-num">1</div><div class="step-title">Preparation</div><div class="step-desc">CSIRT, IR-план, playbooks, інструменти, тренування</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-title">Detection</div><div class="step-desc">SIEM/EDR алерти, тріаж, scope та impact аналіз</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-title">Containment</div><div class="step-desc">Ізоляція → видалення загрози → відновлення систем</div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-title">Post-Incident</div><div class="step-desc">Lessons learned, оновлення playbooks, regulatory reporting</div></div>
+        <div class="step"><div class="step-num">1</div><div class="step-title">Підготовка (Preparation)</div><div class="step-desc">CSIRT, IR-план, playbooks, інструменти, тренування</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Виявлення (Detection)</div><div class="step-desc">SIEM/EDR алерти, тріаж, аналіз масштабу та впливу</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Стримування (Containment)</div><div class="step-desc">Ізоляція → видалення загрози → відновлення систем</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Пост-інцидент (Post-Incident)</div><div class="step-desc">Засвоєні уроки, оновлення playbooks, звітування регуляторам</div></div>
       </div>
     </section>
     <section class="slide">
-      <h1>Severity Classification</h1>
+      <h1>Класифікація критичності (Severity Classification)</h1>
       <div class="card-grid">
-        <div class="card accent-red"><span class="card-icon">🔴</span><div class="card-title">Critical (P1)</div><div class="card-text">Активний breach, ransomware, data exfiltration. Негайна ескалація</div></div>
-        <div class="card accent-orange"><span class="card-icon">🟠</span><div class="card-title">High (P2)</div><div class="card-text">Compromised system, malware detection. Реагування протягом 1 год</div></div>
-        <div class="card accent-blue"><span class="card-icon">🔵</span><div class="card-title">Medium (P3)</div><div class="card-text">Підозріла активність, policy violation. Розслідування 24 год</div></div>
-        <div class="card accent-green"><span class="card-icon">🟢</span><div class="card-title">Low (P4)</div><div class="card-text">Informational alert, minor policy deviation. Scheduled review</div></div>
+        <div class="card accent-red"><span class="card-icon">🔴</span><div class="card-title">Критичний (P1)</div><div class="card-text">Активний витік, ransomware, викрадення даних (data exfiltration). Негайна ескалація</div></div>
+        <div class="card accent-orange"><span class="card-icon">🟠</span><div class="card-title">Високий (P2)</div><div class="card-text">Скомпрометована система, виявлено шкідливе ПЗ. Реагування протягом 1 год</div></div>
+        <div class="card accent-blue"><span class="card-icon">🔵</span><div class="card-title">Середній (P3)</div><div class="card-text">Підозріла активність, порушення політик. Розслідування 24 год</div></div>
+        <div class="card accent-green"><span class="card-icon">🟢</span><div class="card-title">Низький (P4)</div><div class="card-text">Інформаційний алерт, незначне відхилення від політик. Плановий огляд</div></div>
       </div>
     </section>
     <section class="slide">
-      <h1>Playbooks</h1>
+      <h1>Сценарії реагування (Playbooks)</h1>
       <h2>Покрокові інструкції для типових інцидентів</h2>
       <div class="icon-list">
-        <div class="icon-list-item"><span class="il-icon">🔒</span><span class="il-text"><strong>Ransomware</strong> — ізоляція, NOT pay, backup restore, forensics</span></div>
-        <div class="icon-list-item"><span class="il-icon">🎣</span><span class="il-text"><strong>Phishing</strong> — блокування URL, reset паролів, перевірка inbox rules</span></div>
-        <div class="icon-list-item"><span class="il-icon">💳</span><span class="il-text"><strong>Data Breach</strong> — scope, notify regulators 72h, client notification</span></div>
-        <div class="icon-list-item"><span class="il-icon">👤</span><span class="il-text"><strong>Insider Threat</strong> — preserve evidence, HR + Legal, access revocation</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔒</span><span class="il-text"><strong>Ransomware</strong> — ізоляція, НЕ платити, відновлення з бекапів, форензика</span></div>
+        <div class="icon-list-item"><span class="il-icon">🎣</span><span class="il-text"><strong>Фішинг (Phishing)</strong> — блокування URL, скидання паролів, перевірка правил пошти</span></div>
+        <div class="icon-list-item"><span class="il-icon">💳</span><span class="il-text"><strong>Витік даних (Data Breach)</strong> — визначення масштабу, повідомлення регуляторів (72 год), сповіщення клієнтів</span></div>
+        <div class="icon-list-item"><span class="il-icon">👤</span><span class="il-text"><strong>Інсайдерська загроза (Insider Threat)</strong> — збереження доказів, залучення HR + юристів, відкликання доступу</span></div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
         <p>SOAR (Security Orchestration) автоматизує стандартні кроки playbook: ізоляція хоста, блокування IP.</p>
       </div>
     </section>
     <section class="slide">
-      <h1>Ransomware IR Playbook</h1>
+      <h1>Сценарій реагування на Ransomware</h1>
       <h2>Покрокове реагування на шифрувальник</h2>
       <div class="steps">
         <div class="step"><div class="step-num">1</div><div class="step-title">Ізоляція</div><div class="step-desc">Негайно відключити заражений хост від мережі, вимкнути Wi-Fi, від'єднати мережевий кабель</div></div>
@@ -80,10 +80,10 @@
       <h1>Класифікація серйозності інциденту</h1>
       <h2>Матриця визначення пріоритету реагування</h2>
       <div class="card-grid">
-        <div class="card accent-red"><span class="card-icon">🔴</span><div class="card-title">Critical (P1)</div><div class="card-text">Вплив: критичні системи, дані клієнтів. SLA: 15 хв на ескалацію, 1 год containment. Приклад: активний ransomware</div></div>
-        <div class="card accent-orange"><span class="card-icon">🟠</span><div class="card-title">High (P2)</div><div class="card-text">Вплив: серверна інфраструктура. SLA: 1 год тріаж, 4 год containment. Приклад: виявлено C2 beacon</div></div>
-        <div class="card accent-blue"><span class="card-icon">🔵</span><div class="card-title">Medium (P3)</div><div class="card-text">Вплив: окрема робоча станція. SLA: 4 год тріаж, 24 год resolution. Приклад: malware на ендпоінті</div></div>
-        <div class="card accent-green"><span class="card-icon">🟢</span><div class="card-title">Low (P4)</div><div class="card-text">Вплив: інформаційний. SLA: наступний робочий день. Приклад: невдала спроба phishing</div></div>
+        <div class="card accent-red"><span class="card-icon">🔴</span><div class="card-title">Критичний (P1)</div><div class="card-text">Вплив: критичні системи, дані клієнтів. SLA: 15 хв на ескалацію, 1 год стримування. Приклад: активний ransomware</div></div>
+        <div class="card accent-orange"><span class="card-icon">🟠</span><div class="card-title">Високий (P2)</div><div class="card-text">Вплив: серверна інфраструктура. SLA: 1 год тріаж, 4 год стримування. Приклад: виявлено C2 beacon</div></div>
+        <div class="card accent-blue"><span class="card-icon">🔵</span><div class="card-title">Середній (P3)</div><div class="card-text">Вплив: окрема робоча станція. SLA: 4 год тріаж, 24 год усунення. Приклад: шкідливе ПЗ на ендпоінті</div></div>
+        <div class="card accent-green"><span class="card-icon">🟢</span><div class="card-title">Низький (P4)</div><div class="card-text">Вплив: інформаційний. SLA: наступний робочий день. Приклад: невдала спроба фішингу</div></div>
       </div>
     </section>
     <section class="slide">
@@ -103,11 +103,11 @@
       <h1>Ролі IR-команди</h1>
       <h2>Чітке розділення відповідальностей</h2>
       <div class="icon-list">
-        <div class="icon-list-item"><span class="il-icon">🎯</span><span class="il-text"><strong>Incident Commander</strong> — загальна координація, прийняття рішень, ескалація до керівництва</span></div>
-        <div class="icon-list-item"><span class="il-icon">🔬</span><span class="il-text"><strong>Lead Analyst</strong> — технічне розслідування, аналіз артефактів, визначення TTP атакуючого</span></div>
-        <div class="icon-list-item"><span class="il-icon">🖥️</span><span class="il-text"><strong>IT Operations</strong> — containment дії: ізоляція хостів, блокування IP, відновлення систем</span></div>
-        <div class="icon-list-item"><span class="il-icon">📝</span><span class="il-text"><strong>Scribe / Logger</strong> — документація всіх дій, рішень, timeline подій у реальному часі</span></div>
-        <div class="icon-list-item"><span class="il-icon">📣</span><span class="il-text"><strong>Communications Lead</strong> — зовнішні та внутрішні повідомлення, зв'язок з PR та Legal</span></div>
+        <div class="icon-list-item"><span class="il-icon">🎯</span><span class="il-text"><strong>Керівник інциденту (Incident Commander)</strong> — загальна координація, прийняття рішень, ескалація до керівництва</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔬</span><span class="il-text"><strong>Провідний аналітик (Lead Analyst)</strong> — технічне розслідування, аналіз артефактів, визначення TTP атакуючого</span></div>
+        <div class="icon-list-item"><span class="il-icon">🖥️</span><span class="il-text"><strong>ІТ-операції (IT Operations)</strong> — стримування: ізоляція хостів, блокування IP, відновлення систем</span></div>
+        <div class="icon-list-item"><span class="il-icon">📝</span><span class="il-text"><strong>Протоколіст (Scribe)</strong> — документація всіх дій, рішень, хронології подій у реальному часі</span></div>
+        <div class="icon-list-item"><span class="il-icon">📣</span><span class="il-text"><strong>Відповідальний за комунікації (Communications Lead)</strong> — зовнішні та внутрішні повідомлення, зв'язок з PR та юристами</span></div>
       </div>
     </section>
     <section class="slide">
@@ -115,8 +115,8 @@
       <h1>Ключові висновки</h1>
       <div class="icon-list">
         <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>NIST 800-61</strong> — 4 фази: preparation, detection, containment, post-incident</span></div>
-        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>Preparation</strong> — CSIRT, playbooks, тренування ДО інциденту</span></div>
-        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Speed matters</strong> — кожен день MTTD збільшує вартість breach</span></div>
+        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>Підготовка (Preparation)</strong> — CSIRT, playbooks, тренування ДО інциденту</span></div>
+        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Швидкість має значення</strong> — кожен день MTTD збільшує вартість витоку</span></div>
         <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>SOAR</strong> — автоматизація для швидкого containment</span></div>
       </div>
     </section>

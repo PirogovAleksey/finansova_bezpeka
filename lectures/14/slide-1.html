@@ -18,15 +18,15 @@
       <span class="slide-icon">📊</span>
       <h1>Фреймворки ризик-менеджменту</h1>
       <p class="subtitle">Лекція 14.1</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">ISO 27005, NIST, FAIR, Risk Appetite</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">ISO 27005, NIST, FAIR, Схильність до ризику</span>
     </section>
     <section class="slide">
       <h1>Чому ризик-менеджмент?</h1>
-      <div class="highlight-box">Управління кіберризиками — не best practice, а <strong>регуляторна вимога</strong> для фінансових установ (НБУ, Basel III, DORA)</div>
+      <div class="highlight-box">Управління кіберризиками — не просто найкраща практика (best practice), а <strong>регуляторна вимога</strong> для фінансових установ (НБУ, Basel III, DORA)</div>
       <div class="stat-row" style="margin-top: 2rem;">
-        <div class="stat-box"><div class="stat-value">$4.88M</div><div class="stat-label">Середня вартість data breach (IBM 2024)</div></div>
-        <div class="stat-box"><div class="stat-value">204 дні</div><div class="stat-label">Середній час виявлення breach</div></div>
-        <div class="stat-box"><div class="stat-value">73 дні</div><div class="stat-label">Середній час containment</div></div>
+        <div class="stat-box"><div class="stat-value">$4.88M</div><div class="stat-label">Середня вартість витоку даних (IBM 2024)</div></div>
+        <div class="stat-box"><div class="stat-value">204 дні</div><div class="stat-label">Середній час виявлення витоку</div></div>
+        <div class="stat-box"><div class="stat-value">73 дні</div><div class="stat-label">Середній час стримування</div></div>
       </div>
     </section>
     <section class="slide">
@@ -41,41 +41,41 @@
     <section class="slide">
       <h1>NIST CSF 2.0 — 6 функцій</h1>
       <div class="steps">
-        <div class="step"><div class="step-num">GV</div><div class="step-title">Govern</div><div class="step-desc">Стратегія, політики, ролі</div></div>
-        <div class="step"><div class="step-num">ID</div><div class="step-title">Identify</div><div class="step-desc">Активи, ризики, загрози</div></div>
-        <div class="step"><div class="step-num">PR</div><div class="step-title">Protect</div><div class="step-desc">Контролі, навчання</div></div>
-        <div class="step"><div class="step-num">DE</div><div class="step-title">Detect</div><div class="step-desc">Моніторинг, алерти</div></div>
-        <div class="step"><div class="step-num">RS</div><div class="step-title">Respond</div><div class="step-desc">Реагування, containment</div></div>
-        <div class="step"><div class="step-num">RC</div><div class="step-title">Recover</div><div class="step-desc">Відновлення, уроки</div></div>
+        <div class="step"><div class="step-num">GV</div><div class="step-title">Управління (Govern)</div><div class="step-desc">Стратегія, політики, ролі</div></div>
+        <div class="step"><div class="step-num">ID</div><div class="step-title">Ідентифікація (Identify)</div><div class="step-desc">Активи, ризики, загрози</div></div>
+        <div class="step"><div class="step-num">PR</div><div class="step-title">Захист (Protect)</div><div class="step-desc">Контролі, навчання</div></div>
+        <div class="step"><div class="step-num">DE</div><div class="step-title">Виявлення (Detect)</div><div class="step-desc">Моніторинг, алерти</div></div>
+        <div class="step"><div class="step-num">RS</div><div class="step-title">Реагування (Respond)</div><div class="step-desc">Стримування, відповідь</div></div>
+        <div class="step"><div class="step-num">RC</div><div class="step-title">Відновлення (Recover)</div><div class="step-desc">Відновлення, уроки</div></div>
       </div>
     </section>
     <section class="slide">
-      <h1>Risk Appetite vs Tolerance</h1>
+      <h1>Схильність до ризику vs Толерантність</h1>
       <div class="two-col">
         <div class="col">
           <div class="card accent-blue" style="height: 100%;">
             <span class="card-icon">🎯</span>
-            <div class="card-title">Risk Appetite</div>
+            <div class="card-title">Схильність (Risk Appetite)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Загальний рівень ризику, який організація готова прийняти<br><br>Визначається правлінням та наглядовою радою<br><br>Стратегічний рівень</div>
           </div>
         </div>
         <div class="col">
           <div class="card accent-orange" style="height: 100%;">
             <span class="card-icon">📏</span>
-            <div class="card-title">Risk Tolerance</div>
-            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Допустимі відхилення від appetite для конкретних ризиків<br><br>Визначається менеджментом<br><br>Операційний рівень</div>
+            <div class="card-title">Толерантність (Risk Tolerance)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Допустимі відхилення від схильності для конкретних ризиків<br><br>Визначається менеджментом<br><br>Операційний рівень</div>
           </div>
         </div>
       </div>
     </section>
     <section class="slide">
-      <h1>Risk Register</h1>
+      <h1>Реєстр ризиків (Risk Register)</h1>
       <div class="icon-list">
         <div class="icon-list-item"><span class="il-icon">📋</span><span class="il-text"><strong>Реєстр ризиків</strong> — централізована база всіх ідентифікованих кіберризиків організації</span></div>
         <div class="icon-list-item"><span class="il-icon">📊</span><span class="il-text"><strong>Оцінка</strong> — ймовірність × вплив = рівень ризику для кожного запису</span></div>
         <div class="icon-list-item"><span class="il-icon">🛡️</span><span class="il-text"><strong>Контролі</strong> — поточні заходи захисту та їх ефективність</span></div>
         <div class="icon-list-item"><span class="il-icon">📝</span><span class="il-text"><strong>Плани обробки</strong> — mitigate, transfer, accept або avoid для кожного ризику</span></div>
-        <div class="icon-list-item"><span class="il-icon">👤</span><span class="il-text"><strong>Risk Owner</strong> — відповідальна особа за кожен ризик (не завжди CISO!)</span></div>
+        <div class="icon-list-item"><span class="il-icon">👤</span><span class="il-text"><strong>Власник ризику (Risk Owner)</strong> — відповідальна особа за кожен ризик (не завжди CISO!)</span></div>
       </div>
     </section>
     <section class="slide">
@@ -103,17 +103,17 @@
       <div class="highlight-box"><strong>FAIR</strong> (Factor Analysis of Information Risk) — єдина міжнародна модель кількісної оцінки кіберризиків у грошовому вираженні</div>
       <div class="steps" style="margin-top: 1.5rem;">
         <div class="step"><div class="step-num">1</div><div class="step-title">Сценарій</div><div class="step-desc">Визначити актив, загрозу та наслідки</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-title">TEF</div><div class="step-desc">Threat Event Frequency — частота спроб атак</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-title">Vulnerability</div><div class="step-desc">Ймовірність успіху атаки з урахуванням контролів</div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-title">LEF</div><div class="step-desc">Loss Event Frequency = TEF x Vulnerability</div></div>
-        <div class="step"><div class="step-num">5</div><div class="step-title">Loss Magnitude</div><div class="step-desc">Прямі та непрямі збитки у грошах</div></div>
-        <div class="step"><div class="step-num">6</div><div class="step-title">Risk ($)</div><div class="step-desc">Monte Carlo симуляція: діапазон збитків (5-95 перцентиль)</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Частота загроз (TEF)</div><div class="step-desc">Threat Event Frequency — частота спроб атак</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Вразливість</div><div class="step-desc">Ймовірність успіху атаки з урахуванням контролів</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Частота збитків (LEF)</div><div class="step-desc">Loss Event Frequency = TEF x Вразливість</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-title">Величина збитків</div><div class="step-desc">Прямі та непрямі збитки у грошах</div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-title">Ризик ($)</div><div class="step-desc">Monte Carlo симуляція: діапазон збитків (5-95 перцентиль)</div></div>
       </div>
     </section>
     <section class="slide">
-      <h1>Приклад Risk Appetite Statement</h1>
+      <h1>Приклад заяви про схильність до ризику</h1>
       <div class="highlight-box" style="font-size: 0.95rem; line-height: 1.8;">
-        <strong>Заява про схильність до ризику (приклад банку):</strong><br><br>
+        <strong>Заява про схильність до ризику (Risk Appetite Statement) — приклад банку:</strong><br><br>
         "Банк готовий прийняти кіберризики, що не перевищують <strong>1% річного доходу</strong> ($5M) у сукупності. Жоден окремий інцидент не повинен спричинити збитки понад <strong>$2M</strong>. Ризики, пов'язані з даними клієнтів, мають найнижчу толерантність."
       </div>
       <div class="icon-list" style="margin-top: 1rem;">
@@ -125,7 +125,7 @@
     <section class="slide">
       <h1>Шаблон реєстру ризиків</h1>
       <div class="card-grid">
-        <div class="card accent-blue"><span class="card-icon">🆔</span><div class="card-title">ID та опис</div><div class="card-text">R-014: Несанкціонований доступ до бази даних клієнтів через SQL-ін'єкцію</div></div>
+        <div class="card accent-blue"><span class="card-icon">🆔</span><div class="card-title">Ідентифікатор та опис</div><div class="card-text">R-014: Несанкціонований доступ до бази даних клієнтів через SQL-ін'єкцію</div></div>
         <div class="card accent-red"><span class="card-icon">📊</span><div class="card-title">Оцінка</div><div class="card-text">Ймовірність: Висока (4/5)<br>Вплив: Критичний (5/5)<br>Рівень: 20 — Критичний</div></div>
         <div class="card accent-green"><span class="card-icon">🛡️</span><div class="card-title">Контролі</div><div class="card-text">WAF, параметризовані запити, регулярний pentest, моніторинг DB-активності</div></div>
         <div class="card accent-orange"><span class="card-icon">📝</span><div class="card-title">План обробки</div><div class="card-text">Стратегія: Mitigate<br>Owner: CTO<br>Дедлайн: Q2 2025<br>Статус: В процесі</div></div>
@@ -137,8 +137,8 @@
       <h1>Ключові висновки</h1>
       <div class="icon-list">
         <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>Фреймворки</strong> — ISO 27005, NIST RMF/CSF, FAIR — обирайте за контекстом</span></div>
-        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>Risk Appetite</strong> — стратегічне рішення правління, не технічне рішення ІТ</span></div>
-        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Risk Register</strong> — живий документ з owner'ами та планами обробки</span></div>
+        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>Схильність до ризику (Risk Appetite)</strong> — стратегічне рішення правління, не технічне рішення ІТ</span></div>
+        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Реєстр ризиків (Risk Register)</strong> — живий документ з власниками та планами обробки</span></div>
         <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>FAIR</strong> — кількісна мова ризиків для діалогу з бізнесом</span></div>
       </div>
     </section>

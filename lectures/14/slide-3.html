@@ -18,12 +18,12 @@
       <span class="slide-icon">🖥️</span>
       <h1>Архітектура SOC</h1>
       <p class="subtitle">Лекція 14.3</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">SOC Tiers, SIEM, EDR, SOAR, 24/7</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Рівні SOC, SIEM, EDR, SOAR, цілодобовий моніторинг</span>
     </section>
     <section class="slide">
       <h1>Що таке SOC?</h1>
       <div class="highlight-box">
-        <strong>Security Operations Center</strong> — централізований підрозділ для безперервного моніторингу, виявлення та реагування на кіберзагрози. Для великих фінансових установ — <strong>24/7/365</strong>.
+        <strong>Центр безпекових операцій (Security Operations Center, SOC)</strong> — централізований підрозділ для безперервного моніторингу, виявлення та реагування на кіберзагрози. Для великих фінансових установ — <strong>24/7/365</strong>.
       </div>
       <div class="stat-row" style="margin-top: 2rem;">
         <div class="stat-box"><div class="stat-value">24/7</div><div class="stat-label">Безперервний моніторинг</div></div>
@@ -32,12 +32,12 @@
       </div>
     </section>
     <section class="slide">
-      <h1>SOC Tiers — рівні аналітиків</h1>
+      <h1>Рівні аналітиків SOC</h1>
       <div class="steps">
-        <div class="step"><div class="step-num">T1</div><div class="step-title">Alert Triage</div><div class="step-desc">Моніторинг алертів, класифікація, ескалація. Runbooks</div></div>
-        <div class="step"><div class="step-num">T2</div><div class="step-title">Incident Analysis</div><div class="step-desc">Глибокий аналіз, кореляція даних, scope та impact</div></div>
-        <div class="step"><div class="step-num">T3</div><div class="step-title">Threat Hunting</div><div class="step-desc">Проактивний пошук загроз, malware analysis, detection rules</div></div>
-        <div class="step"><div class="step-num">MGR</div><div class="step-title">SOC Manager</div><div class="step-desc">Координація, метрики, reporting, взаємодія з бізнесом</div></div>
+        <div class="step"><div class="step-num">T1</div><div class="step-title">Сортування алертів (Triage)</div><div class="step-desc">Моніторинг алертів, класифікація, ескалація. Робочі інструкції</div></div>
+        <div class="step"><div class="step-num">T2</div><div class="step-title">Аналіз інцидентів</div><div class="step-desc">Глибокий аналіз, кореляція даних, масштаб та вплив</div></div>
+        <div class="step"><div class="step-num">T3</div><div class="step-title">Полювання на загрози (Hunting)</div><div class="step-desc">Проактивний пошук загроз, аналіз шкідливого ПЗ, правила виявлення</div></div>
+        <div class="step"><div class="step-num">MGR</div><div class="step-title">Менеджер SOC</div><div class="step-desc">Координація, метрики, звітування, взаємодія з бізнесом</div></div>
       </div>
     </section>
     <section class="slide">
@@ -46,7 +46,7 @@
         <div class="card accent-blue"><span class="card-icon">📊</span><div class="card-title">SIEM</div><div class="card-text">Збір та кореляція логів. Splunk, Microsoft Sentinel, Elastic SIEM</div></div>
         <div class="card accent-green"><span class="card-icon">💻</span><div class="card-title">EDR</div><div class="card-text">Моніторинг endpoints. CrowdStrike, Defender for Endpoint, SentinelOne</div></div>
         <div class="card accent-orange"><span class="card-icon">⚡</span><div class="card-title">SOAR</div><div class="card-text">Автоматизація реагування. Palo Alto XSOAR, Splunk SOAR</div></div>
-        <div class="card accent-purple"><span class="card-icon">🔍</span><div class="card-title">TIP</div><div class="card-text">Threat Intelligence Platform. Агрегація IOC, збагачення алертів</div></div>
+        <div class="card accent-purple"><span class="card-icon">🔍</span><div class="card-title">Платформа розвідки загроз (TIP)</div><div class="card-text">Threat Intelligence Platform. Агрегація IOC, збагачення алертів</div></div>
       </div>
     </section>
     <section class="slide">
@@ -55,47 +55,47 @@
         <div class="icon-list-item"><span class="il-icon">📥</span><span class="il-text"><strong>Збір логів</strong> — firewall, AD, endpoints, applications, cloud — усе в одному місці</span></div>
         <div class="icon-list-item"><span class="il-icon">🔗</span><span class="il-text"><strong>Кореляція</strong> — правила зв'язують події з різних джерел у єдину картину</span></div>
         <div class="icon-list-item"><span class="il-icon">🔔</span><span class="il-text"><strong>Алерти</strong> — автоматичне оповіщення аналітиків при спрацюванні правил</span></div>
-        <div class="icon-list-item"><span class="il-icon">📈</span><span class="il-text"><strong>Dashboards</strong> — візуалізація стану безпеки в реальному часі</span></div>
-        <div class="icon-list-item"><span class="il-icon">🔎</span><span class="il-text"><strong>Forensic search</strong> — ретроспективний пошук по збережених логах</span></div>
+        <div class="icon-list-item"><span class="il-icon">📈</span><span class="il-text"><strong>Інформаційні панелі (Dashboards)</strong> — візуалізація стану безпеки в реальному часі</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔎</span><span class="il-text"><strong>Криміналістичний пошук (Forensic Search)</strong> — ретроспективний пошук по збережених логах</span></div>
       </div>
     </section>
     <section class="slide">
-      <h1>SOC Models</h1>
+      <h1>Моделі SOC</h1>
       <div class="card-grid">
-        <div class="card accent-blue"><span class="card-icon">🏢</span><div class="card-title">In-house SOC</div><div class="card-text">Повний контроль, глибоке знання бізнесу. Дорого: $2-5M/рік</div></div>
-        <div class="card accent-green"><span class="card-icon">🤝</span><div class="card-title">MSSP / MDR</div><div class="card-text">Аутсорсинг моніторингу. Дешевше, швидкий старт. Менше контролю</div></div>
-        <div class="card accent-orange"><span class="card-icon">🔄</span><div class="card-title">Hybrid SOC</div><div class="card-text">Критичні функції in-house, решта — MSSP. Оптимальний баланс</div></div>
+        <div class="card accent-blue"><span class="card-icon">🏢</span><div class="card-title">Внутрішній SOC (In-house)</div><div class="card-text">Повний контроль, глибоке знання бізнесу. Дорого: $2-5M/рік</div></div>
+        <div class="card accent-green"><span class="card-icon">🤝</span><div class="card-title">Зовнішній (MSSP / MDR)</div><div class="card-text">Аутсорсинг моніторингу. Дешевше, швидкий старт. Менше контролю</div></div>
+        <div class="card accent-orange"><span class="card-icon">🔄</span><div class="card-title">Гібридний SOC (Hybrid)</div><div class="card-text">Критичні функції всередині, решта — MSSP. Оптимальний баланс</div></div>
       </div>
     </section>
     <section class="slide">
       <h1>SIEM — приклади кореляційних правил</h1>
       <div class="icon-list">
-        <div class="icon-list-item"><span class="il-icon">🔐</span><span class="il-text"><strong>Brute Force</strong> — >10 невдалих логінів за 5 хв з однієї IP + успішний вхід = потенційний compromise</span></div>
-        <div class="icon-list-item"><span class="il-icon">📤</span><span class="il-text"><strong>Data Exfiltration</strong> — >500MB вихідного трафіку на зовнішню IP в неробочий час + DNS tunneling</span></div>
-        <div class="icon-list-item"><span class="il-icon">👤</span><span class="il-text"><strong>Lateral Movement</strong> — один акаунт логіниться на >5 серверів за 10 хв + використання PsExec/WMI</span></div>
-        <div class="icon-list-item"><span class="il-icon">⚠️</span><span class="il-text"><strong>Privilege Escalation</strong> — додавання користувача в Domain Admins + зміна GPO поза change window</span></div>
-        <div class="icon-list-item"><span class="il-icon">🌍</span><span class="il-text"><strong>Impossible Travel</strong> — логін з України та через 30 хв з Бразилії = компрометація облікового запису</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔐</span><span class="il-text"><strong>Перебір паролів (Brute Force)</strong> — >10 невдалих логінів за 5 хв з однієї IP + успішний вхід = потенційна компрометація</span></div>
+        <div class="icon-list-item"><span class="il-icon">📤</span><span class="il-text"><strong>Ексфільтрація даних (Data Exfiltration)</strong> — >500MB вихідного трафіку на зовнішню IP в неробочий час + DNS tunneling</span></div>
+        <div class="icon-list-item"><span class="il-icon">👤</span><span class="il-text"><strong>Бокове переміщення (Lateral Movement)</strong> — один акаунт логіниться на >5 серверів за 10 хв + використання PsExec/WMI</span></div>
+        <div class="icon-list-item"><span class="il-icon">⚠️</span><span class="il-text"><strong>Ескалація привілеїв (Privilege Escalation)</strong> — додавання користувача в Domain Admins + зміна GPO поза вікном змін</span></div>
+        <div class="icon-list-item"><span class="il-icon">🌍</span><span class="il-text"><strong>Неможлива подорож (Impossible Travel)</strong> — логін з України та через 30 хв з Бразилії = компрометація облікового запису</span></div>
       </div>
       <div class="highlight-box" style="margin-top: 1rem;">Якість правил = баланс між detection rate та false positive rate. Тюнінг — постійний процес</div>
     </section>
     <section class="slide">
       <h1>EDR — можливості детектування</h1>
-      <div class="highlight-box"><strong>EDR</strong> (Endpoint Detection & Response) — агент на кожному endpoint, що збирає телеметрію та реагує на загрози в реальному часі</div>
+      <div class="highlight-box"><strong>EDR</strong> (Endpoint Detection & Response) — агент на кожній кінцевій точці, що збирає телеметрію та реагує на загрози в реальному часі</div>
       <div class="card-grid" style="margin-top: 1.5rem;">
-        <div class="card accent-blue"><span class="card-icon">🔍</span><div class="card-title">Поведінковий аналіз</div><div class="card-text">Виявлення fileless malware, living-off-the-land attacks (PowerShell, WMI)</div></div>
-        <div class="card accent-green"><span class="card-icon">🧬</span><div class="card-title">Process Tree</div><div class="card-text">Повний ланцюжок: email → macro → cmd → powershell → C2</div></div>
-        <div class="card accent-orange"><span class="card-icon">🔒</span><div class="card-title">Автоізоляція</div><div class="card-text">Автоматичне відключення зараженого endpoint від мережі за мілісекунди</div></div>
-        <div class="card accent-purple"><span class="card-icon">🔎</span><div class="card-title">Threat Hunting</div><div class="card-text">Ретроспективний пошук IOC по всіх endpoints організації</div></div>
+        <div class="card accent-blue"><span class="card-icon">🔍</span><div class="card-title">Поведінковий аналіз</div><div class="card-text">Виявлення безфайлового шкідливого ПЗ (fileless malware), атак типу living-off-the-land</div></div>
+        <div class="card accent-green"><span class="card-icon">🧬</span><div class="card-title">Дерево процесів (Process Tree)</div><div class="card-text">Повний ланцюжок: email → macro → cmd → powershell → C2</div></div>
+        <div class="card accent-orange"><span class="card-icon">🔒</span><div class="card-title">Автоізоляція</div><div class="card-text">Автоматичне відключення зараженого хосту від мережі за мілісекунди</div></div>
+        <div class="card accent-purple"><span class="card-icon">🔎</span><div class="card-title">Полювання на загрози (Threat Hunting)</div><div class="card-text">Ретроспективний пошук IOC по всіх кінцевих точках організації</div></div>
       </div>
     </section>
     <section class="slide">
-      <h1>SOAR — автоматизований playbook</h1>
+      <h1>SOAR — автоматизований сценарій реагування</h1>
       <div class="highlight-box"><strong>SOAR</strong> (Security Orchestration, Automation & Response) — автоматизує рутинні задачі SOC та прискорює реагування</div>
       <div class="steps" style="margin-top: 1.5rem;">
         <div class="step"><div class="step-num">1</div><div class="step-title">Тригер</div><div class="step-desc">SIEM алерт: phishing email з вкладенням detected</div></div>
         <div class="step"><div class="step-num">2</div><div class="step-title">Збагачення</div><div class="step-desc">Автоперевірка URL у VirusTotal, sender у TI, хеш файлу</div></div>
         <div class="step"><div class="step-num">3</div><div class="step-title">Аналіз</div><div class="step-desc">Sandbox detonation вкладення, перевірка хто ще отримав лист</div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-title">Containment</div><div class="step-desc">Видалити лист зі всіх mailbox, блокувати sender domain</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Стримування</div><div class="step-desc">Видалити лист зі всіх скриньок, блокувати домен відправника</div></div>
         <div class="step"><div class="step-num">5</div><div class="step-title">Документація</div><div class="step-desc">Автоматичне створення тікету, timeline, звіт для менеджера</div></div>
       </div>
       <div class="icon-list" style="margin-top: 1rem;">
@@ -103,12 +103,12 @@
       </div>
     </section>
     <section class="slide">
-      <h1>Threat Intelligence Feeds</h1>
-      <div class="highlight-box"><strong>Threat Intelligence</strong> — інформація про загрози, що допомагає SOC діяти проактивно, а не лише реактивно</div>
+      <h1>Канали розвідки загроз (Threat Intelligence)</h1>
+      <div class="highlight-box"><strong>Розвідка загроз (Threat Intelligence)</strong> — інформація про загрози, що допомагає SOC діяти проактивно, а не лише реактивно</div>
       <div class="card-grid" style="margin-top: 1.5rem;">
-        <div class="card accent-blue"><span class="card-icon">🔗</span><div class="card-title">Tactical (IOC)</div><div class="card-text">IP-адреси, домени, хеші malware. Автоматичний імпорт у SIEM для блокування</div></div>
-        <div class="card accent-green"><span class="card-icon">📊</span><div class="card-title">Operational (TTP)</div><div class="card-text">Тактики та процедури APT-груп. Використовують MITRE ATT&CK framework</div></div>
-        <div class="card accent-orange"><span class="card-icon">🌐</span><div class="card-title">Strategic</div><div class="card-text">Геополітичні тренди, галузеві звіти. Для керівництва та стратегічного планування</div></div>
+        <div class="card accent-blue"><span class="card-icon">🔗</span><div class="card-title">Тактичний рівень (IOC)</div><div class="card-text">IP-адреси, домени, хеші шкідливого ПЗ. Автоматичний імпорт у SIEM для блокування</div></div>
+        <div class="card accent-green"><span class="card-icon">📊</span><div class="card-title">Операційний рівень (TTP)</div><div class="card-text">Тактики та процедури APT-груп. Використовують фреймворк MITRE ATT&CK</div></div>
+        <div class="card accent-orange"><span class="card-icon">🌐</span><div class="card-title">Стратегічний рівень</div><div class="card-text">Геополітичні тренди, галузеві звіти. Для керівництва та стратегічного планування</div></div>
       </div>
       <div class="icon-list" style="margin-top: 1rem;">
         <div class="icon-list-item"><span class="il-icon">📡</span><span class="il-text"><strong>Джерела:</strong> CERT-UA, FS-ISAC (фінансовий сектор), MISP, AlienVault OTX, комерційні фіди (Recorded Future, Mandiant)</span></div>
@@ -121,8 +121,8 @@
       <div class="icon-list">
         <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>SOC = люди + процеси + технології</strong> — всі три компоненти критичні</span></div>
         <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>SIEM + EDR + SOAR</strong> — технологічний фундамент сучасного SOC</span></div>
-        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Tiered model</strong> — T1 triage → T2 analysis → T3 hunting ефективно розподіляє навантаження</span></div>
-        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>Hybrid SOC</strong> — оптимальний вибір для більшості фінансових установ</span></div>
+        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Рівнева модель</strong> — T1 сортування → T2 аналіз → T3 полювання — ефективно розподіляє навантаження</span></div>
+        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>Гібридний SOC</strong> — оптимальний вибір для більшості фінансових установ</span></div>
       </div>
     </section>
   </div>
