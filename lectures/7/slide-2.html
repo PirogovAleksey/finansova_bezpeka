@@ -39,9 +39,9 @@
             <div class="card-title">Магнітна стрічка</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Статичні дані<br>
-              Легко клонувати (skimming)<br>
+              Легко клонувати (скімінг)<br>
               Немає автентифікації<br>
-              Fraud rate: високий
+              Рівень шахрайства: високий
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Перенесення відповідальності (Liability Shift): якщо термінал не підтримує чіп — відповідальність за шахрайство на торговці.</p>
+        <p>Перенесення відповідальності: якщо термінал не підтримує чіп — відповідальність за шахрайство на торговці.</p>
       </div>
     </section>
 
@@ -119,8 +119,8 @@
     </section>
 
     <section class="slide">
-      <h1>Point-to-Point Encryption</h1>
-      <h2>P2PE — шифрування від термінала до хоста</h2>
+      <h1>Наскрізне шифрування (P2PE)</h1>
+      <h2>Point-to-Point Encryption — від термінала до хоста</h2>
       <div class="card-grid">
         <div class="card accent-green">
           <span class="card-icon">🔐</span>
@@ -180,28 +180,28 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Вибір додатка (Application Selection)</div>
+          <div class="step-title">Вибір додатка</div>
           <div class="step-desc">Термінал читає AID з чіпа, обирає платіжний додаток (Visa/MC)</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Автентифікація даних (Data Authentication)</div>
+          <div class="step-title">Автентифікація даних</div>
           <div class="step-desc">SDA/DDA/CDA — перевірка автентичності даних картки через RSA-підписи</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Верифікація власника (Cardholder Verification)</div>
+          <div class="step-title">Верифікація власника</div>
           <div class="step-desc">PIN Online / PIN Offline / Підпис / Без CVM (безконтактні малі суми)</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Управління ризиками (Risk Management)</div>
+          <div class="step-title">Управління ризиками</div>
           <div class="step-desc">Чіп перевіряє: floor limit, velocity, offline counter. Рішення: approve/decline/go online</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">ARQC Generation</div>
-          <div class="step-desc">Чіп генерує унікальний криптограм (Application Request Cryptogram) з даних транзакції</div>
+          <div class="step-title">Генерація ARQC</div>
+          <div class="step-desc">Чіп генерує унікальний криптограм запиту (Application Request Cryptogram) з даних транзакції</div>
         </div>
       </div>
     </section>
@@ -212,8 +212,8 @@
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">🏦</span>
-          <div class="card-title">Постачальник токен-сервісу (Token Service Provider)</div>
-          <div class="card-text">Visa VTS / MC MDES — генерація, зберігання маппінгу token↔PAN, lifecycle management</div>
+          <div class="card-title">Постачальник токен-сервісу (TSP)</div>
+          <div class="card-text">Visa VTS / MC MDES — генерація, зберігання маппінгу token-PAN, управління життєвим циклом</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">🗄️</span>
@@ -223,7 +223,7 @@
         <div class="card accent-orange">
           <span class="card-icon">🔄</span>
           <div class="card-title">Типи токенів (Token Types)</div>
-          <div class="card-text">Payment token (для транзакцій), Security token (для зберігання), Device token (прив'язаний до пристрою)</div>
+          <div class="card-text">Платіжний токен (для транзакцій), токен безпеки (для зберігання), токен пристрою (прив'язаний до пристрою)</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">📋</span>
@@ -243,7 +243,7 @@
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-title">3DS Method</div>
-          <div class="step-desc">Merchant збирає device data (browser fingerprint, IP) через прихований iframe</div>
+          <div class="step-desc">Торговець збирає дані пристрою (відбиток браузера, IP) через прихований iframe</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
@@ -252,45 +252,45 @@
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Оцінка ризиків (Risk Assessment)</div>
-          <div class="step-desc">ACS аналізує 150+ data points: device, history, сума, merchant risk, геолокація</div>
+          <div class="step-title">Оцінка ризиків</div>
+          <div class="step-desc">ACS аналізує 150+ параметрів: пристрій, історія, сума, ризик торговця, геолокація</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Безперешкодний / Перевірка (Frictionless / Challenge)</div>
-          <div class="step-desc">Low risk → frictionless (автоматичне OK). High risk → challenge (OTP, push, біометрія)</div>
+          <div class="step-title">Безперешкодний / Перевірка</div>
+          <div class="step-desc">Низький ризик → без додаткових кроків. Високий ризик → перевірка (OTP, push, біометрія)</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
           <div class="step-title">ARes + Auth Token</div>
-          <div class="step-desc">Результат повертається merchant. CAVV/AAV токен додається до авторизаційного запиту</div>
+          <div class="step-desc">Результат повертається торговцю. CAVV/AAV токен додається до авторизаційного запиту</div>
         </div>
       </div>
     </section>
 
     <section class="slide">
       <h1>P2PE — ієрархія ключів</h1>
-      <h2>Key Management у Point-to-Point Encryption</h2>
+      <h2>Управління ключами у наскрізному шифруванні</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">🔑</span>
-          <span class="il-text"><strong>Master Key (MK)</strong> — зберігається в HSM дешифрувального хоста. Ніколи не покидає HSM</span>
+          <span class="il-text"><strong>Головний ключ (Master Key)</strong> — зберігається в HSM дешифрувального хоста. Ніколи не покидає HSM</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔑</span>
-          <span class="il-text"><strong>Key Encryption Key (KEK)</strong> — шифрує робочі ключі при передачі на термінал. Захищений MK</span>
+          <span class="il-text"><strong>Ключ шифрування ключів (KEK)</strong> — шифрує робочі ключі при передачі на термінал. Захищений MK</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔑</span>
-          <span class="il-text"><strong>Base Derivation Key (BDK)</strong> — основа для DUKPT-деривації. Кожний термінал має унікальний Initial Key</span>
+          <span class="il-text"><strong>Базовий ключ деривації (BDK)</strong> — основа для DUKPT-деривації. Кожний термінал має унікальний початковий ключ</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔑</span>
-          <span class="il-text"><strong>Session Key (SK)</strong> — одноразовий ключ для кожної транзакції, деривований через DUKPT-алгоритм</span>
+          <span class="il-text"><strong>Сесійний ключ (Session Key)</strong> — одноразовий ключ для кожної транзакції, деривований через DUKPT-алгоритм</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔒</span>
-          <span class="il-text"><strong>DUKPT</strong> — Derived Unique Key Per Transaction. 1M+ унікальних ключів з одного BDK. Компрометація SK не розкриває BDK</span>
+          <span class="il-text"><strong>DUKPT</strong> — унікальний похідний ключ на транзакцію. 1M+ унікальних ключів з одного BDK. Компрометація SK не розкриває BDK</span>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -308,15 +308,15 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Tokenization</strong> — merchant ніколи не бачить реальний PAN</span>
+          <span class="il-text"><strong>Токенізація (Tokenization)</strong> — торговець ніколи не бачить реальний PAN</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>3DS 2.0</strong> — risk-based auth, frictionless для 95% транзакцій</span>
+          <span class="il-text"><strong>3DS 2.0</strong> — автентифікація на основі ризику, безперешкодний потік для 95% транзакцій</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>P2PE</strong> — шифрування від терміналу, malware не загрожує</span>
+          <span class="il-text"><strong>P2PE</strong> — шифрування від терміналу, шкідливе ПЗ не загрожує</span>
         </div>
       </div>
     </section>

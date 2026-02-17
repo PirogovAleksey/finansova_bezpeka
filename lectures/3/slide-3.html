@@ -67,7 +67,7 @@
 
     <!-- 3. RBAC -->
     <section class="slide">
-      <h1>RBAC — Role-Based Access Control</h1>
+      <h1>RBAC — керування доступом на основі ролей (Role-Based Access Control)</h1>
       <h2>Найпоширеніша модель у фінансах</h2>
       <div class="card-grid">
         <div class="card accent-blue">
@@ -92,13 +92,13 @@
         </div>
       </div>
       <div class="highlight-box warning" style="margin-top: 1.2rem;">
-        <p>Role Explosion: 10 відділень &times; 5 департаментів &times; 4 рівні = 200 ролей. RBAC не масштабується.</p>
+        <p>Вибух ролей (Role Explosion): 10 відділень &times; 5 департаментів &times; 4 рівні = 200 ролей. RBAC погано масштабується.</p>
       </div>
     </section>
 
     <!-- 4. ABAC -->
     <section class="slide">
-      <h1>ABAC — Attribute-Based</h1>
+      <h1>ABAC — на основі атрибутів (Attribute-Based)</h1>
       <h2>Рішення на основі атрибутів та контексту</h2>
       <div class="card-grid">
         <div class="card accent-blue">
@@ -129,8 +129,8 @@
 
     <!-- 5. ReBAC -->
     <section class="slide">
-      <h1>ReBAC — Relationship-Based</h1>
-      <h2>Доступ на основі відносин (Google Zanzibar)</h2>
+      <h1>ReBAC — на основі відносин (Relationship-Based)</h1>
+      <h2>Доступ на основі зв'язків між сутностями (Google Zanzibar)</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">🏦</span>
@@ -156,7 +156,7 @@
         </div>
         <div class="stat-box green">
           <div class="stat-value">&lt;10ms</div>
-          <div class="stat-label">latency авторизації</div>
+          <div class="stat-label">затримка (latency) авторизації</div>
         </div>
       </div>
     </section>
@@ -182,14 +182,14 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>На практиці: гібридний підхід. RBAC для базових ролей + ABAC для контекстних політик + ReBAC для ownership.</p>
+        <p>На практиці: гібридний підхід. RBAC для базових ролей + ABAC для контекстних політик + ReBAC для моделі власності (ownership).</p>
       </div>
     </section>
 
     <!-- 7. Policy-as-Code -->
     <section class="slide">
-      <h1>Policy-as-Code та OPA</h1>
-      <h2>Open Policy Agent — політики як код</h2>
+      <h1>Політика як код (Policy-as-Code) та OPA</h1>
+      <h2>Відкритий агент політик (Open Policy Agent) — політики як код</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">📝</span>
@@ -197,7 +197,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔀</span>
-          <span class="il-text"><strong>Git</strong> — версіонування, code review, audit trail</span>
+          <span class="il-text"><strong>Git</strong> — версіонування, перевірка коду (code review), журнал аудиту (audit trail)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🧪</span>
@@ -209,7 +209,7 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Decoupling: зміна політики авторизації без перерозгортання жодного сервісу.</p>
+        <p>Розділення відповідальностей (Decoupling): зміна політики авторизації без перерозгортання жодного сервісу.</p>
       </div>
     </section>
 
@@ -291,7 +291,7 @@
           <div class="card-text">
             Складність: низька<br>
             Гнучкість: низька<br>
-            Масштабування: role explosion<br>
+            Масштабування: вибух ролей<br>
             Аудит: простий<br>
             <strong>Для:</strong> невеликі банки, фіксовані ролі
           </div>
@@ -315,12 +315,12 @@
             Гнучкість: висока<br>
             Масштабування: графове<br>
             Аудит: візуальний<br>
-            <strong>Для:</strong> multi-tenant, ownership
+            <strong>Для:</strong> багатоорендність (multi-tenant), власність
           </div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Рекомендація: RBAC для базових ролей + ABAC для контекстних рішень + ReBAC для ownership — гібридний підхід дає найкращий результат.</p>
+        <p>Рекомендація: RBAC для базових ролей + ABAC для контекстних рішень + ReBAC для моделі власності — гібридний підхід дає найкращий результат.</p>
       </div>
     </section>
 
@@ -343,7 +343,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Decision Log:</strong> кожне рішення OPA логується — хто, коли, що запитував, результат</span>
+          <span class="il-text"><strong>Журнал рішень (Decision Log):</strong> кожне рішення OPA логується — хто, коли, що запитував, результат</span>
         </div>
       </div>
       <div class="card-grid" style="margin-top: 1.2rem;">
@@ -355,7 +355,7 @@
         <div class="card accent-green">
           <span class="card-icon">⚡</span>
           <div class="card-title">Продуктивність</div>
-          <div class="card-text">Компіляція Rego у Wasm. Latency &lt;1ms на рішення. Кешування partial evaluation</div>
+          <div class="card-text">Компіляція Rego у Wasm. Затримка &lt;1ms на рішення. Кешування часткового обчислення (partial evaluation)</div>
         </div>
       </div>
     </section>

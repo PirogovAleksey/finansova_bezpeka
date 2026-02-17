@@ -163,11 +163,11 @@
 
     <section class="slide">
       <h1>Безпека NFC-платежів</h1>
-      <h2>Near Field Communication — технічні деталі</h2>
+      <h2>Зв'язок ближнього поля (NFC) — технічні деталі</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">📡</span>
-          <span class="il-text"><strong>Дальність 1-4 см</strong> — фізична близькість як перший фактор безпеки, relay-атака ускладнена</span>
+          <span class="il-text"><strong>Дальність 1-4 см</strong> — фізична близькість як перший фактор безпеки, ретрансляційна атака ускладнена</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔐</span>
@@ -183,7 +183,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🛡️</span>
-          <span class="il-text"><strong>Захист від replay</strong> — одноразовий криптограм + sequence counter виключають повторне використання</span>
+          <span class="il-text"><strong>Захист від повтору (replay)</strong> — одноразовий криптограм + лічильник послідовності виключають повторне використання</span>
         </div>
       </div>
     </section>
@@ -210,7 +210,7 @@
         <div class="card accent-orange">
           <span class="card-icon">⚡</span>
           <div class="card-title">Виключення SCA</div>
-          <div class="card-text">Low-value (&lt;30 EUR), recurring, trusted beneficiary, merchant-initiated, TRA exemption</div>
+          <div class="card-text">Малі суми (&lt;30 EUR), регулярні платежі, довірений отримувач, ініційовані торговцем, виключення TRA</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -219,8 +219,8 @@
     </section>
 
     <section class="slide">
-      <h1>Open Banking API — архітектура</h1>
-      <h2>Безпечна взаємодія TPP з банками</h2>
+      <h1>API відкритого банкінгу — архітектура</h1>
+      <h2>Безпечна взаємодія третіх сторін (TPP) з банками</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
@@ -229,8 +229,8 @@
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Запит згоди (Consent Request)</div>
-          <div class="step-desc">TPP запитує consent через API. Клієнт перенаправляється до банку для підтвердження</div>
+          <div class="step-title">Запит згоди</div>
+          <div class="step-desc">TPP запитує згоду через API. Клієнт перенаправляється до банку для підтвердження</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
@@ -239,13 +239,13 @@
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Токен доступу (Access Token)</div>
-          <div class="step-desc">Банк видає OAuth2 access token з обмеженим scope та терміном дії (90 днів для AIS)</div>
+          <div class="step-title">Токен доступу</div>
+          <div class="step-desc">Банк видає OAuth2 токен з обмеженим обсягом прав та терміном дії (90 днів для AIS)</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">API-виклики (API Calls)</div>
-          <div class="step-desc">TPP працює через RESTful API з mTLS, підписаними запитами (JWS) та rate limiting</div>
+          <div class="step-title">API-виклики</div>
+          <div class="step-desc">TPP працює через RESTful API з mTLS, підписаними запитами (JWS) та обмеженням частоти</div>
         </div>
       </div>
     </section>
@@ -298,7 +298,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>e-Wallets</strong> — encrypted storage, cert pinning, root detection</span>
+          <span class="il-text"><strong>Електронні гаманці (e-Wallets)</strong> — зашифроване сховище, закріплення сертифіката, виявлення root</span>
         </div>
       </div>
     </section>

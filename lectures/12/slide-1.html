@@ -18,17 +18,17 @@
       <span class="slide-icon">🚨</span>
       <h1>Реагування на інциденти (Incident Response)</h1>
       <p class="subtitle">Лекція 12.1</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">NIST SP 800-61, фази реагування, сценарії реагування (playbooks)</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">NIST SP 800-61, фази реагування, сценарії реагування (Playbooks)</span>
     </section>
     <section class="slide">
       <h1>Ціна інциденту</h1>
       <div class="stat-row">
-        <div class="stat-box red"><div class="stat-value">$5.9M</div><div class="stat-label">середня вартість витоку (breach) у фінансах</div></div>
-        <div class="stat-box orange"><div class="stat-value">204</div><div class="stat-label">днів — середній MTTD</div></div>
+        <div class="stat-box red"><div class="stat-value">$5.9M</div><div class="stat-label">середня вартість витоку даних (breach) у фінансах</div></div>
+        <div class="stat-box orange"><div class="stat-value">204</div><div class="stat-label">днів — середній час виявлення (MTTD)</div></div>
         <div class="stat-box blue"><div class="stat-value">73</div><div class="stat-label">днів — середній час стримування (containment)</div></div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Кожен день без виявлення = більший scope, більші збитки, більше скомпрометованих даних.</p>
+        <p>Кожен день без виявлення = більший масштаб (scope), більші збитки, більше скомпрометованих даних.</p>
       </div>
     </section>
     <section class="slide">
@@ -42,9 +42,9 @@
       </div>
     </section>
     <section class="slide">
-      <h1>Класифікація критичності (Severity Classification)</h1>
+      <h1>Класифікація серйозності (Severity Classification)</h1>
       <div class="card-grid">
-        <div class="card accent-red"><span class="card-icon">🔴</span><div class="card-title">Критичний (P1)</div><div class="card-text">Активний витік, ransomware, викрадення даних (data exfiltration). Негайна ескалація</div></div>
+        <div class="card accent-red"><span class="card-icon">🔴</span><div class="card-title">Критичний (P1)</div><div class="card-text">Активний витік, програма-вимагач (ransomware), викрадення даних (data exfiltration). Негайна ескалація</div></div>
         <div class="card accent-orange"><span class="card-icon">🟠</span><div class="card-title">Високий (P2)</div><div class="card-text">Скомпрометована система, виявлено шкідливе ПЗ. Реагування протягом 1 год</div></div>
         <div class="card accent-blue"><span class="card-icon">🔵</span><div class="card-title">Середній (P3)</div><div class="card-text">Підозріла активність, порушення політик. Розслідування 24 год</div></div>
         <div class="card accent-green"><span class="card-icon">🟢</span><div class="card-title">Низький (P4)</div><div class="card-text">Інформаційний алерт, незначне відхилення від політик. Плановий огляд</div></div>
@@ -60,7 +60,7 @@
         <div class="icon-list-item"><span class="il-icon">👤</span><span class="il-text"><strong>Інсайдерська загроза (Insider Threat)</strong> — збереження доказів, залучення HR + юристів, відкликання доступу</span></div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>SOAR (Security Orchestration) автоматизує стандартні кроки playbook: ізоляція хоста, блокування IP.</p>
+        <p>SOAR (оркестрація безпеки) автоматизує стандартні кроки сценарію (playbook): ізоляція хоста, блокування IP.</p>
       </div>
     </section>
     <section class="slide">
@@ -68,7 +68,7 @@
       <h2>Покрокове реагування на шифрувальник</h2>
       <div class="steps">
         <div class="step"><div class="step-num">1</div><div class="step-title">Ізоляція</div><div class="step-desc">Негайно відключити заражений хост від мережі, вимкнути Wi-Fi, від'єднати мережевий кабель</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-title">Оцінка scope</div><div class="step-desc">Визначити масштаб ураження: які системи, дані, бекапи зашифровані. Перевірити lateral movement</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Оцінка scope</div><div class="step-desc">Визначити масштаб ураження: які системи, дані, бекапи зашифровані. Перевірити бічне переміщення (lateral movement)</div></div>
         <div class="step"><div class="step-num">3</div><div class="step-title">Збереження доказів</div><div class="step-desc">Дамп RAM, копія ransom note, зразок зашифрованого файлу, логи EDR/SIEM</div></div>
         <div class="step"><div class="step-num">4</div><div class="step-title">Відновлення</div><div class="step-desc">Перевірка бекапів, ID Ransomware для декриптора. НЕ платити викуп без юридичної консультації</div></div>
       </div>
@@ -96,7 +96,7 @@
         <div class="icon-list-item"><span class="il-icon">🏛️</span><span class="il-text"><strong>Регулятори</strong> — НБУ, CERT-UA, DPA — повідомлення у визначені терміни (72 год GDPR)</span></div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Використовуйте out-of-band канали (телефон, Signal) — атакуючий може читати корпоративну пошту!</p>
+        <p>Використовуйте позасмугові канали (out-of-band): телефон, Signal — атакуючий може читати корпоративну пошту!</p>
       </div>
     </section>
     <section class="slide">
@@ -114,10 +114,10 @@
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">
-        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>NIST 800-61</strong> — 4 фази: preparation, detection, containment, post-incident</span></div>
+        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>NIST 800-61</strong> — 4 фази: підготовка, виявлення, стримування, пост-інцидент</span></div>
         <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>Підготовка (Preparation)</strong> — CSIRT, playbooks, тренування ДО інциденту</span></div>
         <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Швидкість має значення</strong> — кожен день MTTD збільшує вартість витоку</span></div>
-        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>SOAR</strong> — автоматизація для швидкого containment</span></div>
+        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>SOAR</strong> — автоматизація для швидкого стримування (containment)</span></div>
       </div>
     </section>
   </div>

@@ -33,7 +33,7 @@
 
     <!-- 2. Prepared Statements -->
     <section class="slide">
-      <h1>Prepared Statements</h1>
+      <h1>Підготовлені запити (Prepared Statements)</h1>
       <h2>Єдиний надійний захист від SQLi</h2>
       <div class="two-col">
         <div class="col">
@@ -68,7 +68,7 @@
 
     <!-- 3. WAF -->
     <section class="slide">
-      <h1>Web Application Firewall</h1>
+      <h1>Міжмережевий екран додатків (WAF)</h1>
       <h2>Додатковий шар, НЕ заміна безпечного коду</h2>
       <div class="card-grid">
         <div class="card accent-blue">
@@ -93,30 +93,30 @@
         </div>
       </div>
       <div class="highlight-box warning" style="margin-top: 1.2rem;">
-        <p>WAF обходиться через encoding, fragmentation, alternative syntax. Не покладайтесь лише на WAF!</p>
+        <p>WAF обходиться через кодування (encoding), фрагментацію, альтернативний синтаксис. Не покладайтесь лише на WAF!</p>
       </div>
     </section>
 
     <!-- 4. Input Validation -->
     <section class="slide">
-      <h1>Input Validation</h1>
-      <h2>Whitelist — дозволяйте лише відоме безпечне</h2>
+      <h1>Валідація вхідних даних (Input Validation)</h1>
+      <h2>Білий список — дозволяйте лише відоме безпечне</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">📋</span>
-          <span class="il-text"><strong>Format:</strong> IBAN — UA + 27 цифр, Email — RFC 5322, Phone — E.164</span>
+          <span class="il-text"><strong>Формат:</strong> IBAN — UA + 27 цифр, Email — RFC 5322, Phone — E.164</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔢</span>
-          <span class="il-text"><strong>Type:</strong> amount — число з 2 десятковими, account_id — integer</span>
+          <span class="il-text"><strong>Тип:</strong> amount — число з 2 десятковими, account_id — integer</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📏</span>
-          <span class="il-text"><strong>Length:</strong> коментар max 140 символів, ім'я max 100</span>
+          <span class="il-text"><strong>Довжина:</strong> коментар max 140 символів, ім'я max 100</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">💼</span>
-          <span class="il-text"><strong>Business:</strong> amount > 0, відправник ≠ отримувач, достатній баланс</span>
+          <span class="il-text"><strong>Бізнес-логіка:</strong> amount > 0, відправник ≠ отримувач, достатній баланс</span>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -126,33 +126,33 @@
 
     <!-- 5. ORM Best Practices -->
     <section class="slide">
-      <h1>ORM Best Practices</h1>
+      <h1>Найкращі практики ORM (Best Practices)</h1>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">✅</span>
-          <span class="il-text"><strong>Query builders</strong> — Model.where(name: params[:name]) замість raw SQL</span>
+          <span class="il-text"><strong>Конструктори запитів (Query builders)</strong> — Model.where(name: params[:name]) замість raw SQL</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">❌</span>
-          <span class="il-text"><strong>No interpolation</strong> — Model.where("name = '#{input}'") = вразливо!</span>
+          <span class="il-text"><strong>Без інтерполяції</strong> — Model.where("name = '#{input}'") = вразливо!</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">⚠️</span>
-          <span class="il-text"><strong>Dynamic queries</strong> — обережно з Model.where(params[:filter])</span>
+          <span class="il-text"><strong>Динамічні запити</strong> — обережно з Model.where(params[:filter])</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔄</span>
-          <span class="il-text"><strong>Updates</strong> — регулярно оновлювати ORM, вразливості є і в Hibernate</span>
+          <span class="il-text"><strong>Оновлення</strong> — регулярно оновлювати ORM, вразливості є і в Hibernate</span>
         </div>
       </div>
       <div class="highlight-box warning" style="margin-top: 1.2rem;">
-        <p>ORM дає зручність, але NOT автоматичний захист. Raw queries та string interpolation = ін'єкція.</p>
+        <p>ORM дає зручність, але НЕ автоматичний захист. Прямі запити (raw queries) та інтерполяція рядків = ін'єкція.</p>
       </div>
     </section>
 
     <!-- 6. Database Hardening -->
     <section class="slide">
-      <h1>Database Hardening</h1>
+      <h1>Зміцнення бази даних (Database Hardening)</h1>
       <h2>Захищена конфігурація СУБД</h2>
       <div class="card-grid cols-3">
         <div class="card accent-red">
@@ -178,7 +178,7 @@
 
     <!-- 7. Defense in Depth -->
     <section class="slide">
-      <h1>Defense in Depth</h1>
+      <h1>Ешелонований захист (Defense in Depth)</h1>
       <h2>Багаторівневий захист серверної частини</h2>
       <div class="steps">
         <div class="step">
@@ -189,7 +189,7 @@
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-title">WAF</div>
-          <div class="step-desc">Signature + anomaly detection</div>
+          <div class="step-desc">Сигнатури + виявлення аномалій</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
@@ -199,7 +199,7 @@
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-title">Зміцнення БД (DB Hardening)</div>
-          <div class="step-desc">Least privilege + monitoring</div>
+          <div class="step-desc">Мінімальні привілеї + моніторинг</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -244,19 +244,19 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📏</span>
-          <span class="il-text"><strong>Rate limiting:</strong> max 100 запитів/хв на IP, max 10 невдалих логінів за 5 хв</span>
+          <span class="il-text"><strong>Обмеження частоти (Rate limiting):</strong> max 100 запитів/хв на IP, max 10 невдалих логінів за 5 хв</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🌍</span>
-          <span class="il-text"><strong>Geo-blocking:</strong> блокування трафіку з країн без клієнтів, whitelist для API партнерів</span>
+          <span class="il-text"><strong>Геоблокування (Geo-blocking):</strong> блокування трафіку з країн без клієнтів, білий список для API партнерів</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Anomaly scoring:</strong> кожна підозріла ознака додає бали, поріг = блокування</span>
+          <span class="il-text"><strong>Оцінка аномалій (Anomaly scoring):</strong> кожна підозріла ознака додає бали, поріг = блокування</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🩹</span>
-          <span class="il-text"><strong>Virtual patching:</strong> custom правило для конкретної CVE до патчу додатку</span>
+          <span class="il-text"><strong>Віртуальне патчування (Virtual patching):</strong> спеціальне правило для конкретної CVE до патчу додатку</span>
         </div>
       </div>
       <div class="highlight-box warning" style="margin-top: 1.2rem;">
@@ -266,13 +266,13 @@
 
     <!-- 10. Database Hardening Checklist -->
     <section class="slide">
-      <h1>Database Hardening: чекліст</h1>
+      <h1>Зміцнення БД: чекліст</h1>
       <h2>Обов'язкові кроки для production БД</h2>
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">🔑</span>
           <div class="card-title">Автентифікація</div>
-          <div class="card-text">Змінити default паролі<br>Унікальний DB user/сервіс<br>Заборонити remote root login<br>Certificate-based auth</div>
+          <div class="card-text">Змінити стандартні паролі<br>Унікальний DB user/сервіс<br>Заборонити віддалений root login<br>Автентифікація за сертифікатом</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🚫</span>
@@ -287,35 +287,35 @@
         <div class="card accent-green">
           <span class="card-icon">🔄</span>
           <div class="card-title">Оновлення</div>
-          <div class="card-text">Патчі безпеки — щомісячно<br>CIS Benchmarks — базова лінія<br>Automated compliance scan<br>Vulnerability assessment</div>
+          <div class="card-text">Патчі безпеки — щомісячно<br>CIS Benchmarks — базова лінія<br>Автоматичний скан відповідності<br>Оцінка вразливостей</div>
         </div>
       </div>
     </section>
 
     <!-- 11. Defense in Depth архітектура -->
     <section class="slide">
-      <h1>Defense in Depth: архітектура</h1>
+      <h1>Ешелонований захист: архітектура</h1>
       <h2>Багатошарова модель захисту фінансової системи</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-title">Периметр (Edge / CDN / WAF)</div>
-          <div class="step-desc">DDoS захист, WAF правила, rate limiting, geo-blocking</div>
+          <div class="step-desc">Захист від DDoS, WAF правила, обмеження частоти, геоблокування</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-title">API Gateway</div>
-          <div class="step-desc">Автентифікація, авторизація, input validation, schema validation</div>
+          <div class="step-desc">Автентифікація, авторизація, валідація вводу, валідація схеми</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-title">Прикладний рівень (Application)</div>
-          <div class="step-desc">Prepared statements, ORM, business logic validation, output encoding</div>
+          <div class="step-desc">Підготовлені запити, ORM, валідація бізнес-логіки, кодування виводу</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-title">Рівень БД (Database)</div>
-          <div class="step-desc">Least privilege, RLS, encryption, audit logging, hardening</div>
+          <div class="step-desc">Мінімальні привілеї, RLS, шифрування, аудит-логування, зміцнення</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -330,19 +330,19 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Prepared Statements</strong> — 100% запитів, жодних виключень</span>
+          <span class="il-text"><strong>Підготовлені запити (Prepared Statements)</strong> — 100% запитів, жодних виключень</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>WAF</strong> — додатковий шар + virtual patching для legacy</span>
+          <span class="il-text"><strong>WAF</strong> — додатковий шар + віртуальне патчування для legacy</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>Input Validation</strong> — whitelist, type checking, business rules</span>
+          <span class="il-text"><strong>Валідація вводу (Input Validation)</strong> — білий список, перевірка типів, бізнес-правила</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Defense in Depth</strong> — validation + WAF + parameterization + hardening</span>
+          <span class="il-text"><strong>Ешелонований захист (Defense in Depth)</strong> — валідація + WAF + параметризація + зміцнення</span>
         </div>
       </div>
     </section>

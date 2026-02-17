@@ -38,15 +38,15 @@
       <div class="stat-row">
         <div class="stat-box">
           <div class="stat-value">$80</div>
-          <div class="stat-label">на етапі Design</div>
+          <div class="stat-label">на етапі проєктування (Design)</div>
         </div>
         <div class="stat-box orange">
           <div class="stat-value">$960</div>
-          <div class="stat-label">на етапі Development</div>
+          <div class="stat-label">на етапі розробки (Development)</div>
         </div>
         <div class="stat-box red">
           <div class="stat-value">$7,600</div>
-          <div class="stat-label">на етапі Production</div>
+          <div class="stat-label">на етапі продакшн (Production)</div>
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.5rem;">
@@ -76,12 +76,12 @@
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-title">Тестування (Testing)</div>
-          <div class="step-desc">SAST, DAST, пентест</div>
+          <div class="step-desc">SAST (статичний аналіз), DAST (динамічне тестування), пентест</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
           <div class="step-title">Розгортання (Deploy)</div>
-          <div class="step-desc">Зміцнення (Hardening), IaC</div>
+          <div class="step-desc">Зміцнення (Hardening), IaC (інфраструктура як код)</div>
         </div>
         <div class="step">
           <div class="step-num">6</div>
@@ -103,8 +103,8 @@
         </div>
         <div class="card accent-orange">
           <span class="card-icon">✏️</span>
-          <div class="card-title">Підробка (Tampering)</div>
-          <div class="card-text">Зміна даних</div>
+          <div class="card-title">Підміна даних (Tampering)</div>
+          <div class="card-text">Несанкціонована зміна даних</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🙅</span>
@@ -136,19 +136,19 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">🔄</span>
-          <span class="il-text"><strong>Shift Left</strong> — безпека на початку, а не в кінці розробки</span>
+          <span class="il-text"><strong>Зсув вліво (Shift Left)</strong> — безпека на початку, а не в кінці розробки</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🤖</span>
-          <span class="il-text"><strong>Автоматизація</strong> — security checks у кожному CI/CD pipeline</span>
+          <span class="il-text"><strong>Автоматизація</strong> — перевірки безпеки у кожному CI/CD-конвеєрі (pipeline)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">👥</span>
-          <span class="il-text"><strong>Культура</strong> — розробники навчені secure coding practices</span>
+          <span class="il-text"><strong>Культура</strong> — розробники навчені практикам безпечного кодування (secure coding)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Метрики</strong> — Mean Time to Remediate, vulnerability density</span>
+          <span class="il-text"><strong>Метрики</strong> — середній час виправлення (MTTR), щільність вразливостей (vulnerability density)</span>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -171,7 +171,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📦</span>
-          <span class="il-text"><strong>SCA</strong> — Snyk, OWASP Dependency-Check (вразливі бібліотеки)</span>
+          <span class="il-text"><strong>SCA (аналіз складу ПЗ)</strong> — Snyk, OWASP Dependency-Check (вразливі бібліотеки)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🐳</span>
@@ -183,7 +183,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">☁️</span>
-          <span class="il-text"><strong>IaC</strong> — Checkov, tfsec (Terraform misconfigurations)</span>
+          <span class="il-text"><strong>IaC (інфраструктура як код)</strong> — Checkov, tfsec (помилки конфігурації Terraform)</span>
         </div>
       </div>
     </section>
@@ -197,10 +197,10 @@
             <span class="card-icon">📄</span>
             <div class="card-title">SAST</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              Static Analysis<br>
+              Статичний аналіз (Static Analysis)<br>
               Аналізує код без запуску<br>
               Швидко, на кожен commit<br>
-              Знаходить: SQL injection, XSS patterns, hardcoded secrets
+              Знаходить: SQL-ін'єкції, XSS-патерни, захардкоджені секрети
             </div>
           </div>
         </div>
@@ -209,10 +209,10 @@
             <span class="card-icon">🌐</span>
             <div class="card-title">DAST</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              Dynamic Analysis<br>
+              Динамічний аналіз (Dynamic Analysis)<br>
               Тестує працюючий додаток<br>
               На staging перед prod<br>
-              Знаходить: auth bypass, IDOR, runtime issues
+              Знаходить: обхід автентифікації, IDOR (небезпечні прямі посилання), помилки виконання
             </div>
           </div>
         </div>
@@ -230,17 +230,17 @@
         <div class="card accent-blue">
           <span class="card-icon">📄</span>
           <div class="card-title">SAST</div>
-          <div class="card-text">White-box. Аналіз вихідного коду. Швидко, багато false positives. Semgrep, SonarQube</div>
+          <div class="card-text">Білий ящик (White-box). Аналіз вихідного коду. Швидко, багато хибних спрацювань. Semgrep, SonarQube</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🌐</span>
           <div class="card-title">DAST</div>
-          <div class="card-text">Black-box. Тестує працюючий додаток ззовні. Реальні вразливості, повільно. OWASP ZAP, Burp</div>
+          <div class="card-text">Чорний ящик (Black-box). Тестує працюючий додаток ззовні. Реальні вразливості, повільно. OWASP ZAP, Burp</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔬</span>
           <div class="card-title">IAST</div>
-          <div class="card-text">Grey-box. Агент всередині додатку. Точний, мало false positives. Contrast Security, Hdiv</div>
+          <div class="card-text">Сірий ящик (Grey-box). Агент всередині додатку. Точний, мало хибних спрацювань. Contrast Security, Hdiv</div>
         </div>
       </div>
       <div class="stat-row" style="margin-top: 1.2rem;">
@@ -267,7 +267,7 @@
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-title">Обсяг (Scope)</div>
-          <div class="step-desc">Визначити межі системи та Data Flow Diagram</div>
+          <div class="step-desc">Визначити межі системи та діаграму потоків даних (DFD)</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
@@ -282,7 +282,7 @@
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-title">DREAD</div>
-          <div class="step-desc">Оцінити ризик: Damage, Reproducibility, Exploitability, Affected, Discoverability</div>
+          <div class="step-desc">Оцінити ризик: Шкода, Відтворюваність, Експлуатованість, Масштаб, Виявлюваність</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
@@ -314,15 +314,15 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🐳</span>
-          <span class="il-text"><strong>Container Build</strong> — Trivy сканує Docker-образ, Cosign підписує для supply chain security</span>
+          <span class="il-text"><strong>Збірка контейнера (Container Build)</strong> — Trivy сканує Docker-образ, Cosign підписує для безпеки ланцюга постачання</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🧪</span>
-          <span class="il-text"><strong>Staging</strong> — DAST + IAST + API fuzzing на тестовому оточенні перед релізом</span>
+          <span class="il-text"><strong>Тестове середовище (Staging)</strong> — DAST + IAST + фазинг API на тестовому оточенні перед релізом</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🚀</span>
-          <span class="il-text"><strong>Production</strong> — RASP + WAF + runtime monitoring + anomaly detection</span>
+          <span class="il-text"><strong>Продакшн (Production)</strong> — RASP (захист під час виконання) + WAF (фаєрвол застосунків) + моніторинг + виявлення аномалій</span>
         </div>
       </div>
     </section>
@@ -339,9 +339,9 @@
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Critical/High вразливості<br>
               Секрети у коді<br>
-              Вразливі залежності (CVSS > 7)<br>
+              Вразливі залежності (оцінка CVSS > 7)<br>
               Неліцензовані компоненти<br>
-              Unsigned Docker images
+              Непідписані Docker-образи
             </div>
           </div>
         </div>
@@ -351,10 +351,10 @@
             <div class="card-title">Попереджуючі (Soft Gates)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Medium/Low вразливості<br>
-              Code quality issues<br>
-              Test coverage нижче порогу<br>
-              Deprecated залежності<br>
-              Documentation gaps
+              Проблеми якості коду<br>
+              Покриття тестами нижче порогу<br>
+              Застарілі (deprecated) залежності<br>
+              Прогалини в документації
             </div>
           </div>
         </div>

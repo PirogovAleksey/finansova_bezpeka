@@ -105,7 +105,7 @@
     </section>
 
     <section class="slide">
-      <h1>A01: Broken Access Control</h1>
+      <h1>A01: Порушення контролю доступу (Broken Access Control)</h1>
       <h2>#1 вразливість — критична для фінансів</h2>
       <div class="card-grid">
         <div class="card accent-red">
@@ -201,12 +201,12 @@
         <div class="card accent-red">
           <span class="card-icon">🔓</span>
           <div class="card-title">A01: Порушення контролю доступу</div>
-          <div class="card-text">94% додатків мають проблеми. IDOR, горизонтальна/вертикальна ескалація, помилки CORS, примусовий перегляд (force browsing) адмін-панелей</div>
+          <div class="card-text">94% додатків мають проблеми. IDOR, горизонтальна/вертикальна ескалація, помилки CORS, примусовий перегляд адмін-панелей</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔐</span>
           <div class="card-title">A02: Криптографічні недоліки</div>
-          <div class="card-text">Передача PAN у відкритому вигляді, використання SHA-1/MD5, жорстко закодовані ключі, відсутність TLS 1.2+, слабка ентропія для токенів</div>
+          <div class="card-text">Передача PAN у відкритому вигляді, використання SHA-1/MD5, жорстко закодовані ключі (hardcoded keys), відсутність TLS 1.2+, слабка ентропія для токенів</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">💉</span>
@@ -233,7 +233,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📦</span>
-          <span class="il-text"><strong>A06: Вразливі компоненти (Vulnerable Components)</strong> — 80% коду — open source. SCA-інструменти: Dependabot, Snyk, OWASP Dependency-Check. SBOM (перелік компонентів ПЗ) як вимога регуляторів</span>
+          <span class="il-text"><strong>A06: Вразливі компоненти (Vulnerable Components)</strong> — 80% коду — відкритий код. SCA-інструменти: Dependabot, Snyk, OWASP Dependency-Check. SBOM (перелік компонентів ПЗ) як вимога регуляторів</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🪪</span>
@@ -273,17 +273,17 @@
         <div class="card accent-red">
           <span class="card-icon">💳</span>
           <div class="card-title">Платіжні API</div>
-          <div class="card-text">IDOR у транзакціях, race condition при переказах, маніпуляція сумою через параметр amount</div>
+          <div class="card-text">IDOR у транзакціях, стан гонки (race condition) при переказах, маніпуляція сумою через параметр amount</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🏦</span>
           <div class="card-title">Інтернет-банкінг</div>
-          <div class="card-text">Session hijacking, XSS для крадіжки cookie, CSRF на форму переказу коштів</div>
+          <div class="card-text">Перехоплення сесії (Session hijacking), XSS для крадіжки cookie, CSRF на форму переказу коштів</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">📱</span>
           <div class="card-title">Мобільний банкінг</div>
-          <div class="card-text">Insecure local storage, відсутність cert pinning, reverse engineering APK/IPA</div>
+          <div class="card-text">Незахищене локальне сховище, відсутність закріплення сертифіката (cert pinning), зворотна розробка APK/IPA</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🔗</span>

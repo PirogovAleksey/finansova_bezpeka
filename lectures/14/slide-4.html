@@ -43,8 +43,8 @@
     <section class="slide">
       <h1>Ключові метрики SOC</h1>
       <div class="card-grid">
-        <div class="card accent-blue"><span class="card-icon">🔍</span><div class="card-title">Час виявлення (MTTD)</div><div class="card-text">Mean Time to Detect. Ціль: &lt;24 год. Середній у галузі: 204 дні!</div></div>
-        <div class="card accent-green"><span class="card-icon">⚡</span><div class="card-title">Час реагування (MTTR)</div><div class="card-text">Mean Time to Respond. Ціль: &lt;4 год для критичних інцидентів</div></div>
+        <div class="card accent-blue"><span class="card-icon">🔍</span><div class="card-title">Час виявлення (MTTD)</div><div class="card-text">Середній час виявлення (Mean Time to Detect). Ціль: &lt;24 год. Середній у галузі: 204 дні!</div></div>
+        <div class="card accent-green"><span class="card-icon">⚡</span><div class="card-title">Час реагування (MTTR)</div><div class="card-text">Середній час реагування (Mean Time to Respond). Ціль: &lt;4 год для критичних інцидентів</div></div>
         <div class="card accent-orange"><span class="card-icon">🎯</span><div class="card-title">Алерт-до-інциденту</div><div class="card-text">Скільки алертів стають реальними інцидентами. Якість правил виявлення</div></div>
         <div class="card accent-red"><span class="card-icon">🚨</span><div class="card-title">Хибні спрацювання (FP Rate)</div><div class="card-text">Рівень хибних спрацювань. Високий FP = втома від алертів = пропущені загрози</div></div>
       </div>
@@ -73,33 +73,33 @@
       <div class="highlight-box">Не «заблоковано 10 тис. атак», а «<strong>зменшили ризик втрати на $2M</strong> через покращення виявлення загроз»</div>
       <div class="icon-list" style="margin-top: 1.5rem;">
         <div class="icon-list-item"><span class="il-icon">📊</span><span class="il-text"><strong>Панель CISO (Dashboard)</strong> — KRI, стан ризиків, статус відповідності, тренди інцидентів</span></div>
-        <div class="icon-list-item"><span class="il-icon">💬</span><span class="il-text"><strong>Мова бізнесу</strong> — гроші, ризики, compliance — не техніка</span></div>
+        <div class="icon-list-item"><span class="il-icon">💬</span><span class="il-text"><strong>Мова бізнесу</strong> — гроші, ризики, відповідність (compliance) — не техніка</span></div>
         <div class="icon-list-item"><span class="il-icon">📅</span><span class="il-text"><strong>Регулярність</strong> — щомісячний звіт для правління, щотижневий для менеджменту</span></div>
       </div>
     </section>
     <section class="slide">
-      <h1>KPI / KRI Dashboard</h1>
+      <h1>Панель KPI / KRI (Dashboard)</h1>
       <div class="two-col">
         <div class="col">
           <div class="card accent-blue" style="height: 100%;">
             <span class="card-icon">📊</span>
             <div class="card-title">KPI (показники ефективності)</div>
-            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">MTTD: 4.2 год (ціль: &lt;24 год) <span style="color: green;">&#10003;</span><br>MTTR: 2.1 год (ціль: &lt;4 год) <span style="color: green;">&#10003;</span><br>Patch compliance: 97% <span style="color: green;">&#10003;</span><br>Phishing click rate: 3.2% <span style="color: green;">&#10003;</span><br>SOC coverage: 94% <span style="color: orange;">&#9888;</span></div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">MTTD: 4.2 год (ціль: &lt;24 год) <span style="color: green;">&#10003;</span><br>MTTR: 2.1 год (ціль: &lt;4 год) <span style="color: green;">&#10003;</span><br>Рівень оновлень (Patch compliance): 97% <span style="color: green;">&#10003;</span><br>Кліки на фішинг (Phishing click rate): 3.2% <span style="color: green;">&#10003;</span><br>Покриття SOC (Coverage): 94% <span style="color: orange;">&#9888;</span></div>
           </div>
         </div>
         <div class="col">
           <div class="card accent-red" style="height: 100%;">
             <span class="card-icon">⚠️</span>
             <div class="card-title">KRI (індикатори ризику)</div>
-            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Нові critical CVE: 12 (тренд &#8593;) <span style="color: red;">&#10007;</span><br>Невідомі активи: 34 <span style="color: orange;">&#9888;</span><br>Відкриті інциденти: 7 <span style="color: green;">&#10003;</span><br>Third-party ризики: 3 high <span style="color: orange;">&#9888;</span><br>Turnover SOC: 15% <span style="color: red;">&#10007;</span></div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Нові critical CVE: 12 (тренд &#8593;) <span style="color: red;">&#10007;</span><br>Невідомі активи: 34 <span style="color: orange;">&#9888;</span><br>Відкриті інциденти: 7 <span style="color: green;">&#10003;</span><br>Ризики третіх сторін (Third-party): 3 high <span style="color: orange;">&#9888;</span><br>Плинність кадрів SOC (Turnover): 15% <span style="color: red;">&#10007;</span></div>
           </div>
         </div>
       </div>
-      <div class="highlight-box" style="margin-top: 1rem;">Dashboard оновлюється <strong>в реальному часі</strong>. KRI з червоним статусом — негайна ескалація на CISO</div>
+      <div class="highlight-box" style="margin-top: 1rem;">Панель (Dashboard) оновлюється <strong>в реальному часі</strong>. KRI з червоним статусом — негайна ескалація на CISO</div>
     </section>
     <section class="slide">
       <h1>MTTD / MTTR — бенчмарки</h1>
-      <div class="highlight-box"><strong>MTTD</strong> (Mean Time to Detect) та <strong>MTTR</strong> (Mean Time to Respond) — ключові метрики швидкості SOC</div>
+      <div class="highlight-box"><strong>MTTD</strong> — середній час виявлення (Mean Time to Detect) та <strong>MTTR</strong> — середній час реагування (Mean Time to Respond) — ключові метрики швидкості SOC</div>
       <div class="card-grid" style="margin-top: 1.5rem;">
         <div class="card accent-red"><span class="card-icon">🐌</span><div class="card-title">Без SOC</div><div class="card-text">MTTD: 204 дні<br>MTTR: 73 дні<br>Джерело: IBM 2024</div></div>
         <div class="card accent-orange"><span class="card-icon">📊</span><div class="card-title">Базовий SOC</div><div class="card-text">MTTD: 24-72 год<br>MTTR: 4-24 год<br>SIEM + аналітики Т1</div></div>
@@ -107,7 +107,7 @@
         <div class="card accent-blue"><span class="card-icon">🤖</span><div class="card-title">SOC на основі ШІ</div><div class="card-text">MTTD: хвилини<br>MTTR: автоматичний<br>ML-детектування + автостримування</div></div>
       </div>
       <div class="icon-list" style="margin-top: 1rem;">
-        <div class="icon-list-item"><span class="il-icon">💰</span><span class="il-text">Кожен день скорочення MTTD економить в середньому <strong>$25K</strong> вартості breach</span></div>
+        <div class="icon-list-item"><span class="il-icon">💰</span><span class="il-text">Кожен день скорочення MTTD економить в середньому <strong>$25K</strong> вартості витоку (breach)</span></div>
       </div>
     </section>
     <section class="slide">
@@ -123,15 +123,15 @@
     </section>
     <section class="slide">
       <h1>Безперервне вдосконалення (PDCA)</h1>
-      <div class="highlight-box"><strong>Plan-Do-Check-Act</strong> — циклічний підхід до постійного покращення процесів кібербезпеки та SOC</div>
+      <div class="highlight-box"><strong>Плануй-Виконуй-Перевіряй-Коригуй (Plan-Do-Check-Act)</strong> — циклічний підхід до постійного покращення процесів кібербезпеки та SOC</div>
       <div class="card-grid" style="margin-top: 1.5rem;">
-        <div class="card accent-blue"><span class="card-icon">📋</span><div class="card-title">Plan (Планувати)</div><div class="card-text">Аналіз метрик, визначення gaps, постановка цілей. Наприклад: знизити MTTD на 30%</div></div>
-        <div class="card accent-green"><span class="card-icon">🔧</span><div class="card-title">Do (Виконувати)</div><div class="card-text">Впровадження змін: нові detection rules, SOAR playbooks, навчання аналітиків</div></div>
-        <div class="card accent-orange"><span class="card-icon">📊</span><div class="card-title">Check (Перевіряти)</div><div class="card-text">Порівняння результатів з цілями, purple team exercises, аудит ефективності</div></div>
-        <div class="card accent-purple"><span class="card-icon">🔄</span><div class="card-title">Act (Коригувати)</div><div class="card-text">Стандартизація успішних змін, коригування невдалих, нові цілі на наступний цикл</div></div>
+        <div class="card accent-blue"><span class="card-icon">📋</span><div class="card-title">Планувати (Plan)</div><div class="card-text">Аналіз метрик, визначення прогалин (gaps), постановка цілей. Наприклад: знизити MTTD на 30%</div></div>
+        <div class="card accent-green"><span class="card-icon">🔧</span><div class="card-title">Виконувати (Do)</div><div class="card-text">Впровадження змін: нові правила виявлення (detection rules), сценарії SOAR (playbooks), навчання аналітиків</div></div>
+        <div class="card accent-orange"><span class="card-icon">📊</span><div class="card-title">Перевіряти (Check)</div><div class="card-text">Порівняння результатів з цілями, спільні навчання червоної та синьої команд (purple team exercises), аудит ефективності</div></div>
+        <div class="card accent-purple"><span class="card-icon">🔄</span><div class="card-title">Коригувати (Act)</div><div class="card-text">Стандартизація успішних змін, коригування невдалих, нові цілі на наступний цикл</div></div>
       </div>
       <div class="icon-list" style="margin-top: 1rem;">
-        <div class="icon-list-item"><span class="il-icon">📅</span><span class="il-text">Цикл PDCA для SOC: <strong>щоквартально</strong> для процесів, <strong>щомісячно</strong> для detection rules</span></div>
+        <div class="icon-list-item"><span class="il-icon">📅</span><span class="il-text">Цикл PDCA для SOC: <strong>щоквартально</strong> для процесів, <strong>щомісячно</strong> для правил виявлення (detection rules)</span></div>
       </div>
     </section>
     <section class="slide">
@@ -139,9 +139,9 @@
       <h1>Ключові висновки</h1>
       <div class="icon-list">
         <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>MTTD + MTTR</strong> — головні метрики ефективності SOC</span></div>
-        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>False positive rate</strong> — критична метрика: alert fatigue = пропущені атаки</span></div>
-        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Maturity Model</strong> — від reactive (L1) до AI-driven (L5), поступовий розвиток</span></div>
-        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>Бізнес-мова</strong> — reporting має говорити про гроші та ризики, не про техніку</span></div>
+        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>Рівень хибних спрацювань (False positive rate)</strong> — критична метрика: втома від алертів (alert fatigue) = пропущені атаки</span></div>
+        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Модель зрілості (Maturity Model)</strong> — від реактивного (L1) до керованого ШІ (L5), поступовий розвиток</span></div>
+        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>Бізнес-мова</strong> — звітування (reporting) має говорити про гроші та ризики, не про техніку</span></div>
       </div>
     </section>
   </div>

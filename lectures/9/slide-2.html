@@ -32,7 +32,7 @@
 
     <section class="slide">
       <h1>ML для виявлення шахрайства</h1>
-      <h2>Конструювання ознак (Feature Engineering)</h2>
+      <h2>Конструювання ознак (feature engineering)</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">💰</span>
@@ -40,11 +40,11 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">⏱️</span>
-          <span class="il-text"><strong>Velocity</strong> — кількість транзакцій за останню годину / день</span>
+          <span class="il-text"><strong>Швидкість (Velocity)</strong> — кількість транзакцій за останню годину / день</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📍</span>
-          <span class="il-text"><strong>Impossible travel</strong> — відстань між точками / час = фізично неможливо?</span>
+          <span class="il-text"><strong>Неможлива подорож (Impossible travel)</strong> — відстань між точками / час = фізично неможливо?</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🕐</span>
@@ -52,37 +52,37 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📱</span>
-          <span class="il-text"><strong>Device score</strong> — новий пристрій? Зміна fingerprint?</span>
+          <span class="il-text"><strong>Оцінка пристрою (Device score)</strong> — новий пристрій? Зміна відбитка (fingerprint)?</span>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Ensemble Models</h1>
+      <h1>Ансамблеві моделі (Ensemble Models)</h1>
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">🌲</span>
           <div class="card-title">Random Forest</div>
-          <div class="card-text">Стійкість до шуму, інтерпретабельність feature importance</div>
+          <div class="card-text">Стійкість до шуму, інтерпретабельність важливості ознак (feature importance)</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">⚡</span>
           <div class="card-title">XGBoost</div>
-          <div class="card-text">Висока точність, швидкий inference, top у Kaggle fraud</div>
+          <div class="card-text">Висока точність, швидке передбачення (inference), лідер Kaggle fraud</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🧠</span>
-          <div class="card-title">Neural Network</div>
+          <div class="card-title">Нейронна мережа (Neural Network)</div>
           <div class="card-text">Складні нелінійні патерни, потребує більше даних</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔗</span>
-          <div class="card-title">Stacking</div>
+          <div class="card-title">Стекінг (Stacking)</div>
           <div class="card-text">Мета-модель комбінує RF + XGB + NN для кращого результату</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Imbalanced data: fraud &lt;0.1% транзакцій. SMOTE, cost-sensitive learning, focal loss для балансування.</p>
+        <p>Незбалансовані дані (imbalanced data): шахрайство &lt;0.1% транзакцій. SMOTE, навчання з вартістю помилок (cost-sensitive learning), focal loss для балансування.</p>
       </div>
     </section>
 
@@ -92,11 +92,11 @@
       <div class="stat-row">
         <div class="stat-box red">
           <div class="stat-value">>95%</div>
-          <div class="stat-label">false positives у rule-based AML</div>
+          <div class="stat-label">хибних спрацювань (false positives) у AML на основі правил</div>
         </div>
         <div class="stat-box green">
           <div class="stat-value">50-70%</div>
-          <div class="stat-label">false positives з ML (зменшення)</div>
+          <div class="stat-label">хибних спрацювань з ML (зменшення)</div>
         </div>
         <div class="stat-box blue">
           <div class="stat-value">GNN</div>
@@ -104,12 +104,12 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>NLP для adverse media: автоматичний скринінг новин про санкції, корупцію, fraud для PEP-перевірок.</p>
+        <p>NLP для негативних медіа (adverse media): автоматичний скринінг новин про санкції, корупцію, шахрайство для PEP-перевірок.</p>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Deepfake Detection у KYC</h1>
+      <h1>Виявлення дипфейків (Deepfake Detection) у KYC</h1>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
@@ -135,7 +135,7 @@
     </section>
 
     <section class="slide">
-      <h1>Real-time Inference</h1>
+      <h1>Передбачення у реальному часі (Real-time Inference)</h1>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">⚡</span>
@@ -143,21 +143,21 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📦</span>
-          <span class="il-text"><strong>Feature Store</strong> — pre-computed features для швидкого inference</span>
+          <span class="il-text"><strong>Сховище ознак (Feature Store)</strong> — попередньо обчислені ознаки для швидкого передбачення</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔧</span>
-          <span class="il-text"><strong>Model compression</strong> — pruning, quantization для edge deployment</span>
+          <span class="il-text"><strong>Стиснення моделей (Model compression)</strong> — обрізка (pruning), квантизація для edge-розгортання</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>A/B testing</strong> — champion/challenger для оновлення моделей у production</span>
+          <span class="il-text"><strong>A/B тестування</strong> — чемпіон/претендент для оновлення моделей у production</span>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>ML Pipeline для Fraud Detection</h1>
+      <h1>ML-конвеєр для виявлення шахрайства (Fraud Detection)</h1>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
@@ -188,7 +188,7 @@
     </section>
 
     <section class="slide">
-      <h1>Feature Engineering для транзакцій</h1>
+      <h1>Конструювання ознак (Feature Engineering) для транзакцій</h1>
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">📊</span>
@@ -208,11 +208,11 @@
         <div class="card accent-purple">
           <span class="card-icon">⏱️</span>
           <div class="card-title">Поведінкові</div>
-          <div class="card-text">Відхилення від baseline: час, merchant category, сума vs peer group</div>
+          <div class="card-text">Відхилення від базової лінії: час, категорія мерчанта, сума vs група колег</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Якість features визначає 80% результату. Модель з 200+ features дає precision 95%+ при recall 70%+.</p>
+        <p>Якість ознак визначає 80% результату. Модель з 200+ ознак дає точність (precision) 95%+ при повноті (recall) 70%+.</p>
       </div>
     </section>
 
@@ -222,11 +222,11 @@
         <div class="col">
           <div class="card accent-red" style="height: 100%;">
             <span class="card-icon">📋</span>
-            <div class="card-title">На основі правил (Rule-based, legacy)</div>
+            <div class="card-title">На основі правил (rule-based, legacy)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Пороги: сума > $10K → alert<br>
               Статичні правила: 500+ rules<br>
-              False positive rate: >95%<br>
+              Хибні спрацювання: >95%<br>
               Нові схеми — місяці на правила
             </div>
           </div>
@@ -238,14 +238,14 @@
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               GNN: аналіз мережі транзакцій<br>
               Dynamic risk score: 0-100<br>
-              False positive rate: 50-60%<br>
+              Хибні спрацювання: 50-60%<br>
               Нові схеми — виявлення за днями
             </div>
           </div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Graph Neural Networks виявляють smurfing-схеми (розбиття сум) та layering (ланцюжки переказів) через аналіз мережі.</p>
+        <p>Graph Neural Networks виявляють смурфінг-схеми (розбиття сум) та нашарування (layering, ланцюжки переказів) через аналіз мережі.</p>
       </div>
     </section>
 
@@ -258,15 +258,15 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🎨</span>
-          <span class="il-text"><strong>Текстурний аналіз</strong> — артефакти на межі обличчя, inconsistent освітлення, розмиті контури</span>
+          <span class="il-text"><strong>Текстурний аналіз</strong> — артефакти на межі обличчя, непослідовне освітлення, розмиті контури</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📱</span>
-          <span class="il-text"><strong>Device integrity</strong> — перевірка камери, rooted device, screen injection, virtual camera detection</span>
+          <span class="il-text"><strong>Цілісність пристрою (Device integrity)</strong> — перевірка камери, рутований пристрій, ін'єкція екрану, виявлення віртуальної камери</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔬</span>
-          <span class="il-text"><strong>Frequency analysis</strong> — FFT-аналіз відео виявляє GAN-артефакти у частотному домені</span>
+          <span class="il-text"><strong>Частотний аналіз (Frequency analysis)</strong> — FFT-аналіз відео виявляє GAN-артефакти у частотному домені</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🛡️</span>
@@ -281,19 +281,19 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Feature engineering</strong> — ключ до якості fraud detection моделей</span>
+          <span class="il-text"><strong>Конструювання ознак (Feature engineering)</strong> — ключ до якості моделей виявлення шахрайства</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Ensemble</strong> — RF + XGBoost + NN = найкращий detection rate</span>
+          <span class="il-text"><strong>Ансамбль (Ensemble)</strong> — RF + XGBoost + NN = найкраща частота виявлення</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>AML з ML</strong> — зменшення false positives з >95% до 50-70%</span>
+          <span class="il-text"><strong>AML з ML</strong> — зменшення хибних спрацювань (false positives) з >95% до 50-70%</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Deepfake detection</strong> — liveness + PAD для захисту KYC</span>
+          <span class="il-text"><strong>Виявлення дипфейків (Deepfake detection)</strong> — перевірка живості (liveness) + PAD для захисту KYC</span>
         </div>
       </div>
     </section>

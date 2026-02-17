@@ -38,7 +38,7 @@
       <div class="stat-row">
         <div class="stat-box red">
           <div class="stat-value">#1</div>
-          <div class="stat-label">у bug bounty за кількістю звітів</div>
+          <div class="stat-label">у програмах винагород за вразливості (bug bounty) за кількістю звітів</div>
         </div>
         <div class="stat-box orange">
           <div class="stat-value">OWASP</div>
@@ -68,7 +68,7 @@
         <div class="card accent-orange">
           <span class="card-icon">↩️</span>
           <div class="card-title">Відображений (Reflected)</div>
-          <div class="card-text">Payload у URL → відображається у відповіді. Потрібне посилання</div>
+          <div class="card-text">Зловмисне навантаження (payload) у URL → відображається у відповіді. Потрібне посилання</div>
         </div>
         <div class="card accent-red">
           <span class="card-icon">💾</span>
@@ -89,12 +89,12 @@
     <!-- 4. Reflected XSS -->
     <section class="slide">
       <h1>Відображений XSS (Reflected)</h1>
-      <h2>Payload через URL-параметр</h2>
+      <h2>Зловмисне навантаження (payload) через URL-параметр</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-title">Підготовка</div>
-          <div class="step-desc">Зловмисник створює URL з payload</div>
+          <div class="step-desc">Зловмисник створює URL зі зловмисним навантаженням</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
@@ -104,7 +104,7 @@
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-title">Відображення</div>
-          <div class="step-desc">Сервер вставляє payload без екранування</div>
+          <div class="step-desc">Сервер вставляє навантаження без екранування</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
@@ -120,7 +120,7 @@
     <!-- 5. Stored XSS -->
     <section class="slide">
       <h1>Збережений XSS (Stored) — найнебезпечніший</h1>
-      <h2>Payload зберігається на сервері</h2>
+      <h2>Зловмисний код зберігається на сервері</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">📝</span>
@@ -177,7 +177,7 @@
         </div>
       </div>
       <div class="highlight-box warning" style="margin-top: 1.2rem;">
-        <p>Payload через fragment (#) не передається на сервер → серверні WAF безсилі. Тільки клієнтський захист.</p>
+        <p>Зловмисне навантаження через фрагмент (#) не передається на сервер → серверні WAF безсилі. Тільки клієнтський захист.</p>
       </div>
     </section>
 
@@ -204,7 +204,7 @@
         <div class="card accent-purple">
           <span class="card-icon">🔗</span>
           <div class="card-title">URL-параметр</div>
-          <div class="card-text">Percent-encoding %XX</div>
+          <div class="card-text">Відсоткове кодування (Percent-encoding) %XX</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -235,11 +235,11 @@
         <div class="card accent-red">
           <span class="card-icon">🎨</span>
           <div class="card-title">CSS-контекст</div>
-          <div class="card-text">Ін'єкція в style: expression(), url(). CSS-exfiltration через селектори</div>
+          <div class="card-text">Ін'єкція в style: expression(), url(). Витік даних через CSS-селектори (CSS-exfiltration)</div>
         </div>
       </div>
       <div class="highlight-box warning" style="margin-top: 1.2rem;">
-        <p>Кожен контекст вимагає свого encoding. HTML-encoding у JS-контексті НЕ захищає!</p>
+        <p>Кожен контекст вимагає свого кодування (encoding). HTML-кодування у JS-контексті НЕ захищає!</p>
       </div>
     </section>
 
@@ -262,17 +262,17 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📱</span>
-          <span class="il-text"><strong>Monobank (bug bounty)</strong> — XSS у WebView мобільного додатку через deep link</span>
+          <span class="il-text"><strong>Monobank (bug bounty)</strong> — XSS у WebView мобільного додатку через глибоке посилання (deep link)</span>
         </div>
       </div>
       <div class="stat-row" style="margin-top: 1.2rem;">
         <div class="stat-box red">
           <div class="stat-value">$7,500</div>
-          <div class="stat-label">середня виплата за XSS у FinTech bug bounty</div>
+          <div class="stat-label">середня виплата за XSS у програмах bug bounty FinTech</div>
         </div>
         <div class="stat-box orange">
           <div class="stat-value">40%</div>
-          <div class="stat-label">всіх bug bounty звітів — XSS</div>
+          <div class="stat-label">всіх звітів bug bounty — XSS</div>
         </div>
       </div>
     </section>
@@ -321,7 +321,7 @@
         <div class="card accent-blue">
           <span class="card-icon">🛠️</span>
           <div class="card-title">OWASP ZAP</div>
-          <div class="card-text">Безкоштовний сканер. Active/Passive scan. Ajax Spider для SPA</div>
+          <div class="card-text">Безкоштовний сканер. Активне/пасивне сканування. Ajax Spider для SPA</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🤖</span>
@@ -331,7 +331,7 @@
         <div class="card accent-purple">
           <span class="card-icon">📊</span>
           <div class="card-title">DOM Invader (Burp)</div>
-          <div class="card-text">Спеціалізований інструмент для DOM XSS: відстеження sources → sinks</div>
+          <div class="card-text">Спеціалізований інструмент для DOM XSS: відстеження джерел (sources) → приймачів (sinks)</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -358,7 +358,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Контекст важливий</strong> — кожне місце вимагає свого encoding</span>
+          <span class="il-text"><strong>Контекст важливий</strong> — кожне місце вимагає свого кодування (encoding)</span>
         </div>
       </div>
     </section>

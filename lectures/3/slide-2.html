@@ -53,7 +53,7 @@
         </div>
       </div>
       <div class="highlight-box warning" style="margin-top: 1.2rem;">
-        <p>Payload видно кожному! Base64 — це кодування, не шифрування. Ніколи не зберігайте секрети у JWT payload.</p>
+        <p>Навантаження (Payload) видно кожному! Base64 — це кодування, не шифрування. Ніколи не зберігайте секрети у JWT.</p>
       </div>
     </section>
 
@@ -111,7 +111,7 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Open Banking: клієнт надає фінтех-додатку доступ до банківського акаунту без розкриття пароля банку.</p>
+        <p>Відкритий банкінг (Open Banking): клієнт надає фінтех-додатку доступ до банківського акаунту без розкриття пароля банку.</p>
       </div>
     </section>
 
@@ -210,17 +210,17 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">H</div>
-          <div class="step-title">Header (Base64)</div>
+          <div class="step-title">Заголовок / Header (Base64)</div>
           <div class="step-desc">{"alg": "RS256", "typ": "JWT", "kid": "bank-key-2025"} — алгоритм + ідентифікатор ключа</div>
         </div>
         <div class="step">
           <div class="step-num">P</div>
-          <div class="step-title">Payload (Base64)</div>
+          <div class="step-title">Навантаження / Payload (Base64)</div>
           <div class="step-desc">{"sub": "user-123", "role": "operator", "branch": "kyiv-01", "exp": 1735689600, "iss": "auth.bank.ua"}</div>
         </div>
         <div class="step">
           <div class="step-num">S</div>
-          <div class="step-title">Signature</div>
+          <div class="step-title">Підпис (Signature)</div>
           <div class="step-desc">RS256(base64(header) + "." + base64(payload), private_key) — цифровий підпис сервера</div>
         </div>
       </div>
@@ -264,7 +264,7 @@
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Deprecated: Implicit Grant (токен в URL) та Resource Owner Password (передача пароля клієнту) — ЗАБОРОНЕНІ для фінансових систем.</p>
+        <p>Застарілі: неявний потік (Implicit Grant, токен в URL) та пароль власника ресурсу (Resource Owner Password, передача пароля клієнту) — ЗАБОРОНЕНІ для фінансових систем.</p>
       </div>
     </section>
 
@@ -275,22 +275,22 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Issuance (видача)</div>
+          <div class="step-title">Видача (Issuance)</div>
           <div class="step-desc">Після автентифікації: access token (5-15 хв) + refresh token (24 год)</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Validation (перевірка)</div>
+          <div class="step-title">Перевірка (Validation)</div>
           <div class="step-desc">Кожен запит: підпис, exp, iss, aud, scope — якщо невалідний → 401</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Refresh (оновлення)</div>
+          <div class="step-title">Оновлення (Refresh)</div>
           <div class="step-desc">Access token expired → refresh token → нова пара токенів (rotation)</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Revocation (відкликання)</div>
+          <div class="step-title">Відкликання (Revocation)</div>
           <div class="step-desc">Logout, зміна пароля, підозріла активність → token blacklist / Redis TTL</div>
         </div>
       </div>
@@ -333,11 +333,11 @@
         <div class="card accent-blue">
           <span class="card-icon">🌐</span>
           <div class="card-title">CSRF</div>
-          <div class="card-text">Примусовий запит від імені жертви. Захист: SameSite=Strict, anti-CSRF token, re-auth для критичних дій</div>
+          <div class="card-text">Примусовий запит від імені жертви. Захист: SameSite=Strict, anti-CSRF токен, повторна автентифікація для критичних дій</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Банківська вимога: для переказів > 10K грн — повторна автентифікація (step-up auth) навіть при активній сесії.</p>
+        <p>Банківська вимога: для переказів > 10K грн — підвищена автентифікація (step-up auth) навіть при активній сесії.</p>
       </div>
     </section>
 
@@ -360,7 +360,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Сесії у FinTech</strong> — короткі, прив'язані до контексту, з dual control</span>
+          <span class="il-text"><strong>Сесії у FinTech</strong> — короткі, прив'язані до контексту, з подвійним контролем (dual control)</span>
         </div>
       </div>
     </section>

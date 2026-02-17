@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Захист: НІКОЛИ shell execution з user input. Використовуйте бібліотечні API. Якщо неминуче — строгий whitelist.</p>
+        <p>Захист: НІКОЛИ shell execution з даними користувача. Використовуйте бібліотечні API. Якщо неминуче — строгий білий список (whitelist).</p>
       </div>
     </section>
 
@@ -167,7 +167,7 @@
               PDF-виписки з даними<br>
               SMS-повідомлення<br>
               Кастомні звіти<br>
-              Динамічні dashboard
+              Динамічні панелі (dashboard)
             </div>
           </div>
         </div>
@@ -184,12 +184,12 @@
         <div class="card accent-green">
           <span class="card-icon">🚫</span>
           <div class="card-title">Без shell-команд</div>
-          <div class="card-text">Ніколи shell execution з user input. Бібліотечні API замість CLI</div>
+          <div class="card-text">Ніколи виконання через оболонку з даними користувача. Бібліотечні API замість CLI</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🌐</span>
           <div class="card-title">Захист від SSRF</div>
-          <div class="card-text">Блокування приватних IP, whitelist доменів, IMDSv2</div>
+          <div class="card-text">Блокування приватних IP, білий список доменів, IMDSv2</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">📄</span>
@@ -199,7 +199,7 @@
         <div class="card accent-purple">
           <span class="card-icon">📝</span>
           <div class="card-title">Безпека шаблонів</div>
-          <div class="card-text">Sandbox шаблонізатора, заборона виконання коду</div>
+          <div class="card-text">Ізольоване середовище (Sandbox) шаблонізатора, заборона виконання коду</div>
         </div>
       </div>
     </section>
@@ -226,7 +226,7 @@
         </div>
         <div class="card accent-blue">
           <span class="card-icon">📂</span>
-          <div class="card-title">Файлові протоколи (File Protocols)</div>
+          <div class="card-title">Файлові протоколи</div>
           <div class="card-text">file:///etc/passwd<br>gopher:// для складних запитів<br>ftp:// для внутрішніх файлів</div>
         </div>
       </div>
@@ -285,11 +285,11 @@
         <div class="card accent-blue">
           <span class="card-icon">🛡️</span>
           <div class="card-title">Захист</div>
-          <div class="card-text">Бібліотечні API (не CLI)<br>Whitelist аргументів<br>Sandbox / контейнери</div>
+          <div class="card-text">Бібліотечні API (не CLI)<br>Білий список аргументів<br>Ізольоване середовище / контейнери</div>
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Генерація PDF-виписок, конвертація документів, обробка зображень — типові точки входу Command Injection у фінтех.</p>
+        <p>Генерація PDF-виписок, конвертація документів, обробка зображень — типові точки входу впровадження команд (Command Injection) у фінтех.</p>
       </div>
     </section>
 
@@ -331,19 +331,19 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Command Injection</strong> — будь-який CLI з user input = RCE</span>
+          <span class="il-text"><strong>Впровадження команд (Command Injection)</strong> — будь-який CLI з user input = RCE</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>SSRF</strong> — доступ до cloud metadata = повна компрометація (Capital One)</span>
+          <span class="il-text"><strong>Підробка серверних запитів (SSRF)</strong> — доступ до хмарних метаданих = повна компрометація (Capital One)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>XXE</strong> — критичний для FinTech через SWIFT XML, ISO 20022</span>
+          <span class="il-text"><strong>Зовнішні сутності XML (XXE)</strong> — критичний для фінтех через SWIFT XML, ISO 20022</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>SSTI</strong> — email та PDF шаблони з клієнтськими даними = вектор атаки</span>
+          <span class="il-text"><strong>Серверна ін'єкція в шаблони (SSTI)</strong> — email та PDF шаблони з клієнтськими даними = вектор атаки</span>
         </div>
       </div>
     </section>

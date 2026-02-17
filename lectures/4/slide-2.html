@@ -78,13 +78,13 @@
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🔄</span>
-          <div class="card-title">Подвійне надсилання</div>
+          <div class="card-title">Подвійне надсилання (Double Submit)</div>
           <div class="card-text">CSRF-токен у cookie і в тілі запиту/заголовку. Сервер порівнює обидва</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">📋</span>
-          <div class="card-title">Власні заголовки</div>
-          <div class="card-text">X-Requested-With потребує CORS preflight. Блокує міждоменні запити</div>
+          <div class="card-title">Власні заголовки (Custom Headers)</div>
+          <div class="card-text">X-Requested-With потребує попередній CORS-запит (preflight). Блокує міждоменні запити</div>
         </div>
       </div>
     </section>
@@ -279,7 +279,7 @@
     <!-- 10. Clickjacking — шари атаки -->
     <section class="slide">
       <h1>Клікджекінг — структура шарів</h1>
-      <h2>Візуалізація атаки підміни інтерфейсу (UI Redressing)</h2>
+      <h2>Візуалізація атаки підміни інтерфейсу (UI redressing)</h2>
       <div class="two-col">
         <div class="col">
           <div class="card accent-red" style="height: 100%;">
@@ -363,7 +363,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Глибокий захист (Defense in depth)</strong> — CSRF-токен + SameSite + повторна автентифікація для переказів</span>
+          <span class="il-text"><strong>Ешелонований захист (Defense in Depth)</strong> — CSRF-токен + SameSite + повторна автентифікація для переказів</span>
         </div>
       </div>
     </section>

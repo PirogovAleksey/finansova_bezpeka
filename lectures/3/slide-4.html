@@ -33,8 +33,8 @@
 
     <!-- 2. Identity Lifecycle -->
     <section class="slide">
-      <h1>Identity Lifecycle</h1>
-      <h2>Joiner → Mover → Leaver</h2>
+      <h1>Життєвий цикл ідентичності (Identity Lifecycle)</h1>
+      <h2>Новий працівник → Переведення → Звільнення (Joiner → Mover → Leaver)</h2>
       <div class="card-grid cols-3">
         <div class="card accent-green">
           <span class="card-icon">🚪</span>
@@ -53,13 +53,13 @@
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Privilege creep: після 5 переміщень працівник має доступ до 5 різних відділів. Жоден не відкликали.</p>
+        <p>Повзуче накопичення привілеїв (Privilege creep): після 5 переміщень працівник має доступ до 5 різних відділів. Жоден не відкликали.</p>
       </div>
     </section>
 
     <!-- 3. SSO & Federation -->
     <section class="slide">
-      <h1>SSO та Federation</h1>
+      <h1>Єдиний вхід (SSO) та федерація ідентичностей</h1>
       <h2>Один вхід — доступ до всіх систем</h2>
       <div class="icon-list">
         <div class="icon-list-item">
@@ -68,7 +68,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🌐</span>
-          <span class="il-text"><strong>OIDC Federation</strong> — сучасна альтернатива на базі OAuth 2.0</span>
+          <span class="il-text"><strong>Федерація OIDC (OIDC Federation)</strong> — сучасна альтернатива на базі OAuth 2.0</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔄</span>
@@ -86,7 +86,7 @@
 
     <!-- 4. PAM -->
     <section class="slide">
-      <h1>PAM — Privileged Access</h1>
+      <h1>PAM — управління привілейованим доступом (Privileged Access Management)</h1>
       <h2>Захист привілейованих акаунтів</h2>
       <div class="stat-row">
         <div class="stat-box red">
@@ -111,7 +111,7 @@
         </div>
         <div class="card accent-purple">
           <span class="card-icon">⏰</span>
-          <div class="card-title">JIT Access</div>
+          <div class="card-title">Доступ «точно вчасно» (JIT Access)</div>
           <div class="card-text">Тимчасовий доступ на 2 години замість постійного root</div>
         </div>
         <div class="card accent-orange">
@@ -125,7 +125,7 @@
     <!-- 5. HashiCorp Vault -->
     <section class="slide">
       <h1>HashiCorp Vault</h1>
-      <h2>Secrets Management для FinTech</h2>
+      <h2>Управління секретами (Secrets Management) для FinTech</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
@@ -190,8 +190,8 @@
 
     <!-- 7. Access Review -->
     <section class="slide">
-      <h1>Periodic Access Review</h1>
-      <h2>Регулярна рекапітуляція доступів</h2>
+      <h1>Періодичний перегляд доступів (Periodic Access Review)</h1>
+      <h2>Регулярна ревізія прав доступу</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">📅</span>
@@ -199,15 +199,15 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔍</span>
-          <span class="il-text"><strong>Orphaned accounts</strong> — виявлення акаунтів звільнених працівників</span>
+          <span class="il-text"><strong>Осиротілі акаунти (Orphaned accounts)</strong> — виявлення акаунтів звільнених працівників</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Excessive privileges</strong> — виявлення та відкликання зайвих дозволів</span>
+          <span class="il-text"><strong>Надмірні привілеї (Excessive privileges)</strong> — виявлення та відкликання зайвих дозволів</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📋</span>
-          <span class="il-text"><strong>Compliance</strong> — PCI DSS Req 7, SOX, вимоги НБУ</span>
+          <span class="il-text"><strong>Відповідність вимогам (Compliance)</strong> — PCI DSS Req 7, SOX, вимоги НБУ</span>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -217,7 +217,7 @@
 
     <!-- 8. Identity Lifecycle Stages -->
     <section class="slide">
-      <h1>Етапи Identity Lifecycle</h1>
+      <h1>Етапи життєвого циклу ідентичності (Identity Lifecycle)</h1>
       <h2>Повний цикл управління цифровою ідентичністю</h2>
       <div class="steps">
         <div class="step">
@@ -233,7 +233,7 @@
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-title">Управління доступом (Access Governance)</div>
-          <div class="step-desc">Щоквартальний перегляд дозволів, запити через ServiceNow з approval workflow</div>
+          <div class="step-desc">Щоквартальний перегляд дозволів, запити через ServiceNow з процесом погодження</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
@@ -247,7 +247,7 @@
         </div>
       </div>
       <div class="highlight-box warning" style="margin-top: 1.2rem;">
-        <p>SLA для deprovisioning у банку: максимум 30 хвилин після повідомлення HR. Orphaned accounts — критичний ризик PCI DSS.</p>
+        <p>SLA для деактивації (deprovisioning) у банку: максимум 30 хвилин після повідомлення HR. Осиротілі акаунти — критичний ризик PCI DSS.</p>
       </div>
     </section>
 
@@ -291,7 +291,7 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Типовий банк: Kerberos для внутрішньої мережі + SAML для партнерів + OIDC для клієнтських додатків та Open Banking.</p>
+        <p>Типовий банк: Kerberos для внутрішньої мережі + SAML для партнерів + OIDC для клієнтських додатків та відкритого банкінгу (Open Banking).</p>
       </div>
     </section>
 
@@ -308,17 +308,17 @@
         <div class="card accent-blue">
           <span class="card-icon">🖥️</span>
           <div class="card-title">Менеджер сесій (Session Manager)</div>
-          <div class="card-text">Проксі для SSH/RDP. Запис відео-сесій. Keystroke logging. Real-time моніторинг команд</div>
+          <div class="card-text">Проксі для SSH/RDP. Запис відео-сесій. Журналювання натискань клавіш (keystroke logging). Моніторинг команд у реальному часі</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">⏰</span>
           <div class="card-title">JIT/JEA Controller</div>
-          <div class="card-text">Just-In-Time: доступ на 2 год за запитом. Just-Enough-Admin: мінімальні необхідні привілеї</div>
+          <div class="card-text">«Точно вчасно» (Just-In-Time): доступ на 2 год за запитом. «Достатньо прав» (Just-Enough-Admin): мінімальні необхідні привілеї</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔄</span>
           <div class="card-title">Ротація облікових даних (Credential Rotation)</div>
-          <div class="card-text">Автоматична зміна паролів після кожного check-in. Інтеграція з AD, DB, Linux, мережеве обладнання</div>
+          <div class="card-text">Автоматична зміна паролів після кожного повернення (check-in). Інтеграція з AD, DB, Linux, мережеве обладнання</div>
         </div>
       </div>
       <div class="stat-row" style="margin-top: 1.2rem;">
@@ -351,7 +351,7 @@
         <div class="card accent-purple">
           <span class="card-icon">🚫</span>
           <div class="card-title">Конфлікт #3</div>
-          <div class="card-text">Створення акаунту + Призначення привілеїв<br><strong>Ризик:</strong> phantom employee<br><strong>Контроль:</strong> approval workflow</div>
+          <div class="card-text">Створення акаунту + Призначення привілеїв<br><strong>Ризик:</strong> фіктивний працівник (phantom employee)<br><strong>Контроль:</strong> процес погодження (approval workflow)</div>
         </div>
       </div>
       <div class="icon-list" style="margin-top: 1.2rem;">
@@ -377,19 +377,19 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Identity Lifecycle</strong> — Joiner/Mover/Leaver з автоматизацією через SCIM</span>
+          <span class="il-text"><strong>Життєвий цикл ідентичності (Identity Lifecycle)</strong> — прийняття/переведення/звільнення з автоматизацією через SCIM</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>SSO + Federation</strong> — один вхід для всіх систем, SAML/OIDC</span>
+          <span class="il-text"><strong>Єдиний вхід (SSO) + Федерація</strong> — один вхід для всіх систем, SAML/OIDC</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>PAM — критичний</strong> — Vault, JIT, session recording для привілейованих</span>
+          <span class="il-text"><strong>PAM — критичний</strong> — сховище секретів, JIT-доступ, запис сесій для привілейованих</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>SoD + Access Review</strong> — dual control та регулярний перегляд дозволів</span>
+          <span class="il-text"><strong>Розділення обов'язків (SoD) + перегляд доступів</strong> — подвійний контроль та регулярна ревізія дозволів</span>
         </div>
       </div>
     </section>

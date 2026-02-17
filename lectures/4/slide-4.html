@@ -42,7 +42,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🎨</span>
-          <span class="il-text"><strong>style-src</strong> — контроль CSS, захист від CSS-exfiltration</span>
+          <span class="il-text"><strong>style-src</strong> — контроль CSS, захист від витоку даних через CSS (CSS-exfiltration)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🌐</span>
@@ -67,11 +67,11 @@
         <div class="col">
           <div class="card accent-red" style="height: 100%;">
             <span class="card-icon">❌</span>
-            <div class="card-title">Whitelist CSP</div>
+            <div class="card-title">CSP з білим списком (Whitelist)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               script-src cdn.com *.google.com<br>
-              Обхід через JSONP endpoint<br>
-              Angular sandbox bypass<br>
+              Обхід через JSONP-точки доступу<br>
+              Обхід пісочниці Angular<br>
               Будь-який дозволений хост
             </div>
           </div>
@@ -90,7 +90,7 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Google рекомендує strict nonce-based CSP. Whitelist CSP обходиться у 94% випадків.</p>
+        <p>Google рекомендує strict nonce-based CSP. CSP на основі білих списків (whitelist) обходиться у 94% випадків.</p>
       </div>
     </section>
 
@@ -121,18 +121,18 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Magecart захист: якщо CDN скомпрометовано і скрипт змінено — SRI заблокує виконання.</p>
+        <p>Захист від Magecart: якщо CDN скомпрометовано і скрипт змінено — SRI заблокує виконання.</p>
       </div>
     </section>
 
     <!-- 5. Output Encoding -->
     <section class="slide">
-      <h1>Output Encoding</h1>
+      <h1>Кодування виводу (Output Encoding)</h1>
       <h2>Основний захист від XSS</h2>
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">📄</span>
-          <div class="card-title">HTML Encoding</div>
+          <div class="card-title">HTML-кодування (HTML Encoding)</div>
           <div class="card-text">&lt; → &amp;lt; &gt; → &amp;gt; Для тексту в HTML</div>
         </div>
         <div class="card accent-green">
@@ -142,17 +142,17 @@
         </div>
         <div class="card accent-orange">
           <span class="card-icon">⚙️</span>
-          <div class="card-title">JS Encoding</div>
+          <div class="card-title">JS-кодування (JS Encoding)</div>
           <div class="card-text">\uXXXX для даних всередині JavaScript</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔗</span>
-          <div class="card-title">URL Encoding</div>
+          <div class="card-title">URL-кодування (URL Encoding)</div>
           <div class="card-text">%XX для URL-параметрів</div>
         </div>
       </div>
       <div class="highlight-box warning" style="margin-top: 1.2rem;">
-        <p>Екранувати при ВИВОДІ, не при введенні. Дані зберігаються чистими, encoding — за контекстом.</p>
+        <p>Екранувати при ВИВОДІ, не при введенні. Дані зберігаються чистими, кодування — за контекстом.</p>
       </div>
     </section>
 
@@ -171,7 +171,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🏭</span>
-          <span class="il-text"><strong>Policy factory</strong> — централізована точка санітизації (DOMPurify)</span>
+          <span class="il-text"><strong>Фабрика політик (Policy factory)</strong> — централізована точка санітизації (DOMPurify)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📋</span>
@@ -185,7 +185,7 @@
 
     <!-- 7. Secure Headers -->
     <section class="slide">
-      <h1>Комплекс Secure Headers</h1>
+      <h1>Комплекс безпечних заголовків (Secure Headers)</h1>
       <h2>Обов'язкові заголовки для фінансового додатку</h2>
       <div class="icon-list">
         <div class="icon-list-item">
@@ -247,13 +247,13 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Починайте з Content-Security-Policy-Report-Only для тестування, потім переключіть на enforcement.</p>
+        <p>Починайте з Content-Security-Policy-Report-Only для тестування, потім переключіть на примусове виконання (enforcement).</p>
       </div>
     </section>
 
     <!-- 9. Security Headers Dashboard -->
     <section class="slide">
-      <h1>Повний набір Security Headers</h1>
+      <h1>Повний набір безпечних заголовків (Security Headers)</h1>
       <h2>Обов'язкові заголовки для банківського додатку</h2>
       <div class="card-grid cols-3">
         <div class="card accent-green">
@@ -294,7 +294,7 @@
         <div class="card accent-orange">
           <span class="card-icon">🏷️</span>
           <div class="card-title">COOP / COEP</div>
-          <div class="card-text">Cross-Origin ізоляція для Spectre-захисту</div>
+          <div class="card-text">Міждоменна ізоляція (Cross-Origin) для захисту від Spectre</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">📋</span>
@@ -388,11 +388,11 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>Output encoding</strong> — правильний контекст = правильне екранування</span>
+          <span class="il-text"><strong>Кодування виводу (Output encoding)</strong> — правильний контекст = правильне екранування</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Defense in depth</strong> — CSP + SRI + Trusted Types + headers = надійний захист</span>
+          <span class="il-text"><strong>Ешелонований захист (Defense in Depth)</strong> — CSP + SRI + Trusted Types + заголовки = надійний захист</span>
         </div>
       </div>
     </section>

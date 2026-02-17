@@ -44,7 +44,7 @@
       <h1>Ключові технології SOC</h1>
       <div class="card-grid">
         <div class="card accent-blue"><span class="card-icon">📊</span><div class="card-title">SIEM</div><div class="card-text">Збір та кореляція логів. Splunk, Microsoft Sentinel, Elastic SIEM</div></div>
-        <div class="card accent-green"><span class="card-icon">💻</span><div class="card-title">EDR</div><div class="card-text">Моніторинг endpoints. CrowdStrike, Defender for Endpoint, SentinelOne</div></div>
+        <div class="card accent-green"><span class="card-icon">💻</span><div class="card-title">EDR</div><div class="card-text">Моніторинг кінцевих точок (endpoints). CrowdStrike, Defender for Endpoint, SentinelOne</div></div>
         <div class="card accent-orange"><span class="card-icon">⚡</span><div class="card-title">SOAR</div><div class="card-text">Автоматизація реагування. Palo Alto XSOAR, Splunk SOAR</div></div>
         <div class="card accent-purple"><span class="card-icon">🔍</span><div class="card-title">Платформа розвідки загроз (TIP)</div><div class="card-text">Threat Intelligence Platform. Агрегація IOC, збагачення алертів</div></div>
       </div>
@@ -76,13 +76,13 @@
         <div class="icon-list-item"><span class="il-icon">⚠️</span><span class="il-text"><strong>Ескалація привілеїв (Privilege Escalation)</strong> — додавання користувача в Domain Admins + зміна GPO поза вікном змін</span></div>
         <div class="icon-list-item"><span class="il-icon">🌍</span><span class="il-text"><strong>Неможлива подорож (Impossible Travel)</strong> — логін з України та через 30 хв з Бразилії = компрометація облікового запису</span></div>
       </div>
-      <div class="highlight-box" style="margin-top: 1rem;">Якість правил = баланс між detection rate та false positive rate. Тюнінг — постійний процес</div>
+      <div class="highlight-box" style="margin-top: 1rem;">Якість правил = баланс між рівнем виявлення (detection rate) та хибними спрацюваннями (false positive rate). Налаштування — постійний процес</div>
     </section>
     <section class="slide">
       <h1>EDR — можливості детектування</h1>
       <div class="highlight-box"><strong>EDR</strong> (Endpoint Detection & Response) — агент на кожній кінцевій точці, що збирає телеметрію та реагує на загрози в реальному часі</div>
       <div class="card-grid" style="margin-top: 1.5rem;">
-        <div class="card accent-blue"><span class="card-icon">🔍</span><div class="card-title">Поведінковий аналіз</div><div class="card-text">Виявлення безфайлового шкідливого ПЗ (fileless malware), атак типу living-off-the-land</div></div>
+        <div class="card accent-blue"><span class="card-icon">🔍</span><div class="card-title">Поведінковий аналіз</div><div class="card-text">Виявлення безфайлового шкідливого ПЗ (fileless malware), атак з використанням легітимних інструментів (living-off-the-land)</div></div>
         <div class="card accent-green"><span class="card-icon">🧬</span><div class="card-title">Дерево процесів (Process Tree)</div><div class="card-text">Повний ланцюжок: email → macro → cmd → powershell → C2</div></div>
         <div class="card accent-orange"><span class="card-icon">🔒</span><div class="card-title">Автоізоляція</div><div class="card-text">Автоматичне відключення зараженого хосту від мережі за мілісекунди</div></div>
         <div class="card accent-purple"><span class="card-icon">🔎</span><div class="card-title">Полювання на загрози (Threat Hunting)</div><div class="card-text">Ретроспективний пошук IOC по всіх кінцевих точках організації</div></div>
@@ -92,9 +92,9 @@
       <h1>SOAR — автоматизований сценарій реагування</h1>
       <div class="highlight-box"><strong>SOAR</strong> (Security Orchestration, Automation & Response) — автоматизує рутинні задачі SOC та прискорює реагування</div>
       <div class="steps" style="margin-top: 1.5rem;">
-        <div class="step"><div class="step-num">1</div><div class="step-title">Тригер</div><div class="step-desc">SIEM алерт: phishing email з вкладенням detected</div></div>
+        <div class="step"><div class="step-num">1</div><div class="step-title">Тригер</div><div class="step-desc">SIEM алерт: фішинговий лист з вкладенням виявлено</div></div>
         <div class="step"><div class="step-num">2</div><div class="step-title">Збагачення</div><div class="step-desc">Автоперевірка URL у VirusTotal, sender у TI, хеш файлу</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-title">Аналіз</div><div class="step-desc">Sandbox detonation вкладення, перевірка хто ще отримав лист</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Аналіз</div><div class="step-desc">Детонація вкладення у пісочниці (sandbox), перевірка хто ще отримав лист</div></div>
         <div class="step"><div class="step-num">4</div><div class="step-title">Стримування</div><div class="step-desc">Видалити лист зі всіх скриньок, блокувати домен відправника</div></div>
         <div class="step"><div class="step-num">5</div><div class="step-title">Документація</div><div class="step-desc">Автоматичне створення тікету, timeline, звіт для менеджера</div></div>
       </div>

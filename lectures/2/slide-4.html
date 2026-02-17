@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.5rem;">
-        <p>Мобільний банкінг, Open Banking, партнерські інтеграції — все працює через API. Незахищене API = відкриті двері.</p>
+        <p>Мобільний банкінг, відкритий банкінг (Open Banking), партнерські інтеграції — все працює через API. Незахищене API = відкриті двері.</p>
       </div>
     </section>
 
@@ -65,15 +65,15 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔑</span>
-          <span class="il-text"><strong>Broken Auth</strong> — слабка автентифікація, витік токенів</span>
+          <span class="il-text"><strong>Порушена автентифікація (Broken Auth)</strong> — слабка автентифікація, витік токенів</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📝</span>
-          <span class="il-text"><strong>Mass Assignment</strong> — зміна полів, до яких немає доступу</span>
+          <span class="il-text"><strong>Масове присвоєння (Mass Assignment)</strong> — зміна полів, до яких немає доступу</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🌊</span>
-          <span class="il-text"><strong>Resource Consumption</strong> — відсутність rate limiting, DoS</span>
+          <span class="il-text"><strong>Надмірне споживання ресурсів (Resource Consumption)</strong> — відсутність обмеження частоти запитів (rate limiting), DoS</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">⚙️</span>
@@ -125,7 +125,7 @@
         <div class="card accent-blue">
           <span class="card-icon">📱</span>
           <div class="card-title">Код авторизації (Authorization Code) + PKCE</div>
-          <div class="card-text">Для мобільних та SPA. PKCE захищає від перехоплення коду</div>
+          <div class="card-text">Для мобільних та SPA (односторінкових застосунків). PKCE (захист коду авторизації) захищає від перехоплення</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🖥️</span>
@@ -140,7 +140,7 @@
         <div class="card accent-green">
           <span class="card-icon">⏰</span>
           <div class="card-title">Короткоживучі токени (Short-lived tokens)</div>
-          <div class="card-text">Access Token: 15 хв. Refresh Token: 7 днів. Ротація обов'язкова</div>
+          <div class="card-text">Токен доступу (Access Token): 15 хв. Токен оновлення (Refresh Token): 7 днів. Ротація обов'язкова</div>
         </div>
       </div>
     </section>
@@ -155,19 +155,19 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">⏱️</span>
-          <span class="il-text"><strong>Rate Limiting</strong> — 100 req/min для читання, 5 req/min для переказів</span>
+          <span class="il-text"><strong>Обмеження частоти (Rate Limiting)</strong> — 100 зап/хв для читання, 5 зап/хв для переказів</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📋</span>
-          <span class="il-text"><strong>Request Validation</strong> — перевірка структури за OpenAPI схемою</span>
+          <span class="il-text"><strong>Валідація запитів (Request Validation)</strong> — перевірка структури за OpenAPI-схемою</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🛡️</span>
-          <span class="il-text"><strong>WAF</strong> — блокування SQL injection, XSS, path traversal</span>
+          <span class="il-text"><strong>WAF (фаєрвол застосунків)</strong> — блокування SQL-ін'єкцій, XSS, обходу шляху (path traversal)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Logging</strong> — всі запити логуються для аудиту та аналізу</span>
+          <span class="il-text"><strong>Журналювання (Logging)</strong> — всі запити логуються для аудиту та аналізу</span>
         </div>
       </div>
       <div class="stat-row" style="margin-top: 1.2rem;">
@@ -198,7 +198,7 @@
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">IP Whitelist</div>
+          <div class="step-title">Білий список IP (IP Whitelist)</div>
           <div class="step-desc">Тільки з відомих IP</div>
         </div>
         <div class="step">
@@ -225,7 +225,7 @@
         <div class="card accent-blue">
           <span class="card-icon">📱</span>
           <div class="card-title">Код авторизації (Auth Code) + PKCE</div>
-          <div class="card-text">Мобільні додатки, SPA. Найбезпечніший для публічних клієнтів. PKCE захищає від перехоплення</div>
+          <div class="card-text">Мобільні додатки, SPA. Найбезпечніший для публічних клієнтів. PKCE запобігає перехопленню</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🖥️</span>
@@ -263,19 +263,19 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📋</span>
-          <span class="il-text"><strong>Input Validation</strong> — OpenAPI schema validation, sanitization, max length для всіх полів</span>
+          <span class="il-text"><strong>Валідація вводу (Input Validation)</strong> — перевірка за OpenAPI-схемою, очищення (sanitization), обмеження довжини для всіх полів</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">⏱️</span>
-          <span class="il-text"><strong>Rate Limiting</strong> — per-user, per-IP, per-endpoint ліміти з graceful degradation</span>
+          <span class="il-text"><strong>Обмеження частоти (Rate Limiting)</strong> — ліміти на користувача, IP, ендпоінт з плавною деградацією (graceful degradation)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Logging</strong> — кожен запит логується з correlation ID, без sensitive data у логах</span>
+          <span class="il-text"><strong>Журналювання (Logging)</strong> — кожен запит логується з ідентифікатором кореляції (correlation ID), без чутливих даних у логах</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔒</span>
-          <span class="il-text"><strong>TLS 1.3</strong> — тільки HTTPS, HSTS header, certificate pinning для мобільних</span>
+          <span class="il-text"><strong>TLS 1.3</strong> — тільки HTTPS, HSTS (примусовий HTTPS), закріплення сертифіката (certificate pinning) для мобільних</span>
         </div>
       </div>
     </section>
@@ -288,12 +288,12 @@
         <div class="card accent-blue">
           <span class="card-icon">🪣</span>
           <div class="card-title">Кошик токенів (Token Bucket)</div>
-          <div class="card-text">Токени додаються з фіксованою швидкістю. Дозволяє короткі burst-навантаження</div>
+          <div class="card-text">Токени додаються з фіксованою швидкістю. Дозволяє короткі пікові сплески</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🪟</span>
           <div class="card-title">Ковзне вікно (Sliding Window)</div>
-          <div class="card-text">Ковзне вікно часу. Точніший підрахунок, запобігає edge-case burst на межі вікна</div>
+          <div class="card-text">Ковзне вікно часу. Точніший підрахунок, запобігає сплеску на межі вікна</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">📊</span>
@@ -333,8 +333,8 @@
               HMAC-SHA256 підпис<br>
               Timestamp перевірка (< 5 хв)<br>
               IP whitelist провайдера<br>
-              Replay protection (nonce)<br>
-              TLS certificate pinning
+              Захист від повтору (nonce)<br>
+              Закріплення TLS-сертифіката
             </div>
           </div>
         </div>
@@ -343,10 +343,10 @@
             <span class="card-icon">📤</span>
             <div class="card-title">Надійна доставка</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              Idempotency key у кожному запиті<br>
-              Retry з exponential backoff<br>
-              Dead letter queue для failed<br>
-              Async обробка через чергу<br>
+              Ключ ідемпотентності у кожному запиті<br>
+              Повтори з експоненціальною затримкою<br>
+              Черга недоставлених повідомлень (DLQ)<br>
+              Асинхронна обробка через чергу<br>
               Моніторинг та алерти
             </div>
           </div>
@@ -376,7 +376,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Input Validation</strong> — остання лінія оборони, валідуйте все</span>
+          <span class="il-text"><strong>Валідація вводу (Input Validation)</strong> — остання лінія оборони, валідуйте все</span>
         </div>
       </div>
     </section>

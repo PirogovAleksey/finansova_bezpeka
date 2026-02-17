@@ -143,15 +143,15 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">🧪</span>
-          <span class="il-text"><strong>Staging only</strong> — НІКОЛИ на production з реальними даними клієнтів</span>
+          <span class="il-text"><strong>Лише тестове середовище (Staging only)</strong> — НІКОЛИ на production з реальними даними клієнтів</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📅</span>
-          <span class="il-text"><strong>Вікно тестування</strong> — погоджений час, щоб не вплинути на операції</span>
+          <span class="il-text"><strong>Вікно тестування (Testing window)</strong> — погоджений час, щоб не вплинути на операції</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📝</span>
-          <span class="il-text"><strong>NDA + договір</strong> — чіткі обмеження, kill switch для екстреної зупинки</span>
+          <span class="il-text"><strong>NDA + договір</strong> — чіткі обмеження, аварійна зупинка (kill switch) для екстрених випадків</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🏦</span>
@@ -193,7 +193,7 @@
     </section>
 
     <section class="slide">
-      <h1>Робочий процес Burp Suite</h1>
+      <h1>Burp Suite: робочий процес</h1>
       <h2>Основний інструмент веб-пентестера</h2>
       <div class="card-grid">
         <div class="card accent-blue">
@@ -208,13 +208,13 @@
         </div>
         <div class="card accent-green">
           <span class="card-icon">🔁</span>
-          <div class="card-title">Repeater</div>
-          <div class="card-text">Ручна модифікація запитів: зміна параметрів, headers, cookies. Тестування IDOR, auth bypass</div>
+          <div class="card-title">Повторювач (Repeater)</div>
+          <div class="card-text">Ручна модифікація запитів: зміна параметрів, заголовків, cookies. Тестування IDOR, обхід автентифікації</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">💣</span>
-          <div class="card-title">Intruder</div>
-          <div class="card-text">Автоматизований brute force: credential stuffing, parameter fuzzing, ID enumeration</div>
+          <div class="card-title">Зловмисник (Intruder)</div>
+          <div class="card-text">Автоматизований перебір: підстановка облікових даних (credential stuffing), фазинг параметрів, перебір ID</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -223,7 +223,7 @@
     </section>
 
     <section class="slide">
-      <h1>Automated vs Manual Testing</h1>
+      <h1>Автоматизоване vs Ручне тестування</h1>
       <h2>Порівняння підходів до тестування безпеки</h2>
       <div class="two-col">
         <div class="col">
@@ -235,7 +235,7 @@
               DAST: ZAP, Burp Scanner<br>
               SCA: Snyk, Dependabot<br>
               Швидко, масштабовано<br>
-              Багато false positives<br>
+              Багато хибних спрацювань (false positives)<br>
               Не знаходить бізнес-логіку
             </div>
           </div>
@@ -245,11 +245,11 @@
             <span class="card-icon">🧑‍💻</span>
             <div class="card-title">Ручне</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              Code review експертами<br>
-              Manual penetration testing<br>
-              Business logic testing<br>
+              Огляд коду експертами<br>
+              Ручне тестування на проникнення<br>
+              Тестування бізнес-логіки<br>
               Глибоке, творче<br>
-              Менше false positives<br>
+              Менше хибних спрацювань<br>
               Повільно, дорого, не масштабується
             </div>
           </div>
@@ -262,27 +262,27 @@
 
     <section class="slide">
       <h1>Структура звіту аудиту</h1>
-      <h2>Audit Report Template</h2>
+      <h2>Шаблон звіту аудиту</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">📄</span>
-          <span class="il-text"><strong>Executive Summary</strong> — загальна оцінка ризику, ключові знахідки, 1-2 сторінки для керівництва</span>
+          <span class="il-text"><strong>Резюме для керівництва (Executive Summary)</strong> — загальна оцінка ризику, ключові знахідки, 1-2 сторінки</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Scope & Methodology</strong> — що тестували, як тестували, які інструменти, часові рамки</span>
+          <span class="il-text"><strong>Обсяг та методологія (Scope & Methodology)</strong> — що тестували, як тестували, які інструменти, часові рамки</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔴</span>
-          <span class="il-text"><strong>Findings</strong> — кожна вразливість: опис, CVSS, PoC (скриншоти), вплив на бізнес, affected URL/endpoint</span>
+          <span class="il-text"><strong>Знахідки (Findings)</strong> — кожна вразливість: опис, CVSS, PoC (скриншоти), вплив на бізнес, уражений URL/endpoint</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">✅</span>
-          <span class="il-text"><strong>Recommendations</strong> — конкретні кроки виправлення для кожної знахідки з пріоритетом та SLA</span>
+          <span class="il-text"><strong>Рекомендації (Recommendations)</strong> — конкретні кроки виправлення для кожної знахідки з пріоритетом та SLA</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📈</span>
-          <span class="il-text"><strong>Risk Matrix</strong> — зведена таблиця: Critical/High/Medium/Low з кількістю та статусом</span>
+          <span class="il-text"><strong>Матриця ризиків (Risk Matrix)</strong> — зведена таблиця: Critical/High/Medium/Low з кількістю та статусом</span>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -308,7 +308,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>FinTech пентест</strong> — staging, NDA, QSA, kill switch</span>
+          <span class="il-text"><strong>Пентест фінтех</strong> — тестове середовище, NDA, QSA, аварійна зупинка</span>
         </div>
       </div>
     </section>

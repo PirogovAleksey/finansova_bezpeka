@@ -27,7 +27,7 @@
       <span class="slide-icon">🤖</span>
       <h1>AI/ML для виявлення загроз</h1>
       <p class="subtitle">Лекція 9.1</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Виявлення аномалій (Anomaly Detection), UEBA, автоматизований пошук загроз</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Виявлення аномалій (Anomaly Detection), аналітика поведінки (UEBA), автоматизований пошук загроз</span>
     </section>
 
     <section class="slide">
@@ -88,7 +88,7 @@
     </section>
 
     <section class="slide">
-      <h1>UEBA</h1>
+      <h1>Аналітика поведінки (UEBA)</h1>
       <h2>User and Entity Behavior Analytics</h2>
       <div class="steps">
         <div class="step">
@@ -113,7 +113,7 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Insider threat: працівник банку о 2 AM скачує базу клієнтів, яку ніколи не використовував. UEBA це бачить.</p>
+        <p>Внутрішня загроза (insider threat): працівник банку о 2 AM скачує базу клієнтів, яку ніколи не використовував. UEBA це бачить.</p>
       </div>
     </section>
 
@@ -144,15 +144,15 @@
       <div class="stat-row">
         <div class="stat-box red">
           <div class="stat-value">10K+</div>
-          <div class="stat-label">alerts на день у типовому SOC банку</div>
+          <div class="stat-label">сповіщень (alerts) на день у типовому SOC банку</div>
         </div>
         <div class="stat-box green">
           <div class="stat-value">AI</div>
-          <div class="stat-label">пріоритизує та кореляє alerts</div>
+          <div class="stat-label">пріоритизує та кореляє сповіщення</div>
         </div>
         <div class="stat-box blue">
           <div class="stat-value">-80%</div>
-          <div class="stat-label">зменшення втоми від сповіщень</div>
+          <div class="stat-label">зменшення втоми від сповіщень (alert fatigue)</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -199,7 +199,7 @@
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Витяг ознак</div>
+          <div class="step-title">Витяг ознак (Feature Extraction)</div>
           <div class="step-desc">Час, частота, обсяг, ресурси, група колег → вектор ознак</div>
         </div>
         <div class="step">
@@ -209,7 +209,7 @@
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Агрегація ризиків</div>
+          <div class="step-title">Агрегація ризиків (Risk Aggregation)</div>
           <div class="step-desc">Множинні аномалії з різних джерел → єдиний показник ризику сутності</div>
         </div>
         <div class="step">
@@ -245,7 +245,7 @@
               DNS-тунелювання (висока ентропія)<br>
               Витік даних (аномальне вивантаження)<br>
               Криптомайнінг (Stratum протокол)<br>
-              Перебір паролів та password spray
+              Перебір паролів та розпилення паролів (password spray)
             </div>
           </div>
         </div>
@@ -256,7 +256,7 @@
     </section>
 
     <section class="slide">
-      <h1>Автоматизований Threat Hunting Pipeline</h1>
+      <h1>Автоматизований конвеєр пошуку загроз (Threat Hunting Pipeline)</h1>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
@@ -276,7 +276,7 @@
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-title">Збагачення контексту</div>
-          <div class="step-desc">Threat Intelligence, MITRE ATT&CK mapping, risk scoring автоматично</div>
+          <div class="step-desc">Розвідка загроз (Threat Intelligence), MITRE ATT&CK mapping, оцінка ризику автоматично</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
@@ -300,7 +300,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>NDR</strong> — ML для аналізу мережевого трафіку, виявлення C2 та exfiltration</span>
+          <span class="il-text"><strong>NDR</strong> — ML для аналізу мережевого трафіку, виявлення C2 та ексфільтрації (exfiltration)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>

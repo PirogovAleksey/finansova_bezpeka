@@ -27,11 +27,11 @@
       <span class="slide-icon">🛡️</span>
       <h1>Захист від соціальної інженерії</h1>
       <p class="subtitle">Лекція 8.4</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Awareness-тренінги, phishing-симуляції, технічні контролі</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Тренінги обізнаності (Awareness), фішинг-симуляції, технічні контролі</span>
     </section>
 
     <section class="slide">
-      <h1>Security Awareness Training</h1>
+      <h1>Навчання з безпеки (Security Awareness Training)</h1>
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">📚</span>
@@ -41,7 +41,7 @@
         <div class="card accent-orange">
           <span class="card-icon">🎯</span>
           <div class="card-title">За ролями (Role-specific)</div>
-          <div class="card-text">C-level: whaling. Фінанси: BEC. IT: technical SE</div>
+          <div class="card-text">Керівники: полювання (whaling). Фінанси: BEC. IT: технічна соц. інженерія</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">🎮</span>
@@ -51,13 +51,13 @@
         <div class="card accent-purple">
           <span class="card-icon">📊</span>
           <div class="card-title">Метрики</div>
-          <div class="card-text">Click rate, report rate, час до report</div>
+          <div class="card-text">Частота кліків (click rate), частота звітів (report rate), час реакції</div>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Phishing-симуляції</h1>
+      <h1>Фішинг-симуляції</h1>
       <h2>Контрольовані фішингові кампанії</h2>
       <div class="steps">
         <div class="step">
@@ -73,7 +73,7 @@
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-title">Вимірювання (Measure)</div>
-          <div class="step-desc">Click rate, credentials entered, report rate</div>
+          <div class="step-desc">Частота кліків, введені облікові дані, частота звітів</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
@@ -82,7 +82,7 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Цілі: click rate &lt;5%, report rate >60%. Середні показники без тренінгів: click 15-30%.</p>
+        <p>Цілі: частота кліків &lt;5%, частота звітів >60%. Середні показники без тренінгів: кліки 15-30%.</p>
       </div>
     </section>
 
@@ -91,19 +91,19 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">📞</span>
-          <span class="il-text"><strong>Callback verification</strong> — перезвонити за офіційним номером для перевірки</span>
+          <span class="il-text"><strong>Зворотний дзвінок (Callback verification)</strong> — перезвонити за офіційним номером для перевірки</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">👥</span>
-          <span class="il-text"><strong>Dual authorization</strong> — два підписи для переказів понад поріг</span>
+          <span class="il-text"><strong>Подвійна авторизація (Dual authorization)</strong> — два підписи для переказів понад поріг</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🚨</span>
-          <span class="il-text"><strong>Reporting culture</strong> — кнопка «Report Phishing», без покарання за хибні</span>
+          <span class="il-text"><strong>Культура звітування (Reporting culture)</strong> — кнопка «Повідомити про фішинг», без покарання за хибні</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📋</span>
-          <span class="il-text"><strong>Incident response</strong> — ізоляція, зміна паролів, forensic-аналіз, оповіщення</span>
+          <span class="il-text"><strong>Реагування на інциденти (Incident response)</strong> — ізоляція, зміна паролів, криміналістичний аналіз (forensic), оповіщення</span>
         </div>
       </div>
     </section>
@@ -114,7 +114,7 @@
         <div class="card accent-blue">
           <span class="card-icon">📧</span>
           <div class="card-title">Безпека пошти (Email Security)</div>
-          <div class="card-text">SPF, DKIM, DMARC для захисту від spoofing. ATP для вкладень</div>
+          <div class="card-text">SPF, DKIM, DMARC для захисту від підробки (spoofing). ATP для вкладень</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">🔐</span>
@@ -139,19 +139,19 @@
       <div class="stat-row">
         <div class="stat-box blue">
           <div class="stat-value">Люди (People)</div>
-          <div class="stat-label">Awareness, тренінги, reporting culture</div>
+          <div class="stat-label">Обізнаність, тренінги, культура звітування</div>
         </div>
         <div class="stat-box green">
           <div class="stat-value">Процеси (Process)</div>
-          <div class="stat-label">Callback, dual auth, incident response</div>
+          <div class="stat-label">Зворотний дзвінок, подвійна авторизація, реагування на інциденти</div>
         </div>
         <div class="stat-box orange">
           <div class="stat-value">Технології (Technology)</div>
-          <div class="stat-label">Email security, MFA, DNS-filter</div>
+          <div class="stat-label">Безпека пошти, MFA, DNS-фільтрація</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Жоден один рівень не достатній. People + Process + Technology = Defense in Depth проти SE.</p>
+        <p>Жоден один рівень не достатній. Люди + Процеси + Технології = Ешелонований захист (Defense in Depth) проти соц. інженерії.</p>
       </div>
     </section>
 
@@ -161,25 +161,25 @@
       <div class="stat-row">
         <div class="stat-box red">
           <div class="stat-value">&lt;5%</div>
-          <div class="stat-label">Click rate (цільовий). Без тренінгу: 15-30%</div>
+          <div class="stat-label">Частота кліків (цільова). Без тренінгу: 15-30%</div>
         </div>
         <div class="stat-box green">
           <div class="stat-value">&gt;60%</div>
-          <div class="stat-label">Report rate: відсоток працівників, що повідомили про лист</div>
+          <div class="stat-label">Частота звітів: відсоток працівників, що повідомили про лист</div>
         </div>
         <div class="stat-box blue">
           <div class="stat-value">&lt;5 хв</div>
-          <div class="stat-label">Time to report: час від отримання до повідомлення</div>
+          <div class="stat-label">Час до звіту (time to report): від отримання до повідомлення</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Тренд: після 4 раундів симуляцій click rate знижується на 60-80%. Рекомендована частота: щоквартально, з різними сценаріями.</p>
+        <p>Тренд: після 4 раундів симуляцій частота кліків знижується на 60-80%. Рекомендована частота: щоквартально, з різними сценаріями.</p>
       </div>
     </section>
 
     <section class="slide">
       <h1>Стек безпеки пошти (Email Security Stack)</h1>
-      <h2>SPF, DKIM, DMARC — захист від spoofing</h2>
+      <h2>SPF, DKIM, DMARC — захист від підробки (spoofing)</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
@@ -208,7 +208,7 @@
     </section>
 
     <section class="slide">
-      <h1>Програма Security Awareness</h1>
+      <h1>Програма обізнаності з безпеки (Security Awareness)</h1>
       <h2>Побудова культури безпеки в організації</h2>
       <div class="card-grid">
         <div class="card accent-blue">
@@ -224,12 +224,12 @@
         <div class="card accent-orange">
           <span class="card-icon">🏆</span>
           <div class="card-title">Мотивація</div>
-          <div class="card-text">Security Champions у відділах, нагороди за виявлення фішингу, дошка лідерів</div>
+          <div class="card-text">Амбасадори безпеки (Security Champions) у відділах, нагороди за виявлення фішингу, дошка лідерів</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">📊</span>
           <div class="card-title">Вимірювання</div>
-          <div class="card-text">Dashboard: click rate, report rate, час реакції. Звіт для керівництва щомісяця</div>
+          <div class="card-text">Панель моніторингу: частота кліків, частота звітів, час реакції. Звіт для керівництва щомісяця</div>
         </div>
       </div>
     </section>
@@ -241,7 +241,7 @@
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-title">Виявлення</div>
-          <div class="step-desc">Працівник натискає «Report Phishing» або SOC виявляє підозрілий лист</div>
+          <div class="step-desc">Працівник натискає «Повідомити про фішинг» або SOC виявляє підозрілий лист</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
@@ -256,7 +256,7 @@
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-title">Відновлення</div>
-          <div class="step-desc">Скидання паролів, перевірка логів, оповіщення CERT-UA за потреби, lessons learned</div>
+          <div class="step-desc">Скидання паролів, перевірка логів, оповіщення CERT-UA за потреби, аналіз уроків (lessons learned)</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -270,19 +270,19 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Awareness</strong> — безперервний процес, не одноразовий тренінг</span>
+          <span class="il-text"><strong>Обізнаність (Awareness)</strong> — безперервний процес, не одноразовий тренінг</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Phishing-симуляції</strong> — click rate &lt;5%, report rate >60% як ціль</span>
+          <span class="il-text"><strong>Фішинг-симуляції</strong> — частота кліків &lt;5%, частота звітів >60% як ціль</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>FIDO2</strong> — phishing-resistant MFA, найкращий технічний захист</span>
+          <span class="il-text"><strong>FIDO2</strong> — стійка до фішингу (phishing-resistant) MFA, найкращий технічний захист</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Defense in Depth</strong> — People + Process + Technology</span>
+          <span class="il-text"><strong>Ешелонований захист (Defense in Depth)</strong> — Люди + Процеси + Технології</span>
         </div>
       </div>
     </section>

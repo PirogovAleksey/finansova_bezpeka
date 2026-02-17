@@ -27,22 +27,22 @@
       <span class="slide-icon">📊</span>
       <h1>Фінансовий моніторинг</h1>
       <p class="subtitle">Лекція 11.3</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Transaction monitoring, STR, risk scoring</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Моніторинг транзакцій (Transaction monitoring), STR, оцінка ризиків (risk scoring)</span>
     </section>
 
     <section class="slide">
-      <h1>Transaction Monitoring</h1>
+      <h1>Моніторинг транзакцій (Transaction Monitoring)</h1>
       <h2>Автоматичний аналіз кожної транзакції</h2>
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">📋</span>
           <div class="card-title">На основі правил (Rule-based)</div>
-          <div class="card-text">Пороги, structuring, rapid movement, незвичні патерни</div>
+          <div class="card-text">Пороги, структурування (structuring), швидке переміщення (rapid movement), незвичні патерни</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">🤖</span>
           <div class="card-title">ML-based</div>
-          <div class="card-text">Anomaly detection, graph analytics, зменшення false positives</div>
+          <div class="card-text">Виявлення аномалій (Anomaly detection), графова аналітика (graph analytics), зменшення хибних спрацювань (false positives)</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">📊</span>
@@ -58,7 +58,7 @@
     </section>
 
     <section class="slide">
-      <h1>Workflow аналітика</h1>
+      <h1>Робочий процес аналітика (Workflow)</h1>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
@@ -73,7 +73,7 @@
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-title">Рішення (Decide)</div>
-          <div class="step-desc">False positive → close. Підозра → escalate → STR</div>
+          <div class="step-desc">Хибне спрацювання (false positive) → закрити. Підозра → ескалація → STR</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
@@ -84,7 +84,7 @@
     </section>
 
     <section class="slide">
-      <h1>STR та Tipping Off</h1>
+      <h1>STR та розголошення (Tipping Off)</h1>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">📄</span>
@@ -92,11 +92,11 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Threshold</strong> — 400,000 грн: обов'язковий звіт незалежно від підозри</span>
+          <span class="il-text"><strong>Поріг (Threshold)</strong> — 400,000 грн: обов'язковий звіт незалежно від підозри</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🤫</span>
-          <span class="il-text"><strong>Tipping off</strong> — ЗАБОРОНЕНО повідомляти клієнта про подання STR</span>
+          <span class="il-text"><strong>Розголошення (Tipping off)</strong> — ЗАБОРОНЕНО повідомляти клієнта про подання STR</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">⏰</span>
@@ -104,7 +104,7 @@
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Tipping off = кримінальна відповідальність. Клієнт НЕ повинен знати, що на нього подано STR.</p>
+        <p>Розголошення (Tipping off) = кримінальна відповідальність. Клієнт НЕ повинен знати, що на нього подано STR.</p>
       </div>
     </section>
 
@@ -113,11 +113,11 @@
       <div class="stat-row">
         <div class="stat-box red">
           <div class="stat-value">>95%</div>
-          <div class="stat-label">false positive у rule-based TM</div>
+          <div class="stat-label">хибних спрацювань (false positive) у TM на правилах</div>
         </div>
         <div class="stat-box green">
           <div class="stat-value">50-70%</div>
-          <div class="stat-label">false positive з ML (зменшення)</div>
+          <div class="stat-label">хибних спрацювань з ML (зменшення)</div>
         </div>
         <div class="stat-box blue">
           <div class="stat-value">MTTR</div>
@@ -125,12 +125,12 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Ключові метрики: SAR filing rate, investigation closure time, false positive rate, regulatory findings.</p>
+        <p>Ключові метрики: частота подання SAR, час закриття розслідування (investigation closure time), рівень хибних спрацювань (false positive rate), зауваження регуляторів.</p>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Transaction Monitoring Rules</h1>
+      <h1>Правила моніторингу транзакцій (TM Rules)</h1>
       <h2>Приклади типових правил</h2>
       <div class="card-grid">
         <div class="card accent-red">
@@ -155,12 +155,12 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Типова система має 50-200 правил. Тюнінг порогів — баланс між виявленням та false positives.</p>
+        <p>Типова система має 50-200 правил. Налаштування порогів — баланс між виявленням та хибними спрацюваннями (false positives).</p>
       </div>
     </section>
 
     <section class="slide">
-      <h1>STR Filing Process</h1>
+      <h1>Процес подання STR (STR Filing)</h1>
       <h2>Процес подання підозрілого звіту</h2>
       <div class="steps">
         <div class="step">
@@ -171,7 +171,7 @@
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-title">Розслідування</div>
-          <div class="step-desc">L1 аналітик перевіряє: KYC-профіль, історія транзакцій, зв'язки, open sources</div>
+          <div class="step-desc">L1 аналітик перевіряє: KYC-профіль, історія транзакцій, зв'язки, відкриті джерела (open sources)</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
@@ -192,7 +192,7 @@
     </section>
 
     <section class="slide">
-      <h1>Risk Scoring Model</h1>
+      <h1>Модель оцінки ризиків (Risk Scoring)</h1>
       <h2>Комплексна оцінка ризику</h2>
       <div class="card-grid">
         <div class="card accent-blue">
@@ -223,7 +223,7 @@
 
     <section class="slide">
       <h1>Виявлення структурування</h1>
-      <h2>Structuring Detection</h2>
+      <h2>Виявлення структурування (Structuring Detection)</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">🔢</span>
@@ -231,23 +231,23 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📐</span>
-          <span class="il-text"><strong>Proximity:</strong> операції на 90-99% від порогу (наприклад, 380-399K грн) — класичний smurfing</span>
+          <span class="il-text"><strong>Близькість до порогу (Proximity):</strong> операції на 90-99% від порогу (наприклад, 380-399K грн) — класичний smurfing</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🏪</span>
-          <span class="il-text"><strong>Multi-branch:</strong> внесення готівки в різних відділеннях одного банку протягом дня</span>
+          <span class="il-text"><strong>Через відділення (Multi-branch):</strong> внесення готівки в різних відділеннях одного банку протягом дня</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">👥</span>
-          <span class="il-text"><strong>Coordinated:</strong> група пов'язаних осіб робить однакові операції одночасно</span>
+          <span class="il-text"><strong>Координоване (Coordinated):</strong> група пов'язаних осіб робить однакові операції одночасно</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🏦</span>
-          <span class="il-text"><strong>Multi-bank:</strong> один клієнт дробить операції між кількома банками</span>
+          <span class="il-text"><strong>Між банками (Multi-bank):</strong> один клієнт дробить операції між кількома банками</span>
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Structuring — окремий злочин навіть якщо кошти легальні. Покарання в Україні: штраф або позбавлення волі до 3 років.</p>
+        <p>Структурування (Structuring) — окремий злочин навіть якщо кошти легальні. Покарання в Україні: штраф або позбавлення волі до 3 років.</p>
       </div>
     </section>
 
@@ -265,11 +265,11 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>Tipping off</strong> — заборонено повідомляти клієнта, кримінальна відповідальність</span>
+          <span class="il-text"><strong>Розголошення (Tipping off)</strong> — заборонено повідомляти клієнта, кримінальна відповідальність</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>ML</strong> — зменшує false positives з >95% до 50-70%</span>
+          <span class="il-text"><strong>ML</strong> — зменшує хибні спрацювання (false positives) з >95% до 50-70%</span>
         </div>
       </div>
     </section>

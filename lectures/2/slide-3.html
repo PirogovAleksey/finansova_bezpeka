@@ -43,7 +43,7 @@
         <div class="card accent-orange">
           <span class="card-icon">🔗</span>
           <div class="card-title">Міжсервісний трафік</div>
-          <div class="card-text">East-West трафік без захисту — lateral movement легко</div>
+          <div class="card-text">Внутрішній трафік (East-West) без захисту — бічне переміщення (lateral movement) легко</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔑</span>
@@ -69,15 +69,15 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📜</span>
-          <span class="il-text"><strong>Authorization Policies</strong> — хто може викликати кого</span>
+          <span class="il-text"><strong>Політики авторизації (Authorization Policies)</strong> — хто може викликати кого</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Observability</strong> — метрики, логи, traces для всього трафіку</span>
+          <span class="il-text"><strong>Спостережуваність (Observability)</strong> — метрики, логи, трейси для всього трафіку</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">⚡</span>
-          <span class="il-text"><strong>Traffic Management</strong> — canary deployments, circuit breakers</span>
+          <span class="il-text"><strong>Управління трафіком (Traffic Management)</strong> — канаркові розгортання (canary), переривачі ланцюга (circuit breakers)</span>
         </div>
       </div>
       <div class="stat-row" style="margin-top: 1.2rem;">
@@ -140,12 +140,12 @@
         <div class="card accent-orange">
           <span class="card-icon">🔒</span>
           <div class="card-title">Безпека подів (Pod Security)</div>
-          <div class="card-text">Non-root, read-only FS, no privilege escalation</div>
+          <div class="card-text">Не-root користувач, файлова система лише для читання, без підвищення привілеїв</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🌐</span>
           <div class="card-title">Мережеві політики (Network Policies)</div>
-          <div class="card-text">Default deny, explicit allow тільки потрібного трафіку</div>
+          <div class="card-text">Заборона за замовчуванням (default deny), явний дозвіл тільки потрібного трафіку</div>
         </div>
       </div>
       <div class="icon-list" style="margin-top: 1.2rem;">
@@ -158,7 +158,7 @@
 
     <!-- 6. Secrets Management -->
     <section class="slide">
-      <h1>Secrets Management</h1>
+      <h1>Управління секретами (Secrets Management)</h1>
       <h2>Безпечне зберігання та доступ до секретів</h2>
       <div class="two-col">
         <div class="col">
@@ -169,7 +169,7 @@
               Паролі в коді<br>
               Секрети в ConfigMap<br>
               .env файли в Git<br>
-              Hardcoded API keys
+              Захардкоджені API-ключі
             </div>
           </div>
         </div>
@@ -222,7 +222,7 @@
     <!-- 8. Container Security Layers -->
     <section class="slide">
       <h1>Шари безпеки контейнерів</h1>
-      <h2>Defense in Depth для контейнерного середовища</h2>
+      <h2>Ешелонований захист (Defense in Depth) для контейнерного середовища</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
@@ -268,7 +268,7 @@
               Envoy sidecar proxy<br>
               Перехоплює весь трафік<br>
               mTLS шифрування<br>
-              Load balancing<br>
+              Балансування навантаження (Load balancing)<br>
               Збір телеметрії
             </div>
           </div>
@@ -281,7 +281,7 @@
               Istiod (Pilot, Citadel, Galley)<br>
               Розподіл сертифікатів<br>
               Конфігурація політик<br>
-              Service discovery<br>
+              Виявлення сервісів (Service discovery)<br>
               Управління трафіком
             </div>
           </div>
@@ -346,8 +346,8 @@
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">🔒</span>
-          <div class="card-title">RBAC</div>
-          <div class="card-text">Role-Based Access Control. Мінімальні права для кожного ServiceAccount та оператора</div>
+          <div class="card-title">RBAC (рольовий контроль доступу)</div>
+          <div class="card-text">Рольовий контроль доступу (Role-Based Access Control). Мінімальні права для кожного сервісного акаунта та оператора</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🌐</span>
@@ -389,7 +389,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Defense in Depth</strong> — кожен шар додає свій рівень захисту</span>
+          <span class="il-text"><strong>Ешелонований захист (Defense in Depth)</strong> — кожен шар додає свій рівень захисту</span>
         </div>
       </div>
     </section>

@@ -18,33 +18,33 @@
       <span class="slide-icon">🔬</span>
       <h1>Аналіз інцидентів</h1>
       <p class="subtitle">Лекція 12.3</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Malware analysis, memory forensics, log analysis</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Аналіз шкідливого ПЗ (Malware analysis), форензика пам'яті, аналіз журналів</span>
     </section>
     <section class="slide">
-      <h1>Malware Analysis</h1>
+      <h1>Аналіз шкідливого ПЗ (Malware Analysis)</h1>
       <div class="steps">
-        <div class="step"><div class="step-num">1</div><div class="step-title">Статичний аналіз (Static)</div><div class="step-desc">Strings, PE headers, imports, VirusTotal hash lookup</div></div>
+        <div class="step"><div class="step-num">1</div><div class="step-title">Статичний аналіз (Static)</div><div class="step-desc">Рядки (Strings), PE-заголовки, імпорти, пошук хешу у VirusTotal</div></div>
         <div class="step"><div class="step-num">2</div><div class="step-title">Динамічний аналіз (Dynamic)</div><div class="step-desc">Sandbox (ANY.RUN): файли, реєстр, мережа, C2</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-title">Зворотна розробка (Reverse)</div><div class="step-desc">IDA Pro, Ghidra: дизасемблювання, логіка malware</div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-title">IOC Extract</div><div class="step-desc">C2 domains, IP, hashes, YARA rules для detection</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Зворотна розробка (Reverse)</div><div class="step-desc">IDA Pro, Ghidra: дизасемблювання, логіка шкідливого ПЗ</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">Вилучення IOC (IOC Extract)</div><div class="step-desc">C2-домени, IP, хеші, YARA-правила для виявлення</div></div>
       </div>
     </section>
     <section class="slide">
-      <h1>Network Forensics</h1>
+      <h1>Мережева форензика (Network Forensics)</h1>
       <div class="card-grid">
         <div class="card accent-blue"><span class="card-icon">📡</span><div class="card-title">Аналіз PCAP (PCAP Analysis)</div><div class="card-text">Wireshark, NetworkMiner: аналіз мережевого трафіку</div></div>
-        <div class="card accent-red"><span class="card-icon">🔗</span><div class="card-title">Виявлення C2 (C2 Detection)</div><div class="card-text">Beacon patterns, DNS tunneling, encrypted channels</div></div>
+        <div class="card accent-red"><span class="card-icon">🔗</span><div class="card-title">Виявлення C2 (C2 Detection)</div><div class="card-text">Патерни маячків (beacon patterns), DNS-тунелювання, зашифровані канали</div></div>
         <div class="card accent-orange"><span class="card-icon">📤</span><div class="card-title">Ексфільтрація (Exfiltration)</div><div class="card-text">Незвичний обсяг вихідних даних, нетипові протоколи</div></div>
         <div class="card accent-green"><span class="card-icon">🕐</span><div class="card-title">Хронологія (Timeline)</div><div class="card-text">Хронологія подій з NetFlow, firewall, proxy логів</div></div>
       </div>
     </section>
     <section class="slide">
-      <h1>Log Analysis</h1>
+      <h1>Аналіз журналів (Log Analysis)</h1>
       <div class="icon-list">
         <div class="icon-list-item"><span class="il-icon">🖥️</span><span class="il-text"><strong>Windows Events</strong> — 4624 (logon), 4625 (failed), 4688 (process), 7045 (service)</span></div>
         <div class="icon-list-item"><span class="il-icon">🐧</span><span class="il-text"><strong>Syslog</strong> — auth.log, secure, application logs на Linux системах</span></div>
         <div class="icon-list-item"><span class="il-icon">📊</span><span class="il-text"><strong>SIEM</strong> — Splunk, Elastic, Sentinel: кореляція з усіх джерел</span></div>
-        <div class="icon-list-item"><span class="il-icon">📋</span><span class="il-text"><strong>Sigma Rules</strong> — стандартний формат detection rules для будь-якого SIEM</span></div>
+        <div class="icon-list-item"><span class="il-icon">📋</span><span class="il-text"><strong>Sigma Rules</strong> — стандартний формат правил виявлення (detection rules) для будь-якого SIEM</span></div>
       </div>
     </section>
     <section class="slide">
@@ -55,7 +55,7 @@
           <div class="card accent-red" style="height: 100%;">
             <span class="card-icon">⚔️</span>
             <div class="card-title">Тактики (ЩО)</div>
-            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Initial Access<br>Execution<br>Persistence<br>Privilege Escalation<br>Lateral Movement<br>Exfiltration</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">Початковий доступ (Initial Access)<br>Виконання (Execution)<br>Закріплення (Persistence)<br>Ескалація привілеїв (Privilege Escalation)<br>Бічне переміщення (Lateral Movement)<br>Ексфільтрація (Exfiltration)</div>
           </div>
         </div>
         <div class="col">
@@ -69,7 +69,7 @@
     </section>
     <section class="slide">
       <h1>Приклад Sigma Rule</h1>
-      <h2>Стандартний формат detection rule для будь-якого SIEM</h2>
+      <h2>Стандартний формат правила виявлення для будь-якого SIEM</h2>
       <div class="code-block" style="background: var(--card-bg); border-radius: 12px; padding: 1.2rem; font-family: monospace; font-size: 0.85rem; line-height: 1.6; overflow-x: auto; border: 1px solid var(--border);">
         <span style="color: var(--accent-blue);">title:</span> Suspicious PowerShell Encoded Command<br>
         <span style="color: var(--accent-blue);">status:</span> experimental<br>
@@ -89,7 +89,7 @@
     </section>
     <section class="slide">
       <h1>Структура YARA Rule</h1>
-      <h2>Пошук malware за сигнатурами у файлах та пам'яті</h2>
+      <h2>Пошук шкідливого ПЗ за сигнатурами у файлах та пам'яті</h2>
       <div class="code-block" style="background: var(--card-bg); border-radius: 12px; padding: 1.2rem; font-family: monospace; font-size: 0.85rem; line-height: 1.6; overflow-x: auto; border: 1px solid var(--border);">
         <span style="color: var(--accent-blue);">rule</span> Detect_Cobalt_Strike {<br>
         &nbsp;&nbsp;<span style="color: var(--accent-orange);">meta:</span><br>
@@ -108,38 +108,38 @@
       </div>
     </section>
     <section class="slide">
-      <h1>Memory Forensics з Volatility</h1>
+      <h1>Форензика пам'яті (Memory Forensics) з Volatility</h1>
       <h2>Аналіз дампу оперативної пам'яті</h2>
       <div class="steps">
         <div class="step"><div class="step-num">1</div><div class="step-title">imageinfo</div><div class="step-desc">Визначення профілю ОС: версія Windows/Linux, архітектура, KDBG offset</div></div>
         <div class="step"><div class="step-num">2</div><div class="step-title">pslist / pstree</div><div class="step-desc">Список процесів, parent-child зв'язки, виявлення підозрілих та прихованих процесів</div></div>
         <div class="step"><div class="step-num">3</div><div class="step-title">netscan</div><div class="step-desc">Мережеві з'єднання з RAM: C2 адреси, порти, стан сокетів навіть для завершених сесій</div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-title">malfind / yarascan</div><div class="step-desc">Пошук injected code, RWX секцій, YARA сканування пам'яті процесів</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-title">malfind / yarascan</div><div class="step-desc">Пошук впровадженого коду (injected code), RWX-секцій, YARA-сканування пам'яті процесів</div></div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Volatility 3: Python-based, модульний, підтримує Windows, Linux, macOS. Ключовий інструмент для fileless malware.</p>
+        <p>Volatility 3: Python-based, модульний, підтримує Windows, Linux, macOS. Ключовий інструмент для безфайлового шкідливого ПЗ (fileless malware).</p>
       </div>
     </section>
     <section class="slide">
-      <h1>Network Forensics: Wireshark</h1>
+      <h1>Мережева форензика: Wireshark</h1>
       <h2>Глибокий аналіз мережевого трафіку</h2>
       <div class="icon-list">
-        <div class="icon-list-item"><span class="il-icon">🔎</span><span class="il-text"><strong>Display Filters</strong> — ip.addr == 10.0.0.1 && tcp.port == 443 для фільтрації підозрілого трафіку</span></div>
-        <div class="icon-list-item"><span class="il-icon">📡</span><span class="il-text"><strong>Follow Stream</strong> — реконструкція TCP/HTTP сесій, перегляд переданих даних та C2 команд</span></div>
-        <div class="icon-list-item"><span class="il-icon">📊</span><span class="il-text"><strong>Statistics</strong> — Conversations, Protocol Hierarchy: виявлення аномальних обсягів та протоколів</span></div>
-        <div class="icon-list-item"><span class="il-icon">📦</span><span class="il-text"><strong>Export Objects</strong> — витягування файлів з HTTP/SMB трафіку: malware samples, exfiltrated documents</span></div>
+        <div class="icon-list-item"><span class="il-icon">🔎</span><span class="il-text"><strong>Фільтри відображення (Display Filters)</strong> — ip.addr == 10.0.0.1 && tcp.port == 443 для фільтрації підозрілого трафіку</span></div>
+        <div class="icon-list-item"><span class="il-icon">📡</span><span class="il-text"><strong>Відстеження потоку (Follow Stream)</strong> — реконструкція TCP/HTTP сесій, перегляд переданих даних та C2 команд</span></div>
+        <div class="icon-list-item"><span class="il-icon">📊</span><span class="il-text"><strong>Статистика (Statistics)</strong> — розмови, ієрархія протоколів: виявлення аномальних обсягів та протоколів</span></div>
+        <div class="icon-list-item"><span class="il-icon">📦</span><span class="il-text"><strong>Експорт об'єктів (Export Objects)</strong> — витягування файлів з HTTP/SMB трафіку: зразки шкідливого ПЗ, викрадені документи</span></div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Для beacon detection: Statistics → Conversations → Sort by Packets. C2 beacons мають регулярні інтервали.</p>
+        <p>Для виявлення маячків (beacon detection): Statistics → Conversations → Sort by Packets. C2-маячки мають регулярні інтервали.</p>
       </div>
     </section>
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">
-        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>Malware analysis</strong> — static → dynamic → reverse → IOC extraction</span></div>
-        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>Network forensics</strong> — PCAP, C2 detection, exfiltration analysis</span></div>
-        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>SIEM + Sigma</strong> — централізований log analysis зі стандартними rules</span></div>
+        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>Аналіз шкідливого ПЗ (Malware analysis)</strong> — статичний → динамічний → зворотна розробка → вилучення IOC</span></div>
+        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>Мережева форензика (Network forensics)</strong> — PCAP, виявлення C2, аналіз ексфільтрації</span></div>
+        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>SIEM + Sigma</strong> — централізований аналіз журналів зі стандартними правилами</span></div>
         <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>MITRE ATT&CK</strong> — спільна мова для опису тактик та технік атакуючого</span></div>
       </div>
     </section>

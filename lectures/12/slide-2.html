@@ -34,9 +34,9 @@
       <h1>Порядок волатильності (Order of Volatility)</h1>
       <h2>Збирай від найбільш волатильного</h2>
       <div class="steps">
-        <div class="step"><div class="step-num">1</div><div class="step-title">RAM</div><div class="step-desc">Процеси, з'єднання, ключі шифрування, fileless malware</div></div>
+        <div class="step"><div class="step-num">1</div><div class="step-title">RAM</div><div class="step-desc">Процеси, з'єднання, ключі шифрування, безфайлове шкідливе ПЗ (fileless malware)</div></div>
         <div class="step"><div class="step-num">2</div><div class="step-title">Підкачка/Тимчасові (Swap/Temp)</div><div class="step-desc">Тимчасові файли з даними з RAM</div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-title">Диск (Disk)</div><div class="step-desc">Файлова система, логи, deleted files, registry</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-title">Диск (Disk)</div><div class="step-desc">Файлова система, логи, видалені файли (deleted files), реєстр (registry)</div></div>
         <div class="step"><div class="step-num">4</div><div class="step-title">Журнали/Резервні копії (Logs/Backup)</div><div class="step-desc">SIEM, мережеві пристрої, хмара, архіви</div></div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -55,33 +55,33 @@
     <section class="slide">
       <h1>Що шукаємо?</h1>
       <div class="icon-list">
-        <div class="icon-list-item"><span class="il-icon">🦠</span><span class="il-text"><strong>Артефакти шкідливого ПЗ (Malware Artifacts)</strong> — виконувані файли, механізми закріплення, конфігурації C2</span></div>
+        <div class="icon-list-item"><span class="il-icon">🦠</span><span class="il-text"><strong>Артефакти шкідливого ПЗ (Malware Artifacts)</strong> — виконувані файли, механізми закріплення (persistence), конфігурації C2</span></div>
         <div class="icon-list-item"><span class="il-icon">📊</span><span class="il-text"><strong>Журнали (Logs)</strong> — Windows Events, auth logs, web server logs, firewall</span></div>
-        <div class="icon-list-item"><span class="il-icon">🗑️</span><span class="il-text"><strong>Видалені файли (Deleted Files)</strong> — відновлення видалених файлів через carving</span></div>
+        <div class="icon-list-item"><span class="il-icon">🗑️</span><span class="il-text"><strong>Видалені файли (Deleted Files)</strong> — відновлення видалених файлів через вирізання (carving)</span></div>
         <div class="icon-list-item"><span class="il-icon">🕐</span><span class="il-text"><strong>Часові мітки (Timestamps)</strong> — MACB (Modified, Accessed, Changed, Born) для хронології</span></div>
       </div>
     </section>
     <section class="slide">
-      <h1>Інструменти forensic imaging</h1>
+      <h1>Інструменти криміналістичного копіювання (Forensic Imaging)</h1>
       <h2>Професійні засоби створення криміналістичних копій</h2>
       <div class="card-grid">
-        <div class="card accent-blue"><span class="card-icon">💾</span><div class="card-title">FTK Imager</div><div class="card-text">Безкоштовний. Створення E01/DD образів, preview файлів, hash verification, memory capture</div></div>
-        <div class="card accent-green"><span class="card-icon">🐧</span><div class="card-title">dc3dd / dcfldd</div><div class="card-text">Linux CLI: покращений dd з вбудованим хешуванням, split output, progress bar</div></div>
+        <div class="card accent-blue"><span class="card-icon">💾</span><div class="card-title">FTK Imager</div><div class="card-text">Безкоштовний. Створення E01/DD образів, preview файлів, верифікація хешу, захоплення пам'яті</div></div>
+        <div class="card accent-green"><span class="card-icon">🐧</span><div class="card-title">dc3dd / dcfldd</div><div class="card-text">Linux CLI: покращений dd з вбудованим хешуванням, розділення виводу, індикатор прогресу</div></div>
         <div class="card accent-orange"><span class="card-icon">🔧</span><div class="card-title">Tableau / Falcon</div><div class="card-text">Апаратні write-blockers + imaging станції. Швидкість до 25 GB/хв, автоматичне хешування</div></div>
-        <div class="card accent-purple"><span class="card-icon">☁️</span><div class="card-title">KAPE / Velociraptor</div><div class="card-text">Тріажний збір артефактів без повного imaging. Ідеально для remote та enterprise</div></div>
+        <div class="card accent-purple"><span class="card-icon">☁️</span><div class="card-title">KAPE / Velociraptor</div><div class="card-text">Тріажний збір артефактів без повного копіювання. Ідеально для віддаленого та корпоративного збору</div></div>
       </div>
     </section>
     <section class="slide">
       <h1>Пріоритет волатильних даних</h1>
       <h2>Що збирати НЕГАЙНО до вимкнення системи</h2>
       <div class="steps">
-        <div class="step"><div class="step-num">1</div><div class="step-title">Мережеві з'єднання</div><div class="step-desc">netstat -anob: активні C2 сесії, lateral movement, DNS requests</div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-title">Запущені процеси</div><div class="step-desc">tasklist, Process Explorer: malware PID, parent-child relations, command line</div></div>
+        <div class="step"><div class="step-num">1</div><div class="step-title">Мережеві з'єднання</div><div class="step-desc">netstat -anob: активні C2 сесії, бічне переміщення (lateral movement), DNS-запити</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-title">Запущені процеси</div><div class="step-desc">tasklist, Process Explorer: PID шкідливого ПЗ, зв'язки батьківських-дочірніх процесів, командний рядок</div></div>
         <div class="step"><div class="step-num">3</div><div class="step-title">RAM dump</div><div class="step-desc">WinPmem, Magnet RAM Capture: повний дамп оперативної пам'яті для Volatility</div></div>
         <div class="step"><div class="step-num">4</div><div class="step-title">Активні сесії користувачів</div><div class="step-desc">query user, who: активні сесії, RDP-з'єднання, заплановані задачі</div></div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Порядок критичний: кожна дія на живій системі змінює пам'ять. Фіксуйте все ДО containment.</p>
+        <p>Порядок критичний: кожна дія на живій системі змінює пам'ять. Фіксуйте все ДО стримування (containment).</p>
       </div>
     </section>
     <section class="slide">
@@ -111,7 +111,7 @@
           <div class="card accent-green" style="height: 100%;">
             <span class="card-icon">✅</span>
             <div class="card-title">Рішення</div>
-            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">API для знімків дисків<br>CloudTrail / Activity Log<br>Централізований експорт логів<br>SLA з провайдером<br>Інструменти форензики контейнерів</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">API для знімків дисків<br>CloudTrail / Activity Log<br>Централізований експорт логів<br>SLA з провайдером<br>Інструменти форензики контейнерів (container forensics)</div>
           </div>
         </div>
       </div>
@@ -123,10 +123,10 @@
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">
-        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>Chain of custody</strong> — документуй кожен крок, інакше доказ недопустимий</span></div>
-        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>Volatility first</strong> — RAM → Swap → Disk → Logs</span></div>
-        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Write blocker</strong> — НІКОЛИ не працюй з оригіналом без захисту від запису</span></div>
-        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>Hash verification</strong> — SHA-256 підтверджує цілісність forensic image</span></div>
+        <div class="icon-list-item"><span class="il-icon">1️⃣</span><span class="il-text"><strong>Ланцюжок зберігання (Chain of custody)</strong> — документуй кожен крок, інакше доказ недопустимий</span></div>
+        <div class="icon-list-item"><span class="il-icon">2️⃣</span><span class="il-text"><strong>Спершу волатильне (Volatility first)</strong> — RAM → Swap → Disk → Logs</span></div>
+        <div class="icon-list-item"><span class="il-icon">3️⃣</span><span class="il-text"><strong>Блокувальник запису (Write blocker)</strong> — НІКОЛИ не працюй з оригіналом без захисту від запису</span></div>
+        <div class="icon-list-item"><span class="il-icon">4️⃣</span><span class="il-text"><strong>Верифікація хешу (Hash verification)</strong> — SHA-256 підтверджує цілісність криміналістичної копії</span></div>
       </div>
     </section>
   </div>

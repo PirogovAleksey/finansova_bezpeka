@@ -61,7 +61,7 @@
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Статичні правила<br>
               Прозорість рішень<br>
-              Високий false positive<br>
+              Багато хибних спрацювань<br>
               Легко обійти<br>
               Не адаптується
             </div>
@@ -74,7 +74,7 @@
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Навчені на даних<br>
               Висока точність<br>
-              Низький false positive<br>
+              Мало хибних спрацювань<br>
               Адаптація до нових патернів<br>
               Random Forest, XGBoost, NN
             </div>
@@ -96,7 +96,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📍</span>
-          <span class="il-text"><strong>Локація</strong> — Київ → Нігерія за 1 годину? Impossible travel</span>
+          <span class="il-text"><strong>Локація</strong> — Київ → Нігерія за 1 годину? Неможлива подорож (impossible travel)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🕐</span>
@@ -108,7 +108,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🏪</span>
-          <span class="il-text"><strong>Merchant</strong> — high-risk категорія? Нова країна?</span>
+          <span class="il-text"><strong>Торговець (Merchant)</strong> — категорія високого ризику? Нова країна?</span>
         </div>
       </div>
     </section>
@@ -171,11 +171,11 @@
     </section>
 
     <section class="slide">
-      <h1>Управління зворотними платежами (Chargeback)</h1>
+      <h1>Управління зворотними платежами</h1>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">💳</span>
-          <span class="il-text"><strong>Chargeback</strong> — клієнт оскаржує транзакцію → повернення коштів</span>
+          <span class="il-text"><strong>Зворотний платіж (Chargeback)</strong> — клієнт оскаржує транзакцію → повернення коштів</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">💰</span>
@@ -183,27 +183,27 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Моніторинг:</strong> >1% chargeback rate = monitoring program від Visa/MC</span>
+          <span class="il-text"><strong>Моніторинг:</strong> >1% рівень зворотних платежів = програма моніторингу від Visa/MC</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🛡️</span>
-          <span class="il-text"><strong>Захист:</strong> fraud detection + 3DS + clear merchant name + refund policy</span>
+          <span class="il-text"><strong>Захист:</strong> виявлення шахрайства + 3DS + зрозуміле ім'я торговця + політика повернення</span>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>ML-модель: ключові фічі</h1>
-      <h2>Feature engineering для fraud detection</h2>
+      <h1>ML-модель: ключові ознаки</h1>
+      <h2>Конструювання ознак (Feature engineering) для виявлення шахрайства</h2>
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">💰</span>
-          <div class="card-title">Транзакційні фічі</div>
+          <div class="card-title">Транзакційні ознаки</div>
           <div class="card-text">Сума, валюта, MCC-код, тип операції (CNP/CP), час доби, день тижня</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">👤</span>
-          <div class="card-title">Профільні фічі</div>
+          <div class="card-title">Профільні ознаки</div>
           <div class="card-text">Середня сума за 7/30 днів, частота, улюблені merchant, звичний час операцій</div>
         </div>
         <div class="card accent-orange">
@@ -213,12 +213,12 @@
         </div>
         <div class="card accent-red">
           <span class="card-icon">⚡</span>
-          <div class="card-title">Velocity фічі</div>
-          <div class="card-text">Кількість транзакцій за 1/5/60 хв, кількість різних merchant, impossible travel speed</div>
+          <div class="card-title">Ознаки швидкості (Velocity)</div>
+          <div class="card-text">Кількість транзакцій за 1/5/60 хв, кількість різних торговців, швидкість неможливої подорожі</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Типова ML-модель для fraud: 200-500 фічей. XGBoost/LightGBM для швидкості, Neural Networks для складних патернів.</p>
+        <p>Типова ML-модель для виявлення шахрайства: 200-500 ознак. XGBoost/LightGBM для швидкості, нейронні мережі для складних патернів.</p>
       </div>
     </section>
 
@@ -228,34 +228,34 @@
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Прийом транзакцій (Transaction Ingestion)</div>
+          <div class="step-title">Прийом транзакцій</div>
           <div class="step-desc">Kafka/Kinesis приймає потік транзакцій. Збагачення даними: GeoIP, device, history</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Сховище ознак (Feature Store)</div>
-          <div class="step-desc">Redis/Aerospike зберігає pre-computed фічі клієнта. Оновлення в реальному часі</div>
+          <div class="step-title">Сховище ознак</div>
+          <div class="step-desc">Redis/Aerospike зберігає попередньо обчислені ознаки клієнта. Оновлення в реальному часі</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">ML-інференс (ML Inference)</div>
-          <div class="step-desc">Модель повертає fraud score 0-1000 за &lt;10ms. GPU/FPGA для прискорення</div>
+          <div class="step-title">ML-висновок (Inference)</div>
+          <div class="step-desc">Модель повертає оцінку шахрайства 0-1000 за &lt;10ms. GPU/FPGA для прискорення</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Механізм правил (Rules Engine)</div>
-          <div class="step-desc">Post-ML правила: санкційні списки, velocity limits, merchant blacklist</div>
+          <div class="step-title">Механізм правил</div>
+          <div class="step-desc">Пост-ML правила: санкційні списки, обмеження швидкості, чорний список торговців</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">Рішення та дія (Decision & Action)</div>
-          <div class="step-desc">Approve / Step-up (OTP) / Decline / Queue for review. SLA: &lt;100ms end-to-end</div>
+          <div class="step-title">Рішення та дія</div>
+          <div class="step-desc">Схвалити / Додаткова перевірка (OTP) / Відхилити / Черга на перевірку. SLA: &lt;100ms наскрізно</div>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Управління зворотними платежами (Chargeback) — потік</h1>
+      <h1>Зворотні платежі (Chargeback) — потік</h1>
       <h2>Від диспуту до вирішення</h2>
       <div class="steps">
         <div class="step">
@@ -266,12 +266,12 @@
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-title">Перший чарджбек (First Chargeback)</div>
-          <div class="step-desc">Issuer повертає кошти клієнту, стягує з acquirer. Reason code (Visa: 10.4, MC: 4837)</div>
+          <div class="step-desc">Емітент повертає кошти клієнту, стягує з еквайєра. Код причини (Visa: 10.4, MC: 4837)</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-title">Повторне подання (Representment)</div>
-          <div class="step-desc">Merchant оскаржує: надає докази (3DS proof, delivery confirmation, AVS match)</div>
+          <div class="step-title">Повторне подання</div>
+          <div class="step-desc">Торговець оскаржує: надає докази (підтвердження 3DS, підтвердження доставки, збіг AVS)</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
@@ -286,31 +286,31 @@
 
     <section class="slide">
       <h1>Поведінкова аналітика</h1>
-      <h2>Поведінкова біометрія (Behavioral Biometrics) та профілювання (User Profiling)</h2>
+      <h2>Поведінкова біометрія та профілювання користувача</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">⌨️</span>
-          <span class="il-text"><strong>Keystroke dynamics</strong> — швидкість набору, час між натисканнями, паузи. Унікальний "почерк" друку</span>
+          <span class="il-text"><strong>Динаміка натискань клавіш (Keystroke dynamics)</strong> — швидкість набору, час між натисканнями, паузи. Унікальний "почерк" друку</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📱</span>
-          <span class="il-text"><strong>Touch patterns</strong> — тиск, площа дотику, кут нахилу телефону, свайп-патерни</span>
+          <span class="il-text"><strong>Патерни дотику (Touch patterns)</strong> — тиск, площа дотику, кут нахилу телефону, свайп-патерни</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🖱️</span>
-          <span class="il-text"><strong>Mouse dynamics</strong> — швидкість руху, криві переміщення, патерни кліків. Бот vs людина</span>
+          <span class="il-text"><strong>Динаміка миші (Mouse dynamics)</strong> — швидкість руху, криві переміщення, патерни кліків. Бот vs людина</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🕐</span>
-          <span class="il-text"><strong>Session behavior</strong> — порядок дій, час на сторінці, навігаційні патерни. Шахрай діє інакше</span>
+          <span class="il-text"><strong>Поведінка сесії (Session behavior)</strong> — порядок дій, час на сторінці, навігаційні патерни. Шахрай діє інакше</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Continuous auth</strong> — перевірка протягом всієї сесії, не лише при вході. Risk score оновлюється</span>
+          <span class="il-text"><strong>Безперервна автентифікація (Continuous auth)</strong> — перевірка протягом всієї сесії, не лише при вході. Оцінка ризику оновлюється</span>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>BioCatch, BehavioSec — лідери ринку. Виявляють remote access trojans (RAT), social engineering та session hijacking.</p>
+        <p>BioCatch, BehavioSec — лідери ринку. Виявляють троянів віддаленого доступу (RAT), соціальну інженерію та перехоплення сесій.</p>
       </div>
     </section>
 
@@ -324,15 +324,15 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Real-time scoring</strong> — рішення за &lt;100ms для кожної транзакції</span>
+          <span class="il-text"><strong>Оцінка в реальному часі (Real-time scoring)</strong> — рішення за &lt;100ms для кожної транзакції</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>Behavioral analytics</strong> — профіль клієнта = baseline для виявлення аномалій</span>
+          <span class="il-text"><strong>Поведінкова аналітика</strong> — профіль клієнта = базова лінія для виявлення аномалій</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Graph analytics</strong> — виявлення мереж fraud та money mule ланцюжків</span>
+          <span class="il-text"><strong>Графова аналітика</strong> — виявлення мереж шахрайства та ланцюжків грошових мулів</span>
         </div>
       </div>
     </section>

@@ -77,7 +77,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🚫</span>
-          <span class="il-text"><strong>No direct access:</strong> розробники — через затверджені інструменти з аудитом</span>
+          <span class="il-text"><strong>Без прямого доступу (No direct access):</strong> розробники — через затверджені інструменти з аудитом</span>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
@@ -87,7 +87,7 @@
 
     <!-- 4. Database Activity Monitoring -->
     <section class="slide">
-      <h1>Database Activity Monitoring</h1>
+      <h1>Моніторинг активності бази даних (DAM)</h1>
       <h2>Виявлення аномальних запитів</h2>
       <div class="card-grid">
         <div class="card accent-red">
@@ -102,7 +102,7 @@
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🔧</span>
-          <div class="card-title">DDL Changes</div>
+          <div class="card-title">Зміни DDL (DDL Changes)</div>
           <div class="card-text">ALTER TABLE, DROP — повинні бути заплановані</div>
         </div>
         <div class="card accent-blue">
@@ -128,7 +128,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🌍</span>
-          <span class="il-text"><strong>Geo-separation:</strong> backup в іншій локації/регіоні</span>
+          <span class="il-text"><strong>Географічне розділення (Geo-separation):</strong> backup в іншій локації/регіоні</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🧪</span>
@@ -163,13 +163,13 @@
         </div>
       </div>
       <div class="highlight-box warning" style="margin-top: 1.2rem;">
-        <p>Штрафи PCI DSS за non-compliance: $5,000 — $100,000 на місяць. Плюс відповідальність за витік.</p>
+        <p>Штрафи PCI DSS за невідповідність (non-compliance): $5,000 — $100,000 на місяць. Плюс відповідальність за витік.</p>
       </div>
     </section>
 
     <!-- 7. Tokenization -->
     <section class="slide">
-      <h1>Tokenization</h1>
+      <h1>Токенізація (Tokenization)</h1>
       <h2>Заміна PAN на безпечний токен</h2>
       <div class="steps">
         <div class="step">
@@ -194,24 +194,24 @@
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Tokenization зменшує scope PCI DSS: більшість систем ніколи не бачать реальний PAN.</p>
+        <p>Токенізація зменшує обсяг вимог PCI DSS: більшість систем ніколи не бачать реальний PAN.</p>
       </div>
     </section>
 
     <!-- 8. Encryption at rest vs in transit -->
     <section class="slide">
-      <h1>Шифрування: At Rest vs In Transit</h1>
+      <h1>Шифрування: у стані спокою vs при передачі</h1>
       <h2>Два обов'язкових рівні захисту даних</h2>
       <div class="two-col">
         <div class="col">
           <div class="card accent-blue" style="height: 100%;">
             <span class="card-icon">💾</span>
-            <div class="card-title">At Rest (на диску)</div>
+            <div class="card-title">У стані спокою (At Rest)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               TDE — прозоре шифрування файлів БД<br>
               AES-256 — стандарт для фінансів<br>
               Захист від крадіжки дисків/backup<br>
-              Key Management — HSM або KMS<br>
+              Управління ключами (Key Management) — HSM або KMS<br>
               Oracle TDE, SQL Server TDE, LUKS
             </div>
           </div>
@@ -219,10 +219,10 @@
         <div class="col">
           <div class="card accent-green" style="height: 100%;">
             <span class="card-icon">🔄</span>
-            <div class="card-title">In Transit (по мережі)</div>
+            <div class="card-title">При передачі (In Transit)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               TLS 1.2+ між додатком та БД<br>
-              Certificate pinning для DB-з'єднань<br>
+              Закріплення сертифіката (Certificate pinning) для DB-з'єднань<br>
               Захист від перехоплення (MITM)<br>
               За замовчуванням — відкритий текст!<br>
               mTLS для production середовищ
@@ -254,7 +254,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔒</span>
-          <span class="il-text"><strong>Захист логів:</strong> окремий сервер, append-only, WORM storage, підпис хешами</span>
+          <span class="il-text"><strong>Захист логів:</strong> окремий сервер, лише дозапис (append-only), WORM-сховище, підпис хешами</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📊</span>
@@ -268,7 +268,7 @@
 
     <!-- 10. Row-Level Security -->
     <section class="slide">
-      <h1>Row-Level Security (RLS)</h1>
+      <h1>Безпека на рівні рядків (RLS)</h1>
       <h2>Обмеження доступу на рівні рядків</h2>
       <div class="steps">
         <div class="step">
@@ -315,7 +315,7 @@
         <div class="card accent-blue">
           <span class="card-icon">🌍</span>
           <div class="card-title">Зберігання</div>
-          <div class="card-text">Geo-separation: інший регіон/дата-центр. Immutable storage (WORM). Retention policy</div>
+          <div class="card-text">Географічне розділення: інший регіон/дата-центр. Незмінне сховище (WORM). Політика зберігання</div>
         </div>
         <div class="card accent-green">
           <span class="card-icon">🧪</span>
@@ -335,11 +335,11 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Шифрування</strong> — at rest + in transit + column-level для PAN/CVV</span>
+          <span class="il-text"><strong>Шифрування</strong> — у стані спокою + при передачі + на рівні стовпців для PAN/CVV</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Least Privilege</strong> — окремий DB user для кожного сервісу</span>
+          <span class="il-text"><strong>Мінімальні привілеї (Least Privilege)</strong> — окремий DB user для кожного сервісу</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
@@ -347,7 +347,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Tokenization</strong> — замінює PAN токеном, зменшує PCI DSS scope</span>
+          <span class="il-text"><strong>Токенізація (Tokenization)</strong> — замінює PAN токеном, зменшує обсяг PCI DSS</span>
         </div>
       </div>
     </section>

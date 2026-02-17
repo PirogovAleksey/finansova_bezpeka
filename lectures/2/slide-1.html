@@ -42,7 +42,7 @@
             <div class="card-title">Традиційна модель</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Всередині мережі = довірений<br>
-              Firewall = єдиний захист<br>
+              Міжмережевий екран (Firewall) = єдиний захист<br>
               VPN = доступ до всього<br>
               Бічне переміщення (Lateral Movement) = легко
             </div>
@@ -55,8 +55,8 @@
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Хмарні сервіси (AWS, Azure)<br>
               Віддалена робота<br>
-              SaaS-інтеграції<br>
-              BYOD-пристрої
+              SaaS-застосунки (ПЗ як послуга)<br>
+              BYOD (власні пристрої на роботі)
             </div>
           </div>
         </div>
@@ -142,7 +142,7 @@
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-title">Моніторинг</div>
-          <div class="step-desc">SIEM, UEBA, аномалії</div>
+          <div class="step-desc">SIEM (управління подіями безпеки), UEBA (аналіз поведінки)</div>
         </div>
       </div>
       <div class="stat-row" style="margin-top: 1.5rem;">
@@ -165,12 +165,12 @@
         <div class="card accent-red">
           <span class="card-icon">💳</span>
           <div class="card-title">Платіжна зона (Payment Zone)</div>
-          <div class="card-text">SWIFT, картковий процесинг, HSM</div>
+          <div class="card-text">SWIFT, картковий процесинг, HSM (апаратний модуль безпеки)</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">👥</span>
           <div class="card-title">Дані клієнтів (Customer Data)</div>
-          <div class="card-text">PII, KYC-дані, історія транзакцій</div>
+          <div class="card-text">PII (персональні дані), KYC (знай свого клієнта), історія транзакцій</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">🖥️</span>
@@ -179,7 +179,7 @@
         </div>
       </div>
       <div class="highlight-box warning" style="margin-top: 1.2rem;">
-        <p>Правило: компрометація email-сервера НЕ МОЖЕ дати доступ до платіжних систем. Різні сегменти, різні credentials, різні політики.</p>
+        <p>Правило: компрометація email-сервера НЕ МОЖЕ дати доступ до платіжних систем. Різні сегменти, різні облікові дані (credentials), різні політики.</p>
       </div>
     </section>
 
@@ -190,7 +190,7 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">✅</span>
-          <span class="il-text"><strong>JWT-токен</strong> — валідний, не прострочений, правильний issuer</span>
+          <span class="il-text"><strong>JWT-токен (JSON Web Token)</strong> — валідний, не прострочений, правильний видавець (issuer)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">✅</span>
@@ -198,7 +198,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">✅</span>
-          <span class="il-text"><strong>Пристрій</strong> — корпоративний ноутбук, диск зашифрований, AV оновлений</span>
+          <span class="il-text"><strong>Пристрій</strong> — корпоративний ноутбук, диск зашифрований, антивірус оновлений</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">✅</span>
@@ -299,11 +299,11 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔵</span>
-          <span class="il-text"><strong>Синя зона (Core Banking)</strong> — рахунки, депозити, кредити. Мережеві політики дозволяють тільки API Gateway</span>
+          <span class="il-text"><strong>Синя зона (Core Banking — основний банкінг)</strong> — рахунки, депозити, кредити. Мережеві політики дозволяють тільки API-шлюз (Gateway)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🟢</span>
-          <span class="il-text"><strong>Зелена зона (DMZ)</strong> — мобільний додаток, веб-портал. Публічний доступ через WAF та CDN</span>
+          <span class="il-text"><strong>Зелена зона (DMZ — демілітаризована зона)</strong> — мобільний додаток, веб-портал. Публічний доступ через WAF (фаєрвол застосунків) та CDN (мережа доставки контенту)</span>
         </div>
       </div>
       <div class="stat-row" style="margin-top: 1.2rem;">
@@ -326,12 +326,12 @@
         <div class="card accent-blue">
           <span class="card-icon">👤</span>
           <div class="card-title">Користувачі</div>
-          <div class="card-text">MFA, passwordless, biometric. Кожна дія прив'язана до верифікованої особи</div>
+          <div class="card-text">MFA (багатофакторна автентифікація), вхід без пароля (passwordless), біометрія. Кожна дія прив'язана до верифікованої особи</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">📱</span>
           <div class="card-title">Пристрої</div>
-          <div class="card-text">MDM-реєстрація, health check, compliance scoring при кожному запиті</div>
+          <div class="card-text">MDM (управління пристроями), перевірка стану (health check), оцінка відповідності (compliance scoring) при кожному запиті</div>
         </div>
         <div class="card accent-purple">
           <span class="card-icon">🤖</span>
@@ -355,7 +355,7 @@
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Never Trust, Always Verify</strong> — кожен запит перевіряється</span>
+          <span class="il-text"><strong>Ніколи не довіряй, завжди перевіряй (Never Trust, Always Verify)</strong> — кожен запит перевіряється</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
