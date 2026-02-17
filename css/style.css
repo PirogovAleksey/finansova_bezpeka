@@ -748,6 +748,116 @@ html.dark .lecture-content pre {
   margin-bottom: 0;
 }
 
+/* --- Example box (green accent) --- */
+.example-box {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.06), rgba(16, 185, 129, 0.06));
+  border: 1px solid var(--card-border);
+  border-left: 4px solid var(--accent-secondary);
+  border-radius: 0 12px 12px 0;
+  padding: 20px 24px;
+  margin: 24px 0 8px;
+}
+
+.example-box h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent-secondary);
+  margin: 0 0 12px !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.example-box h3::before {
+  content: '\1F4CB';
+  font-size: 16px;
+}
+
+.example-box p,
+.example-box ul,
+.example-box ol {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.example-box li {
+  margin-bottom: 4px;
+}
+
+/* --- Tip box (amber accent) --- */
+.tip-box {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(251, 191, 36, 0.06));
+  border: 1px solid var(--card-border);
+  border-left: 4px solid #f59e0b;
+  border-radius: 0 12px 12px 0;
+  padding: 20px 24px;
+  margin: 24px 0 8px;
+}
+
+html.dark .tip-box,
+body.dark .tip-box {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.05));
+}
+
+.tip-box h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #f59e0b;
+  margin: 0 0 12px !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tip-box h3::before {
+  content: '\1F4A1';
+  font-size: 16px;
+}
+
+.tip-box p,
+.tip-box ul,
+.tip-box ol {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.tip-box li {
+  margin-bottom: 4px;
+}
+
+/* --- Diagram example (dark background, monospace) --- */
+.diagram-example {
+  background: #1e293b;
+  color: #e2e8f0;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 16px 0;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  border: 1px solid #334155;
+  white-space: pre;
+}
+
+html.dark .diagram-example,
+body.dark .diagram-example {
+  background: #0f172a;
+  border-color: #1e3a5f;
+}
+
+.diagram-example .diagram-title {
+  color: #94a3b8;
+  font-size: 12px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+}
+
 .lecture-nav-bottom {
   display: flex;
   justify-content: space-between;
@@ -1345,6 +1455,16 @@ html.dark .lecture-content pre {
   }
   .module-header h2 {
     font-size: 18px;
+  }
+  .example-box,
+  .tip-box {
+    padding: 16px 18px;
+    margin: 16px 0 6px;
+  }
+  .diagram-example {
+    padding: 16px 18px;
+    font-size: 11px;
+    line-height: 1.5;
   }
 }
 

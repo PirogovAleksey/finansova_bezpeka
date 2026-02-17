@@ -164,6 +164,78 @@
           <li>Trust boundaries — позначте червоними пунктирними лініями межі довіри</li>
           <li>Ролі користувачів та їхні точки входу в систему</li>
         </ol>
+
+        <div class="tip-box">
+          <h3>Який інструмент обрати</h3>
+          <ul>
+            <li><strong>draw.io (diagrams.net)</strong> — безкоштовний, працює в браузері, має шаблони для DFD та threat models. Найкращий вибір для цієї роботи</li>
+            <li><strong>Excalidraw</strong> — швидкий скетч-інструмент, підходить для чернеток. Результат виглядає як «від руки»</li>
+            <li><strong>Miro</strong> — підходить для командної роботи, але потребує реєстрації</li>
+          </ul>
+        </div>
+
+        <p><strong>Орієнтовний вигляд DFD Level 1 для PaySafe:</strong></p>
+        <div class="diagram-example"><span class="diagram-title">DFD Level 1 — PaySafe (спрощений приклад)</span>
+                                    TRUST BOUNDARY: Internet
+ ┌──────────────────────────────────────────────────────────────────────┐
+ │                                                                      │
+ │  ┌──────────┐   HTTPS    ┌──────────────┐   HTTPS    ┌───────────┐  │
+ │  │  Client  │ ─────────→ │   React SPA  │ ─────────→ │  Flutter  │  │
+ │  │ (Browser)│ ← JWT+HTML │  (Frontend)  │            │   (App)   │  │
+ │  └──────────┘            └──────┬───────┘            └─────┬─────┘  │
+ │                                 │                          │        │
+ └─────────────────────────────────┼──────────────────────────┼────────┘
+                                   │ REST API (JWT Bearer)    │
+            ·······················│··························│·········
+            : TRUST BOUNDARY: DMZ │                          │        :
+            :              ┌───────▼──────────────────────────▼──┐     :
+            :              │          API Gateway (Kong)         │     :
+            :              │   rate limiting, auth, routing      │     :
+            :              └──┬──────────┬──────────┬────────┬──┘     :
+            ···················│··········│··········│········│·········
+                               │          │          │        │
+         ······················│··········│··········│········│········
+         : TRUST BOUNDARY:    │          │          │        │       :
+         : Internal Services  │          │          │        │       :
+         :             ┌──────▼───┐ ┌────▼─────┐ ┌─▼──────┐ │       :
+         :             │   Auth   │ │ Payment  │ │Transfer│ │       :
+         :             │ Service  │ │ Service  │ │Service │ │       :
+         :             │(JWT,MFA) │ │(Stripe)  │ │(P2P)   │ │       :
+         :             └────┬─────┘ └────┬─────┘ └───┬────┘ │       :
+         :                  │            │           │      │       :
+         :··················│············│···········│······│·······:
+                            │            │           │      │
+         ···················│············│···········│······│········
+         : TRUST BOUNDARY:  │            │           │      │      :
+         : Data Layer       ▼            ▼           ▼      │      :
+         :          ┌──────────────────────────────────┐    │      :
+         :          │   PostgreSQL    │    Redis       │    │      :
+         :          │ (users, txns)  │ (sessions,cache)│    │      :
+         :          └──────────────────────────────────┘    │      :
+         ··················································│·······:
+                                                           │
+         ··················································│········
+         : TRUST BOUNDARY: External APIs                   │       :
+         :                                    ┌────────────▼──┐    :
+         :   ┌─────────┐  ┌─────────┐        │   RabbitMQ    │    :
+         :   │  Stripe  │  │  Veriff │        │ (async queue) │    :
+         :   │(payments)│  │  (KYC)  │        └───────────────┘    :
+         :   └─────────┘  └─────────┘  ┌──────────┐               :
+         :                              │  Twilio  │               :
+         :                              │ (SMS/OTP)│               :
+         :                              └──────────┘               :
+         ·········································════··············:</div>
+
+        <div class="tip-box">
+          <h3>Поради щодо побудови діаграми</h3>
+          <ul>
+            <li><strong>Підписуйте стрілки потоків даних:</strong> не просто лінія, а «JWT token», «encrypted PAN», «transaction request» — це критично для аналізу загроз</li>
+            <li><strong>Trust boundaries</strong> малюйте пунктирними лініями червоного кольору та підписуйте: Internet / DMZ / Internal / Data / External</li>
+            <li><strong>Напрямок стрілок</strong> показує напрямок потоку даних, а не виклику. Якщо клієнт надсилає запит — стрілка від клієнта до API Gateway</li>
+            <li><strong>Зовнішні сутності</strong> (клієнти, партнери) зображуйте прямокутниками, процеси — колами, сховища даних — паралельними лініями (стандарт DFD)</li>
+          </ul>
+        </div>
+
         <p><strong>Інструменти:</strong> draw.io (diagrams.net), Miro, або Excalidraw. Можна також на папері.</p>
         <p><strong>Результат:</strong> файл діаграми у форматі PNG/SVG + короткий опис кожного компонента (2-3 речення).</p>
 
@@ -174,41 +246,144 @@
           <li><strong>Активи (Assets)</strong> — що потрібно захищати. Приклади: дані карток (PAN), PII клієнтів, баланси рахунків, JWT-токени, ключі API.</li>
           <li><strong>Потенційні вразливості</strong> — для кожної точки входу опишіть мінімум 2 можливих вразливості.</li>
         </ol>
-        <p><strong>Результат:</strong> таблиця у форматі:</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Точка входу</th>
-              <th>Протокол</th>
-              <th>Дані</th>
-              <th>Вразливість 1</th>
-              <th>Вразливість 2</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>POST /api/auth/login</td>
-              <td>HTTPS</td>
-              <td>email, password</td>
-              <td>Brute-force (без rate limit)</td>
-              <td>Credential stuffing</td>
-            </tr>
-            <tr>
-              <td>POST /api/transfer</td>
-              <td>HTTPS</td>
-              <td>amount, recipient_id</td>
-              <td>IDOR (зміна recipient)</td>
-              <td>Race condition</td>
-            </tr>
-            <tr>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-            </tr>
-          </tbody>
-        </table>
+
+        <div class="tip-box">
+          <h3>Як знайти всі Entry Points</h3>
+          <ul>
+            <li>Пройдіться по кожному компоненту на вашій DFD-діаграмі та знайдіть усі стрілки, що <strong>входять</strong> у систему ззовні</li>
+            <li>Не забудьте про <strong>неочевидні входи</strong>: WebSocket-з'єднання, webhook-ендпоінти від Stripe/Veriff, файлові завантаження (KYC-документи)</li>
+            <li>Адмін-панель — це окрема точка входу з підвищеними привілеями</li>
+            <li>Для кожної точки входу подумайте: <em>«Що станеться, якщо сюди надіслати неочікувані дані?»</em></li>
+          </ul>
+        </div>
+
+        <div class="example-box">
+          <h3>Розширена таблиця точок входу</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Точка входу</th>
+                <th>Протокол</th>
+                <th>Дані</th>
+                <th>Доступ</th>
+                <th>Вразливість 1</th>
+                <th>Вразливість 2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>POST /api/auth/login</td>
+                <td>HTTPS</td>
+                <td>email, password</td>
+                <td>Публічний</td>
+                <td>Brute-force (без rate limit)</td>
+                <td>Credential stuffing</td>
+              </tr>
+              <tr>
+                <td>POST /api/auth/register</td>
+                <td>HTTPS</td>
+                <td>email, password, name, phone</td>
+                <td>Публічний</td>
+                <td>Mass registration (бот-акаунти)</td>
+                <td>Weak password accepted</td>
+              </tr>
+              <tr>
+                <td>POST /api/transfer</td>
+                <td>HTTPS</td>
+                <td>amount, recipient_id, note</td>
+                <td>Автентифікований</td>
+                <td>IDOR (зміна recipient_id)</td>
+                <td>Race condition (подвійне списання)</td>
+              </tr>
+              <tr>
+                <td>GET /api/transactions?search=</td>
+                <td>HTTPS</td>
+                <td>search query, date filters</td>
+                <td>Автентифікований</td>
+                <td>SQL Injection через search</td>
+                <td>IDOR — перегляд чужих транзакцій</td>
+              </tr>
+              <tr>
+                <td>POST /api/cards/add</td>
+                <td>HTTPS</td>
+                <td>card_number, expiry, cvv</td>
+                <td>Автентифікований</td>
+                <td>PAN у відкритому вигляді в логах</td>
+                <td>Відсутність 3DS верифікації</td>
+              </tr>
+              <tr>
+                <td>POST /api/kyc/verify</td>
+                <td>HTTPS</td>
+                <td>document scan (file upload)</td>
+                <td>Автентифікований</td>
+                <td>Malicious file upload (reverse shell)</td>
+                <td>SSRF через URL документа</td>
+              </tr>
+              <tr>
+                <td>WSS /ws/notifications</td>
+                <td>WebSocket</td>
+                <td>push notifications, balance updates</td>
+                <td>Автентифікований</td>
+                <td>Missing origin validation (CSWSH)</td>
+                <td>Token не перевіряється після з'єднання</td>
+              </tr>
+              <tr>
+                <td>POST /admin/api/users/block</td>
+                <td>HTTPS</td>
+                <td>user_id, reason</td>
+                <td>Адмін</td>
+                <td>Broken access control (оператор блокує адміна)</td>
+                <td>CSRF — автоматичне блокування через підроблене посилання</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="example-box">
+          <h3>Таблиця активів (що захищаємо)</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Актив</th>
+                <th>Опис</th>
+                <th>Класифікація</th>
+                <th>Де зберігається</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PAN (номер картки)</td>
+                <td>16-значний номер банківської картки клієнта</td>
+                <td>PCI DSS — найвищий рівень</td>
+                <td>Stripe Vault (токенізовано)</td>
+              </tr>
+              <tr>
+                <td>JWT-токени</td>
+                <td>Токени автентифікації та авторизації користувачів</td>
+                <td>Критичний</td>
+                <td>Redis (session store), клієнт (localStorage)</td>
+              </tr>
+              <tr>
+                <td>PII (персональні дані)</td>
+                <td>ПІБ, email, телефон, адреса, дата народження</td>
+                <td>GDPR — персональні дані</td>
+                <td>PostgreSQL (users table)</td>
+              </tr>
+              <tr>
+                <td>Баланси рахунків</td>
+                <td>Поточний баланс кожного користувача</td>
+                <td>Критичний — фінансовий</td>
+                <td>PostgreSQL (accounts table)</td>
+              </tr>
+              <tr>
+                <td>API-ключі партнерів</td>
+                <td>Ключі для Stripe, Veriff, Twilio</td>
+                <td>Критичний</td>
+                <td>Environment variables / Secrets Manager</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <h3>Завдання 3. Класифікація загроз за моделлю STRIDE (1 год)</h3>
         <p>Для кожного компонента системи визначте загрози за моделлю STRIDE. Заповніть матрицю загроз:</p>
@@ -217,7 +392,74 @@
           <li>Для кожного компонента визначте, які категорії STRIDE застосовні</li>
           <li>Для кожної загрози опишіть: конкретний сценарій атаки, потенційний вплив (Critical / High / Medium / Low), ймовірність реалізації</li>
         </ol>
-        <p><strong>Приклад:</strong></p>
+
+        <div class="tip-box">
+          <h3>Як застосовувати STRIDE</h3>
+          <p>Для кожного компонента задайте собі 6 питань:</p>
+          <ol>
+            <li><strong>S — Spoofing:</strong> Чи може зловмисник видати себе за цей компонент або за легітимного користувача?</li>
+            <li><strong>T — Tampering:</strong> Чи може хтось змінити дані, які проходять через цей компонент?</li>
+            <li><strong>R — Repudiation:</strong> Чи може користувач заперечити виконання дії? Чи є достатнє логування?</li>
+            <li><strong>I — Info Disclosure:</strong> Чи може компонент випадково розкрити конфіденційні дані?</li>
+            <li><strong>D — DoS:</strong> Чи можна перевантажити або вимкнути цей компонент?</li>
+            <li><strong>E — Elevation:</strong> Чи може звичайний користувач отримати привілеї адміна через цей компонент?</li>
+          </ol>
+        </div>
+
+        <div class="example-box">
+          <h3>Повний STRIDE-аналіз для API Gateway (зразок)</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>STRIDE</th>
+                <th>Сценарій атаки</th>
+                <th>Вплив</th>
+                <th>Ймовірність</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Spoofing</strong></td>
+                <td>Зловмисник крафтить JWT з вкраденим secret key або використовує алгоритм «none»</td>
+                <td>Critical</td>
+                <td>Medium</td>
+              </tr>
+              <tr>
+                <td><strong>Tampering</strong></td>
+                <td>Man-in-the-Middle модифікує HTTP-запит між клієнтом і Gateway (якщо TLS misconfigured)</td>
+                <td>High</td>
+                <td>Low</td>
+              </tr>
+              <tr>
+                <td><strong>Repudiation</strong></td>
+                <td>Gateway не логує IP-адресу та User-Agent, неможливо відстежити джерело шкідливих запитів</td>
+                <td>Medium</td>
+                <td>High</td>
+              </tr>
+              <tr>
+                <td><strong>Info Disclosure</strong></td>
+                <td>Verbose error messages розкривають внутрішню структуру сервісів (stack trace, internal URLs)</td>
+                <td>Medium</td>
+                <td>High</td>
+              </tr>
+              <tr>
+                <td><strong>DoS</strong></td>
+                <td>DDoS-атака на єдину точку входу; відсутність rate limiting дозволяє перевантажити backend</td>
+                <td>Critical</td>
+                <td>High</td>
+              </tr>
+              <tr>
+                <td><strong>Elevation</strong></td>
+                <td>Некоректна перевірка ролей: маніпуляція полем «role» в JWT payload дає доступ до /admin/*</td>
+                <td>Critical</td>
+                <td>Medium</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">Зробіть аналогічний аналіз для решти 4 компонентів. Не обов'язково всі 6 категорій будуть застосовні до кожного компонента.</p>
+        </div>
+
+        <p><strong>Розширений приклад матриці загроз:</strong></p>
         <table>
           <thead>
             <tr>
@@ -235,10 +477,34 @@
               <td>Critical</td>
             </tr>
             <tr>
+              <td>API Gateway</td>
+              <td>DoS</td>
+              <td>DDoS на єдину точку входу, каскадна відмова backend-сервісів</td>
+              <td>Critical</td>
+            </tr>
+            <tr>
+              <td>Auth Service</td>
+              <td>Spoofing</td>
+              <td>Credential stuffing з використанням витоків паролів з інших сервісів</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>Auth Service</td>
+              <td>Elevation</td>
+              <td>Маніпуляція параметром role при реєстрації: POST з «role: admin»</td>
+              <td>Critical</td>
+            </tr>
+            <tr>
               <td>Payment Service</td>
               <td>Tampering</td>
               <td>Зміна суми транзакції між API Gateway та Payment Service</td>
               <td>Critical</td>
+            </tr>
+            <tr>
+              <td>Payment Service</td>
+              <td>Repudiation</td>
+              <td>Користувач заперечує транзакцію, логи не містять достатньо деталей</td>
+              <td>High</td>
             </tr>
             <tr>
               <td>Transaction DB</td>
@@ -247,10 +513,16 @@
               <td>High</td>
             </tr>
             <tr>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
+              <td>Transaction DB</td>
+              <td>Tampering</td>
+              <td>Пряме підключення до БД в обхід сервісу, зміна балансів</td>
+              <td>Critical</td>
+            </tr>
+            <tr>
+              <td>Redis (Session Store)</td>
+              <td>Spoofing</td>
+              <td>Доступ до Redis без автентифікації, викрадення сесійних токенів</td>
+              <td>Critical</td>
             </tr>
           </tbody>
         </table>
@@ -264,7 +536,115 @@
           <li><strong>Моніторинг та виявлення:</strong> централізоване логування (ELK/Splunk), SIEM-правила, алерти на аномалії</li>
         </ol>
         <p>Для кожного рішення вкажіть: до якої загрози воно застосовується, конкретну технологію або підхід, та пріоритет впровадження.</p>
+
+        <div class="example-box">
+          <h3>Зразок таблиці рекомендацій</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Загроза (з Завд. 3)</th>
+                <th>Рівень захисту</th>
+                <th>Рішення</th>
+                <th>Технологія</th>
+                <th>Пріоритет</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Spoofing — підроблений JWT</td>
+                <td>Додаток</td>
+                <td>Асиметричні ключі RS256, ротація ключів кожні 90 днів</td>
+                <td>jose / jsonwebtoken + AWS KMS</td>
+                <td style="text-align:center">Critical</td>
+              </tr>
+              <tr>
+                <td>Tampering — зміна суми транзакції</td>
+                <td>Додаток</td>
+                <td>HMAC-підпис кожного запиту між сервісами, перевірка цілісності</td>
+                <td>mTLS + HMAC-SHA256</td>
+                <td style="text-align:center">Critical</td>
+              </tr>
+              <tr>
+                <td>Info Disclosure — SQL-ін'єкція</td>
+                <td>Додаток</td>
+                <td>Параметризовані запити, ORM, WAF-правила</td>
+                <td>Prisma ORM + AWS WAF</td>
+                <td style="text-align:center">Critical</td>
+              </tr>
+              <tr>
+                <td>DoS — DDoS на API Gateway</td>
+                <td>Мережа</td>
+                <td>CDN з DDoS-захистом, rate limiting, geo-blocking</td>
+                <td>Cloudflare / AWS Shield</td>
+                <td style="text-align:center">High</td>
+              </tr>
+              <tr>
+                <td>Spoofing — brute-force логіну</td>
+                <td>Додаток</td>
+                <td>Rate limiting 5 спроб/хв, CAPTCHA після 3-ї, account lockout</td>
+                <td>express-rate-limit + hCaptcha</td>
+                <td style="text-align:center">High</td>
+              </tr>
+              <tr>
+                <td>Elevation — IDOR на ендпоінтах</td>
+                <td>Додаток</td>
+                <td>Перевірка ownership для кожного запиту, RBAC middleware</td>
+                <td>CASL / casbin</td>
+                <td style="text-align:center">High</td>
+              </tr>
+              <tr>
+                <td>Info Disclosure — витік PAN</td>
+                <td>Дані</td>
+                <td>Токенізація карткових даних, PCI DSS Scope Reduction</td>
+                <td>Stripe Tokenization / Vault</td>
+                <td style="text-align:center">Critical</td>
+              </tr>
+              <tr>
+                <td>Repudiation — відсутність аудиту</td>
+                <td>Моніторинг</td>
+                <td>Immutable audit log для всіх фінансових операцій</td>
+                <td>ELK Stack + tamper-proof S3</td>
+                <td style="text-align:center">Medium</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tip-box">
+          <h3>Як пов'язати загрози з контролями</h3>
+          <ul>
+            <li>Кожна загроза з Завдання 3 повинна мати хоча б один захисний захід у цій таблиці</li>
+            <li>Один захід може покривати декілька загроз — вказуйте це явно</li>
+            <li>Пріоритет визначайте за формулою: <strong>Вплив × Ймовірність</strong> — Critical загрози з високою ймовірністю = Critical пріоритет</li>
+            <li>Вказуйте конкретні технології, а не загальні фрази («використовувати WAF» → «AWS WAF з правилами OWASP Core Rule Set»)</li>
+          </ul>
+        </div>
+
         <p><strong>Результат:</strong> таблиця рекомендацій із прив'язкою до загроз із Завдання 3.</p>
+      </section>
+
+      <!-- Приклад оформлення роботи -->
+      <section>
+        <h2>Приклад оформлення роботи</h2>
+        <p>Рекомендована структура вашого звіту:</p>
+        <ol>
+          <li><strong>Титульна сторінка</strong> — назва роботи, ПІБ, група, дата</li>
+          <li><strong>Вступ</strong> — мета роботи, короткий опис PaySafe (3-5 речень)</li>
+          <li><strong>Розділ 1. Діаграма архітектури</strong> — DFD Level 1 (вставлене зображення) + текстовий опис кожного компонента</li>
+          <li><strong>Розділ 2. Точки входу та активи</strong> — таблиця entry points + таблиця активів</li>
+          <li><strong>Розділ 3. STRIDE-аналіз</strong> — матриця загроз із конкретними сценаріями</li>
+          <li><strong>Розділ 4. Рекомендації</strong> — таблиця захисних заходів із прив'язкою до загроз</li>
+        </ol>
+
+        <div class="tip-box">
+          <h3>Поради щодо оформлення</h3>
+          <ul>
+            <li><strong>Діаграма:</strong> експортуйте у PNG з роздільною здатністю не менше 150 DPI (в draw.io: File → Export as → PNG, Scale 200%)</li>
+            <li><strong>Кольорове кодування:</strong> використовуйте червоний для Critical, помаранчевий для High, жовтий для Medium, зелений для Low — це полегшує візуальний аналіз</li>
+            <li><strong>Обсяг звіту:</strong> оптимально 8-12 сторінок (без титульної). Більше — не значить краще, цінується конкретика</li>
+            <li><strong>Таблиці:</strong> обов'язково нумеруйте таблиці та діаграми (Таблиця 1, Рисунок 1) для зручності посилань</li>
+          </ul>
+        </div>
       </section>
 
       <!-- Критерії оцінювання -->
