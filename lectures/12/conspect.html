@@ -54,8 +54,10 @@
         <span class="badge badge-new">Конспект</span>
       </div>
 
+      <div class="konspekt-layout">
+      <div class="konspekt-text">
       <section>
-        <h2>12.1 Фреймворк реагування на інциденти (Incident Response Framework)</h2>
+        <h2 id="section-12-1">12.1 Фреймворк реагування на інциденти (Incident Response Framework)</h2>
         <p>Реагування на інциденти (Incident Response, IR) — це структурований процес виявлення, аналізу, стримування та усунення кіберінцидентів. Для фінансових установ ефективний IR є критичним: середня вартість витоку даних у фінансовому секторі становить $5.9 млн (IBM Cost of a Data Breach 2024), а час виявлення (Mean Time to Detect, MTTD) — в середньому 204 дні.</p>
         <p><strong>NIST SP 800-61 — чотири фази реагування на інциденти (Incident Response):</strong></p>
         <ol>
@@ -197,7 +199,7 @@
       </section>
 
       <section>
-        <h2>12.2 Збір цифрових доказів</h2>
+        <h2 id="section-12-2">12.2 Збір цифрових доказів</h2>
         <p>Цифрова форензика (Digital Forensics) — це процес збору, збереження, аналізу та представлення цифрових доказів у спосіб, що забезпечує їх допустимість у суді. Ключовий принцип: доказ повинен бути автентичним, цілісним та отриманим законним шляхом.</p>
         <p><strong>Ланцюжок зберігання доказів (Chain of Custody):</strong></p>
         <ul>
@@ -455,7 +457,7 @@ $ sha256sum /mnt/usb/memory_dump.lime</code></pre>
       </section>
 
       <section>
-        <h2>12.3 Аналіз інцидентів</h2>
+        <h2 id="section-12-3">12.3 Аналіз інцидентів</h2>
         <p>Після збору доказів проводиться їх аналіз для відповіді на ключові питання: що сталося? Як зловмисник отримав доступ? Які дані скомпрометовано? Хто стоїть за атакою?</p>
         <p><strong>Аналіз шкідливого ПЗ (Malware Analysis):</strong></p>
         <ul>
@@ -750,7 +752,7 @@ kerberos.cipher_type == 23   # RC4 (downgrade attack indicator)
       </section>
 
       <section>
-        <h2>12.4 Побудова CSIRT та пост-інцидентна діяльність</h2>
+        <h2 id="section-12-4">12.4 Побудова CSIRT та пост-інцидентна діяльність</h2>
         <p>CSIRT (Computer Security Incident Response Team) — спеціалізована команда для реагування на кіберінциденти. Для фінансових установ наявність CSIRT є де-факто вимогою регуляторів.</p>
         <p><strong>Структура CSIRT:</strong></p>
         <ul>
@@ -988,11 +990,25 @@ kerberos.cipher_type == 23   # RC4 (downgrade attack indicator)
       </section>
 
       <section>
-        <h2>Підсумок</h2>
+        <h2 id="section-summary">Підсумок</h2>
         <p>Ефективне реагування на кіберінциденти вимагає підготовки: CSIRT-команда, playbooks, інструменти та регулярні тренування. Збір цифрових доказів повинен дотримуватися chain of custody та order of volatility для забезпечення допустимості у суді.</p>
         <p>Аналіз інцидентів включає malware analysis, network forensics та log correlation з використанням MITRE ATT&CK для класифікації. Post-incident lessons learned та кіберстрахування завершують цикл реагування, а regulatory reporting є обов'язковим для фінансових установ.</p>
         <p><strong>У наступній лекції</strong> ми розглянемо кібергігієну та захист кінцевого користувача: управління паролями, захист персональних даних, безпеку пристроїв та фінансову безпеку онлайн.</p>
       </section>
+      </div>
+      <aside class="konspekt-sidebar">
+        <div class="section-nav">
+          <h4>Зміст</h4>
+          <ul>
+            <li><a href="#section-12-1">12.1 Incident Response</a></li>
+            <li><a href="#section-12-2">12.2 Цифрові докази</a></li>
+            <li><a href="#section-12-3">12.3 Аналіз інцидентів</a></li>
+            <li><a href="#section-12-4">12.4 CSIRT</a></li>
+            <li><a href="#section-summary">Підсумок</a></li>
+          </ul>
+        </div>
+      </aside>
+      </div>
     </article>
 
     <div class="lecture-nav-bottom">
@@ -1003,5 +1019,31 @@ kerberos.cipher_type == 23   # RC4 (downgrade attack indicator)
   </main>
 
   <script src="../../js/main.js"></script>
+  <script>
+  (function() {
+    var navLinks = document.querySelectorAll('.section-nav a');
+    if (!navLinks.length) return;
+    var targets = [];
+    navLinks.forEach(function(link) {
+      var el = document.querySelector(link.getAttribute('href'));
+      if (el) targets.push(el);
+    });
+
+    window.addEventListener('scroll', function() {
+      var current = '';
+      targets.forEach(function(el) {
+        if (scrollY >= el.offsetTop - 200) {
+          current = el.getAttribute('id');
+        }
+      });
+      navLinks.forEach(function(link) {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  })();
+  </script>
 </body>
 </html>

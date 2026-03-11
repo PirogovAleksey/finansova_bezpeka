@@ -313,7 +313,128 @@
       </div>
     </section>
 
-    <!-- 12. Підсумок -->
+    <!-- 12. Як працює SQLi: AST -->
+    <section class="slide">
+      <h1>Як працює SQLi: синтаксичне дерево (AST)</h1>
+      <h2>Чому конкатенація робить ін'єкцію можливою</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">SQL-парсер</div>
+          <div class="step-desc">Розбирає текст на токени (ключові слова, значення, оператори)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Побудова AST</div>
+          <div class="step-desc">Будує синтаксичне дерево (AST) — структуру запиту</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Конкатенація</div>
+          <div class="step-desc">Дані користувача потрапляють у текст ДО парсингу → змінюють AST</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Модифікація</div>
+          <div class="step-desc">Зловмисник модифікує структуру запиту: додає UNION, OR, підзапити</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Фундаментальна причина SQLi: дані впливають на структуру коду ще до етапу синтаксичного аналізу.</p>
+      </div>
+    </section>
+
+    <!-- 13. Концепція межі довіри -->
+    <section class="slide">
+      <h1>Концепція межі довіри (Trust Boundary)</h1>
+      <h2>Архітектурний погляд на ін'єкції</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">⚠️</span>
+          <div class="card-title">Ненадійне середовище</div>
+          <div class="card-text">Вхідні дані користувача, HTTP-запити, форми, cookies, URL-параметри — все потенційно зловмисне</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🚧</span>
+          <div class="card-title">Межа довіри</div>
+          <div class="card-text">Валідація, параметризація, санітизація — роль «воротаря» між зовнішнім світом та критичними системами</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🔒</span>
+          <div class="card-title">Критичне середовище</div>
+          <div class="card-text">База даних, файлова система, внутрішні сервіси — тут зберігаються фінансові дані та ключі</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>SQLi = порушення межі довіри. Той самий патерн — у Command Injection, SSRF, XXE, SSTI.</p>
+      </div>
+    </section>
+
+    <!-- 14. Чому параметризація працює -->
+    <section class="slide">
+      <h1>Чому параметризація працює</h1>
+      <h2>Конкатенація vs Параметризація: фундаментальна різниця</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">❌</span>
+            <div class="card-title">Конкатенація</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Один етап: текст → парсер → AST<br>
+              Дані = код (нерозрізнені)<br>
+              Структура запиту змінюється<br>
+              Зловмисник контролює логіку<br>
+              <strong>Ін'єкція можлива</strong>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">✅</span>
+            <div class="card-title">Параметризація</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Два етапи:<br>
+              1) Шаблон → парсер → AST (зафіксовано)<br>
+              2) Дані підставляються у готовий план<br>
+              Структура незмінна<br>
+              <strong>Ін'єкція неможлива</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Двоетапний механізм «спочатку код, потім дані» робить ін'єкцію фундаментально неможливою.</p>
+      </div>
+    </section>
+
+    <!-- 15. SQLi: масштаб загрози у фінтех -->
+    <section class="slide">
+      <h1>SQLi: масштаб загрози у фінтех</h1>
+      <h2>Чому це загроза першого порядку для фінансового сектору</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>Verizon DBIR:</strong> ~25% інцидентів у фінансовій галузі — атаки на веб-додатки з SQLi</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📋</span>
+          <span class="il-text"><strong>PCI DSS 6.5.1:</strong> обов'язковий захист від ін'єкцій для обробки карткових даних</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🤖</span>
+          <span class="il-text"><strong>sqlmap:</strong> автоматизація експлуатації — мінімальна кваліфікація зловмисника</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚖️</span>
+          <span class="il-text"><strong>GDPR + ЗУ «Про захист персональних даних»:</strong> штрафи за витік фінансових та персональних даних</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Поєднання поширеності, катастрофічних наслідків та низького порогу входу = загроза першого порядку.</p>
+      </div>
+    </section>
+
+    <!-- 16. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

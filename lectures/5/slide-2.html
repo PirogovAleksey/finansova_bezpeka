@@ -324,7 +324,129 @@
       </div>
     </section>
 
-    <!-- 12. Підсумок -->
+    <!-- 12. Command Injection vs SQL-ін'єкція -->
+    <section class="slide">
+      <h1>Command Injection vs SQL-ін'єкція</h1>
+      <h2>Порівняння масштабу загрози</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">🗄️</span>
+            <div class="card-title">SQL-ін'єкція</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Обмежена межами СУБД<br>
+              Читання / зміна / видалення записів<br>
+              Не виходить за рамки бази даних
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">💻</span>
+            <div class="card-title">Command Injection</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Доступ до всієї ОС<br>
+              Файлова система, мережа, процеси<br>
+              Повна компрометація сервера
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Одна вразливість Command Injection у PDF-генераторі = точка входу для компрометації всієї банківської інфраструктури.</p>
+      </div>
+    </section>
+
+    <!-- 13. SSRF у хмарних архітектурах -->
+    <section class="slide">
+      <h1>SSRF у хмарних архітектурах</h1>
+      <h2>Різний масштаб загрози залежно від середовища</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🏢</span>
+          <div class="card-title">On-premise</div>
+          <div class="card-text">Внутрішні сервіси мають автентифікацію, додаткові бар'єри після проникнення</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">☁️</span>
+          <div class="card-title">Cloud (AWS/Azure/GCP)</div>
+          <div class="card-text">Metadata services без автентифікації, credentials за HTTP-запитом</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🐳</span>
+          <div class="card-title">Kubernetes / Service Mesh</div>
+          <div class="card-text">Внутрішній DNS, service discovery, доступ до мікросервісів за іменами</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">⚠️</span>
+          <div class="card-title">Наслідки</div>
+          <div class="card-text">SSRF = еквівалент мережевого зламу, доступ до інфраструктурних облікових записів</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>У хмарній архітектурі SSRF надає доступ не лише до даних, а й до інфраструктурних credentials.</p>
+      </div>
+    </section>
+
+    <!-- 14. XXE у банківських конвеєрах -->
+    <section class="slide">
+      <h1>XXE у банківських конвеєрах</h1>
+      <h2>Чому фінансовий сектор особливо вразливий</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📨</span>
+          <span class="il-text"><strong>SWIFT-повідомлення</strong> — мільйони XML-документів щоденно</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📋</span>
+          <span class="il-text"><strong>Регуляторні звіти</strong> — НБУ, ISO 20022</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚙️</span>
+          <span class="il-text"><strong>Застарілі парсери</strong> — DTD увімкнено за замовчуванням</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚠️</span>
+          <span class="il-text"><strong>Дилема безпеки</strong> — вимкнення DTD може порушити легітимну функціональність</span>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>Міграція на безпечні конфігурації у фінансових системах потребує поетапного впровадження та ретельного тестування.</p>
+      </div>
+    </section>
+
+    <!-- 15. Спільний принцип: порушення довіри -->
+    <section class="slide">
+      <h1>Спільний принцип: порушення довіри</h1>
+      <h2>Усі серверні ін'єкції мають одну першопричину</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">💻</span>
+          <div class="card-title">Command Injection</div>
+          <div class="card-text">Довіра до даних у командній оболонці</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🌐</span>
+          <div class="card-title">SSRF</div>
+          <div class="card-text">Довіра до URL-адрес для HTTP-запитів</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">📄</span>
+          <div class="card-title">XXE</div>
+          <div class="card-text">Довіра до структури XML-документа</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📝</span>
+          <div class="card-title">SSTI</div>
+          <div class="card-text">Довіра до вмісту шаблону</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Єдиний принцип: сервер НЕ повинен довіряти даним користувача у жодному контексті виконання.</p>
+      </div>
+    </section>
+
+    <!-- 16. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

@@ -114,6 +114,118 @@
     </section>
 
     <section class="slide">
+      <h1>VM як compliance-функція</h1>
+      <h2>Регуляторні вимоги PCI DSS</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📋</span>
+          <span class="il-text"><strong>Req 6.1</strong> — ідентифікація вразливостей безпеки у всіх системах в PCI DSS scope</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔧</span>
+          <span class="il-text"><strong>Req 6.2</strong> — своєчасне встановлення критичних патчів (протягом 30 днів)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔍</span>
+          <span class="il-text"><strong>Req 11.2</strong> — щоквартальне сканування на вразливості (ASV-сканування)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Req 11.3</strong> — щорічний тест на проникнення (пентест)</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Штрафи за невідповідність PCI DSS — до $100 000/місяць. Equifax 2017: невиправлена вразливість → 147 млн скомпрометованих записів.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Обмеження CVSS + EPSS</h1>
+      <h2>Чому CVSS недостатній для пріоритизації</h2>
+      <div class="card-grid">
+        <div class="card accent-orange">
+          <span class="card-icon">⚠️</span>
+          <div class="card-title">Проблема CVSS</div>
+          <div class="card-text">IDOR (CVSS 6.5) у публічному API банку може бути небезпечнішим за RCE (CVSS 9.8) в ізольованій системі</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📈</span>
+          <div class="card-title">EPSS</div>
+          <div class="card-text">Exploit Prediction Scoring System — оцінює ймовірність реальної експлуатації вразливості (0-100%)</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🏦</span>
+          <div class="card-title">Критичність активу</div>
+          <div class="card-text">Tier-1: платіжні системи. Tier-2: внутрішні інструменти. Контекст визначає реальний ризик</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🧠</span>
+          <div class="card-title">Threat Intelligence</div>
+          <div class="card-text">Чи існує відомий експлойт? Чи активно використовується? Інтеграція з CTI-фідами</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Формула пріоритизації: CVSS + EPSS + критичність активу + threat intelligence = ризик-орієнтований підхід.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Компенсуючі контролі для legacy-систем</h1>
+      <h2>Коли патчинг неможливий</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Virtual patching (WAF)</strong> — блокування відомих шаблонів експлуатації без зміни коду</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔒</span>
+          <span class="il-text"><strong>Мережева сегментація</strong> — ізоляція вразливих систем (COBOL-ядро, legacy без вихідного коду)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📡</span>
+          <span class="il-text"><strong>Посилений моніторинг (IDS/IPS)</strong> — виявлення спроб експлуатації в реальному часі</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔑</span>
+          <span class="il-text"><strong>Додаткова автентифікація</strong> — MFA, обмеження доступу до вразливих компонентів</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>PCI DSS дозволяє compensating controls за умови документування, щорічного перегляду та еквівалентного рівня безпеки. Це тимчасовий захід — плануйте модернізацію.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Метрики для правління</h1>
+      <h2>Комунікація ризиків різним аудиторіям</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">👨‍💻</span>
+          <div class="card-title">Технічна команда</div>
+          <div class="card-text">MTTR за серйозністю, кількість відкритих вразливостей, SLA compliance %, тренди</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">👔</span>
+          <div class="card-title">Board / Правління</div>
+          <div class="card-text">«3 критичні вразливості у платіжних системах → ризик компрометації 2 млн записів» замість «3 CVE з CVSS 9.8»</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">📊</span>
+          <div class="card-title">Регулятори (НБУ, PCI QSA)</div>
+          <div class="card-text">Частота сканувань, терміни ремедіації, обґрунтування виключень, compliance-звітність</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🔧</span>
+          <div class="card-title">Інструменти</div>
+          <div class="card-text">DefectDojo, Jira Security — єдине джерело достовірної інформації, звіти для кожної аудиторії</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Risk exposure trend — ключовий індикатор: чи зменшується загальний ризик з часом? Бізнес-мова > технічний жаргон.</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <h1>SLA для фінансового сектору</h1>
       <div class="card-grid">
         <div class="card accent-purple">

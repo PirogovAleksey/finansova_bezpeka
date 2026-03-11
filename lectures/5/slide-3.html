@@ -328,7 +328,195 @@
       </div>
     </section>
 
-    <!-- 12. Підсумок -->
+    <!-- 12. Управління ключами -->
+    <section class="slide">
+      <h1>Управління ключами (Key Management)</h1>
+      <h2>Зберігання та життєвий цикл криптографічних ключів</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">⚠️</span>
+          <div class="card-title">Проблема</div>
+          <div class="card-text">Ключ поруч із даними = шифрування безсенсовне</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🔧</span>
+          <div class="card-title">HSM</div>
+          <div class="card-text">Апаратні модулі безпеки, ключі недоступні навіть адміністраторам</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">☁️</span>
+          <div class="card-title">KMS</div>
+          <div class="card-text">HashiCorp Vault, AWS KMS — централізований контроль життєвого циклу ключів</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔄</span>
+          <div class="card-title">Ротація</div>
+          <div class="card-text">Періодична заміна ключів за затвердженою політикою</div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>Надійність шифрування = надійність зберігання ключів. HSM або KMS — обов'язково для фінтех.</p>
+      </div>
+    </section>
+
+    <!-- 13. Обмеження TDE -->
+    <section class="slide">
+      <h1>Обмеження TDE</h1>
+      <h2>Transparent Data Encryption — не панацея</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">✅</span>
+            <div class="card-title">Захищає від</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Крадіжка фізичних носіїв<br>
+              Несанкціоноване копіювання файлів БД<br>
+              Доступ на рівні ОС до файлів
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">❌</span>
+            <div class="card-title">НЕ захищає від</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Привілейовані користувачі з SELECT<br>
+              Дані в оперативній пам'яті<br>
+              Перехоплення при передачі мережею
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>TDE обов'язково доповнювати: TLS (in transit) + column-level encryption (від інсайдерів).</p>
+      </div>
+    </section>
+
+    <!-- 14. Privilege Creep та JIT-доступ -->
+    <section class="slide">
+      <h1>Privilege Creep та JIT-доступ</h1>
+      <h2>Накопичення непотрібних привілеїв та протидія</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Накопичення</div>
+          <div class="step-desc">Зміна посад, тимчасові проєкти — старі привілеї не відкликаються</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Ревізія</div>
+          <div class="step-desc">Щоквартальні перевірки доступу керівниками підрозділів</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Деактивація</div>
+          <div class="step-desc">Автоматичне скасування прав при переході до іншого відділу</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">JIT-доступ</div>
+          <div class="step-desc">Підвищені привілеї лише на час виконання конкретного завдання</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Just-In-Time доступ: привілеї надаються на визначений час і автоматично скасовуються.</p>
+      </div>
+    </section>
+
+    <!-- 15. Інсайдерські загрози та UEBA -->
+    <section class="slide">
+      <h1>Інсайдерські загрози та UEBA</h1>
+      <h2>Сценарії внутрішніх загроз та поведінкова аналітика</h2>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">💼</span>
+          <div class="card-title">DBA перед звільненням</div>
+          <div class="card-text">Копіювання клієнтських даних</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🚪</span>
+          <div class="card-title">Бекдор у БД</div>
+          <div class="card-text">Розробник створює прихований обліковий запис</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">👁️</span>
+          <div class="card-title">Перегляд рахунків VIP</div>
+          <div class="card-text">Неавторизовані запити оператора</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📈</span>
+          <div class="card-title">UEBA</div>
+          <div class="card-text">Поведінкова аналітика: базові лінії + сповіщення при відхиленнях</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>DAM + UEBA: система формує профіль типових запитів і генерує сповіщення при статистично значущих відхиленнях.</p>
+      </div>
+    </section>
+
+    <!-- 16. RPO та RTO -->
+    <section class="slide">
+      <h1>RPO та RTO для фінансових систем</h1>
+      <h2>Ключові метрики відновлення після збою</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">📍</span>
+            <div class="card-title">RPO (Recovery Point Objective)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Максимально допустимий обсяг втрачених даних (у часі)<br>
+              Банки: хвилини
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">⏱️</span>
+            <div class="card-title">RTO (Recovery Time Objective)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Максимально допустимий час відновлення після збою<br>
+              Банки: години
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>Баланс між безпекою backup (шифрування, контроль) та оперативністю відновлення. DR drills — обов'язкові.</p>
+      </div>
+    </section>
+
+    <!-- 17. Захист аудит-логів -->
+    <section class="slide">
+      <h1>Захист аудит-логів</h1>
+      <h2>Забезпечення незмінності журналів аудиту</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🎯</span>
+          <span class="il-text"><strong>Мішень зловмисника:</strong> модифікація/видалення логів для приховування слідів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📤</span>
+          <span class="il-text"><strong>Потокова передача:</strong> в реальному часі до окремого сховища</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔒</span>
+          <span class="il-text"><strong>WORM-сховище:</strong> Write Once Read Many, незмінність записів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>SIEM:</strong> Splunk, Elastic SIEM, IBM QRadar</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⏰</span>
+          <span class="il-text"><strong>Термін зберігання:</strong> 3-5 років для фінансових установ в Україні</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Навіть при повній компрометації сервера БД аудит-журнали залишаються незмінними.</p>
+      </div>
+    </section>
+
+    <!-- 18. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

@@ -323,7 +323,129 @@
       </div>
     </section>
 
-    <!-- 12. Підсумок -->
+    <!-- 12. DevSecOps -->
+    <section class="slide">
+      <h1>DevSecOps: безпека у CI/CD</h1>
+      <h2>Інтеграція безпеки в конвеєр розробки</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">🔬</span>
+          <div class="card-title">SAST</div>
+          <div class="card-text">Static Application Security Testing — сканування вихідного коду на патерни SQLi ще при написанні</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🎯</span>
+          <div class="card-title">DAST</div>
+          <div class="card-text">Dynamic Application Security Testing — тестування працюючих додатків на реальні вразливості</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">📦</span>
+          <div class="card-title">SCA</div>
+          <div class="card-text">Software Composition Analysis — перевірка сторонніх бібліотек на відомі вразливості</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">⬅️</span>
+          <div class="card-title">Shift-Left</div>
+          <div class="card-text">Виявлення вразливостей до production, зменшення вартості виправлення</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>DevSecOps: безпека інтегрована в кожен етап розробки, а не додається наприкінці.</p>
+      </div>
+    </section>
+
+    <!-- 13. Code Review -->
+    <section class="slide">
+      <h1>Code Review для безпеки</h1>
+      <h2>Ревізія коду як засіб запобігання вразливостям</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔍</span>
+          <span class="il-text"><strong>Обов'язкова ревізія</strong> — кожен код, що взаємодіє з БД, проходить code review</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🤖</span>
+          <span class="il-text"><strong>Автоматизація</strong> — виявляє очевидні патерни (конкатенація рядків, інтерполяція в SQL)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">👤</span>
+          <span class="il-text"><strong>Людський рецензент</strong> — логічні помилки, бізнес-вразливості, second-order SQLi</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">👥</span>
+          <span class="il-text"><strong>Два незалежні рецензенти</strong> — обов'язково для коду обробки платежів</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Автоматизація + людська ревізія = комплементарний підхід до безпеки коду.</p>
+      </div>
+    </section>
+
+    <!-- 14. WAF режими -->
+    <section class="slide">
+      <h1>WAF: режими роботи</h1>
+      <h2>Inline vs Monitoring — два підходи до впровадження</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">🛑</span>
+            <div class="card-title">Inline (блокування)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Підозрілі запити негайно відхиляються<br>
+              Активний захист у реальному часі<br>
+              Ризик false positives — блокування легітимного трафіку
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">👁️</span>
+            <div class="card-title">Monitoring (спостереження)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Запити фіксуються в журналах без блокування<br>
+              Аналіз перед активацією правил<br>
+              Безпечний старт для нових правил
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box warning" style="margin-top: 1.2rem;">
+        <p>False positives: SWIFT-повідомлення з SQL-подібним синтаксисом може бути заблоковане. Нові правила запускати в monitoring на тижні.</p>
+      </div>
+    </section>
+
+    <!-- 15. Configuration Drift -->
+    <section class="slide">
+      <h1>Configuration Drift</h1>
+      <h2>Дрейф конфігурації — прихована загроза безпеці БД</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Безпечний стан</div>
+          <div class="step-desc">Hardening за CIS Benchmarks — початкова захищена конфігурація</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Дрейф</div>
+          <div class="step-desc">Оновлення СУБД, екстрені зміни, тимчасові послаблення безпеки</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Накопичення</div>
+          <div class="step-desc">Відхилення від безпечних налаштувань з часом стають критичними</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Compliance Scanning</div>
+          <div class="step-desc">OpenSCAP, Qualys, AWS Config — безперервний моніторинг відповідності</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Зміцнення БД — не одноразовий захід, а безперервний процес. Автоматичне сканування відповідності — обов'язково.</p>
+      </div>
+    </section>
+
+    <!-- 16. Підсумок -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>

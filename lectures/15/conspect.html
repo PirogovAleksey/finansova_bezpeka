@@ -34,8 +34,10 @@
       <h1>Національна стратегія фінансової кібербезпеки</h1>
       <div class="lecture-info"><span>⏱ 2 год</span><span class="badge badge-new">Конспект</span></div>
 
+      <div class="konspekt-layout">
+      <div class="konspekt-text">
       <section>
-        <h2>15.1 НБУ та CERT-UA: захист фінансового сектору</h2>
+        <h2 id="section-15-1">15.1 НБУ та CERT-UA: захист фінансового сектору</h2>
         <p>Захист фінансового сектору є частиною національної кібербезпеки України. Координація між регуляторами, спецслужбами та фінансовими установами забезпечує системний підхід до захисту критичної фінансової інфраструктури.</p>
         <p><strong>Національний банк України (НБУ):</strong></p>
         <ul>
@@ -243,7 +245,7 @@
       </section>
 
       <section>
-        <h2>15.2 Міжнародні стандарти та директиви</h2>
+        <h2 id="section-15-2">15.2 Міжнародні стандарти та директиви</h2>
         <p>Україна, рухаючись до євроінтеграції, адаптує своє законодавство до європейських стандартів кібербезпеки. Ключові директиви та фреймворки:</p>
         <p><strong>Директива NIS2 (Network and Information Security):</strong></p>
         <ul>
@@ -458,7 +460,7 @@
       </section>
 
       <section>
-        <h2>15.3 Кібербезпека в умовах війни</h2>
+        <h2 id="section-15-3">15.3 Кібербезпека в умовах війни</h2>
         <p>Повномасштабне вторгнення росії в Україну з 24 лютого 2022 року супроводжується безпрецедентною кібервійною. Фінансовий сектор є одним із пріоритетних цілей кібератак.</p>
         <p><strong>Атаки на фінансову інфраструктуру:</strong></p>
         <ul>
@@ -711,7 +713,7 @@
       </section>
 
       <section>
-        <h2>15.4 Стратегічні пріоритети</h2>
+        <h2 id="section-15-4">15.4 Стратегічні пріоритети</h2>
         <p>Стратегія кібербезпеки України визначає ключові напрямки розвитку, що безпосередньо стосуються фінансового сектору:</p>
         <p><strong>Кадри та освіта:</strong></p>
         <ul>
@@ -983,16 +985,56 @@
       </section>
 
       <section>
-        <h2>Підсумок</h2>
+        <h2 id="section-summary">Підсумок</h2>
         <p>Фінансова кібербезпека є невід'ємною частиною національної безпеки України. НБУ, CERT-UA та кіберполіція забезпечують регулювання, координацію та розслідування. Міжнародні стандарти (директива NIS2, регламент DORA, програма SWIFT CSP) формують вимоги до кібербезпеки фінансового сектору.</p>
         <p>Україна набула унікального досвіду кібервійни, що підтвердив важливість хмарної стійкості (Cloud Resilience), міжвідомчої координації та міжнародної співпраці. Стратегічні пріоритети включають підготовку кадрів, впровадження штучного інтелекту (AI) та архітектури нульової довіри (Zero Trust), підготовку до квантових загроз та інтеграцію з європейськими стандартами.</p>
         <p><strong>Цей курс</strong> охопив ключові аспекти фінансової кібербезпеки: від криптографії та автентифікації до ризик-менеджменту та національної стратегії. Знання — це перший крок; їх застосування на практиці — це те, що робить фінансову систему безпечнішою.</p>
       </section>
+      </div>
+      <aside class="konspekt-sidebar">
+        <div class="section-nav">
+          <h4>Зміст</h4>
+          <ul>
+            <li><a href="#section-15-1">15.1 НБУ та CERT-UA</a></li>
+            <li><a href="#section-15-2">15.2 Міжнародні стандарти</a></li>
+            <li><a href="#section-15-3">15.3 Кібербезпека у війні</a></li>
+            <li><a href="#section-15-4">15.4 Стратегічні пріоритети</a></li>
+            <li><a href="#section-summary">Підсумок</a></li>
+          </ul>
+        </div>
+      </aside>
+      </div>
     </article>
 
     <div class="lecture-nav-bottom"><a href="../../lecture.html?id=15" class="nav-btn">&larr; Назад до лекції</a><span></span></div>
     <footer></footer>
   </main>
   <script src="../../js/main.js"></script>
+  <script>
+  (function() {
+    var navLinks = document.querySelectorAll('.section-nav a');
+    if (!navLinks.length) return;
+    var targets = [];
+    navLinks.forEach(function(link) {
+      var el = document.querySelector(link.getAttribute('href'));
+      if (el) targets.push(el);
+    });
+
+    window.addEventListener('scroll', function() {
+      var current = '';
+      targets.forEach(function(el) {
+        if (scrollY >= el.offsetTop - 200) {
+          current = el.getAttribute('id');
+        }
+      });
+      navLinks.forEach(function(link) {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  })();
+  </script>
 </body>
 </html>

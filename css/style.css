@@ -237,6 +237,7 @@ nav a .nav-icon svg {
 
 main {
   flex: 1;
+  min-width: 0;
   margin-left: var(--sidebar-width);
   padding: 40px 48px;
 }
@@ -633,6 +634,8 @@ a.lecture-card {
   border-collapse: collapse;
   margin: 1rem 0;
   font-size: 14px;
+  display: block;
+  overflow-x: auto;
 }
 
 .lecture-content th,
@@ -669,6 +672,7 @@ a.lecture-card {
   padding: 20px 24px;
   margin: 16px 0;
   overflow-x: auto;
+  max-width: 100%;
   font-size: 13px;
   line-height: 1.7;
   border: 1px solid #334155;
@@ -1380,6 +1384,88 @@ body.dark .diagram-example {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+/* Conspect layout with right TOC sidebar */
+.konspekt-layout {
+  display: flex;
+  gap: 32px;
+}
+
+.konspekt-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.konspekt-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  align-self: flex-start;
+}
+
+.section-nav {
+  background: var(--bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+
+.section-nav h4 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.section-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.section-nav li {
+  margin-bottom: 4px;
+}
+
+.section-nav a {
+  display: block;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  border-left: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.section-nav a:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+  border-left-color: var(--accent);
+}
+
+.section-nav a.active {
+  color: var(--accent);
+  font-weight: 600;
+  border-left-color: var(--accent);
+  background: var(--accent-light);
+}
+
+@media (max-width: 1200px) {
+  .konspekt-layout {
+    flex-direction: column;
+  }
+  .konspekt-sidebar {
+    width: 100%;
+    position: static;
+  }
 }
 
 @media (max-width: 1024px) {

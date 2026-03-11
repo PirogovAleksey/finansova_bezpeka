@@ -68,9 +68,12 @@
         <span class="badge badge-new">Конспект</span>
       </div>
 
+      <div class="konspekt-layout">
+      <div class="konspekt-text">
+
       <!-- Section 11.1 -->
       <section>
-        <h2>11.1 Відмивання коштів: схеми та етапи</h2>
+        <h2 id="section-11-1">11.1 Відмивання коштів: схеми та етапи</h2>
 
         <p>Відмивання коштів (Money Laundering, ML) — це процес приховування незаконного походження доходів шляхом їх інтеграції у легальну фінансову систему. За оцінками ООН, щорічний обсяг відмитих коштів становить 2-5% глобального ВВП ($800 млрд — $2 трлн). Відмивання коштів фінансує організовану злочинність, тероризм, корупцію та наркоторгівлю.</p>
 
@@ -201,7 +204,7 @@
 
       <!-- Section 11.2 -->
       <section>
-        <h2>11.2 Знай свого клієнта (KYC) та належна перевірка клієнта (CDD)</h2>
+        <h2 id="section-11-2">11.2 Знай свого клієнта (KYC) та належна перевірка клієнта (CDD)</h2>
 
         <p>Знай свого клієнта (Know Your Customer, KYC) — обов'язковий процес ідентифікації та верифікації клієнтів фінансових установ. KYC є першою лінією захисту від відмивання коштів та фінансування тероризму.</p>
 
@@ -472,7 +475,7 @@ def calculate_risk_score(customer):
 
       <!-- Section 11.3 -->
       <section>
-        <h2>11.3 Системи фінансового моніторингу</h2>
+        <h2 id="section-11-3">11.3 Системи фінансового моніторингу</h2>
 
         <p>Моніторинг транзакцій (Transaction Monitoring, TM) — автоматизований процес аналізу фінансових транзакцій для виявлення підозрілих операцій, що можуть свідчити про відмивання коштів або фінансування тероризму.</p>
 
@@ -803,7 +806,7 @@ def detect_smurfing(transactions_df, threshold=400_000,
 
       <!-- Section 11.4 -->
       <section>
-        <h2>11.4 FATF та українське законодавство</h2>
+        <h2 id="section-11-4">11.4 FATF та українське законодавство</h2>
 
         <p>Група з розробки фінансових заходів боротьби з відмиванням коштів (Financial Action Task Force, FATF) — міжнародна організація, що встановлює стандарти протидії відмиванню коштів та фінансуванню тероризму. 40 рекомендацій FATF є де-факто глобальним стандартом AML/CFT.</p>
 
@@ -1112,11 +1115,26 @@ class SanctionsScreener:
 
       <!-- Summary -->
       <section>
-        <h2>Підсумок</h2>
+        <h2 id="section-summary">Підсумок</h2>
         <p>AML та фінансовий моніторинг є фундаментальними елементами фінансової безпеки. Відмивання коштів проходить три етапи — розміщення (Placement), розшарування (Layering), інтеграція (Integration), — і сучасні схеми включають криптовалюту, відмивання через торгівлю (Trade-Based ML) та грошових мулів (Money Mules). KYC та належна перевірка клієнта (CDD) забезпечують ідентифікацію клієнтів та їх ризик-профілів.</p>
         <p>Системи моніторингу транзакцій (Transaction Monitoring) використовують підходи на основі правил (Rule-Based) та машинного навчання (ML-Based) для виявлення підозрілих операцій та формування STR. FATF встановлює глобальні стандарти AML/CFT через 40 рекомендацій, а Україна імплементує їх через Закон 361-IX та Держфінмоніторинг.</p>
         <p><strong>У наступній лекції</strong> ми розглянемо цифрову форензику та реагування на інциденти: розслідування кіберінцидентів, збір цифрових доказів, процедури incident response та побудову CSIRT-команди.</p>
       </section>
+
+      </div>
+      <aside class="konspekt-sidebar">
+        <div class="section-nav">
+          <h4>Зміст</h4>
+          <ul>
+            <li><a href="#section-11-1">11.1 Відмивання коштів</a></li>
+            <li><a href="#section-11-2">11.2 KYC та CDD</a></li>
+            <li><a href="#section-11-3">11.3 Фінансовий моніторинг</a></li>
+            <li><a href="#section-11-4">11.4 FATF</a></li>
+            <li><a href="#section-summary">Підсумок</a></li>
+          </ul>
+        </div>
+      </aside>
+      </div>
     </article>
 
     <div class="lecture-nav-bottom">
@@ -1128,6 +1146,32 @@ class SanctionsScreener:
   </main>
 
   <script src="../../js/main.js"></script>
+  <script>
+  (function() {
+    var navLinks = document.querySelectorAll('.section-nav a');
+    if (!navLinks.length) return;
+    var targets = [];
+    navLinks.forEach(function(link) {
+      var el = document.querySelector(link.getAttribute('href'));
+      if (el) targets.push(el);
+    });
+
+    window.addEventListener('scroll', function() {
+      var current = '';
+      targets.forEach(function(el) {
+        if (scrollY >= el.offsetTop - 200) {
+          current = el.getAttribute('id');
+        }
+      });
+      navLinks.forEach(function(link) {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  })();
+  </script>
 
 </body>
 </html>

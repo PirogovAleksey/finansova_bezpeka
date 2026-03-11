@@ -68,9 +68,12 @@
         <span class="badge badge-new">Конспект</span>
       </div>
 
+      <div class="konspekt-layout">
+      <div class="konspekt-text">
+
       <!-- Section 2.1 -->
       <section>
-        <h2>2.1 Принципи архітектури нульової довіри (Zero Trust Architecture)</h2>
+        <h2 id="section-2-1">2.1 Принципи архітектури нульової довіри (Zero Trust Architecture)</h2>
 
         <h3>Від периметра до нульової довіри: еволюція підходів</h3>
 
@@ -270,7 +273,7 @@ spec:
 
       <!-- Section 2.2 -->
       <section>
-        <h2>2.2 Безпечний життєвий цикл розробки (Secure SDLC) для FinTech</h2>
+        <h2 id="section-2-2">2.2 Безпечний життєвий цикл розробки (Secure SDLC) для FinTech</h2>
 
         <h3>Чому безпека повинна бути «вбудованою», а не «прикрученою»</h3>
 
@@ -507,7 +510,7 @@ jobs:
 
       <!-- Section 2.3 -->
       <section>
-        <h2>2.3 Безпека мікросервісної архітектури</h2>
+        <h2 id="section-2-3">2.3 Безпека мікросервісної архітектури</h2>
 
         <h3>Від моноліту до мікросервісів: нові можливості та нові ризики</h3>
 
@@ -795,7 +798,7 @@ spec:
 
       <!-- Section 2.4 -->
       <section>
-        <h2>2.4 Захист API та інтеграцій</h2>
+        <h2 id="section-2-4">2.4 Захист API та інтеграцій</h2>
 
         <h3>API як серце та найвразливіше місце FinTech</h3>
 
@@ -1150,7 +1153,7 @@ async def create_transfer(
 
       <!-- Summary -->
       <section>
-        <h2>Підсумок</h2>
+        <h2 id="section-summary">Підсумок</h2>
 
         <p>У цій лекції ми розглянули чотири фундаментальні стовпи безпечної архітектури FinTech-систем. Підведемо підсумки по кожному:</p>
 
@@ -1166,6 +1169,23 @@ async def create_transfer(
 
         <p><strong>У наступній лекції</strong> ми детально розглянемо механізми автентифікації та контролю доступу: від традиційних паролів та багатофакторної автентифікації (MFA) до протоколу OAuth 2.0, моделей авторизації RBAC та ABAC, а також біометричних методів автентифікації у фінансових системах.</p>
       </section>
+
+      </div><!-- .konspekt-text -->
+
+      <aside class="konspekt-sidebar">
+        <div class="section-nav">
+          <h4>Зміст</h4>
+          <ul>
+            <li><a href="#section-2-1">2.1 Zero Trust</a></li>
+            <li><a href="#section-2-2">2.2 Secure SDLC</a></li>
+            <li><a href="#section-2-3">2.3 Мікросервіси</a></li>
+            <li><a href="#section-2-4">2.4 Захист API</a></li>
+            <li><a href="#section-summary">Підсумок</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      </div><!-- .konspekt-layout -->
     </article>
 
     <div class="lecture-nav-bottom">
@@ -1177,6 +1197,33 @@ async def create_transfer(
   </main>
 
   <script src="../../js/main.js"></script>
+
+  <script>
+  (function() {
+    var navLinks = document.querySelectorAll('.section-nav a');
+    if (!navLinks.length) return;
+    var targets = [];
+    navLinks.forEach(function(link) {
+      var el = document.querySelector(link.getAttribute('href'));
+      if (el) targets.push(el);
+    });
+
+    window.addEventListener('scroll', function() {
+      var current = '';
+      targets.forEach(function(el) {
+        if (scrollY >= el.offsetTop - 200) {
+          current = el.getAttribute('id');
+        }
+      });
+      navLinks.forEach(function(link) {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  })();
+  </script>
 
 </body>
 </html>

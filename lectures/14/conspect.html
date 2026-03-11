@@ -34,8 +34,10 @@
       <h1>Ризик-менеджмент та SOC</h1>
       <div class="lecture-info"><span>⏱ 2 год</span><span class="badge badge-new">Конспект</span></div>
 
+      <div class="konspekt-layout">
+      <div class="konspekt-text">
       <section>
-        <h2>14.1 Фреймворки ризик-менеджменту</h2>
+        <h2 id="section-14-1">14.1 Фреймворки ризик-менеджменту</h2>
         <p>Управління кіберризиками — це систематичний процес ідентифікації, оцінки та обробки ризиків, що загрожують інформаційним активам організації. Для фінансових установ ризик-менеджмент є не просто найкращою практикою (best practice), а регуляторною вимогою (НБУ, Basel III, DORA).</p>
         <p><strong>Ключові фреймворки:</strong></p>
         <ul>
@@ -136,7 +138,7 @@
       </section>
 
       <section>
-        <h2>14.2 Оцінка та обробка ризиків</h2>
+        <h2 id="section-14-2">14.2 Оцінка та обробка ризиків</h2>
         <p>Оцінка ризиків визначає пріоритети для інвестицій у безпеку. Існують два основні підходи:</p>
         <p><strong>Якісна оцінка (Qualitative):</strong></p>
         <ul>
@@ -304,7 +306,7 @@
       </section>
 
       <section>
-        <h2>14.3 Архітектура та функціонування SOC</h2>
+        <h2 id="section-14-3">14.3 Архітектура та функціонування SOC</h2>
         <p>Центр безпекових операцій (Security Operations Center, SOC) — це централізований підрозділ, що забезпечує безперервний моніторинг, виявлення та реагування на кіберзагрози. Для великих фінансових установ SOC працює 24/7/365.</p>
         <p><strong>Рівні аналітиків SOC (SOC Tiers):</strong></p>
         <ul>
@@ -564,7 +566,7 @@ rule detect_credential_dumping {
       </section>
 
       <section>
-        <h2>14.4 Метрики та зрілість кібербезпеки</h2>
+        <h2 id="section-14-4">14.4 Метрики та зрілість кібербезпеки</h2>
         <p>Метрики дозволяють вимірювати ефективність кібербезпеки, обґрунтовувати інвестиції та демонструвати прогрес керівництву та регуляторам.</p>
         <p><strong>Ключові метрики (KPI/KRI):</strong></p>
         <ul>
@@ -820,16 +822,56 @@ rule detect_credential_dumping {
       </section>
 
       <section>
-        <h2>Підсумок</h2>
+        <h2 id="section-summary">Підсумок</h2>
         <p>Ризик-менеджмент визначає стратегію кібербезпеки: фреймворки (ISO 27005, NIST, FAIR) допомагають систематично ідентифікувати, оцінювати та обробляти ризики. Кількісна оцінка (ALE, FAIR) дозволяє обґрунтувати інвестиції фінансовою мовою.</p>
         <p>SOC є оперативним ядром кібербезпеки: цілодобовий моніторинг через SIEM/EDR, автоматизація реагування через SOAR, проактивне полювання на загрози (Threat Hunting). Метрики (MTTD, MTTR, рівень хибних спрацювань) та модель зрілості SOC забезпечують вимірюваний прогрес.</p>
         <p><strong>У наступній лекції</strong> ми розглянемо національну стратегію фінансової кібербезпеки: роль НБУ та CERT-UA, міжнародні стандарти NIS2 та DORA, досвід кібербезпеки в умовах війни та стратегічні пріоритети розвитку.</p>
       </section>
+      </div>
+      <aside class="konspekt-sidebar">
+        <div class="section-nav">
+          <h4>Зміст</h4>
+          <ul>
+            <li><a href="#section-14-1">14.1 Ризик-менеджмент</a></li>
+            <li><a href="#section-14-2">14.2 Оцінка ризиків</a></li>
+            <li><a href="#section-14-3">14.3 SOC</a></li>
+            <li><a href="#section-14-4">14.4 Метрики</a></li>
+            <li><a href="#section-summary">Підсумок</a></li>
+          </ul>
+        </div>
+      </aside>
+      </div>
     </article>
 
     <div class="lecture-nav-bottom"><a href="../../lecture.html?id=14" class="nav-btn">&larr; Назад до лекції</a><span></span></div>
     <footer></footer>
   </main>
   <script src="../../js/main.js"></script>
+  <script>
+  (function() {
+    var navLinks = document.querySelectorAll('.section-nav a');
+    if (!navLinks.length) return;
+    var targets = [];
+    navLinks.forEach(function(link) {
+      var el = document.querySelector(link.getAttribute('href'));
+      if (el) targets.push(el);
+    });
+
+    window.addEventListener('scroll', function() {
+      var current = '';
+      targets.forEach(function(el) {
+        if (scrollY >= el.offsetTop - 200) {
+          current = el.getAttribute('id');
+        }
+      });
+      navLinks.forEach(function(link) {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  })();
+  </script>
 </body>
 </html>

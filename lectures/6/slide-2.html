@@ -61,6 +61,133 @@
     </section>
 
     <section class="slide">
+      <h1>Top 10 vs ASVS: діагностика vs лікування</h1>
+      <h2>Функціональна різниця двох стандартів</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">🔍</span>
+            <div class="card-title">Top 10 — діагностика</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Визначає <em>які</em> ризики найпоширеніші<br>
+              Просвітницький характер<br>
+              Адресує лише 10 категорій загроз<br>
+              Підвищення обізнаності команди
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">💊</span>
+            <div class="card-title">ASVS — лікування</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Відповідає <em>як</em> усунути ризики<br>
+              Конкретні верифіковані вимоги<br>
+              280+ вимог у 14 категоріях<br>
+              План дій для розробки та тестування
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Організації, що обмежуються Top 10, залишають поза увагою сотні критичних вимог — від управління сесіями до криптографічного захисту даних.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Маппінг ASVS на регуляторні стандарти</h1>
+      <h2>Єдина структура для кількох compliance-програм</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">💳</span>
+          <span class="il-text"><strong>PCI DSS:</strong> V2 (Authentication) → Req 8, V6 (Cryptography) → Req 3-4, V7 (Logging) → Req 10</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📜</span>
+          <span class="il-text"><strong>ISO 27001:</strong> контролі Annex A знаходять прикладне відображення у категоріях ASVS на рівні застосунків</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🇪🇺</span>
+          <span class="il-text"><strong>NIS2 / DORA:</strong> вимоги до кіберстійкості фінансових установ ЄС покриваються через ASVS L2-L3</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏦</span>
+          <span class="il-text"><strong>НБУ КР-ІБ:</strong> вимоги до кібербезпеки українських банків відповідають категоріям ASVS</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>ASVS як єдина уніфікована структура зменшує навантаження під час аудитів та запобігає фрагментації програм безпеки.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>280+ вимог у 14 категоріях</h1>
+      <h2>Масштаб стандарту ASVS</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-blue">
+          <span class="card-icon">🔐</span>
+          <div class="card-title">V2: Authentication</div>
+          <div class="card-text">60+ вимог: парольна політика, MFA, перевірка через breached DB, FIDO2/WebAuthn</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🛡️</span>
+          <div class="card-title">V4: Access Control</div>
+          <div class="card-text">RBAC/ABAC, запобігання IDOR, принцип найменших привілеїв, серверна перевірка</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔑</span>
+          <div class="card-title">V6: Cryptography</div>
+          <div class="card-text">AES-256-GCM, TLS 1.2+, управління ключами через HSM, ротація ключів</div>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 1.2rem;">
+        <div class="stat-box blue">
+          <div class="stat-value">V1-V5</div>
+          <div class="stat-label">Архітектура, Auth, Сесії, Доступ, Валідація</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">V6-V10</div>
+          <div class="stat-label">Крипто, Помилки, Дані, Комунікації, Бізнес-логіка</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">V11-V14</div>
+          <div class="stat-label">Конфігурація, API, Файли, Додатково</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Виклики впровадження ASVS у legacy-системах</h1>
+      <h2>Практичні труднощі та поетапний підхід</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">⚠️</span>
+          <span class="il-text"><strong>Технічний борг:</strong> великі кодові бази з багаторічними залежностями ускладнюють досягнення L2</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📦</span>
+          <span class="il-text"><strong>Third-party компоненти:</strong> залежності без доступу до вихідного коду неможливо верифікувати повністю</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💰</span>
+          <span class="il-text"><strong>Обмежені ресурси:</strong> недостатньо спеціалістів для повного тестування всіх 280+ вимог</span>
+        </div>
+      </div>
+      <div class="steps" style="margin-top: 1rem;">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Пріоритезація за ризиком</div>
+          <div class="step-desc">V2 (Auth), V4 (Access Control), V5 (Input Validation) — найвищий вплив на безпеку фінансових транзакцій</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Дорожня карта, не бінарний чеклист</div>
+          <div class="step-desc">Відстежувати % відповідності за кожною категорією у часі, систематично підвищуючи рівень захисту</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
       <h1>Три рівні ASVS</h1>
       <div class="card-grid cols-3">
         <div class="card accent-blue">

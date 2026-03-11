@@ -68,9 +68,12 @@
         <span class="badge badge-new">Конспект</span>
       </div>
 
+      <div class="konspekt-layout">
+      <div class="konspekt-text">
+
       <!-- Section 8.1 -->
       <section>
-        <h2>8.1 Фішинг та його різновиди</h2>
+        <h2 id="section-8-1">8.1 Фішинг та його різновиди</h2>
 
         <p>Фішинг (phishing) — це метод соціальної інженерії, при якому зловмисник видає себе за довірену особу або організацію з метою отримання конфіденційної інформації: облікових даних, номерів карток, OTP-кодів. За даними Verizon DBIR, фішинг є початковим вектором у понад 36% всіх витоків даних, а у фінансовому секторі ця цифра сягає 50%.</p>
 
@@ -226,7 +229,7 @@ https://secure-banking.com/%70%72%69%76%61%74%62%61%6E%6B/login.php
 
       <!-- Section 8.2 -->
       <section>
-        <h2>8.2 Претекстинг (Pretexting) та маніпулятивні техніки</h2>
+        <h2 id="section-8-2">8.2 Претекстинг (Pretexting) та маніпулятивні техніки</h2>
 
         <p>Претекстинг (Pretexting) — це створення вигаданого сценарію (привід), що виправдовує запит на конфіденційну інформацію або дію. На відміну від фішингу, претекстинг базується на побудові довіри через діалог та вигадану роль.</p>
 
@@ -468,7 +471,7 @@ ENTER                          # Запуск закодованого PowerShel
 
       <!-- Section 8.3 -->
       <section>
-        <h2>8.3 Психологія жертви та когнітивні вразливості</h2>
+        <h2 id="section-8-3">8.3 Психологія жертви та когнітивні вразливості</h2>
 
         <p>Ефективність соціальної інженерії базується на експлуатації фундаментальних психологічних механізмів. Роберт Чалдіні (Robert Cialdini) описав 6 принципів впливу, які активно використовуються зловмисниками:</p>
 
@@ -661,7 +664,7 @@ ENTER                          # Запуск закодованого PowerShel
 
       <!-- Section 8.4 -->
       <section>
-        <h2>8.4 Захист від соціальної інженерії</h2>
+        <h2 id="section-8-4">8.4 Захист від соціальної інженерії</h2>
 
         <p>Захист від соціальної інженерії потребує комплексного підходу: технічні контролі, організаційні процеси та формування культури безпеки.</p>
 
@@ -969,11 +972,26 @@ _dmarc.bank-example.ua.  IN  TXT  "v=DMARC1; p=reject; rua=mailto:dmarc-reports@
 
       <!-- Summary -->
       <section>
-        <h2>Підсумок</h2>
+        <h2 id="section-summary">Підсумок</h2>
         <p>Соціальна інженерія залишається найефективнішим вектором атак, оскільки експлуатує людську психологію, а не технічні вразливості. Фішинг у всіх його формах — від масового email phishing до персоналізованого whaling — є причиною більшості витоків даних у фінансовому секторі.</p>
         <p>Зловмисники використовують принципи впливу Чалдіні (авторитет, терміновість, взаємність) та когнітивні упередження для маніпулювання жертвами. Ефективний захист потребує комбінації технічних контролів (email security, MFA, DNS-фільтрація), організаційних процесів (верифікація, dual authorization) та культури безпеки (awareness-тренінги, phishing-симуляції, reporting culture).</p>
         <p><strong>У наступній лекції</strong> ми розглянемо штучний інтелект у кібербезпеці: використання AI/ML для виявлення загроз та аномалій, застосування AI у фінансовому моніторингу, нові загрози від генеративного AI та принципи відповідального AI.</p>
       </section>
+
+      </div>
+      <aside class="konspekt-sidebar">
+        <div class="section-nav">
+          <h4>Зміст</h4>
+          <ul>
+            <li><a href="#section-8-1">8.1 Фішинг</a></li>
+            <li><a href="#section-8-2">8.2 Претекстинг</a></li>
+            <li><a href="#section-8-3">8.3 Психологія жертви</a></li>
+            <li><a href="#section-8-4">8.4 Захист</a></li>
+            <li><a href="#section-summary">Підсумок</a></li>
+          </ul>
+        </div>
+      </aside>
+      </div>
     </article>
 
     <div class="lecture-nav-bottom">
@@ -985,6 +1003,32 @@ _dmarc.bank-example.ua.  IN  TXT  "v=DMARC1; p=reject; rua=mailto:dmarc-reports@
   </main>
 
   <script src="../../js/main.js"></script>
+  <script>
+  (function() {
+    var navLinks = document.querySelectorAll('.section-nav a');
+    if (!navLinks.length) return;
+    var targets = [];
+    navLinks.forEach(function(link) {
+      var el = document.querySelector(link.getAttribute('href'));
+      if (el) targets.push(el);
+    });
+
+    window.addEventListener('scroll', function() {
+      var current = '';
+      targets.forEach(function(el) {
+        if (scrollY >= el.offsetTop - 200) {
+          current = el.getAttribute('id');
+        }
+      });
+      navLinks.forEach(function(link) {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  })();
+  </script>
 
 </body>
 </html>

@@ -54,8 +54,10 @@
         <span class="badge badge-new">Конспект</span>
       </div>
 
+      <div class="konspekt-layout">
+      <div class="konspekt-text">
       <section>
-        <h2>13.1 Паролі та управління акаунтами</h2>
+        <h2 id="section-13-1">13.1 Паролі та управління акаунтами</h2>
         <p>Слабкі та повторювані паролі залишаються одним із найпоширеніших векторів компрометації. За даними Verizon DBIR, понад 80% зломів, пов'язаних з хакерством, використовують вкрадені або слабкі паролі. Середній користувач має 100+ онлайн-акаунтів, що робить ручне управління унікальними паролями неможливим.</p>
         <p><strong>Менеджери паролів (Password Managers):</strong></p>
         <ul>
@@ -348,7 +350,7 @@ const credential = await navigator.credentials.create({
       </section>
 
       <section>
-        <h2>13.2 Захист персональних даних</h2>
+        <h2 id="section-13-2">13.2 Захист персональних даних</h2>
         <p>Персональні дані є цінним активом для зловмисників: від крадіжки особистості (Identity Theft) до відкриття фінансових рахунків на чуже ім'я. Захист приватності — це не лише право, а й фінансова безпека.</p>
         <p><strong>GDPR та принципи захисту даних:</strong></p>
         <ul>
@@ -595,7 +597,7 @@ const credential = await navigator.credentials.create({
       </section>
 
       <section>
-        <h2>13.3 Безпека пристроїв та мереж</h2>
+        <h2 id="section-13-3">13.3 Безпека пристроїв та мереж</h2>
         <p>Кінцеві пристрої (ноутбуки, смартфони, планшети) та домашні мережі є першою лінією оборони для більшості користувачів. Компрометація пристрою = доступ до банківських додатків, email, корпоративних систем.</p>
         <p><strong>Безпека кінцевих точок (Endpoint Security):</strong></p>
         <ul>
@@ -929,7 +931,7 @@ iptables -A INPUT -j DROP
       </section>
 
       <section>
-        <h2>13.4 Фінансова безпека онлайн</h2>
+        <h2 id="section-13-4">13.4 Фінансова безпека онлайн</h2>
         <p>Онлайн-фінанси вимагають підвищеної пильності: від безпечних платежів до розпізнавання інвестиційних скамів.</p>
         <p><strong>Безпечні онлайн-платежі:</strong></p>
         <ul>
@@ -1249,11 +1251,25 @@ check_ssl_certificate("privatbank.ua")
       </section>
 
       <section>
-        <h2>Підсумок</h2>
+        <h2 id="section-summary">Підсумок</h2>
         <p>Кібергігієна — це щоденні практики, що значно зменшують ризик кібератак. Менеджер паролів (Password Manager) + MFA (бажано FIDO2) закривають найпоширеніший вектор — компрометацію облікових даних. Захист персональних даних та обмеження цифрового сліду ускладнюють цільовий фішинг (Spear Phishing) та крадіжку особистості (Identity Theft).</p>
         <p>Оновлення пристроїв, шифрування дисків та обережність у публічних мережах захищають від технічних атак. Для фінансової безпеки: віртуальні картки, push-сповіщення та здоровий скептицизм до «вигідних пропозицій» є обов'язковими.</p>
         <p><strong>У наступній лекції</strong> ми розглянемо ризик-менеджмент та SOC: управління кіберризиками, побудову та функціонування центрів безпеки (Security Operations Center) у фінансових установах.</p>
       </section>
+      </div>
+      <aside class="konspekt-sidebar">
+        <div class="section-nav">
+          <h4>Зміст</h4>
+          <ul>
+            <li><a href="#section-13-1">13.1 Паролі</a></li>
+            <li><a href="#section-13-2">13.2 Персональні дані</a></li>
+            <li><a href="#section-13-3">13.3 Пристрої та мережі</a></li>
+            <li><a href="#section-13-4">13.4 Фінансова безпека</a></li>
+            <li><a href="#section-summary">Підсумок</a></li>
+          </ul>
+        </div>
+      </aside>
+      </div>
     </article>
 
     <div class="lecture-nav-bottom">
@@ -1264,5 +1280,31 @@ check_ssl_certificate("privatbank.ua")
   </main>
 
   <script src="../../js/main.js"></script>
+  <script>
+  (function() {
+    var navLinks = document.querySelectorAll('.section-nav a');
+    if (!navLinks.length) return;
+    var targets = [];
+    navLinks.forEach(function(link) {
+      var el = document.querySelector(link.getAttribute('href'));
+      if (el) targets.push(el);
+    });
+
+    window.addEventListener('scroll', function() {
+      var current = '';
+      targets.forEach(function(el) {
+        if (scrollY >= el.offsetTop - 200) {
+          current = el.getAttribute('id');
+        }
+      });
+      navLinks.forEach(function(link) {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  })();
+  </script>
 </body>
 </html>

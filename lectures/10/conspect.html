@@ -68,9 +68,12 @@
         <span class="badge badge-new">Конспект</span>
       </div>
 
+      <div class="konspekt-layout">
+      <div class="konspekt-text">
+
       <!-- Section 10.1 -->
       <section>
-        <h2>10.1 Криптогаманці та управління ключами</h2>
+        <h2 id="section-10-1">10.1 Криптогаманці та управління ключами</h2>
 
         <p>Криптовалютний гаманець — це інструмент для управління приватними ключами, які дозволяють підписувати транзакції в блокчейні. На відміну від банківських рахунків, у блокчейні немає «забув пароль» — втрата приватного ключа означає безповоротну втрату коштів. За оцінками Chainalysis, понад 20% всіх Bitcoin (>$100 млрд) назавжди втрачені через загублені ключі.</p>
 
@@ -284,7 +287,7 @@ console.log("Tx hash:", executeTxResponse.hash);
 
       <!-- Section 10.2 -->
       <section>
-        <h2>10.2 Вразливості смарт-контрактів</h2>
+        <h2 id="section-10-2">10.2 Вразливості смарт-контрактів</h2>
 
         <p>Смарт-контракт (Smart Contract) — це програма, що виконується на блокчейні та автоматично реалізує умови угоди. Особливість: після розгортання (Deploy) код є незмінним (Immutable) та публічним. Помилка в коді = вразливість, яку може експлуатувати будь-хто, і виправити її без спеціальних механізмів неможливо.</p>
 
@@ -588,7 +591,7 @@ contract SecureDAO is AccessControl {
 
       <!-- Section 10.3 -->
       <section>
-        <h2>10.3 Безпека DeFi-протоколів</h2>
+        <h2 id="section-10-3">10.3 Безпека DeFi-протоколів</h2>
 
         <p>Децентралізовані фінанси (DeFi) — фінансові послуги на блокчейні без посередників: кредитування, обмін, деривативи. Загальна заблокована вартість (TVL — Total Value Locked) у DeFi перевищувала $100 млрд. Водночас DeFi — найбільш атакований сегмент крипто: у 2022-2023 роках зломи DeFi принесли збитки понад $3 млрд.</p>
 
@@ -879,7 +882,7 @@ function emergencyWithdraw() external onlyOwner {
 
       <!-- Section 10.4 -->
       <section>
-        <h2>10.4 Безпека бірж та регулювання</h2>
+        <h2 id="section-10-4">10.4 Безпека бірж та регулювання</h2>
 
         <p>Централізовані біржі (CEX) — основна точка входу користувачів у крипто. Вони зберігають мільярди доларів у криптоактивах, що робить їх привабливою мішенню для хакерів та шахраїв.</p>
 
@@ -1178,11 +1181,26 @@ print(f"User A баланс підтверджено: {is_valid}")  # True</code
 
       <!-- Summary -->
       <section>
-        <h2>Підсумок</h2>
+        <h2 id="section-summary">Підсумок</h2>
         <p>Безпека криптоактивів вимагає розуміння унікальних ризиків: незворотність транзакцій, публічність та незмінність смарт-контрактів, відсутність централізованого захисту. Управління приватними ключами через холодне сховище (Cold Storage), мультипідпис (Multisig) та багатосторонні обчислення (MPC) є фундаментом безпеки.</p>
         <p>Смарт-контракти вразливі до повторного входу (Reentrancy), маніпуляції оракулами (Oracle Manipulation) та помилок контролю доступу (Access Control) — аудит коду та формальна верифікація (Formal Verification) є обов'язковими. DeFi-протоколи потерпають від атак миттєвих позик (Flash Loan), виводу ліквідності (Rug Pull) та зломів мостів (Bridge Exploits). Регулювання (MiCA, правило подорожі) поступово приводить крипто-індустрію до стандартів традиційних фінансів.</p>
         <p><strong>У наступній лекції</strong> ми розглянемо AML та фінансовий моніторинг: протидію відмиванню коштів, KYC-процедури, системи transaction monitoring та міжнародні стандарти FATF.</p>
       </section>
+
+      </div>
+      <aside class="konspekt-sidebar">
+        <div class="section-nav">
+          <h4>Зміст</h4>
+          <ul>
+            <li><a href="#section-10-1">10.1 Криптогаманці</a></li>
+            <li><a href="#section-10-2">10.2 Смарт-контракти</a></li>
+            <li><a href="#section-10-3">10.3 DeFi</a></li>
+            <li><a href="#section-10-4">10.4 Біржі та регулювання</a></li>
+            <li><a href="#section-summary">Підсумок</a></li>
+          </ul>
+        </div>
+      </aside>
+      </div>
     </article>
 
     <div class="lecture-nav-bottom">
@@ -1194,6 +1212,32 @@ print(f"User A баланс підтверджено: {is_valid}")  # True</code
   </main>
 
   <script src="../../js/main.js"></script>
+  <script>
+  (function() {
+    var navLinks = document.querySelectorAll('.section-nav a');
+    if (!navLinks.length) return;
+    var targets = [];
+    navLinks.forEach(function(link) {
+      var el = document.querySelector(link.getAttribute('href'));
+      if (el) targets.push(el);
+    });
+
+    window.addEventListener('scroll', function() {
+      var current = '';
+      targets.forEach(function(el) {
+        if (scrollY >= el.offsetTop - 200) {
+          current = el.getAttribute('id');
+        }
+      });
+      navLinks.forEach(function(link) {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  })();
+  </script>
 
 </body>
 </html>

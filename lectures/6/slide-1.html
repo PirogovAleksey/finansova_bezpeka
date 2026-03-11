@@ -53,6 +53,132 @@
     </section>
 
     <section class="slide">
+      <h1>Data-driven методологія OWASP</h1>
+      <h2>Як формується рейтинг Top 10</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">📊</span>
+          <div class="card-title">Емпіричний підхід</div>
+          <div class="card-text">Аналіз сотень тисяч реальних додатків та інцидентів, а не теоретичні припущення</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🏢</span>
+          <div class="card-title">200+ організацій</div>
+          <div class="card-text">Дані надають компанії-учасниці з усього світу: розробники, аудитори, вендори</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔄</span>
+          <div class="card-title">Оновлення кожні 3-4 роки</div>
+          <div class="card-text">Рейтинг відображає актуальний ландшафт загроз, а не застарілі уявлення</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">⚖️</span>
+          <div class="card-title">Data-driven vs експертна думка</div>
+          <div class="card-text">Класифікації на основі експертних оцінок можуть суттєво відхилятися від реальної картини загроз</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Data-driven підхід гарантує, що Top 10 відповідає реальному ландшафту загроз, а не суб'єктивним оцінкам.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Еволюція 2017 → 2021</h1>
+      <h2>Ключові зміни та їх причини</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔓</span>
+          <span class="il-text"><strong>Broken Access Control: #5 → #1</strong> — масовий перехід до API-орієнтованих архітектур (REST, мікросервіси), де кожен ендпоінт потребує окремої авторизації</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💉</span>
+          <span class="il-text"><strong>Injection: #1 → #3</strong> — ORM-фреймворки та параметризовані запити зменшили поширеність, але не усунули повністю</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📐</span>
+          <span class="il-text"><strong>A04 Insecure Design — НОВА</strong> — визнання, що безпеку неможливо «прикрутити» до вже розробленої системи</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔗</span>
+          <span class="il-text"><strong>A08 Integrity Failures — НОВА</strong> — SolarWinds (2020), Codecov (2021), Log4Shell (2021) показали загрозу supply chain</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🌐</span>
+          <span class="il-text"><strong>A10 SSRF — НОВА</strong> — зростання хмарних середовищ зробило SSRF критичною загрозою (cloud metadata)</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Тренд: від технічних вразливостей (injection) до архітектурних проблем (insecure design, supply chain).</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>A04: Insecure Design + STRIDE</h1>
+      <h2>Безпека на етапі проєктування</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">📐</span>
+            <div class="card-title">Insecure Design</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Вразливості архітектури, які <strong>неможливо</strong> виправити патчем:<br>
+              • Відсутність rate limiting на переказах<br>
+              • Від'ємні суми (negative amount)<br>
+              • Race condition при платежах
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">🛡️</span>
+            <div class="card-title">STRIDE — моделювання загроз</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              <strong>S</strong>poofing — підміна ідентичності<br>
+              <strong>T</strong>ampering — модифікація даних<br>
+              <strong>R</strong>epudiation — відмова від авторства<br>
+              <strong>I</strong>nfo Disclosure — розкриття інформації<br>
+              <strong>D</strong>enial of Service — відмова в обслуг.<br>
+              <strong>E</strong>levation of Privilege — підвищення привілеїв
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Усунення вразливостей проєктування вимагає фундаментального перегляду архітектури та бізнес-логіки.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Фінансовий контекст OWASP Top 10</h1>
+      <h2>Як категорії проявляються у фінсекторі</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔓</span>
+          <span class="il-text"><strong>A01 (Access Control)</strong> — IDOR у рахунках, касир отримує права менеджера, обхід авторизації API</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔐</span>
+          <span class="il-text"><strong>A02 (Crypto)</strong> — PAN карток без шифрування, MD5 для паролів, HTTP замість HTTPS (порушення PCI DSS)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💉</span>
+          <span class="il-text"><strong>A03 (Injection)</strong> — SQLi у формі пошуку транзакцій, command injection через генератори звітів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📦</span>
+          <span class="il-text"><strong>A06 (Components)</strong> — Log4Shell у middleware платіжного шлюзу, Equifax: $700M штраф</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🪪</span>
+          <span class="il-text"><strong>A07 (Auth)</strong> — credential stuffing на сторінці логіну банку, відсутність MFA для адміністраторів</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Середня вартість витоку у фінансовому секторі: $5.9M (2024). A01-A03 відповідають за 60%+ критичних вразливостей.</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <h1>Top 10 (2021): A01-A05</h1>
       <div class="icon-list">
         <div class="icon-list-item">

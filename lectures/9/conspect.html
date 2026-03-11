@@ -68,9 +68,12 @@
         <span class="badge badge-new">Конспект</span>
       </div>
 
+      <div class="konspekt-layout">
+      <div class="konspekt-text">
+
       <!-- Section 9.1 -->
       <section>
-        <h2>9.1 AI/ML для виявлення загроз</h2>
+        <h2 id="section-9-1">9.1 AI/ML для виявлення загроз</h2>
 
         <p>Традиційні системи кібербезпеки базуються на сигнатурному аналізі: антивірус порівнює файл із базою відомих загроз. Проблема: zero-day атаки та polymorphic malware не мають відомих сигнатур. AI/ML дозволяє виявляти невідомі загрози через аналіз поведінки та виявлення аномалій.</p>
 
@@ -264,7 +267,7 @@ tags:
 
       <!-- Section 9.2 -->
       <section>
-        <h2>9.2 AI у фінансовому моніторингу</h2>
+        <h2 id="section-9-2">9.2 AI у фінансовому моніторингу</h2>
 
         <p>Фінансовий сектор є одним із найбільших споживачів AI/ML-технологій для безпеки. Обсяги транзакцій, швидкість обробки та вартість помилок роблять ML незамінним.</p>
 
@@ -495,7 +498,7 @@ def calculate_aml_risk(client, transactions, graph_data):
 
       <!-- Section 9.3 -->
       <section>
-        <h2>9.3 Генеративний AI та нові загрози</h2>
+        <h2 id="section-9-3">9.3 Генеративний AI та нові загрози</h2>
 
         <p>Генеративний AI (GPT, Midjourney, voice cloning) створює нові загрози для фінансового сектору, значно знижуючи бар'єр входу для зловмисників та підвищуючи якість атак.</p>
 
@@ -751,7 +754,7 @@ def secure_ai_pipeline(user_input, context):
 
       <!-- Section 9.4 -->
       <section>
-        <h2>9.4 Захист AI-систем та відповідальний AI</h2>
+        <h2 id="section-9-4">9.4 Захист AI-систем та відповідальний AI</h2>
 
         <p>AI-системи самі потребують захисту від змагальних атак (adversarial attacks) та маніпуляцій. Крім того, регулятори вимагають прозорості та відповідальності при використанні AI у фінансових рішеннях.</p>
 
@@ -1015,11 +1018,26 @@ def adversarial_training(model, train_loader, epsilon=0.03, epochs=10):
 
       <!-- Summary -->
       <section>
-        <h2>Підсумок</h2>
+        <h2 id="section-summary">Підсумок</h2>
         <p>Штучний інтелект трансформує кібербезпеку фінансового сектору з обох сторін барикад. AI/ML дозволяє виявляти загрози, які неможливо знайти традиційними методами: виявлення аномалій, UEBA, автоматизований пошук загроз. У фінансовому моніторингу ML значно зменшує рівень хибних спрацювань та виявляє складні схеми відмивання коштів через графову аналітику.</p>
         <p>Водночас генеративний AI створює нові загрози: фішинг на основі AI, дипфейк-голоси для авторизації переказів, автоматизація атак. Захист AI-систем від змагальних атак, забезпечення пояснюваності та справедливості стають обов'язковими вимогами регуляторів (EU AI Act).</p>
         <p><strong>У наступній лекції</strong> ми розглянемо безпеку криптоактивів: захист криптовалютних гаманців, вразливості смарт-контрактів, безпеку DeFi-протоколів та ризики централізованих бірж.</p>
       </section>
+
+      </div>
+      <aside class="konspekt-sidebar">
+        <div class="section-nav">
+          <h4>Зміст</h4>
+          <ul>
+            <li><a href="#section-9-1">9.1 AI/ML для загроз</a></li>
+            <li><a href="#section-9-2">9.2 Фінансовий моніторинг</a></li>
+            <li><a href="#section-9-3">9.3 Генеративний AI</a></li>
+            <li><a href="#section-9-4">9.4 Захист AI-систем</a></li>
+            <li><a href="#section-summary">Підсумок</a></li>
+          </ul>
+        </div>
+      </aside>
+      </div>
     </article>
 
     <div class="lecture-nav-bottom">
@@ -1031,6 +1049,32 @@ def adversarial_training(model, train_loader, epsilon=0.03, epochs=10):
   </main>
 
   <script src="../../js/main.js"></script>
+  <script>
+  (function() {
+    var navLinks = document.querySelectorAll('.section-nav a');
+    if (!navLinks.length) return;
+    var targets = [];
+    navLinks.forEach(function(link) {
+      var el = document.querySelector(link.getAttribute('href'));
+      if (el) targets.push(el);
+    });
+
+    window.addEventListener('scroll', function() {
+      var current = '';
+      targets.forEach(function(el) {
+        if (scrollY >= el.offsetTop - 200) {
+          current = el.getAttribute('id');
+        }
+      });
+      navLinks.forEach(function(link) {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  })();
+  </script>
 
 </body>
 </html>

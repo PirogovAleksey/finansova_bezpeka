@@ -57,6 +57,132 @@
     </section>
 
     <section class="slide">
+      <h1>Спектр VA → Pentest → Red Team</h1>
+      <h2>Від широти покриття до глибини аналізу</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">VA</div>
+          <div class="step-title">Vulnerability Assessment</div>
+          <div class="step-desc">Широке, але поверхневе покриття. Автоматизація: Nessus, Qualys. Виявляє відомі CVE та misconfigurations. Рекомендовано: щомісяця або частіше</div>
+        </div>
+        <div class="step">
+          <div class="step-num">PT</div>
+          <div class="step-title">Penetration Testing</div>
+          <div class="step-desc">Цілеспрямована глибина з експертним судженням. Знаходить бізнес-логіку, ланцюжки атак, ескалацію привілеїв. Рекомендовано: щорічно або після суттєвих змін</div>
+        </div>
+        <div class="step">
+          <div class="step-num">RT</div>
+          <div class="step-title">Red Team Assessment</div>
+          <div class="step-desc">Тестує всю програму безпеки: персонал, процеси реагування (Blue Team), фізичний доступ. Мета: досягти конкретної цілі (напр. SWIFT-термінал). Рекомендовано: кожні 2–3 роки</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Організації-початківці → VA + базові пентести. Зрілі організації → Red Team для виявлення системних недоліків.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Black / Grey / White-box у PCI DSS</h1>
+      <h2>Три підходи до тестування за рівнем доступу</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-red">
+          <span class="card-icon">⬛</span>
+          <div class="card-title">Black-box</div>
+          <div class="card-text">Нуль знань про систему. Імітація зовнішнього зловмисника. Найреалістичніший, але найменш ефективний за покриттям</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔲</span>
+          <div class="card-title">Grey-box (PCI DSS стандарт)</div>
+          <div class="card-text">Облікові дані + базова документація. Оптимальний баланс реалістичності та покриття. Стандарт для щорічних PCI DSS оцінок</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">⬜</span>
+          <div class="card-title">White-box</div>
+          <div class="card-text">Повний доступ до коду та архітектури. Максимальне покриття. Для аудиту критичних компонентів обробки платежів</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Зрілі фінустанови поєднують: щорічні grey-box пентести + white-box аудити коду критичних платіжних компонентів.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Обмеження автоматизованого сканування</h1>
+      <h2>Чому автоматизація — необхідний, але недостатній крок</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">🤖</span>
+            <div class="card-title">Що знаходять сканери</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              ~30–50% вразливостей<br>
+              Відомі CVE та misconfigurations<br>
+              Слабкі SSL/TLS конфігурації<br>
+              Відсутні заголовки безпеки<br>
+              Відомі шаблони SQLi, XSS
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">🚫</span>
+            <div class="card-title">Що НЕ знаходять</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Вразливості бізнес-логіки<br>
+              Race conditions у платежах<br>
+              Переказ від'ємних сум<br>
+              Складні ланцюжки обходу авторизації<br>
+              Контекстно-залежні помилки авторизації
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Стратегія: автоматизація (SAST/DAST) для базового покриття в CI/CD + ручне тестування платіжних потоків, автентифікації та міжсервісної авторизації.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>STRIDE — проактивне моделювання загроз</h1>
+      <h2>Доповнення реактивного тестування</h2>
+      <div class="card-grid cols-3">
+        <div class="card accent-red">
+          <span class="card-icon">🎭</span>
+          <div class="card-title">S — Spoofing</div>
+          <div class="card-text">Підміна ідентичності користувача або системи</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">✏️</span>
+          <div class="card-title">T — Tampering</div>
+          <div class="card-text">Несанкціонована модифікація даних</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🙈</span>
+          <div class="card-title">R — Repudiation</div>
+          <div class="card-text">Відмова від авторства дій</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔓</span>
+          <div class="card-title">I — Info Disclosure</div>
+          <div class="card-text">Розкриття конфіденційної інформації</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">💥</span>
+          <div class="card-title">D — Denial of Service</div>
+          <div class="card-text">Відмова в обслуговуванні</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">⬆️</span>
+          <div class="card-title">E — Elevation of Privilege</div>
+          <div class="card-text">Підвищення привілеїв</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Моделювання на етапі проєктування значно дешевше за виявлення архітектурних вразливостей під час пентестів, коли вартість перепроєктування вже висока.</p>
+      </div>
+    </section>
+
+    <section class="slide">
       <h1>PTES — стандарт тестування на проникнення</h1>
       <h2>7 фаз пентесту</h2>
       <div class="steps">
