@@ -300,6 +300,18 @@ body {
   text-align: center;
 }
 
+.icon-list-item .il-icon.num-badge {
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
 .icon-list-item .il-text {
   font-size: clamp(0.9rem, 1.6vw, 1.2rem);
   color: #cbd5e1;

@@ -677,21 +677,13 @@ a.lecture-card {
   line-height: 1.7;
   border: 1px solid #334155;
   position: relative;
+  white-space: pre;
+  word-wrap: normal;
 }
 
 html.dark .lecture-content pre {
   background: #0f172a;
   border-color: #1e3a5f;
-}
-
-.lecture-content pre code {
-  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
-  font-size: 13px;
-  line-height: 1.7;
-  background: none;
-  padding: 0;
-  border: none;
-  color: inherit;
 }
 
 .lecture-content code {
@@ -705,11 +697,17 @@ html.dark .lecture-content pre {
 }
 
 .lecture-content pre code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 13px;
+  line-height: 1.7;
   background: none;
   color: inherit;
   padding: 0;
   border: none;
   border-radius: 0;
+  white-space: pre;
+  word-wrap: normal;
+  overflow-wrap: normal;
 }
 
 /* --- Control questions --- */
@@ -750,6 +748,56 @@ html.dark .lecture-content pre {
 
 .control-questions li:last-child {
   margin-bottom: 0;
+}
+
+/* --- Key concepts grid --- */
+.key-concepts {
+  border: 1.5px solid var(--accent);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin: 24px 0 32px;
+  background: var(--card-bg);
+}
+
+.key-concepts h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 18px !important;
+}
+
+.key-concepts-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 1100px) {
+  .key-concepts-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .key-concepts-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .key-concepts-grid { grid-template-columns: 1fr; }
+}
+
+.key-concepts-grid .concept {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.06), rgba(14, 165, 233, 0.02));
+  border: 1px solid var(--card-border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.key-concepts-grid .concept strong {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 /* --- Example box (green accent) --- */
@@ -1428,6 +1476,18 @@ body.dark .diagram-example {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.section-nav ul ul {
+  padding-left: 14px;
+  margin: 2px 0 6px;
+}
+
+.section-nav ul ul a {
+  font-size: 12px;
+  padding: 3px 10px;
+  color: var(--text-muted);
+  border-left-width: 1px;
 }
 
 .section-nav li {
