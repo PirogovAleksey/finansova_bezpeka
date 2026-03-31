@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Питання до модульної контрольної роботи №1: Технічні основи фінансової кібербезпеки.">
+  <meta name="author" content="Кафедра ТЕІБ, Ужгородський національний університет">
+  <meta name="theme-color" content="#0ea5e9">
+  <title>Модулі — Фінансова Безпека</title>
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
+</head>
+<body>
+
+  <aside>
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        Фінансова<br>Безпека
+        <span>онлайн-курс</span>
+      </div>
+    </div>
+
+    <nav aria-label="Головна навігація"></nav>
+
+    <div class="sidebar-footer">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Перемкнути тему">
+        <svg id="theme-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <span id="theme-label">Темна тема</span>
+      </button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="page-header">
+      <h1>Модулі</h1>
+      <p>Питання до модульних контрольних робіт з курсу фінансової безпеки.</p>
+    </div>
+
+    <details class="module-accordion" open>
+      <summary class="module-accordion-header">
+        <div class="module-accordion-title">
+          <span class="module-accordion-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+          </span>
+          <div>
+            <h2>Модуль 1. Технічні основи фінансової кібербезпеки</h2>
+            <p>Лекції 1-7 &middot; 35 питань</p>
+          </div>
+        </div>
+        <span class="module-accordion-chevron">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </summary>
+
+      <div class="module-accordion-body">
+
+        <section>
+          <h3 class="module-topic-title">Тема 1. Ландшафт кіберзагроз у фінансах</h3>
+          <ol class="module-questions">
+            <li>Дайте визначення фінансової безпеки. Охарактеризуйте три рівні фінансової безпеки (макро-, мезо-, мікрорівень).</li>
+            <li>Розкрийте тріаду CIA (конфіденційність, цілісність, доступність) у контексті фінансового сектору. Наведіть приклади порушення кожної складової.</li>
+            <li>Охарактеризуйте основні типи кібератак на фінансовий сектор: фішинг, ransomware, DDoS, інсайдерські загрози, атаки на ланцюжок постачання.</li>
+            <li>Опишіть модель Cyber Kill Chain та її 7 фаз. Як вона застосовується для аналізу атак на фінансові установи?</li>
+            <li>Які регуляторні стандарти кібербезпеки діють у фінансовому секторі? Охарактеризуйте PCI DSS, SWIFT CSP, вимоги НБУ та NIST.</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3 class="module-topic-title">Тема 2. Безпечна архітектура FinTech-систем</h3>
+          <ol class="module-questions" start="6">
+            <li>Розкрийте принципи архітектури Zero Trust. Чим вона відрізняється від традиційної периметрової моделі безпеки?</li>
+            <li>Опишіть ключові принципи Zero Trust: верифікація кожного запиту, принцип найменших привілеїв (JIT/JEA), мікросегментація.</li>
+            <li>Що таке Secure SDLC та DevSecOps? Як вони інтегрують безпеку на кожному етапі розробки програмного забезпечення?</li>
+            <li>Охарактеризуйте підходи до безпеки мікросервісної архітектури та контейнерів у FinTech-системах.</li>
+            <li>Опишіть механізми безпеки API: OAuth 2.0, OpenID Connect, захист webhook-ів. Чому безпека API критична для FinTech?</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3 class="module-topic-title">Тема 3. Автентифікація та контроль доступу</h3>
+          <ol class="module-questions" start="11">
+            <li>Охарактеризуйте три (чотири) фактори автентифікації. Що таке поведінкова біометрія та як вона використовується у фінансовому секторі?</li>
+            <li>Порівняйте методи MFA: TOTP, FIDO2/WebAuthn, Push-нотифікації, SMS OTP. Які переваги та недоліки кожного методу?</li>
+            <li>Опишіть атаки на MFA: Adversary-in-the-Middle (AiTM), MFA fatigue, SIM-swapping. Який метод MFA стійкий до фішингу і чому?</li>
+            <li>Порівняйте моделі авторизації RBAC, ABAC та ReBAC. У яких сценаріях доцільно застосовувати кожну з них?</li>
+            <li>Що таке JWT-токени? Опишіть їх структуру, типові вразливості та атаки при неправильній реалізації.</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3 class="module-topic-title">Тема 4. Клієнтські атаки (XSS)</h3>
+          <ol class="module-questions" start="16">
+            <li>Охарактеризуйте три типи XSS-атак (Reflected, Stored, DOM-based). Який із них найнебезпечніший і чому?</li>
+            <li>Наведіть приклади експлуатації XSS у фінансових системах. Які наслідки може мати XSS-атака на систему інтернет-банкінгу?</li>
+            <li>Що таке Content Security Policy (CSP) та Subresource Integrity (SRI)? Як вони захищають від клієнтських атак?</li>
+            <li>Опишіть атаки CSRF та Clickjacking. Які механізми захисту від них існують?</li>
+            <li>Як сучасні SPA-фреймворки (React, Angular, Vue) захищають від XSS? Що таке Mutation XSS (mXSS)?</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3 class="module-topic-title">Тема 5. Серверні вразливості та бази даних</h3>
+          <ol class="module-questions" start="21">
+            <li>Класифікуйте типи SQL-ін'єкцій (Classic, Blind, Time-based Blind, Out-of-band). Поясніть принцип роботи кожного типу.</li>
+            <li>Що таке Second-Order SQL-ін'єкція та ORM Injection? Чим вони відрізняються від класичної SQLi?</li>
+            <li>Опишіть серверні атаки SSRF, XXE та SSTI. Як вони експлуатуються та які наслідки мають?</li>
+            <li>Що таке параметризовані запити (Prepared Statements)? Чому вони є основним захистом від SQL-ін'єкцій?</li>
+            <li>Опишіть принципи захисту баз даних: шифрування (at rest / in transit), розмежування доступу, аудит, резервне копіювання.</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3 class="module-topic-title">Тема 6. Стандартизація OWASP та аудит</h3>
+          <ol class="module-questions" start="26">
+            <li>Перелічіть та охарактеризуйте категорії OWASP Top 10 (2025). Яка категорія є найпоширенішою?</li>
+            <li>Що таке OWASP ASVS? Опишіть три рівні верифікації (L1, L2, L3) та їх застосування.</li>
+            <li>Охарактеризуйте OWASP API Security Top 10. Чим специфіка безпеки API відрізняється від безпеки веб-додатків?</li>
+            <li>Опишіть методологію проведення аудиту безпеки. Що таке CVSS та як оцінюється критичність вразливостей?</li>
+            <li>Що таке програми Bug Bounty та відповідальне розкриття вразливостей (Responsible Disclosure)? Який їх життєвий цикл?</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3 class="module-topic-title">Тема 7. Безпека платіжних систем</h3>
+          <ol class="module-questions" start="31">
+            <li>Опишіть стандарт PCI DSS: 12 основних вимог та рівні відповідності. Що змінилося у версії 4.0?</li>
+            <li>Поясніть технологію EMV-чипів. Чому чипові картки безпечніші за магнітну смугу?</li>
+            <li>Що таке токенізація та P2PE (Point-to-Point Encryption)? Як вони захищають платіжні дані?</li>
+            <li>Опишіть протокол 3D Secure 2.0. Як він автентифікує онлайн-платежі та чим відрізняється від версії 1.0?</li>
+            <li>Охарактеризуйте системи виявлення шахрайства (fraud detection): rule-based та ML-підходи. Що таке PSD2 та Open Banking?</li>
+          </ol>
+        </section>
+
+      </div>
+    </details>
+
+    <details class="module-accordion">
+      <summary class="module-accordion-header">
+        <div class="module-accordion-title">
+          <span class="module-accordion-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+          </span>
+          <div>
+            <h2>Модуль 2. Стратегія, аналітика та управління ризиками</h2>
+            <p>Лекції 8-15 &middot; Скоро</p>
+          </div>
+        </div>
+        <span class="module-accordion-chevron">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </summary>
+      <div class="module-accordion-body">
+        <p style="text-align:center;color:var(--text-secondary);padding:32px 0;">Питання до модуля 2 будуть додані пізніше.</p>
+      </div>
+    </details>
+
+    <footer></footer>
+  </main>
+
+  <button class="mobile-theme-toggle" onclick="toggleTheme()" aria-label="Змінити тему">
+    <svg id="mobile-theme-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+  </button>
+
+  <script src="js/main.js"></script>
+
+</body>
+</html>
