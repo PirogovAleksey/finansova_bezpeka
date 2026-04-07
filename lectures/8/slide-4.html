@@ -119,7 +119,7 @@
         <div class="card accent-green">
           <span class="card-icon">🔐</span>
           <div class="card-title">MFA / FIDO2</div>
-          <div class="card-text">FIDO2 = phishing-resistant. Навіть з паролем доступу немає</div>
+          <div class="card-text">FIDO2 = phishing-resistant за дизайном: ключ прив'язаний до домену</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🌐</span>
@@ -130,6 +130,56 @@
           <span class="card-icon">🖥️</span>
           <div class="card-title">Ізоляція браузера (Browser Isolation)</div>
           <div class="card-text">Підозрілі URL відкриваються у sandbox-середовищі</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Чому FIDO2 — золотий стандарт MFA</h1>
+      <h2>Не всі MFA однаково корисні</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📱</span>
+          <span class="il-text"><strong>SMS-коди</strong> — вразливі до SIM-swap атак та перехоплення через SS7. Найслабший варіант</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔔</span>
+          <span class="il-text"><strong>Push-нотифікації</strong> — вразливі до MFA fatigue: десятки запитів, поки жертва натисне «Так» (кейс Uber, 2022)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔑</span>
+          <span class="il-text"><strong>FIDO2 (YubiKey)</strong> — криптографічно прив'язаний до домену. На фішинговому сайті просто не спрацює</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏢</span>
+          <span class="il-text"><strong>Результат:</strong> Google, Microsoft, Cloudflare перейшли на FIDO2 — <strong>0 фішингових інцидентів</strong> з того часу</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Зворотна перевірка (Callback Verification): приклад</h1>
+      <h2>Як один дзвінок рятує тисячі гривень</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Лист від «постачальника»</div>
+          <div class="step-desc">Бухгалтер отримує email: «Наші реквізити змінилися, новий IBAN у вкладенні»</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Замість негайної зміни...</div>
+          <div class="step-desc">Бухгалтер дзвонить постачальнику за номером з ДОВІДНИКА (не з листа!)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Перевірка</div>
+          <div class="step-desc">«Ні, ми нічого не змінювали» — лист виявився шахрайським</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Результат</div>
+          <div class="step-desc">Один дзвінок = збережені десятки тисяч гривень. Простіше не буває</div>
         </div>
       </div>
     </section>
@@ -236,7 +286,7 @@
 
     <section class="slide">
       <h1>Процес реагування на інциденти</h1>
-      <h2>Workflow при виявленні фішингу</h2>
+      <h2>Робочий процес (Workflow) при виявленні фішингу</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
