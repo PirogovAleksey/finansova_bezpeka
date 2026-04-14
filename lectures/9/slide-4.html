@@ -139,28 +139,52 @@
     </section>
 
     <section class="slide">
-      <h1>EU AI Act</h1>
-      <h2>Регулювання AI у фінансовому секторі</h2>
+      <h1>EU AI Act: хронологія</h1>
+      <h2>Перший у світі комплексний закон про AI</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">01.08.2024</div>
+          <div class="step-desc">Набрання чинності EU AI Act</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">02.08.2025</div>
+          <div class="step-desc">Зобов'язання для GPAI (General Purpose AI) — моделей загального призначення</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">02.08.2026</div>
+          <div class="step-desc">Повні вимоги для високоризикових (high-risk) AI-систем</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Штрафи: до 35 млн EUR або 7% глобального обороту за заборонені AI-системи; до 15 млн EUR / 3% за порушення вимог high-risk.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>EU AI Act: рівні ризику</h1>
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">🚫</span>
-          <div class="card-title">Заборонені</div>
+          <div class="card-title">Заборонені (Неприйнятний ризик)</div>
           <div class="card-text">Соціальний рейтинг (social scoring), маніпулятивний AI, масове біометричне стеження</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">⚠️</span>
           <div class="card-title">Високоризиковий (High-risk)</div>
-          <div class="card-text">Кредитний скоринг, виявлення шахрайства, страхування. Людський нагляд (human oversight) обов'язковий</div>
+          <div class="card-text">Кредитний скоринг, fraud detection, AML. Людський нагляд (human oversight) обов'язковий</div>
         </div>
         <div class="card accent-blue">
-          <span class="card-icon">📋</span>
-          <div class="card-title">Вимоги</div>
-          <div class="card-text">Прозорість, управління даними, тестування стійкості, документація</div>
+          <span class="card-icon">🟡</span>
+          <div class="card-title">Обмежений ризик</div>
+          <div class="card-text">AI-чатботи, deepfake-генератори. Прозорість: маркування AI-контенту</div>
         </div>
         <div class="card accent-green">
-          <span class="card-icon">🇺🇦</span>
-          <div class="card-title">Україна</div>
-          <div class="card-text">НБУ та НКЦБФР формують рекомендації за європейськими стандартами</div>
+          <span class="card-icon">🟢</span>
+          <div class="card-title">Мінімальний ризик</div>
+          <div class="card-text">Spam-фільтри, рекомендації. Без обов'язкових вимог</div>
         </div>
       </div>
     </section>
@@ -256,27 +280,32 @@
     </section>
 
     <section class="slide">
-      <h1>EU AI Act: рівні ризику</h1>
-      <div class="icon-list">
-        <div class="icon-list-item">
-          <span class="il-icon">🚫</span>
-          <span class="il-text"><strong>Неприйнятний ризик (заборонено)</strong> — соціальний рейтинг (social scoring), маніпулятивний AI, масове біометричне стеження у реальному часі</span>
+      <h1>NIST AI RMF</h1>
+      <h2>AI Risk Management Framework (США, 2023)</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">🏛️</span>
+          <div class="card-title">Govern (Управління)</div>
+          <div class="card-text">Політики, ролі, відповідальність за AI-системи в організації</div>
         </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🔴</span>
-          <span class="il-text"><strong>Високий ризик</strong> — кредитний скоринг, виявлення шахрайства, HR-системи. Вимоги: людський нагляд, XAI, аудит, документація</span>
+        <div class="card accent-green">
+          <span class="card-icon">🗺️</span>
+          <div class="card-title">Map (Картографування)</div>
+          <div class="card-text">Ідентифікація контексту, ризиків та зацікавлених сторін</div>
         </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🟡</span>
-          <span class="il-text"><strong>Обмежений ризик</strong> — чатботи, deepfake-генератори. Вимога: прозорість, маркування AI-контенту</span>
+        <div class="card accent-orange">
+          <span class="card-icon">📏</span>
+          <div class="card-title">Measure (Вимірювання)</div>
+          <div class="card-text">Метрики точності, справедливості, робастності, приватності</div>
         </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🟢</span>
-          <span class="il-text"><strong>Мінімальний ризик</strong> — спам-фільтри, рекомендації, ігри. Без обов'язкових вимог</span>
+        <div class="card accent-purple">
+          <span class="card-icon">🔧</span>
+          <div class="card-title">Manage (Управління ризиками)</div>
+          <div class="card-text">Пріоритизація та обробка виявлених AI-ризиків</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Штрафи до 35M EUR або 7% глобального обороту. Фінансовий сектор: більшість AI-систем = high-risk категорія.</p>
+        <p>EU AI Act визначає «що» (вимоги), NIST AI RMF — «як» (практики). Для України: гармонізація з EU AI Act у рамках євроінтеграції.</p>
       </div>
     </section>
 
@@ -286,19 +315,19 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Змагальні атаки (Adversarial)</strong> — ухилення, отруєння, вилучення загрожують ML-моделям</span>
+          <span class="il-text"><strong>Змагальні атаки (Adversarial)</strong> — ухилення (evasion), отруєння (poisoning), вилучення (extraction) загрожують ML-моделям</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>XAI</strong> — SHAP/LIME для пояснення рішень, обов'язково для фінансів</span>
+          <span class="il-text"><strong>Пояснюваність (XAI)</strong> — SHAP/LIME для пояснення рішень, обов'язково для фінансів</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>Аудит упереджень (Bias audit)</strong> — регулярна перевірка справедливості, SR 11-7 стандарт</span>
+          <span class="il-text"><strong>EU AI Act</strong> — набрав чинності 01.08.2024; штрафи до 35M EUR / 7%; high-risk з 02.08.2026</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>EU AI Act</strong> — фінансовий AI = високий ризик, людський нагляд обов'язковий</span>
+          <span class="il-text"><strong>NIST AI RMF + SR 11-7</strong> — Govern/Map/Measure/Manage; незалежна валідація моделей обов'язкова</span>
         </div>
       </div>
     </section>

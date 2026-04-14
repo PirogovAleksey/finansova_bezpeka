@@ -140,23 +140,74 @@
     </section>
 
     <section class="slide">
-      <h1>Автоматизований пошук загроз</h1>
+      <h1>AI у кібербезпеці: статистика</h1>
+      <div class="stat-row">
+        <div class="stat-box green">
+          <div class="stat-value">74%</div>
+          <div class="stat-label">покращення швидкості виявлення загроз з AI (IBM)</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="stat-value">108 днів</div>
+          <div class="stat-label">швидше виявлення витоку даних (breach detection)</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">-43%</div>
+          <div class="stat-label">зменшення вартості витоку: $4.44M → $2.54M</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>До 2027 року 75% корпоративних SOC використовуватимуть AI як основний інструмент детекції (Gartner, 2025).</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Автоматизований пошук загроз (Automated Threat Hunting)</h1>
       <div class="stat-row">
         <div class="stat-box red">
           <div class="stat-value">10K+</div>
           <div class="stat-label">сповіщень (alerts) на день у типовому SOC банку</div>
         </div>
         <div class="stat-box green">
-          <div class="stat-value">AI</div>
-          <div class="stat-label">пріоритизує та кореляє сповіщення</div>
+          <div class="stat-value">-53%</div>
+          <div class="stat-label">зменшення помилок у SOC завдяки AI</div>
         </div>
         <div class="stat-box blue">
-          <div class="stat-value">-80%</div>
-          <div class="stat-label">зменшення втоми від сповіщень (alert fatigue)</div>
+          <div class="stat-value">SIGMA</div>
+          <div class="stat-label">3000+ правил для SIEM (SigmaHQ)</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>AI генерує гіпотези про загрози з логів, трафіку та endpoint-телеметрії. SOC-аналітик отримує контекст замість шуму.</p>
+        <p>AI генерує гіпотези про загрози з логів, трафіку та endpoint-телеметрії. Втома від сповіщень (alert fatigue) — ключова проблема SOC.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>SOAR: автоматизоване реагування</h1>
+      <h2>Security Orchestration, Automation and Response</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Виявлення (Detection)</div>
+          <div class="step-desc">AI визначає рівень загрози та класифікує інцидент</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Ізоляція (Isolation)</div>
+          <div class="step-desc">Автоматичне відключення скомпрометованого endpoint від мережі</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Блокування (Blocking)</div>
+          <div class="step-desc">Блокування шкідливих IP на firewall, відкликання сесій</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Ескалація (Escalation)</div>
+          <div class="step-desc">Тікет в ITSM, сповіщення SOC-команди з повним контекстом</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Платформи: Palo Alto XSOAR, IBM QRadar SOAR, Splunk SOAR. MTTR скорочується з годин до хвилин.</p>
       </div>
     </section>
 

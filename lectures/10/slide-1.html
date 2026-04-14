@@ -27,7 +27,7 @@
       <span class="slide-icon">🔑</span>
       <h1>Криптогаманці та ключі</h1>
       <p class="subtitle">Лекція 10.1</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Гарячі/холодні гаманці, сід-фраза, мультипідпис, апаратні гаманці</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Seed-фраза (BIP-39), HD-гаманці, гарячі/холодні, апаратні, мультипідпис (Multisig), MPC</span>
     </section>
 
     <section class="slide">
@@ -35,7 +35,7 @@
       <div class="stat-row">
         <div class="stat-box red">
           <div class="stat-value">20%</div>
-          <div class="stat-label">всіх Bitcoin назавжди втрачені</div>
+          <div class="stat-label">усіх Bitcoin назавжди втрачені</div>
         </div>
         <div class="stat-box orange">
           <div class="stat-value">$100B+</div>
@@ -47,7 +47,62 @@
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>У блокчейні немає «забув пароль». Втрата приватного ключа = безповоротна втрата всіх коштів.</p>
+        <p>James Howells (2013): викинув жорсткий диск з 8000 BTC — понад $500 млн. Станом на 2025 рік кошти досі недоступні.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Seed-фраза (BIP-39)</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📝</span>
+          <span class="il-text"><strong>12 або 24 слова</strong> зі словника 2048 слів — резервна копія мастер-ключа</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔢</span>
+          <span class="il-text"><strong>Ентропія:</strong> 128 біт (12 слів) або 256 біт (24 слова) + контрольна сума SHA-256</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">✅</span>
+          <span class="il-text"><strong>Зберігати:</strong> металева пластина (Cryptosteel), папір у сейфі, географічний розподіл копій</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🚫</span>
+          <span class="il-text"><strong>НІКОЛИ:</strong> фото, хмара (cloud), email, скріншот, цифрова копія</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚠️</span>
+          <span class="il-text"><strong>Компрометація seed = втрата ВСІХ адрес у ВСІХ блокчейнах</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>HD-гаманець (Hierarchical Deterministic): ієрархія ключів</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Seed-фраза (BIP-39)</div>
+          <div class="step-desc">Мнемонічна фраза генерує 512-біт мастер-ключ (master seed)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Мастер-ключ (Master Key)</div>
+          <div class="step-desc">HMAC-SHA512 створює master private key + chain code (BIP-32)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Шлях деривації (Derivation Path, BIP-44)</div>
+          <div class="step-desc">m/44'/60'/0'/0/0 — мережа/акаунт/адреса. 60' = Ethereum, 0' = Bitcoin</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Дочірні ключі (Child Keys)</div>
+          <div class="step-desc">Один seed — необмежена кількість адрес для різних блокчейнів</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Перевага HD: один seed — мільйони адрес у Bitcoin, Ethereum, Solana. Резервне копіювання лише seed-фрази.</p>
       </div>
     </section>
 
@@ -60,9 +115,10 @@
             <div class="card-title">Гарячий гаманець (Hot Wallet)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Підключений до інтернету<br>
-              MetaMask, Trust Wallet<br>
+              MetaMask, Trust Wallet, Exodus<br>
               Зручно для щоденних операцій<br>
-              Вразливий до шкідливого ПЗ, фішингу
+              Вразливий: malware, фішинг, keyloggers<br>
+              200K+ зразків malware для крадіжки ключів
             </div>
           </div>
         </div>
@@ -71,64 +127,42 @@
             <span class="card-icon">❄️</span>
             <div class="card-title">Холодний гаманець (Cold Wallet)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              Офлайн, без інтернету<br>
-              Ledger, Trezor, паперовий гаманець<br>
-              Максимальна безпека<br>
-              Менш зручний для частих операцій
+              Повністю офлайн<br>
+              Ledger, Trezor, паперовий, air-gapped<br>
+              Максимальна безпека від віддалених атак<br>
+              Менш зручний для частих операцій<br>
+              Вразливий до фізичних загроз
             </div>
           </div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Правило: гарячий гаманець = «гаманець у кишені» (мало), холодний гаманець = «сейф» (основні кошти).</p>
+        <p>Правило: гарячий гаманець = «гаманець у кишені» (лише поточні витрати), холодний гаманець = «сейф» (основні заощадження).</p>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Сід-фраза (Seed Phrase, BIP-39)</h1>
+      <h1>Апаратний гаманець (Hardware Wallet)</h1>
       <div class="icon-list">
         <div class="icon-list-item">
-          <span class="il-icon">📝</span>
-          <span class="il-text"><strong>12 або 24 слова</strong> — резервна копія ВСІХ ключів у гаманці</span>
+          <span class="il-icon">🔧</span>
+          <span class="il-text"><strong>Захищений елемент (Secure Element)</strong> — ізольований чіп CC EAL5+/6+ для зберігання ключів</span>
         </div>
         <div class="icon-list-item">
-          <span class="il-icon">✅</span>
-          <span class="il-text"><strong>Зберігати:</strong> металева пластина, папір у сейфі, розділити на частини</span>
+          <span class="il-icon">🖥️</span>
+          <span class="il-text"><strong>Довірений екран (Trusted Display)</strong> — показує реальні дані транзакції, не залежить від комп'ютера</span>
         </div>
         <div class="icon-list-item">
-          <span class="il-icon">🚫</span>
-          <span class="il-text"><strong>НІКОЛИ:</strong> фото, cloud, email, screenshot, digital copy</span>
+          <span class="il-icon">✍️</span>
+          <span class="il-text"><strong>Підпис всередині</strong> — приватний ключ НІКОЛИ не покидає пристрій</span>
         </div>
         <div class="icon-list-item">
-          <span class="il-icon">⚠️</span>
-          <span class="il-text"><strong>Компрометація</strong> seed = втрата ВСІХ коштів на ВСІХ адресах</span>
+          <span class="il-icon">🔄</span>
+          <span class="il-text"><strong>Верифікація прошивки (Firmware Verification)</strong> — захист від атак на ланцюг постачання (supply chain)</span>
         </div>
       </div>
-    </section>
-
-    <section class="slide">
-      <h1>Multisig та MPC</h1>
-      <div class="card-grid">
-        <div class="card accent-green">
-          <span class="card-icon">🔐</span>
-          <div class="card-title">Multisig</div>
-          <div class="card-text">M з N ключів для підпису. 2/3, 3/5. Gnosis Safe для Ethereum</div>
-        </div>
-        <div class="card accent-purple">
-          <span class="card-icon">🧩</span>
-          <div class="card-title">MPC</div>
-          <div class="card-text">Ключ розділений на shares. Ніколи не збирається разом. Будь-який блокчейн</div>
-        </div>
-        <div class="card accent-blue">
-          <span class="card-icon">🏦</span>
-          <div class="card-title">Корпоративне використання (Corporate Use)</div>
-          <div class="card-text">Treasury, DAO, біржі: захист від компрометації одного ключа</div>
-        </div>
-        <div class="card accent-orange">
-          <span class="card-icon">🛡️</span>
-          <div class="card-title">Соціальне відновлення (Social Recovery)</div>
-          <div class="card-text">Guardians можуть допомогти відновити доступ при втраті ключа</div>
-        </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Витік Ledger (2020): дані 272 000 клієнтів у відкритому доступі — фішинг, підроблені пристрої поштою, погрози фізичного насильства. Пристрої не зламані, але безпека людей — так.</p>
       </div>
     </section>
 
@@ -137,65 +171,79 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">🏦</span>
-          <span class="il-text"><strong>Кастодіальний (Custodial)</strong> — біржа зберігає ваші ключі. Зручно, але ви не контролюєте</span>
+          <span class="il-text"><strong>Кастодіальний (Custodial)</strong> — біржа зберігає ваші ключі. Зручно, але ви — кредитор, не власник</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔑</span>
-          <span class="il-text"><strong>Некастодіальний (Non-custodial)</strong> — ви контролюєте ключі. Повна відповідальність на вас</span>
+          <span class="il-text"><strong>Некастодіальний (Non-custodial)</strong> — ви контролюєте ключі. Повна відповідальність та суверенітет</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">💀</span>
-          <span class="il-text"><strong>Mt. Gox:</strong> $460M втрачено. <strong>FTX:</strong> $8B втрачено. Кастодіальні ризики</span>
+          <span class="il-text"><strong>Mt. Gox:</strong> 850K BTC ($450 млн). <strong>FTX:</strong> $8 млрд. Кастодіальні ризики</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">💡</span>
-          <span class="il-text"><strong>Правило:</strong> «Not your keys, not your coins» — зберігайте значні суми самостійно (self-custody)</span>
+          <span class="il-text"><strong>Правило:</strong> «Не ваші ключі — не ваші монети (Not Your Keys, Not Your Coins)»</span>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>HD-гаманець (HD Wallet): ієрархічна деривація ключів</h1>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-title">Сід-фраза (Seed)</div>
-          <div class="step-desc">Seed phrase (BIP-39) генерує 512-біт master seed</div>
+      <h1>Мультипідпис (Multisig): M-of-N</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔐</span>
+          <span class="il-text"><strong>Принцип:</strong> M з N ключів для підпису (2/3, 3/5, 4/7). Gnosis Safe (Safe{Wallet}) — стандарт Ethereum, $100B+ під управлінням</span>
         </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-title">Майстер-ключ (Master Key)</div>
-          <div class="step-desc">HMAC-SHA512 створює master private key + chain code</div>
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Переваги:</strong> усуває єдину точку відмови (single point of failure), втрата 1 ключа не блокує доступ</span>
         </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-title">Шлях деривації (Derivation Path)</div>
-          <div class="step-desc">BIP-44: m/44'/60'/0'/0/0 — мережа/акаунт/адреса</div>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-title">Дочірні ключі (Child Keys)</div>
-          <div class="step-desc">Нескінченна кількість адрес з одного seed, кожна ізольована</div>
+        <div class="icon-list-item">
+          <span class="il-icon">👁️</span>
+          <span class="il-text"><strong>Видимість:</strong> конфігурація on-chain — прозора, аудитована, але видима зловмисникам</span>
         </div>
       </div>
-      <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Перевага HD: один seed → мільйони адрес для різних блокчейнів. Резервне копіювання лише seed phrase.</p>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Ronin Network ($625 млн, 2022): 5-of-9 мультипідпис, але Sky Mavis контролювала 5 валідаторів. Lazarus Group + фішинг = злом за 1 транзакцію. Виявлено через 6 днів.</p>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Multisig vs MPC: порівняння</h1>
+      <h1>MPC-гаманець (Multi-Party Computation)</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🧩</span>
+          <span class="il-text"><strong>Принцип:</strong> ключ розділений на частки (shares), ніколи не збирається разом. Підпис обчислюється спільно</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔒</span>
+          <span class="il-text"><strong>Off-chain:</strong> виглядає як звичайна адреса, конфігурація безпеки прихована</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔄</span>
+          <span class="il-text"><strong>Ротація часток (Key Resharing):</strong> перегенерація без зміни адреси, скомпрометована частка стає марною</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏢</span>
+          <span class="il-text"><strong>Інституціональний стандарт 2025:</strong> Fireblocks ($6T+ транзакцій, 1800+ клієнтів), ZenGo, Fordefi</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>MPC vs мультипідпис (Multisig): порівняння</h1>
       <div class="two-col">
         <div class="col">
           <div class="card accent-green" style="height: 100%;">
             <span class="card-icon">🔐</span>
-            <div class="card-title">Multisig (M-of-N)</div>
+            <div class="card-title">Мультипідпис (Multisig)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              On-chain: видно кількість підписів<br>
+              On-chain: конфігурація публічна<br>
               Вищі gas fees (кілька підписів)<br>
               Специфічний для блокчейну<br>
-              Gnosis Safe: стандарт Ethereum<br>
-              Прозорий та аудитований
+              Прозорий та аудитований<br>
+              Скарбниці DAO, довготривале зберігання
             </div>
           </div>
         </div>
@@ -205,46 +253,21 @@
             <div class="card-title">MPC (Multi-Party Computation)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
               Off-chain: виглядає як звичайний підпис<br>
-              Менші gas fees (один підпис)<br>
+              Стандартні gas fees (один підпис)<br>
               Працює з будь-яким блокчейном<br>
-              Fireblocks, Coinbase: корпоративний стандарт<br>
-              Гнучка ротація key shares
+              Ротація часток без зміни адреси<br>
+              Операційні гаманці, інституціональна торгівля
             </div>
           </div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Multisig = прозорість on-chain. MPC = універсальність та privacy. Обидва усувають single point of failure.</p>
+        <p>Найкраща практика: MPC для щоденних операцій + мультипідпис для довготривалого зберігання (treasury).</p>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Архітектура апаратного гаманця</h1>
-      <div class="icon-list">
-        <div class="icon-list-item">
-          <span class="il-icon">🔧</span>
-          <span class="il-text"><strong>Secure Element (SE)</strong> — ізольований чіп для зберігання приватних ключів (CC EAL5+/6+)</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🖥️</span>
-          <span class="il-text"><strong>Trusted Display</strong> — екран керується SE, показує реальні дані транзакції</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">✍️</span>
-          <span class="il-text"><strong>Підпис всередині</strong> — приватний ключ ніколи не покидає пристрій, транзакція підписується на чіпі</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🔄</span>
-          <span class="il-text"><strong>Верифікація прошивки (Firmware verification)</strong> — цифровий підпис прошивки запобігає атакам на ланцюг постачання</span>
-        </div>
-      </div>
-      <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Ledger (Secure Element) vs Trezor (open-source MCU). Компроміс: закритий чіп з більшим захистом vs відкритий код з прозорістю.</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Безпека Seed Phrase: найкращі практики</h1>
+      <h1>Безпека seed-фрази: найкращі практики</h1>
       <div class="card-grid">
         <div class="card accent-green">
           <span class="card-icon">🔩</span>
@@ -253,22 +276,19 @@
         </div>
         <div class="card accent-blue">
           <span class="card-icon">✂️</span>
-          <div class="card-title">Shamir's Secret Sharing</div>
+          <div class="card-title">Розділення Шаміра (Shamir's Secret Sharing)</div>
           <div class="card-text">Розділити seed на 3 частини, будь-які 2 відновлюють повний (SLIP-39)</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">🏦</span>
-          <div class="card-title">Географічне розділення</div>
+          <div class="card-title">Географічний розподіл</div>
           <div class="card-text">Частини seed у різних локаціях: дім, банківський сейф, довірена особа</div>
         </div>
         <div class="card accent-red">
           <span class="card-icon">🚫</span>
           <div class="card-title">Парольна фраза / Passphrase (25-те слово)</div>
-          <div class="card-text">Додатковий пароль до seed: навіть при крадіжці 24 слів кошти захищені</div>
+          <div class="card-text">Додатковий пароль: навіть при крадіжці 24 слів кошти захищені. Гаманець-приманка (decoy wallet) без passphrase</div>
         </div>
-      </div>
-      <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Атака за $5 (wrench attack): фізичний примус. Рішення — гаманець-приманка (decoy wallet) без парольної фрази + основний гаманець з парольною фразою.</p>
       </div>
     </section>
 
@@ -278,19 +298,23 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Холодне зберігання (Cold storage)</strong> — основні кошти офлайн, гарячий гаманець для щоденних потреб</span>
+          <span class="il-text"><strong>Seed-фраза (BIP-39)</strong> — НІКОЛИ в цифровому вигляді. Компрометація = втрата ВСІХ адрес у ВСІХ блокчейнах</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Сід-фраза (Seed phrase)</strong> — НІКОЛИ в цифровому вигляді, тільки фізичний носій</span>
+          <span class="il-text"><strong>HD-гаманець (BIP-32/44)</strong> — один seed генерує необмежену кількість адрес через ієрархічну деривацію</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>Multisig/MPC</strong> — для корпоративного зберігання та великих сум</span>
+          <span class="il-text"><strong>Холодне зберігання (Cold Storage)</strong> — апаратний гаманець для основних коштів. Витік Ledger (2020) — уроки</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Самостійне зберігання (Self-custody)</strong> — «Not your keys, not your coins»</span>
+          <span class="il-text"><strong>Мультипідпис + MPC</strong> — для інституцій. Ronin ($625 млн) — незалежність підписантів критична</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">5️⃣</span>
+          <span class="il-text"><strong>«Не ваші ключі — не ваші монети»</strong> — Mt. Gox, FTX підтвердили цей принцип</span>
         </div>
       </div>
     </section>

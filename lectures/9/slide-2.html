@@ -27,7 +27,25 @@
       <span class="slide-icon">💰</span>
       <h1>AI у фінансовому моніторингу</h1>
       <p class="subtitle">Лекція 9.2</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">ML для виявлення шахрайства, AML-скринінг, виявлення дипфейків</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Виявлення шахрайства (Fraud Detection), AML-скринінг, верифікація особи (KYC)</span>
+    </section>
+
+    <section class="slide">
+      <h1>AI у фінсекторі: масштаб впровадження</h1>
+      <div class="stat-row">
+        <div class="stat-box blue">
+          <div class="stat-value">91%</div>
+          <div class="stat-label">банків США вже використовують AI для fraud detection (McKinsey)</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">87-96.8%</div>
+          <div class="stat-label">точність ансамблевих ML-моделей виявлення шахрайства</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">&lt;2%</div>
+          <div class="stat-label">хибних спрацювань (false positive rate) з ML vs 37.8% rule-based</div>
+        </div>
+      </div>
     </section>
 
     <section class="slide">
@@ -88,10 +106,10 @@
 
     <section class="slide">
       <h1>AI для AML</h1>
-      <h2>Anti-Money Laundering з Machine Learning</h2>
+      <h2>Протидія відмиванню коштів (Anti-Money Laundering)</h2>
       <div class="stat-row">
         <div class="stat-box red">
-          <div class="stat-value">>95%</div>
+          <div class="stat-value">&gt;95%</div>
           <div class="stat-label">хибних спрацювань (false positives) у AML на основі правил</div>
         </div>
         <div class="stat-box green">
@@ -100,11 +118,39 @@
         </div>
         <div class="stat-box blue">
           <div class="stat-value">GNN</div>
-          <div class="stat-label">Graph Neural Networks для мереж</div>
+          <div class="stat-label">графові нейронні мережі (Graph Neural Networks) для мереж транзакцій</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>NLP для негативних медіа (adverse media): автоматичний скринінг новин про санкції, корупцію, шахрайство для PEP-перевірок.</p>
+        <p>NLP для скринінгу негативних згадок (Adverse Media Screening): автоматичний аналіз новин про санкції, корупцію, шахрайство для PEP-перевірок.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Кейси впровадження AML з ML</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">🏦</span>
+            <div class="card-title">Danske Bank</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Після скандалу з відмиванням $230 млрд<br>
+              ML-система: -60% хибних спрацювань<br>
+              +50% виявлення реального відмивання
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">🏦</span>
+            <div class="card-title">HSBC</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              -60% хибних спрацювань (false positives)<br>
+              У 2-4 рази більше виявлених підозрілих операцій<br>
+              Порівняно з попередньою rule-based системою
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -114,22 +160,22 @@
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-title">Загроза</div>
-          <div class="step-desc">Deepfake-відео для обходу відеоверифікації</div>
+          <div class="step-desc">Deepfake-відео для обходу відеоверифікації (KYC). 62% організацій вже зіткнулися зі спробами (Gartner, 2024)</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-title">Перевірка живості (Liveness)</div>
-          <div class="step-desc">AI-аналіз мікрорухів, текстури шкіри, відблисків</div>
+          <div class="step-title">Перевірка живості (Liveness Detection)</div>
+          <div class="step-desc">AI-аналіз мікрорухів, текстури шкіри, відблисків у зіницях, пульсу через фотоплетизмографію</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-title">PAD</div>
-          <div class="step-desc">Presentation Attack Detection: фото, маски, deepfakes</div>
+          <div class="step-desc">Presentation Attack Detection: фото на екрані, 3D-маски, deepfake в реальному часі</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-title">Багатошаровий (Multi-layer)</div>
-          <div class="step-desc">Document + face + liveness + device = надійна верифікація</div>
+          <div class="step-desc">Документ + обличчя (face matching) + живість (liveness) + пристрій = надійна верифікація</div>
         </div>
       </div>
     </section>
@@ -281,19 +327,19 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Конструювання ознак (Feature engineering)</strong> — ключ до якості моделей виявлення шахрайства</span>
+          <span class="il-text"><strong>91% банків США</strong> вже використовують AI; точність ансамблевих моделей 87-96.8%, хибні спрацювання (FP) &lt;2%</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Ансамбль (Ensemble)</strong> — RF + XGBoost + NN = найкраща частота виявлення</span>
+          <span class="il-text"><strong>AML з ML</strong> — Danske Bank: -60% FP, +50% виявлення; HSBC: у 2-4 рази більше реальних знахідок</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>AML з ML</strong> — зменшення хибних спрацювань (false positives) з >95% до 50-70%</span>
+          <span class="il-text"><strong>Виявлення дипфейків (Deepfake detection)</strong> — 62% організацій зіткнулися зі спробами; перевірка живості (liveness) + PAD</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Виявлення дипфейків (Deepfake detection)</strong> — перевірка живості (liveness) + PAD для захисту KYC</span>
+          <span class="il-text"><strong>Конструювання ознак (Feature engineering)</strong> — velocity, impossible travel, device score визначають 80% якості моделі</span>
         </div>
       </div>
     </section>

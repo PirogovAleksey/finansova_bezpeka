@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
@@ -27,113 +27,193 @@
       <span class="slide-icon">🏛️</span>
       <h1>Біржі та регулювання</h1>
       <p class="subtitle">Лекція 10.4</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Підтвердження резервів (Proof of Reserves), холодне зберігання (cold storage), MiCA</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Bybit $1.5B, FTX $8B, Proof of Reserves + Liabilities, MiCA, CASP-ліцензування</span>
     </section>
 
     <section class="slide">
-      <h1>Безпека централізованих бірж (CEX)</h1>
-      <h2>Централізовані біржі — ключові заходи</h2>
+      <h1>Статистика 2025: масштаб проблеми</h1>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">$3.4B</div>
+          <div class="stat-label">викрадено з крипто-платформ у 2025 році</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">$1.5B</div>
+          <div class="stat-label">Bybit (лютий 2025) — найбільша одинична крадіжка в історії</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="stat-value">$2.02B</div>
+          <div class="stat-label">вкрадено хакерами КНДР (Lazarus Group) у 2025</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>CoinDesk (2025): «Це не проблема смарт-контрактів — це проблема людей». Більшість великих втрат — через соціальну інженерію.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Архітектура безпеки біржі: ешелонований захист (Defense in Depth)</h1>
       <div class="card-grid">
         <div class="card accent-blue">
           <span class="card-icon">❄️</span>
-          <div class="card-title">Холодне зберігання (Cold Storage) 95%+</div>
-          <div class="card-text">Основні активи офлайн, multisig + HSM</div>
-        </div>
-        <div class="card accent-green">
-          <span class="card-icon">📊</span>
-          <div class="card-title">Підтвердження резервів (Proof of Reserves)</div>
-          <div class="card-text">Merkle tree + аудитор = криптографічне підтвердження</div>
+          <div class="card-title">Холодні гаманці (Cold) 90-95%</div>
+          <div class="card-text">Повністю офлайн, HSM, мультипідпис, фізична присутність кількох осіб</div>
         </div>
         <div class="card accent-orange">
-          <span class="card-icon">⏳</span>
-          <div class="card-title">Безпека виведення (Withdrawal Security)</div>
-          <div class="card-text">Whitelist, cooling period 24-72 год, MFA, ліміти</div>
+          <span class="card-icon">🟠</span>
+          <div class="card-title">Теплі гаманці (Warm) 5-10%</div>
+          <div class="card-text">Оперативний резерв для поточних виведень, автоматичне поповнення з cold</div>
         </div>
-        <div class="card accent-purple">
+        <div class="card accent-red">
+          <span class="card-icon">🔥</span>
+          <div class="card-title">Гарячі гаманці (Hot) мінімум</div>
+          <div class="card-text">Лише миттєві операції. Кошти розглядаються як потенційно скомпрометовані</div>
+        </div>
+        <div class="card accent-green">
           <span class="card-icon">🛡️</span>
-          <div class="card-title">Страховий фонд (Insurance Fund)</div>
-          <div class="card-text">Binance SAFU = $1B резервний фонд компенсацій</div>
+          <div class="card-title">Контроль виведень</div>
+          <div class="card-text">Whitelist, cooling period 24-72 год, MFA, ліміти, блокування при аномаліях</div>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Proof of Reserves</h1>
-      <h2>Довіряй, але перевіряй</h2>
+      <h1>Злом Bybit ($1.5 млрд, лютий 2025)</h1>
+      <h2>Атака на ланцюг постачання (Supply Chain Attack) — Lazarus Group (КНДР)</h2>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-title">Знімок (Snapshot)</div>
-          <div class="step-desc">Знімок балансів усіх користувачів</div>
+          <div class="step-title">Компрометація Safe{Wallet}</div>
+          <div class="step-desc">Шкідливий код впроваджено у фронтенд інтерфейсу мультипідпису</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Підміна транзакції</div>
+          <div class="step-desc">На екранах підписантів — легітимна операція. Фактично — переказ на адресу хакерів</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Затвердження 3+ підписантами</div>
+          <div class="step-desc">Кожен підписант діяв відповідально, але сама процедура була скомпрометована</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Розпорошення коштів</div>
+          <div class="step-desc">$1.5B швидко розподілено через мережу адрес та крос-чейн мости</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Урок: холодне зберігання + мультипідпис не захищають, якщо скомпрометовано інтерфейс підписання. Верифікація через незалежний канал!</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>FTX ($8 млрд, 2022): шахрайство, не злом</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">💸</span>
+          <span class="il-text"><strong>Схема:</strong> кошти клієнтів таємно переводились у Alameda Research для покриття торгових збитків</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔀</span>
+          <span class="il-text"><strong>Змішування активів:</strong> відсутня сегрегація клієнтських та корпоративних коштів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🪙</span>
+          <span class="il-text"><strong>Власний токен FTT</strong> як забезпечення замість реальних активів — системна нестійкість</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚖️</span>
+          <span class="il-text"><strong>Результат:</strong> Сем Бенкман-Фрід засуджений до 25 років ув'язнення (березень 2024)</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>FTX став каталізатором: прискорив MiCA у ЄС, посилив вимоги SEC у США, зробив Proof of Reserves де-факто стандартом.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Підтвердження резервів + зобов'язань (Proof of Reserves + Liabilities)</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Знімок балансів (Snapshot)</div>
+          <div class="step-desc">Hash(user_id + balance) для кожного користувача біржі</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-title">Дерево Меркла (Merkle Tree)</div>
-          <div class="step-desc">Хеш-дерево з балансами (кожен може перевірити свій)</div>
+          <div class="step-desc">Парні хеші об'єднуються до кореня. Кожен перевіряє свій баланс через Merkle Proof</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-title">Ончейн-підтвердження (On-chain Proof)</div>
-          <div class="step-desc">Підпис адрес біржі доводить контроль над активами</div>
+          <div class="step-desc">Біржа підписує повідомлення ключами cold wallet — доказ контролю активів</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Аудитор (Auditor)</div>
-          <div class="step-desc">Незалежний аудитор підтверджує reserves ≥ liabilities</div>
+          <div class="step-title">Proof of Liabilities</div>
+          <div class="step-desc">Аудитор підтверджує: активи >= зобов'язання. Без PoL — лише половина картини</div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Після FTX ($8B дефіцит) Proof of Reserves став де-факто стандартом для бірж.</p>
+        <p>FTX мав «резерви», але приховані борги на $8B. PoR без PoL = безглуздо. MiCA робить PoR обов'язковим у ЄС.</p>
       </div>
     </section>
 
     <section class="slide">
-      <h1>EU MiCA</h1>
-      <h2>Markets in Crypto-Assets Regulation</h2>
-      <div class="icon-list">
-        <div class="icon-list-item">
-          <span class="il-icon">📋</span>
-          <span class="il-text"><strong>Ліцензування</strong> — CASP (Crypto-Asset Service Provider) ліцензія обов'язкова</span>
+      <h1>MiCA (Markets in Crypto-Assets)</h1>
+      <h2>Повністю чинний з 30.12.2024 — перший комплексний крипто-фреймворк у світі</h2>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">📋</span>
+          <div class="card-title">CASP-ліцензія (Crypto Asset Service Provider)</div>
+          <div class="card-text">Обов'язкова ліцензія до липня 2026. Мін. капітал 50K-150K EUR. Без ліцензії = нелегальна діяльність у ЄС</div>
         </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🔐</span>
-          <span class="il-text"><strong>Зберігання (Custody)</strong> — вимоги до зберігання активів клієнтів, розмежування (segregation)</span>
+        <div class="card accent-green">
+          <span class="card-icon">🔐</span>
+          <div class="card-title">Сегрегація активів</div>
+          <div class="card-text">Кошти клієнтів юридично та технічно відокремлені від коштів платформи (урок FTX)</div>
         </div>
-        <div class="icon-list-item">
-          <span class="il-icon">💶</span>
-          <span class="il-text"><strong>Stablecoins</strong> — резерви 1:1, обов'язковий аудит, обмеження на non-EUR</span>
+        <div class="card accent-orange">
+          <span class="card-icon">💶</span>
+          <div class="card-title">Стейблкоїни (Stablecoins)</div>
+          <div class="card-text">100% резерви у ліквідних активах, право на викуп за номіналом, регулярний аудит</div>
         </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🛡️</span>
-          <span class="il-text"><strong>Захист споживачів (Consumer protection)</strong> — whitepaper, ризик-попередження, скарги</span>
+        <div class="card accent-purple">
+          <span class="card-icon">🌍</span>
+          <div class="card-title">Паспортизація (Passporting)</div>
+          <div class="card-text">Одна ліцензія = доступ до всього ЄС (27 країн). Модель для регуляторів світу</div>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Правило подорожі (Travel Rule) та Україна</h1>
+      <h1>Україна та глобальний контекст</h1>
       <div class="two-col">
-        <div class="col">
-          <div class="card accent-orange" style="height: 100%;">
-            <span class="card-icon">✈️</span>
-            <div class="card-title">Правило подорожі (Travel Rule) (FATF R.16)</div>
-            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              Переказ >$1000<br>
-              Дані відправника + отримувача<br>
-              Аналог банківських SWIFT-повідомлень<br>
-              Обов'язково для VASP
-            </div>
-          </div>
-        </div>
         <div class="col">
           <div class="card accent-blue" style="height: 100%;">
             <span class="card-icon">🇺🇦</span>
             <div class="card-title">Україна</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              Закон «Про віртуальні активи»<br>
-              НКЦБФР — регулятор<br>
-              Реєстрація VASP обов'язкова<br>
-              AML-compliance вимоги
+              Закон «Про віртуальні активи» (2022)<br>
+              НКЦПФР — основний регулятор<br>
+              Гармонізація з MiCA (євроінтеграція)<br>
+              Обов'язкові KYC/AML для крипто-платформ<br>
+              НБУ: крипто ≠ засіб платежу, але не заборонено
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">✈️</span>
+            <div class="card-title">Правило подорожі (Travel Rule, FATF)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Переказ >$1000: дані відправника + отримувача<br>
+              Аналог банківських SWIFT-повідомлень<br>
+              Обов'язково для VASP<br>
+              Реалізація: Notabene, Chainalysis, Sygna<br>
+              Активна імплементація з 2024 року
             </div>
           </div>
         </div>
@@ -141,111 +221,23 @@
     </section>
 
     <section class="slide">
-      <h1>Proof of Reserves: Merkle Tree</h1>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-title">Листки</div>
-          <div class="step-desc">Hash(user_id + balance) для кожного користувача біржі</div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-title">Дерево</div>
-          <div class="step-desc">Парні хеші об'єднуються вгору до кореня (Merkle Root)</div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-title">Верифікація</div>
-          <div class="step-desc">Користувач перевіряє свій баланс через Merkle Proof (log N хешів)</div>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-title">Ончейн-аналіз (On-chain)</div>
-          <div class="step-desc">Біржа підписує повідомлення з cold wallet адрес → доказ контролю активів</div>
-        </div>
-      </div>
-      <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Обмеження: PoR доводить assets >= liabilities, але не враховує приховані борги чи зобов'язання поза мережею.</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Архітектура Cold Storage біржі</h1>
+      <h1>Еволюція зломів: від технічних до людських</h1>
       <div class="icon-list">
         <div class="icon-list-item">
-          <span class="il-icon">🏗️</span>
-          <span class="il-text"><strong>Багаторівневий підхід</strong> — Hot (3-5%) для виводів → Warm (10-15%) буфер → Cold (80-90%) основне сховище</span>
+          <span class="il-icon">🔧</span>
+          <span class="il-text"><strong>Mt. Gox (2014, $450 млн)</strong> — технічні вразливості: незахищений hot wallet, відсутність моніторингу, крадіжки роками</span>
         </div>
         <div class="icon-list-item">
-          <span class="il-icon">🔐</span>
-          <span class="il-text"><strong>HSM (Hardware Security Module)</strong> — FIPS 140-2 Level 3+ пристрої для підпису транзакцій</span>
+          <span class="il-icon">🎭</span>
+          <span class="il-text"><strong>FTX (2022, $8 млрд)</strong> — шахрайство: змішування коштів, фальсифікація звітності, FTT як забезпечення</span>
         </div>
         <div class="icon-list-item">
-          <span class="il-icon">👥</span>
-          <span class="il-text"><strong>Multisig процедура</strong> — 3/5 або 4/7 підписантів з різних географічних локацій та юрисдикцій</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🏢</span>
-          <span class="il-text"><strong>Air-gapped</strong> — cold wallet ніколи не підключається до інтернету, транзакції через QR-код або USB</span>
+          <span class="il-icon">🕵️</span>
+          <span class="il-text"><strong>Bybit (2025, $1.5 млрд)</strong> — атака на ланцюг постачання: компрометація інтерфейсу, соціальна інженерія</span>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Coinbase зберігає 98% активів у cold storage з географічно розподіленими сейфами та багаторівневим фізичним захистом.</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>MiCA: деталі регулювання</h1>
-      <div class="card-grid">
-        <div class="card accent-blue">
-          <span class="card-icon">📊</span>
-          <div class="card-title">Класифікація токенів</div>
-          <div class="card-text">ART (Asset-Referenced), EMT (E-Money Token), Utility Token — різні вимоги для кожного</div>
-        </div>
-        <div class="card accent-green">
-          <span class="card-icon">🏦</span>
-          <div class="card-title">CASP ліцензія</div>
-          <div class="card-text">Мін. капітал 50K-150K EUR, кібербезпека, governance, план безперервності бізнесу</div>
-        </div>
-        <div class="card accent-orange">
-          <span class="card-icon">💶</span>
-          <div class="card-title">Stablecoin вимоги</div>
-          <div class="card-text">100% резерви у ліквідних активах, щомісячний аудит, обмеження $200M/день для non-EUR</div>
-        </div>
-        <div class="card accent-purple">
-          <span class="card-icon">🌍</span>
-          <div class="card-title">Паспортизація (Passporting)</div>
-          <div class="card-text">Одна ліцензія = доступ до всього ЄС (27 країн). Набуло чинності з грудня 2024</div>
-        </div>
-      </div>
-      <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>MiCA — перший у світі комплексний крипто-фреймворк. Модель для регуляторів Великобританії, Японії, Гонконгу.</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Порівняння безпеки бірж</h1>
-      <div class="card-grid">
-        <div class="card accent-blue">
-          <span class="card-icon">🟡</span>
-          <div class="card-title">Binance</div>
-          <div class="card-text">SAFU фонд $1B, PoR з Merkle tree, зберігання: multisig + MPC, інцидент 2022 — $570M bridge hack</div>
-        </div>
-        <div class="card accent-green">
-          <span class="card-icon">🔵</span>
-          <div class="card-title">Coinbase</div>
-          <div class="card-text">Публічна компанія (NASDAQ), 98% cold storage, SOC 2 сертифікація, страхування FDIC для USD</div>
-        </div>
-        <div class="card accent-purple">
-          <span class="card-icon">🟣</span>
-          <div class="card-title">Kraken</div>
-          <div class="card-text">PoR з аудитором, air-gapped cold storage, регулярний пентестинг, жодного великого зламу за 10+ років</div>
-        </div>
-        <div class="card accent-red">
-          <span class="card-icon">💀</span>
-          <div class="card-title">FTX (антиприклад)</div>
-          <div class="card-text">Без cold storage, без PoR, $8B дефіцит, змішування коштів клієнтів, шахрайство засновника</div>
-        </div>
+        <p>Тренд: зі зростанням технічної захищеності зловмисники переключаються на людський фактор — найслабшу ланку.</p>
       </div>
     </section>
 
@@ -255,19 +247,23 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Безпека CEX</strong> — холодне зберігання 95%+, мультипідпис, контроль виведення</span>
+          <span class="il-text"><strong>Bybit ($1.5B, 2025)</strong> — Lazarus Group. Атака на ланцюг постачання Safe{Wallet}, не на інфраструктуру</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Proof of Reserves</strong> — Merkle tree + аудитор, стандарт після FTX</span>
+          <span class="il-text"><strong>FTX ($8B, 2022)</strong> — шахрайство. Каталізатор Proof of Reserves та MiCA</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>MiCA</strong> — перший комплексний крипто-регуляторний фреймворк ЄС</span>
+          <span class="il-text"><strong>PoR + PoL</strong> — резерви без перевірки зобов'язань = безглуздо. MiCA робить обов'язковим</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Правило подорожі (Travel Rule)</strong> — FATF вимагає ідентифікацію при крипто-переказах</span>
+          <span class="il-text"><strong>MiCA</strong> — чинний з 30.12.2024. CASP-ліцензія до липня 2026. Сегрегація активів, PoR, whitepaper</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">5️⃣</span>
+          <span class="il-text"><strong>Україна</strong> — гармонізація з MiCA. Закон «Про віртуальні активи», KYC/AML, НКЦПФР як регулятор</span>
         </div>
       </div>
     </section>
@@ -286,4 +282,3 @@
 
 </body>
 </html>
-

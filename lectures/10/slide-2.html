@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
@@ -27,7 +27,7 @@
       <span class="slide-icon">📜</span>
       <h1>Вразливості смарт-контрактів</h1>
       <p class="subtitle">Лекція 10.2</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Reentrancy, overflow, access control, аудит</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Повторний вхід (Reentrancy), контроль доступу (Access Control), переповнення (Integer Overflow), аудит</span>
     </section>
 
     <section class="slide">
@@ -35,213 +35,212 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">🔒</span>
-          <span class="il-text"><strong>Незмінність (Immutable)</strong> — після деплою код НЕ можна змінити (без proxy)</span>
+          <span class="il-text"><strong>Незмінність (Immutable)</strong> — після розгортання код НЕ можна виправити «патчем» (без proxy)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">👁️</span>
-          <span class="il-text"><strong>Публічність (Public)</strong> — код відкритий, зловмисник бачить вразливості</span>
+          <span class="il-text"><strong>Публічність (Public)</strong> — код відкритий, зловмисник бачить та вивчає вразливості</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">💰</span>
-          <span class="il-text"><strong>Цінність (Value)</strong> — контракти зберігають мільярди, мотивація для атак максимальна</span>
+          <span class="il-text"><strong>Цінність (Value)</strong> — контракти зберігають мільярди доларів, мотивація для атак максимальна</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">⚡</span>
-          <span class="il-text"><strong>Компонованість (Composability)</strong> — контракти взаємодіють один з одним, атака на один = каскад</span>
+          <span class="il-text"><strong>Композиційність (Composability)</strong> — «грошові лего»: атака на один контракт = каскад збитків</span>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Атака повторного входу (Reentrancy Attack)</h1>
+      <h1>Повторний вхід (Reentrancy Attack)</h1>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-title">Виведення (Withdraw)</div>
-          <div class="step-desc">Зловмисник запитує вивід коштів</div>
+          <div class="step-desc">Зловмисник запитує вивід коштів з контракту</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-title">Зворотний виклик (Callback)</div>
-          <div class="step-desc">Контракт надсилає ETH → зловмисний fallback</div>
+          <div class="step-desc">Контракт надсилає ETH — зловмисний fallback автоматично виконується</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-title">Повторний вхід (Re-enter)</div>
-          <div class="step-desc">Fallback знову викликає withdraw (баланс не оновлено!)</div>
+          <div class="step-desc">Fallback знову викликає withdraw() — баланс ще не оновлено!</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-title">Злив коштів (Drain)</div>
-          <div class="step-desc">Цикл повторюється — весь баланс вичерпано</div>
+          <div class="step-desc">Рекурсивний цикл повторюється, доки весь баланс вичерпано</div>
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>The DAO (2016): reentrancy → $60M ETH вкрадено → форк Ethereum на ETH та ETC.</p>
+        <p>The DAO (2016): $60 млн ETH вкрадено через reentrancy. Наслідок: хард-форк Ethereum на ETH та ETC. OWASP: 12.7% усіх експлойтів.</p>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Інші вразливості</h1>
+      <h1>Захист від повторного входу (Reentrancy)</h1>
       <div class="card-grid">
-        <div class="card accent-red">
-          <span class="card-icon">🔢</span>
-          <div class="card-title">Переповнення цілого числа (Integer Overflow)</div>
-          <div class="card-text">0 - 1 = MAX_UINT256. Solidity 0.8+ має захист, старі — ні</div>
-        </div>
-        <div class="card accent-orange">
-          <span class="card-icon">🔓</span>
-          <div class="card-title">Контроль доступу (Access Control)</div>
-          <div class="card-text">Критичні функції без onlyOwner = будь-хто може викликати</div>
-        </div>
-        <div class="card accent-purple">
-          <span class="card-icon">⏩</span>
-          <div class="card-title">Фронтранінг (Front-running)</div>
-          <div class="card-text">Зловмисник бачить mempool → вища gas price → виконується першим</div>
+        <div class="card accent-green">
+          <span class="card-icon">✅</span>
+          <div class="card-title">Перевірки-ефекти-взаємодії (Checks-Effects-Interactions)</div>
+          <div class="card-text">Спочатку перевірити умови, потім оновити стан, і лише тоді — зовнішній виклик</div>
         </div>
         <div class="card accent-blue">
-          <span class="card-icon">📡</span>
-          <div class="card-title">Маніпуляція оракулом (Oracle Manipulation)</div>
-          <div class="card-text">Маніпуляція зовнішньою ціною → дешевий кредит → вилучення коштів</div>
+          <span class="card-icon">🔒</span>
+          <div class="card-title">ReentrancyGuard (OpenZeppelin)</div>
+          <div class="card-text">Mutex lock: блокує повторний вхід у функцію до завершення поточного виклику</div>
         </div>
+        <div class="card accent-orange">
+          <span class="card-icon">📥</span>
+          <div class="card-title">Витягування замість надсилання (Pull-over-Push)</div>
+          <div class="card-text">Контракт записує суму, отримувач сам ініціює виведення — усуває рекурсію</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Curve Finance (2023): reentrancy через вразливість компілятора Vyper — $60 млн. Вразливість може бути не лише у контракті, а й у інструментах.</p>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Захист смарт-контрактів</h1>
+      <h1>Контроль доступу (Access Control)</h1>
+      <h2>Найдорожча категорія вразливостей: $953.2 млн збитків (OWASP 2025)</h2>
       <div class="icon-list">
         <div class="icon-list-item">
-          <span class="il-icon">🔍</span>
-          <span class="il-text"><strong>Аудит коду</strong> — мін. 2 незалежні аудити (Trail of Bits, OpenZeppelin)</span>
+          <span class="il-icon">🔓</span>
+          <span class="il-text"><strong>Проблема:</strong> критичні функції без обмежень — будь-хто може викликати адмін-операції</span>
         </div>
         <div class="icon-list-item">
-          <span class="il-icon">📐</span>
-          <span class="il-text"><strong>Формальна верифікація (Formal verification)</strong> — математичний доказ коректності (Certora, K Framework)</span>
+          <span class="il-icon">💥</span>
+          <span class="il-text"><strong>Parity Wallet ($150 млн, 2017):</strong> devops199 «випадково» став власником бібліотеки та знищив її. 587 гаманців заморожені назавжди</span>
         </div>
         <div class="icon-list-item">
-          <span class="il-icon">🐛</span>
-          <span class="il-text"><strong>Винагорода за помилки (Bug bounty)</strong> — Immunefi: до $10M за критичну вразливість</span>
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Захист:</strong> OpenZeppelin AccessControl (RBAC), таймлоки (Timelocks) 24-48 год, мультипідпис для адмін-функцій</span>
         </div>
         <div class="icon-list-item">
-          <span class="il-icon">📚</span>
-          <span class="il-text"><strong>OpenZeppelin</strong> — перевірені бібліотеки для ERC-20, ERC-721, access control</span>
+          <span class="il-icon">📏</span>
+          <span class="il-text"><strong>Принцип мінімальних привілеїв (Least Privilege):</strong> кожна роль — лише необхідні функції</span>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Reentrancy: The DAO (детально)</h1>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-title">The DAO</div>
-          <div class="step-desc">Інвестиційний фонд на Ethereum, зібрав $150M ETH (2016)</div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-title">splitDAO()</div>
-          <div class="step-desc">Функція виведення: спочатку відправляє ETH, потім оновлює баланс</div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-title">Експлуатація (Exploit)</div>
-          <div class="step-desc">Fallback → повторний виклик splitDAO() до оновлення балансу: $60M вкрадено</div>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-title">Хард-форк (Hard Fork)</div>
-          <div class="step-desc">Ethereum спільнота відкотила транзакції → розкол на ETH та ETC</div>
-        </div>
-      </div>
-      <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Захист: Checks-Effects-Interactions pattern — оновити стан ДО зовнішнього виклику. ReentrancyGuard від OpenZeppelin.</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Integer Overflow/Underflow</h1>
+      <h1>Переповнення цілого числа (Integer Overflow)</h1>
       <div class="two-col">
         <div class="col">
           <div class="card accent-red" style="height: 100%;">
             <span class="card-icon">💥</span>
-            <div class="card-title">Overflow (до Solidity 0.8)</div>
+            <div class="card-title">Переповнення (Overflow)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              uint8 max = 255<br>
-              255 + 1 = 0 (переповнення!)<br>
-              Атакуючий отримує нескінченні токени<br>
-              BEC Token (2018): $900M обнулено
+              uint8: 255 + 1 = 0 (обгортання)<br>
+              BEC Token (2018): мільярди токенів з нічого<br>
+              До Solidity 0.8 — без перевірок<br>
+              SafeMath від OpenZeppelin як захист
             </div>
           </div>
         </div>
         <div class="col">
           <div class="card accent-orange" style="height: 100%;">
             <span class="card-icon">📉</span>
-            <div class="card-title">Underflow (до Solidity 0.8)</div>
+            <div class="card-title">Cetus ($223 млн, травень 2025)</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              uint256 balance = 0<br>
-              0 - 1 = MAX_UINT256<br>
-              Баланс стає астрономічним<br>
-              Обхід перевірок на достатність коштів
+              DEX на блокчейні Sui (не Ethereum!)<br>
+              Помилка у математиці ліквідності<br>
+              Переповнення у граничних значеннях<br>
+              Проблема НЕ специфічна для Solidity
             </div>
           </div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Solidity 0.8+ автоматично перевіряє overflow/underflow (revert). Для старих контрактів: SafeMath від OpenZeppelin.</p>
+        <p>Solidity 0.8+ (2020): автоматична перевірка overflow/underflow (revert). Але тисячі старих контрактів з мільярдами TVL — без захисту.</p>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Інструменти аудиту смарт-контрактів</h1>
+      <h1>OWASP Smart Contract Top 10 (2025)</h1>
       <div class="card-grid">
-        <div class="card accent-green">
-          <span class="card-icon">🐍</span>
-          <div class="card-title">Slither</div>
-          <div class="card-text">Статичний аналіз (Trail of Bits). Швидкий, 90+ детекторів, інтеграція з CI/CD. Безкоштовний</div>
-        </div>
-        <div class="card accent-purple">
-          <span class="card-icon">🔮</span>
-          <div class="card-title">Mythril</div>
-          <div class="card-text">Символічне виконання (ConsenSys). Глибший аналіз, знаходить складні вразливості. Повільніший</div>
-        </div>
-        <div class="card accent-blue">
-          <span class="card-icon">🐰</span>
-          <div class="card-title">Echidna</div>
-          <div class="card-text">Фаззінг (Trail of Bits). Генерує випадкові вхідні дані, перевіряє інваріанти контракту</div>
+        <div class="card accent-red">
+          <span class="card-icon">🔁</span>
+          <div class="card-title">Повторний вхід (Reentrancy)</div>
+          <div class="card-text">12.7% експлойтів. The DAO $60 млн, Curve $60 млн</div>
         </div>
         <div class="card accent-orange">
-          <span class="card-icon">🏢</span>
-          <div class="card-title">Ручний аудит</div>
-          <div class="card-text">Trail of Bits, OpenZeppelin, Certik. $50K-$500K за аудит. Незамінний для бізнес-логіки</div>
+          <span class="card-icon">🔓</span>
+          <div class="card-title">Контроль доступу (Access Control)</div>
+          <div class="card-text">$953.2 млн збитків — найдорожча категорія. Parity $150 млн</div>
         </div>
-      </div>
-      <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Найкращий підхід: автоматичні інструменти (Slither + Mythril) + ручний аудит + bug bounty програма.</p>
+        <div class="card accent-purple">
+          <span class="card-icon">🔢</span>
+          <div class="card-title">Переповнення (Integer Overflow)</div>
+          <div class="card-text">BEC Token 2018, Cetus $223 млн (2025, Sui)</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📡</span>
+          <div class="card-title">Маніпуляція оракулом (Oracle Manipulation)</div>
+          <div class="card-text">Mango Markets $114 млн (2022, Solana)</div>
+        </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Формальна верифікація</h1>
+      <h1>Аудит смарт-контрактів (Smart Contract Audit)</h1>
+      <div class="stat-row">
+        <div class="stat-box blue">
+          <div class="stat-value">+40%</div>
+          <div class="stat-label">зростання ринку аудитів у 2025 році</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">$150K+</div>
+          <div class="stat-label">вартість аудиту критичного протоколу</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">$100M+</div>
+          <div class="stat-label">виплачено через Immunefi Bug Bounty</div>
+        </div>
+      </div>
+      <div class="icon-list" style="margin-top: 1.2rem;">
+        <div class="icon-list-item">
+          <span class="il-icon">🔍</span>
+          <span class="il-text"><strong>Автоматичні інструменти:</strong> Slither (статичний аналіз), Mythril (символічне виконання), Echidna (фазінг)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏢</span>
+          <span class="il-text"><strong>Ручний аудит:</strong> Trail of Bits, OpenZeppelin, Certik — незамінний для бізнес-логіки</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚠️</span>
+          <span class="il-text"><strong>«Проаудитований» ≠ «безпечний»:</strong> аудит перевіряє код на конкретний момент, не охоплює всіх взаємодій</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Формальна верифікація (Formal Verification)</h1>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">📐</span>
-          <span class="il-text"><strong>Що це?</strong> — математичний доказ, що код відповідає специфікації на 100%</span>
+          <span class="il-text"><strong>Що це?</strong> — математичний доказ коректності для ВСІХ можливих станів, не лише тестових сценаріїв</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🔬</span>
-          <span class="il-text"><strong>Certora Prover</strong> — пише правила (інваріанти) та перевіряє їх для ВСІХ можливих станів</span>
+          <span class="il-text"><strong>Certora Prover</strong> — інваріанти: «сума балансів = загальна кількість токенів», «лише адмін змінює параметр X»</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🧮</span>
-          <span class="il-text"><strong>K Framework</strong> — формальна семантика EVM, використовується для верифікації MakerDAO, Uniswap</span>
+          <span class="il-text"><strong>K Framework, Halmos</strong> — формальна семантика EVM, символічне тестування для Solidity</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">⚖️</span>
-          <span class="il-text"><strong>Обмеження</strong> — дорого ($100K+), довго (місяці), верифікує лише специфіковані властивості</span>
+          <span class="il-text"><strong>Обмеження:</strong> дорого ($100K+), довго (місяці), потребує коректної специфікації</span>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Аудит знаходить відомі патерни вразливостей. Формальна верифікація доводить відсутність цілих класів помилок.</p>
+        <p>Аудит знаходить відомі патерни. Формальна верифікація доводить відсутність цілих класів помилок. Найкращий підхід: автоматизовані інструменти + ручний аудит + Bug Bounty + формальна верифікація.</p>
       </div>
     </section>
 
@@ -251,19 +250,19 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Повторний вхід (Reentrancy)</strong> — #1 вразливість, патерн Checks-Effects-Interactions</span>
+          <span class="il-text"><strong>Повторний вхід (Reentrancy)</strong> — 12.7% експлойтів. Патерн перевірки-ефекти-взаємодії (Checks-Effects-Interactions)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Незмінний код (Immutable)</strong> — помилку після деплою не виправити без proxy</span>
+          <span class="il-text"><strong>Контроль доступу (Access Control)</strong> — $953.2 млн збитків. OpenZeppelin AccessControl, таймлоки</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>Аудит</strong> — мінімум 2 аудити + formal verification для DeFi</span>
+          <span class="il-text"><strong>Переповнення (Integer Overflow)</strong> — Cetus $223 млн (2025). Проблема в будь-якому блокчейні</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>OpenZeppelin</strong> — використовуйте перевірені бібліотеки, не пишіть з нуля</span>
+          <span class="il-text"><strong>Аудит + Bug Bounty + формальна верифікація</strong> — жоден окремий інструмент не є достатнім</span>
         </div>
       </div>
     </section>
@@ -282,4 +281,3 @@
 
 </body>
 </html>
-

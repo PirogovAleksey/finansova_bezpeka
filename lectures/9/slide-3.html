@@ -27,7 +27,25 @@
       <span class="slide-icon">⚠️</span>
       <h1>Генеративний AI та нові загрози</h1>
       <p class="subtitle">Лекція 9.3</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">AI-фішинг, deepfake-голоси, LLM-вразливості</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">AI-фішинг, дипфейк-атаки (deepfake), вразливості LLM, атаки на ланцюжок постачання моделей</span>
+    </section>
+
+    <section class="slide">
+      <h1>Масштаб AI-загроз: статистика</h1>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">+72%</div>
+          <div class="stat-label">зростання AI-асистованих атак з 2024 (CrowdStrike)</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">+1265%</div>
+          <div class="stat-label">зростання фішингу, підсиленого GenAI (SlashNext)</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="stat-value">+148%</div>
+          <div class="stat-label">зростання AI-шахрайства з імітацією особи (Deloitte)</div>
+        </div>
+      </div>
     </section>
 
     <section class="slide">
@@ -64,27 +82,27 @@
     </section>
 
     <section class="slide">
-      <h1>Deepfake-голоси та відео</h1>
+      <h1>Дипфейк-атаки (Deepfake Attacks)</h1>
       <div class="card-grid">
         <div class="card accent-red">
           <span class="card-icon">🎙️</span>
           <div class="card-title">Клонування голосу (Voice Cloning)</div>
-          <div class="card-text">3-5 секунд зразка = переконливий клон голосу CEO</div>
+          <div class="card-text">3-5 секунд зразка = переконливий клон. VALL-E, Tortoise-TTS</div>
         </div>
         <div class="card accent-orange">
           <span class="card-icon">📹</span>
-          <div class="card-title">Відео-діпфейк (Video Deepfake)</div>
-          <div class="card-text">Real-time deepfake під час відеодзвінка для обходу KYC</div>
+          <div class="card-title">Відео-дипфейк (Video Deepfake)</div>
+          <div class="card-text">Real-time deepfake під час Zoom для обходу KYC-верифікації</div>
         </div>
         <div class="card accent-purple">
-          <span class="card-icon">📞</span>
-          <div class="card-title">AI Vishing</div>
-          <div class="card-text">Тисячі одночасних дзвінків з AI-голосом «працівника банку»</div>
+          <span class="card-icon">🛒</span>
+          <div class="card-title">DaaS</div>
+          <div class="card-text">Deepfake-as-a-Service: створення дипфейків без технічних навичок</div>
         </div>
         <div class="card accent-blue">
           <span class="card-icon">💸</span>
-          <div class="card-title">$25M кейс</div>
-          <div class="card-text">2023: deepfake CEO → авторизація переказу $25 млн (Гонконг)</div>
+          <div class="card-title">Arup, $25M (Гонконг, 2024)</div>
+          <div class="card-text">Deepfake-відеоконференція з CFO та «колегами» → авторизація переказу</div>
         </div>
       </div>
     </section>
@@ -165,33 +183,29 @@
     </section>
 
     <section class="slide">
-      <h1>Порівняння якості AI-фішингу</h1>
+      <h1>Ефективність AI-фішингу</h1>
       <div class="stat-row">
-        <div class="stat-box red">
-          <div class="stat-value">4.2%</div>
-          <div class="stat-label">частота кліків традиційного фішингу</div>
+        <div class="stat-box green">
+          <div class="stat-value">78%</div>
+          <div class="stat-label">відкриття (open rate) AI-фішингових листів (Harvard, 2024)</div>
         </div>
         <div class="stat-box orange">
-          <div class="stat-value">14%</div>
-          <div class="stat-label">частота кліків GPT-фішингу (загальний)</div>
+          <div class="stat-value">21%</div>
+          <div class="stat-label">переходів за посиланням (click-through rate)</div>
         </div>
         <div class="stat-box red">
-          <div class="stat-value">31%</div>
-          <div class="stat-label">частота кліків GPT + OSINT персоналізація</div>
+          <div class="stat-value">$2.9B</div>
+          <div class="stat-label">збитки від BEC лише у США (FBI IC3, 2024)</div>
         </div>
       </div>
       <div class="icon-list" style="margin-top: 1.2rem;">
-        <div class="icon-list-item">
-          <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Дослідження 2024</strong> — AI-фішинг у 7x ефективніший за масовий шаблонний фішинг</span>
-        </div>
         <div class="icon-list-item">
           <span class="il-icon">⏱️</span>
           <span class="il-text"><strong>Час створення</strong> — 5 хвилин на лист замість 30 хвилин ручної роботи</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🌐</span>
-          <span class="il-text"><strong>Мультимовність</strong> — AI генерує ідеальний фішинг будь-якою мовою, включаючи українську</span>
+          <span class="il-text"><strong>Мультимовність (Multilingual Phishing)</strong> — AI генерує ідеальний фішинг будь-якою мовою, включаючи ділову українську</span>
         </div>
       </div>
     </section>
@@ -283,24 +297,47 @@
     </section>
 
     <section class="slide">
+      <h1>Ризик ланцюжка постачання AI-моделей</h1>
+      <h2>AI Model Supply Chain Risk</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">📦</span>
+          <span class="il-text"><strong>Open-source моделі</strong> — організації завантажують моделі з Hugging Face замість навчання з нуля</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔍</span>
+          <span class="il-text"><strong>Непрозорість ваг</strong> — мільярди параметрів неможливо перевірити як код (code review)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🚪</span>
+          <span class="il-text"><strong>Сплячі бекдори (Sleeper Agents)</strong> — модель працює нормально, але при тригері видає хибний результат</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚠️</span>
+          <span class="il-text"><strong>Ризик</strong> — бекдори зберігаються навіть після додаткового навчання (RLHF) (Anthropic, DeepMind)</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>GenAI фішинг</strong> — ідеальна граматика + персоналізація = вища частота кліків</span>
+          <span class="il-text"><strong>GenAI фішинг</strong> — +1265% зростання; 78% open rate, 21% CTR (Harvard, 2024)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Клонування голосу (Voice cloning)</strong> — 3 сек зразка = дипфейк CEO для авторизації переказу</span>
+          <span class="il-text"><strong>Дипфейк-атаки (Deepfake attacks)</strong> — DaaS-платформи, Arup $25M; +148% AI-шахрайства з імітацією</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>LLM-вразливості</strong> — ін'єкція промптів, генерація шкідливого ПЗ, джейлбрейк</span>
+          <span class="il-text"><strong>LLM-вразливості</strong> — ін'єкція промптів (prompt injection), отруєння даних (data poisoning), джейлбрейк</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Захист</strong> — AI vs AI, FIDO2, позаканальна верифікація (out-of-band)</span>
+          <span class="il-text"><strong>Ланцюжок постачання (Supply chain)</strong> — сплячі бекдори в open-source моделях, неможливість code review ваг</span>
         </div>
       </div>
     </section>

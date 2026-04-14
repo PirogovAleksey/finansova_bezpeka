@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
@@ -27,7 +27,7 @@
       <span class="slide-icon">🏗️</span>
       <h1>Безпека DeFi</h1>
       <p class="subtitle">Лекція 10.3</p>
-      <span class="tag tag-blue" style="margin-top: 1rem;">Миттєві кредити (Flash loans), маніпуляція оракулами, шахрайські вилучення (rug pulls)</span>
+      <span class="tag tag-blue" style="margin-top: 1rem;">Миттєві позики (Flash Loans), маніпуляція оракулами (Oracle Manipulation), шахрайські вилучення (Rug Pull), мости (Bridges)</span>
     </section>
 
     <section class="slide">
@@ -35,208 +35,231 @@
       <div class="stat-row">
         <div class="stat-box blue">
           <div class="stat-value">$100B+</div>
-          <div class="stat-label">Загальна заблокована вартість (TVL) у DeFi</div>
+          <div class="stat-label">загальна заблокована вартість (TVL) у DeFi</div>
         </div>
         <div class="stat-box red">
-          <div class="stat-value">$3B+</div>
-          <div class="stat-label">втрати від DeFi-зломів (2022-2023)</div>
+          <div class="stat-value">$1.1B+</div>
+          <div class="stat-label">втрати від зломів мостів у 2022 році</div>
         </div>
         <div class="stat-box orange">
-          <div class="stat-value">#1</div>
-          <div class="stat-label">найбільш атакований сегмент крипто</div>
+          <div class="stat-value">3</div>
+          <div class="stat-label">унікальні виклики: композиційність, оракули, відсутність регулятора</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>DeFi = «грошові лего» (Money Legos): Aave + Chainlink + Uniswap + MakerDAO — вразливість в одному компоненті каскадно впливає на всі.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Миттєва позика (Flash Loan): механізм</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">⚡</span>
+          <span class="il-text"><strong>Атомарність (Atomicity):</strong> позика + використання + повернення = одна транзакція, або все, або нічого</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💰</span>
+          <span class="il-text"><strong>Без забезпечення (Uncollateralized):</strong> $100M+ миттєво, повернення у тій самій транзакції</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">✅</span>
+          <span class="il-text"><strong>Легітимне використання:</strong> арбітраж, рефінансування кредитів, самоліквідація, колатеральний своп</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚠️</span>
+          <span class="il-text"><strong>Ризик:</strong> демократизація атак — не потрібен капітал, лише знання. Невдала атака = лише втрата gas (~$50)</span>
         </div>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Атаки миттєвих кредитів (Flash Loan)</h1>
+      <h1>Атака з миттєвою позикою (Flash Loan Attack)</h1>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-title">Позика (Borrow)</div>
-          <div class="step-desc">Flash loan $100M без застави (одна транзакція)</div>
+          <div class="step-desc">Flash loan $100M без застави через Aave, dYdX</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-title">Маніпуляція (Manipulate)</div>
-          <div class="step-desc">Маніпуляція ціною на DEX великим обсягом</div>
+          <div class="step-desc">Масова покупка/продаж на DEX — штучна зміна ціни активу</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-title">Експлуатація (Exploit)</div>
-          <div class="step-desc">Вилучення коштів з протоколу за маніпульованою ціною</div>
+          <div class="step-desc">Вигідна операція у цільовому протоколі за маніпульованою ціною</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Повернення (Repay)</div>
-          <div class="step-desc">Повернення кредиту з прибутком. Все atomic</div>
-        </div>
-      </div>
-      <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Захист: TWAP oracle замість spot price, Chainlink price feeds, перевірка на маніпуляцію.</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Шахрайські вилучення (Rug Pulls)</h1>
-      <div class="card-grid">
-        <div class="card accent-red">
-          <span class="card-icon">🚩</span>
-          <div class="card-title">Анонімна команда</div>
-          <div class="card-text">Ніхто не знає розробників, фейкові профілі</div>
-        </div>
-        <div class="card accent-orange">
-          <span class="card-icon">🚩</span>
-          <div class="card-title">Немає аудиту</div>
-          <div class="card-text">Код не перевірений, можливі backdoors</div>
-        </div>
-        <div class="card accent-purple">
-          <span class="card-icon">🚩</span>
-          <div class="card-title">Необмежена емісія (Unlimited mint)</div>
-          <div class="card-text">Owner може мінтити нескінченно токенів</div>
-        </div>
-        <div class="card accent-blue">
-          <span class="card-icon">🚩</span>
-          <div class="card-title">Без блокування (No lock)</div>
-          <div class="card-text">Liquidity не залочена, team може вивести все</div>
+          <div class="step-title">Повернення та прибуток (Repay + Profit)</div>
+          <div class="step-desc">Повернення кредиту, прибуток залишається. Все atomic, за секунди</div>
         </div>
       </div>
       <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>2021: rug pulls = $2.8B збитків. Перевіряйте: TokenSniffer, GoPlus, заблоковану ліквідність (locked liquidity), відмову від прав (renounced ownership).</p>
+        <p>PancakeBunny ($45 млн, 2021) — flash loan + маніпуляція LP-токенів. Cream Finance ($130 млн, 2021) — серія атак через oracle.</p>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Атаки на мости (Bridge Attacks)</h1>
-      <h2>Міжмережеві (cross-chain) мости — найвразливіша точка</h2>
-      <div class="icon-list">
-        <div class="icon-list-item">
-          <span class="il-icon">🎮</span>
-          <span class="il-text"><strong>Ronin Bridge</strong> — $625M: social engineering → компрометація 5/9 валідаторів</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🌀</span>
-          <span class="il-text"><strong>Wormhole</strong> — $320M: вразливість у верифікації підписів</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🏚️</span>
-          <span class="il-text"><strong>Nomad</strong> — $190M: помилка ініціалізації, будь-хто міг вивести кошти</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">💡</span>
-          <span class="il-text"><strong>Висновок</strong> — мости концентрують ризик: один exploit = сотні мільйонів</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Атаки Flash Loan: механіка детально</h1>
-      <div class="icon-list">
-        <div class="icon-list-item">
-          <span class="il-icon">⚡</span>
-          <span class="il-text"><strong>Atomарність</strong> — позика + маніпуляція + exploit + повернення = одна транзакція, або все, або нічого</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">💰</span>
-          <span class="il-text"><strong>Без застави</strong> — Aave, dYdX надають $100M+ миттєво; вартість атаки = лише gas (~$50)</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Pancake Bunny (2021)</strong> — $45M: flash loan → маніпуляція ціною LP-токенів → мінтинг</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🔗</span>
-          <span class="il-text"><strong>Cream Finance (2021)</strong> — $130M: серія flash loan атак через маніпуляцію ціни oracle</span>
-        </div>
-      </div>
-      <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Flash loans демократизували атаки: не потрібен капітал, лише знання вразливостей протоколу.</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Маніпуляція Oracle</h1>
+      <h1>Маніпуляція оракулом (Oracle Manipulation)</h1>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-title">Спотова ціна (Spot Price)</div>
-          <div class="step-desc">Протокол використовує поточну ціну з одного DEX як oracle</div>
+          <div class="step-desc">Протокол використовує поточну ціну з одного DEX як оракул</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-title">Накачування (Pump)</div>
-          <div class="step-desc">Атакуючий купує великий об'єм → ціна токена злітає на DEX</div>
+          <div class="step-desc">Масова покупка штучно піднімає ціну токена у ~10 разів</div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-title">Експлуатація (Exploit)</div>
-          <div class="step-desc">Бере кредит під «дорогу» заставу або ліквідує чужі позиції</div>
+          <div class="step-desc">Позичає $114 млн під «дорогу» заставу, яка лише здається прибутковою</div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-title">Скидання (Dump)</div>
-          <div class="step-desc">Продає токен → ціна повертається, протокол залишається з поганим боргом</div>
+          <div class="step-desc">Ціна повертається, позиція ліквідована, але позичені кошти вже виведені</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Mango Markets ($114 млн, 2022, Solana): Авраам Айзенберг публічно визнав атаку як «торгову стратегію». Засуджений за шахрайство у 2024 році.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Захист від маніпуляцій</h1>
+      <div class="card-grid">
+        <div class="card accent-green">
+          <span class="card-icon">🔗</span>
+          <div class="card-title">Chainlink (децентралізований оракул)</div>
+          <div class="card-text">Агрегація даних від 20+ незалежних провайдерів. $75B+ TVL протоколів під захистом</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">⏱️</span>
+          <div class="card-title">TWAP (Time-Weighted Average Price)</div>
+          <div class="card-text">Середньозважена ціна за 30-60 хв. Маніпуляція в 1 блоці має мінімальний вплив</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🚫</span>
+          <div class="card-title">Flash Loan Guards</div>
+          <div class="card-text">Блокування чутливих операцій, ініційованих у тій самій транзакції, що й flash loan</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">📏</span>
+          <div class="card-title">Поріг відхилення (Deviation Threshold)</div>
+          <div class="card-text">Ціна змінилась на >X% між блоками — транзакція відхиляється або потребує підтвердження</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Шахрайське вилучення (Rug Pull)</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">🚩</span>
+            <div class="card-title">Червоні прапорці</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Анонімна команда<br>
+              Відсутність аудиту<br>
+              Незаблокована ліквідність (no liquidity lock)<br>
+              APY тисячі %: ознака піраміди<br>
+              Агресивний маркетинг, FOMO<br>
+              Концентрація токенів у кількох адресах
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">🦑</span>
+            <div class="card-title">Squid Game Token (2021)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Зростання 75 000% за тиждень<br>
+              Контракт блокував продаж (honeypot)<br>
+              Лише розробники могли продавати<br>
+              $3.3 млн виведено за хвилини<br>
+              Ціна = $0 миттєво<br>
+              Попередження були очевидні, але ігнорувалися
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Перевірка проєкту: DYOR (Do Your Own Research)</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🔍</span>
+          <span class="il-text"><strong>Аналіз контракту:</strong> TokenSniffer, GoPlus API — перевірка на honeypot, blacklist, sell restrictions</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔒</span>
+          <span class="il-text"><strong>Блокування ліквідності (Liquidity Lock):</strong> чи залочена? На який термін? Unicrypt, PinkLock</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">👤</span>
+          <span class="il-text"><strong>Команда:</strong> реальні особи з LinkedIn/GitHub? KYC пройдений? Історія активності?</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>Токеноміка:</strong> розподіл токенів через блокчейн-експлорер. Vesting schedule для команди?</span>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>99%+ нових токенів на BSC/Solana/Base — шахрайські або без реальної цінності. Якщо здається занадто гарним — це шахрайство.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h1>Безпека мостів (Bridge Security)</h1>
+      <h2>Міжмережеві мости (Cross-chain Bridges) — найвразливіша точка DeFi</h2>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🎮</span>
+          <span class="il-text"><strong>Ronin Bridge ($625 млн, 2022)</strong> — фішинг Lazarus Group, 5/9 валідаторів під контролем Sky Mavis. Виявлено через 6 днів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🌀</span>
+          <span class="il-text"><strong>Wormhole ($320 млн, 2022)</strong> — вразливість у верифікації підписів: 120K wETH випущено без реального забезпечення</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏚️</span>
+          <span class="il-text"><strong>Nomad ($190 млн, 2022)</strong> — помилка ініціалізації: будь-хто міг вивести кошти. 300+ адрес взяли участь у «масовому пограбуванні»</span>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Захист: Chainlink (децентралізований oracle, агрегація даних з 20+ джерел), Uniswap TWAP (середня ціна за час).</p>
+        <p>2022: $1.1B+ втрат від мостів. Один контракт зберігає мільярди — найвище співвідношення зусиль/прибутку для зловмисника.</p>
       </div>
     </section>
 
     <section class="slide">
-      <h1>Виявлення шахрайського вилучення (Rug Pull)</h1>
+      <h1>Мости: чому вразливі та як захищатись</h1>
       <div class="card-grid">
         <div class="card accent-red">
-          <span class="card-icon">🔍</span>
-          <div class="card-title">Аналіз контракту</div>
-          <div class="card-text">Функції mint(), pause(), blacklist() у власника? Можливість заблокувати продаж токенів (пастка, honeypot)</div>
+          <span class="card-icon">🎯</span>
+          <div class="card-title">Складна багатоланцюгова логіка</div>
+          <div class="card-text">Різні консенсуси, формати, моделі безпеки — кожен блокчейн множить поверхню атаки</div>
         </div>
         <div class="card accent-orange">
-          <span class="card-icon">🔒</span>
-          <div class="card-title">Блокування ліквідності (Liquidity Lock)</div>
-          <div class="card-text">LP-токени залочені? На який термін? Team Tokens lock? Unicrypt, PinkLock для перевірки</div>
-        </div>
-        <div class="card accent-blue">
-          <span class="card-icon">🛠️</span>
-          <div class="card-title">Автоматичні сканери</div>
-          <div class="card-text">TokenSniffer, GoPlus API, RugDoc, De.Fi Scanner: автоматична оцінка ризику токена</div>
+          <span class="card-icon">💰</span>
+          <div class="card-title">Висока TVL в одному контракті</div>
+          <div class="card-text">Мільярди доларів сконцентровані у одному місці — максимальна мотивація</div>
         </div>
         <div class="card accent-green">
-          <span class="card-icon">📋</span>
-          <div class="card-title">Належна перевірка (Due Diligence)</div>
-          <div class="card-text">Реальна команда (KYC)? GitHub активність? Аудит від відомої компанії? Токеноміка розумна?</div>
+          <span class="card-icon">🔮</span>
+          <div class="card-title">ZK-мости (Zero-Knowledge)</div>
+          <div class="card-text">Математичний доказ валідності без довіри до валідаторів — майбутнє мостів</div>
         </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Статистика DeFi зломів</h1>
-      <div class="stat-row">
-        <div class="stat-box red">
-          <div class="stat-value">$6.3B</div>
-          <div class="stat-label">загальні втрати DeFi (2020-2024)</div>
-        </div>
-        <div class="stat-box orange">
-          <div class="stat-value">40%</div>
-          <div class="stat-label">атаки на bridges (cross-chain)</div>
-        </div>
-        <div class="stat-box blue">
-          <div class="stat-value">30%</div>
-          <div class="stat-label">flash loan + oracle маніпуляції</div>
-        </div>
-      </div>
-      <div class="icon-list" style="margin-top: 1.2rem;">
-        <div class="icon-list-item">
-          <span class="il-icon">🏆</span>
-          <span class="il-text"><strong>Топ-3 зломи:</strong> Ronin Bridge $625M, Poly Network $611M, Wormhole $320M</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">📈</span>
-          <span class="il-text"><strong>Тренд:</strong> зменшення зломів у 2024 завдяки кращим аудитам та формальній верифікації</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">💡</span>
-          <span class="il-text"><strong>Повернення:</strong> ~20% вкрадених коштів повертаються через переговори або дії етичних хакерів (white-hat)</span>
+        <div class="card accent-blue">
+          <span class="card-icon">⏳</span>
+          <div class="card-title">Оптимістичні мости (Optimistic)</div>
+          <div class="card-text">Період оскарження 7 днів — час для виявлення шахрайства watch-dog системами</div>
         </div>
       </div>
     </section>
@@ -247,19 +270,23 @@
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Миттєві кредити (Flash loans)</strong> — маніпуляція ціною + експлойт протоколу в 1 транзакції</span>
+          <span class="il-text"><strong>Миттєві позики (Flash Loans)</strong> — атака без капіталу: маніпуляція ціною + експлойт у 1 транзакції</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Rug pulls</strong> — DYOR: аудит, заблокована ліквідність, команда, відмова від прав</span>
+          <span class="il-text"><strong>Маніпуляція оракулом (Oracle)</strong> — Mango Markets $114 млн. Захист: Chainlink, TWAP</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>Мости (Bridges)</strong> — найвразливіша точка DeFi, $1B+ збитків</span>
+          <span class="il-text"><strong>Rug Pull</strong> — Squid Game Token. DYOR: аудит, liquidity lock, команда, токеноміка</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Захист</strong> — TWAP oracle, Chainlink, аудит, formal verification</span>
+          <span class="il-text"><strong>Мости (Bridges)</strong> — $1.1B+ втрат у 2022. Ronin $625M, Wormhole $320M, Nomad $190M</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">5️⃣</span>
+          <span class="il-text"><strong>Захист:</strong> TWAP oracle, Chainlink, flash loan guards, ZK-bridges, DYOR</span>
         </div>
       </div>
     </section>
@@ -278,4 +305,3 @@
 
 </body>
 </html>
-
