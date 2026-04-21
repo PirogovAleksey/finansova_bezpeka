@@ -182,16 +182,16 @@ const lectures = [
     duration: "2 год",
     badge: "new",
     overview: "Штучний інтелект трансформує кібербезпеку фінансового сектору як інструмент захисту і як зброя зловмисників. Ринок AI у кібербезпеці оцінюється у $34.1 млрд (2025) із прогнозом зростання до $234.6 млрд до 2032 року. AI-системи покращують швидкість виявлення загроз на 74% та зменшують вартість витоку на 43%.",
-    overviewExtra: "UEBA, NDR, автоматизований threat hunting через SOAR-платформи, fraud detection з точністю 87-96.8%. Водночас генеративний AI створює нові загрози: AI-фішинг з 78% open rate, Deepfake-as-a-Service, автоматизація атак. EU AI Act (набув чинності 2024) та NIST AI RMF визначають вимоги до захисту та відповідального використання AI.",
+    overviewExtra: "Арсенал захисту охоплює поведінкову аналітику (UEBA), аналіз мережевого трафіку (NDR), автоматизоване реагування (SOAR) та fraud detection з точністю 87-96.8%. У 2025-2026 роках стандартом стають LLM-асистенти для SOC (Microsoft Security Copilot, Gemini in Chronicle), графові нейронні мережі (GNN) для виявлення відмивання коштів і федеративне навчання для колаборації банків без обміну даними клієнтів. Водночас генеративний AI озброїв і зловмисників: AI-фішинг зріс на 1265%, з'явився Deepfake-as-a-Service, а кейс Arup показав реальність $25-мільйонних збитків від дипфейк-дзвінків. EU AI Act (2024) та NIST AI RMF задають вимоги до відповідального використання AI у фінансах.",
     topics: [
-      { title: "AI/ML для виявлення загроз", desc: "Виявлення аномалій, UEBA, NDR (Darktrace, Vectra AI), SOAR-автоматизація, SIGMA-правила" },
-      { title: "AI у фінансовому моніторингу", desc: "Fraud detection (точність 87-96.8%), AML з GNN, KYC/deepfake detection, Danske Bank та HSBC кейси" },
-      { title: "Генеративний AI та нові загрози", desc: "AI-фішинг (+1265%), deepfake-атаки (Arup $25M), prompt injection, AI model supply chain risk" },
-      { title: "Захист AI-систем та відповідальний AI", desc: "Змагальні атаки (adversarial), XAI/SHAP/LIME, AI governance, EU AI Act, NIST AI RMF" }
+      { title: "AI/ML для виявлення загроз", desc: "Виявлення аномалій, поведінкова аналітика (UEBA), аналіз мережевого трафіку (NDR — Darktrace, Vectra AI), автоматизоване реагування (SOAR) та SIGMA-правила, LLM-асистенти для SOC, графові нейронні мережі (GNN), федеративне навчання" },
+      { title: "AI у фінансовому моніторингу", desc: "Виявлення шахрайства (fraud detection, точність 87-96.8%), протидія відмиванню коштів (AML) з GNN, верифікація клієнтів (KYC) і виявлення дипфейків, кейси Danske Bank і HSBC" },
+      { title: "Генеративний AI та нові загрози", desc: "AI-фішинг (+1265%), дипфейк-атаки (кейс Arup на $25 млн), ін'єкція промптів (prompt injection), ризики ланцюжка постачання AI-моделей" },
+      { title: "Захист AI-систем та відповідальний AI", desc: "Змагальні атаки (adversarial), пояснюваний AI (XAI — SHAP, LIME), управління AI (AI governance), EU AI Act, NIST AI RMF" }
     ],
     conspect: "lectures/9/conspect.html",
     presentations: [
-      { title: "Тема 9.1 — AI/ML для виявлення загроз", desc: "Anomaly detection, UEBA, автоматизований threat hunting", url: "lectures/9/slide-1.html" },
+      { title: "Тема 9.1 — AI/ML для виявлення загроз", desc: "Anomaly detection, UEBA, threat hunting, LLM-copilots, GNN", url: "lectures/9/slide-1.html" },
       { title: "Тема 9.2 — AI у фінансовому моніторингу", desc: "ML для fraud detection, AML-скринінг, deepfake detection", url: "lectures/9/slide-2.html" },
       { title: "Тема 9.3 — Генеративний AI та нові загрози", desc: "AI-фішинг, deepfake-голоси, LLM-вразливості", url: "lectures/9/slide-3.html" },
       { title: "Тема 9.4 — Захист AI-систем", desc: "Adversarial attacks, model security, AI governance", url: "lectures/9/slide-4.html" }

@@ -23,6 +23,7 @@
 
   <div class="slide-deck" data-next="slide-3.html" data-prev="slide-1.html">
 
+    <!-- 1. Title -->
     <section class="slide active">
       <span class="slide-icon">💰</span>
       <h1>AI у фінансовому моніторингу</h1>
@@ -30,6 +31,7 @@
       <span class="tag tag-blue" style="margin-top: 1rem;">Виявлення шахрайства (Fraud Detection), AML-скринінг, верифікація особи (KYC)</span>
     </section>
 
+    <!-- 2. Статистика масштабу -->
     <section class="slide">
       <h1>AI у фінсекторі: масштаб впровадження</h1>
       <div class="stat-row">
@@ -48,33 +50,71 @@
       </div>
     </section>
 
+    <!-- === FRAUD DETECTION BLOCK === -->
+
+    <!-- 3. Fraud Detection — Feature engineering intro (6 categories) -->
     <section class="slide">
       <h1>ML для виявлення шахрайства</h1>
-      <h2>Конструювання ознак (feature engineering)</h2>
+      <h2>Конструювання ознак (feature engineering) — 6 категорій</h2>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">💰</span>
-          <span class="il-text"><strong>Відносна сума</strong> — транзакція / середня сума клієнта = anomaly ratio</span>
+          <span class="il-text"><strong>Ознаки суми (Amount)</strong> — транзакція / середня клієнта, близькість до порогів звітності, круглі суми</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">⏱️</span>
-          <span class="il-text"><strong>Швидкість (Velocity)</strong> — кількість транзакцій за останню годину / день</span>
+          <span class="il-text"><strong>Швидкість (Velocity)</strong> — кількість транзакцій за 5 хв / годину / добу (ознака клонованої картки)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📍</span>
-          <span class="il-text"><strong>Неможлива подорож (Impossible travel)</strong> — відстань між точками / час = фізично неможливо?</span>
+          <span class="il-text"><strong>Географічні (Geo)</strong> — impossible travel, невідповідність IP-геолокації, high-risk країни</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🕐</span>
-          <span class="il-text"><strong>Час доби</strong> — транзакція о 3 AM vs типовий час клієнта</span>
+          <span class="il-text"><strong>Часові (Temporal)</strong> — покупка о 3 AM для клієнта з активністю до 22:00, нетипові дні</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏪</span>
+          <span class="il-text"><strong>Ознаки продавця (Merchant)</strong> — high-risk MCC: азартні ігри, крипто-біржі, подарункові сертифікати</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">📱</span>
-          <span class="il-text"><strong>Оцінка пристрою (Device score)</strong> — новий пристрій? Зміна відбитка (fingerprint)?</span>
+          <span class="il-text"><strong>Ознаки пристрою (Device)</strong> — новий пристрій, зміна OS/браузера, VPN/Tor, device fingerprint</span>
         </div>
       </div>
     </section>
 
+    <!-- 4. Feature Engineering — detail by pattern -->
+    <section class="slide">
+      <h1>Конструювання ознак (Feature Engineering) для транзакцій</h1>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">📊</span>
+          <div class="card-title">Агрегатні</div>
+          <div class="card-text">Сума/кількість транзакцій за 1h, 24h, 7d. Середня сума, max, stddev</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🌍</span>
+          <div class="card-title">Геопросторові</div>
+          <div class="card-text">Відстань від попередньої транзакції, країна ризику, impossible travel flag</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🔗</span>
+          <div class="card-title">Графові</div>
+          <div class="card-text">Мережа зв'язків: спільні пристрої, IP, отримувачі. PageRank для ризику</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">⏱️</span>
+          <div class="card-title">Поведінкові</div>
+          <div class="card-text">Відхилення від базової лінії: час, категорія мерчанта, сума vs група колег</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Якість ознак визначає 80% результату. Модель з 200+ ознак дає точність (precision) 95%+ при повноті (recall) 70%+.</p>
+      </div>
+    </section>
+
+    <!-- 5. Ensemble Models -->
     <section class="slide">
       <h1>Ансамблеві моделі (Ensemble Models)</h1>
       <div class="card-grid">
@@ -104,104 +144,7 @@
       </div>
     </section>
 
-    <section class="slide">
-      <h1>AI для AML</h1>
-      <h2>Протидія відмиванню коштів (Anti-Money Laundering)</h2>
-      <div class="stat-row">
-        <div class="stat-box red">
-          <div class="stat-value">&gt;95%</div>
-          <div class="stat-label">хибних спрацювань (false positives) у AML на основі правил</div>
-        </div>
-        <div class="stat-box green">
-          <div class="stat-value">50-70%</div>
-          <div class="stat-label">хибних спрацювань з ML (зменшення)</div>
-        </div>
-        <div class="stat-box blue">
-          <div class="stat-value">GNN</div>
-          <div class="stat-label">графові нейронні мережі (Graph Neural Networks) для мереж транзакцій</div>
-        </div>
-      </div>
-      <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>NLP для скринінгу негативних згадок (Adverse Media Screening): автоматичний аналіз новин про санкції, корупцію, шахрайство для PEP-перевірок.</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Кейси впровадження AML з ML</h1>
-      <div class="two-col">
-        <div class="col">
-          <div class="card accent-blue" style="height: 100%;">
-            <span class="card-icon">🏦</span>
-            <div class="card-title">Danske Bank</div>
-            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              Після скандалу з відмиванням $230 млрд<br>
-              ML-система: -60% хибних спрацювань<br>
-              +50% виявлення реального відмивання
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card accent-green" style="height: 100%;">
-            <span class="card-icon">🏦</span>
-            <div class="card-title">HSBC</div>
-            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              -60% хибних спрацювань (false positives)<br>
-              У 2-4 рази більше виявлених підозрілих операцій<br>
-              Порівняно з попередньою rule-based системою
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Виявлення дипфейків (Deepfake Detection) у KYC</h1>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-title">Загроза</div>
-          <div class="step-desc">Deepfake-відео для обходу відеоверифікації (KYC). 62% організацій вже зіткнулися зі спробами (Gartner, 2024)</div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-title">Перевірка живості (Liveness Detection)</div>
-          <div class="step-desc">AI-аналіз мікрорухів, текстури шкіри, відблисків у зіницях, пульсу через фотоплетизмографію</div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-title">PAD</div>
-          <div class="step-desc">Presentation Attack Detection: фото на екрані, 3D-маски, deepfake в реальному часі</div>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-title">Багатошаровий (Multi-layer)</div>
-          <div class="step-desc">Документ + обличчя (face matching) + живість (liveness) + пристрій = надійна верифікація</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Передбачення у реальному часі (Real-time Inference)</h1>
-      <div class="icon-list">
-        <div class="icon-list-item">
-          <span class="il-icon">⚡</span>
-          <span class="il-text"><strong>&lt;100ms</strong> — fraud score за мілісекунди для кожної транзакції</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">📦</span>
-          <span class="il-text"><strong>Сховище ознак (Feature Store)</strong> — попередньо обчислені ознаки для швидкого передбачення</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🔧</span>
-          <span class="il-text"><strong>Стиснення моделей (Model compression)</strong> — обрізка (pruning), квантизація для edge-розгортання</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">📊</span>
-          <span class="il-text"><strong>A/B тестування</strong> — чемпіон/претендент для оновлення моделей у production</span>
-        </div>
-      </div>
-    </section>
-
+    <!-- 6. ML Pipeline Fraud Detection -->
     <section class="slide">
       <h1>ML-конвеєр для виявлення шахрайства (Fraud Detection)</h1>
       <div class="steps">
@@ -233,113 +176,252 @@
       </div>
     </section>
 
+    <!-- 7. Real-time Inference -->
     <section class="slide">
-      <h1>Конструювання ознак (Feature Engineering) для транзакцій</h1>
-      <div class="card-grid">
-        <div class="card accent-blue">
-          <span class="card-icon">📊</span>
-          <div class="card-title">Агрегатні</div>
-          <div class="card-text">Сума/кількість транзакцій за 1h, 24h, 7d. Середня сума, max, stddev</div>
+      <h1>Передбачення у реальному часі (Real-time Inference)</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">⚡</span>
+          <span class="il-text"><strong>&lt;100ms</strong> — fraud score за мілісекунди для кожної транзакції</span>
         </div>
-        <div class="card accent-orange">
-          <span class="card-icon">🌍</span>
-          <div class="card-title">Геопросторові</div>
-          <div class="card-text">Відстань від попередньої транзакції, країна ризику, impossible travel flag</div>
+        <div class="icon-list-item">
+          <span class="il-icon">📦</span>
+          <span class="il-text"><strong>Сховище ознак (Feature Store)</strong> — попередньо обчислені ознаки для швидкого передбачення</span>
         </div>
-        <div class="card accent-green">
-          <span class="card-icon">🔗</span>
-          <div class="card-title">Графові</div>
-          <div class="card-text">Мережа зв'язків: спільні пристрої, IP, отримувачі. PageRank для ризику</div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔧</span>
+          <span class="il-text"><strong>Стиснення моделей (Model compression)</strong> — обрізка (pruning), квантизація для edge-розгортання</span>
         </div>
-        <div class="card accent-purple">
-          <span class="card-icon">⏱️</span>
-          <div class="card-title">Поведінкові</div>
-          <div class="card-text">Відхилення від базової лінії: час, категорія мерчанта, сума vs група колег</div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>A/B тестування</strong> — чемпіон/претендент для оновлення моделей у production</span>
         </div>
-      </div>
-      <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Якість ознак визначає 80% результату. Модель з 200+ ознак дає точність (precision) 95%+ при повноті (recall) 70%+.</p>
       </div>
     </section>
 
+    <!-- === AML BLOCK === -->
+
+    <!-- 8. AML — intro -->
     <section class="slide">
-      <h1>AML Risk Scoring модель</h1>
+      <h1>AI для AML</h1>
+      <h2>Протидія відмиванню коштів (Anti-Money Laundering)</h2>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">&gt;95%</div>
+          <div class="stat-label">хибних спрацювань (false positives) у AML на основі правил</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">50-70%</div>
+          <div class="stat-label">хибних спрацювань з ML (зменшення)</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="stat-value">GNN</div>
+          <div class="stat-label">графові нейронні мережі (Graph Neural Networks) для мереж транзакцій</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>NLP для скринінгу негативних згадок (Adverse Media Screening): автоматичний аналіз новин про санкції, корупцію, шахрайство для PEP-перевірок.</p>
+      </div>
+    </section>
+
+    <!-- 9. AML Risk Scoring — 3 approaches -->
+    <section class="slide">
+      <h1>AML Risk Scoring: Rules vs ML vs GNN</h1>
+      <div class="card-grid cols-3">
+        <div class="card accent-red">
+          <span class="card-icon">📋</span>
+          <div class="card-title">Rule-based (legacy)</div>
+          <div class="card-text">Пороги: сума &gt; $10K<br>500+ статичних правил<br><strong>FP: &gt;95%</strong><br>Нові схеми — місяці</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🤖</span>
+          <div class="card-title">ML Risk Scoring</div>
+          <div class="card-text">XGBoost, нейромережі<br>Dynamic score 0-100<br><strong>FP: 50-70%</strong><br>Нові схеми — за дні</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🕸️</span>
+          <div class="card-title">GNN (графові)</div>
+          <div class="card-text">Аналіз графу транзакцій<br>Message passing<br><strong>FP: 30-50%</strong><br>ING: +50% виявлення</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>GNN виявляють smurfing (розбиття сум), layering (ланцюжки переказів), fan-out/fan-in та shell company networks через аналіз мережі зв'язків між рахунками.</p>
+      </div>
+    </section>
+
+    <!-- 10. AML Cases -->
+    <section class="slide">
+      <h1>Кейси впровадження AML з ML</h1>
       <div class="two-col">
         <div class="col">
-          <div class="card accent-red" style="height: 100%;">
-            <span class="card-icon">📋</span>
-            <div class="card-title">На основі правил (rule-based, legacy)</div>
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">🏦</span>
+            <div class="card-title">Danske Bank</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              Пороги: сума > $10K → alert<br>
-              Статичні правила: 500+ rules<br>
-              Хибні спрацювання: >95%<br>
-              Нові схеми — місяці на правила
+              Після скандалу з відмиванням $230 млрд<br>
+              ML-система: -60% хибних спрацювань<br>
+              +50% виявлення реального відмивання
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">🏦</span>
+            <div class="card-title">HSBC</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              -60% хибних спрацювань (false positives)<br>
+              У 2-4 рази більше виявлених підозрілих операцій<br>
+              Порівняно з попередньою rule-based системою
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- === CREDIT SCORING === -->
+
+    <!-- 11. Credit Scoring -->
+    <section class="slide">
+      <h1>Кредитний скоринг на базі ML (Credit Scoring)</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">📋</span>
+            <div class="card-title">Традиційний скоринг (legacy)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Логістична регресія, скорингові картки<br>
+              10-20 ознак: дохід, вік, кредитна історія<br>
+              Лінійні залежності<br>
+              Прозоре пояснення рішення
             </div>
           </div>
         </div>
         <div class="col">
           <div class="card accent-green" style="height: 100%;">
             <span class="card-icon">🤖</span>
-            <div class="card-title">ML Risk Scoring</div>
+            <div class="card-title">ML-скоринг</div>
             <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              GNN: аналіз мережі транзакцій<br>
-              Dynamic risk score: 0-100<br>
-              Хибні спрацювання: 50-60%<br>
-              Нові схеми — виявлення за днями
+              Gradient Boosting, нейронні мережі<br>
+              200+ ознак: транзакційні патерни, поведінка<br>
+              Нелінійні залежності<br>
+              +15-25% точності прогнозу дефолту (Experian 2024)
             </div>
           </div>
         </div>
       </div>
       <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Graph Neural Networks виявляють смурфінг-схеми (розбиття сум) та нашарування (layering, ланцюжки переказів) через аналіз мережі.</p>
+        <p><strong>Скандал Apple Card (Goldman Sachs, 2019):</strong> алгоритм встановлював жінкам ліміти у 10-20х менші через proxy-змінні. Розслідування NYDFS — каталізатор вимог до алгоритмічної справедливості (Algorithmic Fairness) та пояснюваності (XAI — SHAP, LIME). В Україні: ПриватБанк і Monobank видають кредит за хвилину через BankID, але зобов'язані пояснити клієнту причину відмови.</p>
       </div>
     </section>
 
+    <!-- === KYC BLOCK === -->
+
+    <!-- 12. KYC Deepfake — intro -->
     <section class="slide">
-      <h1>Виявлення Deepfake у KYC</h1>
+      <h1>Виявлення дипфейків (Deepfake Detection) у KYC</h1>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Загроза</div>
+          <div class="step-desc">Deepfake-відео для обходу відеоверифікації (KYC). 62% організацій вже зіткнулися зі спробами (Gartner, 2024)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Перевірка живості (Liveness Detection)</div>
+          <div class="step-desc">AI-аналіз мікрорухів, текстури шкіри, відблисків у зіницях, пульсу через фотоплетизмографію</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">PAD</div>
+          <div class="step-desc">Presentation Attack Detection: фото на екрані, 3D-маски, deepfake в реальному часі</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Багатошаровий (Multi-layer)</div>
+          <div class="step-desc">Документ + обличчя (face matching) + живість (liveness) + пристрій = надійна верифікація</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. KYC Liveness + PAD — detail 5 mechanisms -->
+    <section class="slide">
+      <h1>Liveness Detection і PAD: 5 механізмів</h1>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">👁️</span>
-          <span class="il-text"><strong>Аналіз мікрорухів</strong> — частота моргання, мікроекспресії, рух зіниць не відповідає deepfake</span>
+          <span class="il-text"><strong>Мікрорухи обличчя</strong> — мимовільне моргання, мікроекспресії, рух зіниць; deepfake відтворює з характерними артефактами</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🎨</span>
-          <span class="il-text"><strong>Текстурний аналіз</strong> — артефакти на межі обличчя, непослідовне освітлення, розмиті контури</span>
+          <span class="il-text"><strong>Текстура шкіри</strong> — пори, нерівності, зморшки на мікрорівні; при збільшенні deepfake не відтворює ідеально</span>
         </div>
         <div class="icon-list-item">
-          <span class="il-icon">📱</span>
-          <span class="il-text"><strong>Цілісність пристрою (Device integrity)</strong> — перевірка камери, рутований пристрій, ін'єкція екрану, виявлення віртуальної камери</span>
+          <span class="il-icon">❤️</span>
+          <span class="il-text"><strong>rPPG — Remote Photoplethysmography</strong> — виявлення частоти серцебиття через мікрозміни кольору шкіри; deepfake не імітує</span>
         </div>
         <div class="icon-list-item">
-          <span class="il-icon">🔬</span>
-          <span class="il-text"><strong>Частотний аналіз (Frequency analysis)</strong> — FFT-аналіз відео виявляє GAN-артефакти у частотному домені</span>
+          <span class="il-icon">📐</span>
+          <span class="il-text"><strong>3D Depth Analysis</strong> — інфрачервоні сенсори або структуроване світло для підтвердження тривимірності обличчя (захист від фото/екранів)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">🛡️</span>
-          <span class="il-text"><strong>Multi-modal</strong> — audio + video + document + device = комплексний антифрод score</span>
+          <span class="il-text"><strong>PAD (Presentation Attack Detection)</strong> — виявлення конкретних підробок: фото на екрані, 3D-маски, deepfake real-time; стандарт ISO/IEC 30107</span>
         </div>
       </div>
     </section>
 
+    <!-- === CONFUSION MATRIX === -->
+
+    <!-- 14. Confusion Matrix -->
+    <section class="slide">
+      <h1>Матриця помилок (Confusion Matrix): Recall &gt; Precision</h1>
+      <div class="card-grid">
+        <div class="card accent-orange">
+          <span class="card-icon">⚠️</span>
+          <div class="card-title">False Positive (FP)</div>
+          <div class="card-text">Легітимна транзакція заблокована. $443 млн річних втрат банків США через відмову клієнтів (Javelin 2024)</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">❌</span>
+          <div class="card-title">False Negative (FN)</div>
+          <div class="card-text">Шахрайство пропущено. Прямі фінансові збитки, репутаційні втрати, регуляторні санкції</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">✅</span>
+          <div class="card-title">Recall ≥ 90%</div>
+          <div class="card-text">TP / (TP + FN). Обов'язковий показник у банкінзі — частка виявленого шахрайства</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">📈</span>
+          <div class="card-title">AUC-ROC 0.95-0.99</div>
+          <div class="card-text">Якість сучасних fraud-моделей. F-beta (β&gt;1) надає більшої ваги Recall над Precision</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>У фінансах Recall пріоритетніший за Precision: краще перевірити 100 зайвих транзакцій (FP), ніж пропустити одну шахрайську (FN). Прийнятний Precision — навіть 30-40%.</p>
+      </div>
+    </section>
+
+    <!-- 15. Ключові висновки -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>91% банків США</strong> вже використовують AI; точність ансамблевих моделей 87-96.8%, хибні спрацювання (FP) &lt;2%</span>
+          <span class="il-text"><strong>Fraud Detection</strong> — 91% банків США, точність 87-96.8%, FP &lt;2%. 6 категорій ознак + ансамблі + real-time &lt;100ms</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>AML з ML</strong> — Danske Bank: -60% FP, +50% виявлення; HSBC: у 2-4 рази більше реальних знахідок</span>
+          <span class="il-text"><strong>AML</strong> — GNN знижують FP з 95% до 30-50%; Danske Bank -60% FP + 50% виявлення; HSBC у 2-4 рази більше знахідок</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>Виявлення дипфейків (Deepfake detection)</strong> — 62% організацій зіткнулися зі спробами; перевірка живості (liveness) + PAD</span>
+          <span class="il-text"><strong>Credit Scoring</strong> — ML дає +15-25% точності, але кейс Apple Card (2019) вимагає XAI для пояснень і алгоритмічної справедливості</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Конструювання ознак (Feature engineering)</strong> — velocity, impossible travel, device score визначають 80% якості моделі</span>
+          <span class="il-text"><strong>KYC + Confusion Matrix</strong> — Liveness Detection з rPPG та 3D Depth; у fraud Recall ≥ 90% пріоритетніший за Precision</span>
         </div>
       </div>
     </section>

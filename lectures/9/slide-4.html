@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
@@ -23,6 +23,7 @@
 
   <div class="slide-deck" data-next="../10/slide-1.html" data-prev="slide-3.html">
 
+    <!-- 1. Title -->
     <section class="slide active">
       <span class="slide-icon">🔒</span>
       <h1>Захист AI-систем</h1>
@@ -30,6 +31,9 @@
       <span class="tag tag-blue" style="margin-top: 1rem;">Змагальні атаки (Adversarial attacks), безпека моделей, управління ШІ (AI governance)</span>
     </section>
 
+    <!-- === BLOCK 1: ADVERSARIAL ATTACKS === -->
+
+    <!-- 2. Змагальні атаки — overview 4 типів -->
     <section class="slide">
       <h1>Змагальні атаки (Adversarial Attacks)</h1>
       <div class="card-grid">
@@ -56,139 +60,7 @@
       </div>
     </section>
 
-    <section class="slide">
-      <h1>Захист ML-моделей</h1>
-      <div class="icon-list">
-        <div class="icon-list-item">
-          <span class="il-icon">🛡️</span>
-          <span class="il-text"><strong>Змагальне навчання (Adversarial training)</strong> — навчання на змагальних прикладах для стійкості</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">✅</span>
-          <span class="il-text"><strong>Валідація вхідних даних (Input validation)</strong> — перевірка вхідних даних на аномалії перед передбаченням</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">📊</span>
-          <span class="il-text"><strong>Виявлення дрейфу (Drift detection)</strong> — моніторинг зміни розподілу даних та продуктивності моделі</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🔒</span>
-          <span class="il-text"><strong>Обмеження запитів (Rate limiting)</strong> — обмеження запитів до API моделі проти вилучення</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🔗</span>
-          <span class="il-text"><strong>Ансамблеві методи (Ensemble methods)</strong> — атака на одну модель не обходить весь ансамбль</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Пояснюваність (Explainability, XAI)</h1>
-      <h2>Чому модель прийняла це рішення?</h2>
-      <div class="two-col">
-        <div class="col">
-          <div class="card accent-red" style="height: 100%;">
-            <span class="card-icon">⬛</span>
-            <div class="card-title">Чорна скринька (Black Box)</div>
-            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              «Транзакцію заблоковано»<br>
-              Чому? Невідомо<br>
-              Клієнт незадоволений<br>
-              Регулятор вимагає пояснення
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card accent-green" style="height: 100%;">
-            <span class="card-icon">🔍</span>
-            <div class="card-title">Пояснюваний ШІ (Explainable AI)</div>
-            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
-              SHAP: внесок кожної ознаки<br>
-              LIME: локальне пояснення<br>
-              Важливість ознак (Feature importance)<br>
-              Зрозуміло для аудитора
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Фінансові регулятори вимагають: клієнт має право знати, чому AI відхилив заявку або заблокував транзакцію.</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Упередження (Bias) та справедливість (Fairness)</h1>
-      <div class="icon-list">
-        <div class="icon-list-item">
-          <span class="il-icon">⚖️</span>
-          <span class="il-text"><strong>Проблема</strong> — AI може дискримінувати за расою, статтю, віком, локацією</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🏦</span>
-          <span class="il-text"><strong>Кредитний скоринг (Credit scoring)</strong> — упередження проти меншин = порушення антидискримінаційних законів</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🔍</span>
-          <span class="il-text"><strong>Аудит</strong> — регулярна перевірка метрик справедливості: демографічна рівність (demographic parity), зрівняні шанси (equalized odds)</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">📋</span>
-          <span class="il-text"><strong>SR 11-7</strong> — Federal Reserve: незалежна валідація моделей, документування, моніторинг</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>EU AI Act: хронологія</h1>
-      <h2>Перший у світі комплексний закон про AI</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-title">01.08.2024</div>
-          <div class="step-desc">Набрання чинності EU AI Act</div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-title">02.08.2025</div>
-          <div class="step-desc">Зобов'язання для GPAI (General Purpose AI) — моделей загального призначення</div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-title">02.08.2026</div>
-          <div class="step-desc">Повні вимоги для високоризикових (high-risk) AI-систем</div>
-        </div>
-      </div>
-      <div class="highlight-box danger" style="margin-top: 1.2rem;">
-        <p>Штрафи: до 35 млн EUR або 7% глобального обороту за заборонені AI-системи; до 15 млн EUR / 3% за порушення вимог high-risk.</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>EU AI Act: рівні ризику</h1>
-      <div class="card-grid">
-        <div class="card accent-red">
-          <span class="card-icon">🚫</span>
-          <div class="card-title">Заборонені (Неприйнятний ризик)</div>
-          <div class="card-text">Соціальний рейтинг (social scoring), маніпулятивний AI, масове біометричне стеження</div>
-        </div>
-        <div class="card accent-orange">
-          <span class="card-icon">⚠️</span>
-          <div class="card-title">Високоризиковий (High-risk)</div>
-          <div class="card-text">Кредитний скоринг, fraud detection, AML. Людський нагляд (human oversight) обов'язковий</div>
-        </div>
-        <div class="card accent-blue">
-          <span class="card-icon">🟡</span>
-          <div class="card-title">Обмежений ризик</div>
-          <div class="card-text">AI-чатботи, deepfake-генератори. Прозорість: маркування AI-контенту</div>
-        </div>
-        <div class="card accent-green">
-          <span class="card-icon">🟢</span>
-          <div class="card-title">Мінімальний ризик</div>
-          <div class="card-text">Spam-фільтри, рекомендації. Без обов'язкових вимог</div>
-        </div>
-      </div>
-    </section>
-
+    <!-- 3. Приклади змагальних атак (detail) -->
     <section class="slide">
       <h1>Приклади змагальних атак (Adversarial)</h1>
       <div class="two-col">
@@ -222,6 +94,7 @@
       </div>
     </section>
 
+    <!-- 4. Техніки отруєння моделей -->
     <section class="slide">
       <h1>Техніки отруєння моделей (Model Poisoning)</h1>
       <div class="card-grid">
@@ -248,37 +121,260 @@
       </div>
     </section>
 
+    <!-- 5. Захист ML-моделей (загальний) -->
     <section class="slide">
-      <h1>Фреймворк управління ШІ (AI Governance)</h1>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-title">Інвентаризація (Inventory)</div>
-          <div class="step-desc">Реєстр усіх AI/ML моделей: ціль, дані, ризик, відповідальний власник</div>
+      <h1>Захист ML-моделей від змагальних атак</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Змагальне навчання (Adversarial training)</strong> — навчання на змагальних прикладах для стійкості</span>
         </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-title">Оцінка ризиків (Risk Assessment)</div>
-          <div class="step-desc">Класифікація моделей за рівнем ризику: low / medium / high / critical</div>
+        <div class="icon-list-item">
+          <span class="il-icon">✅</span>
+          <span class="il-text"><strong>Валідація вхідних даних (Input validation)</strong> — перевірка вхідних даних на аномалії перед передбаченням</span>
         </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-title">Валідація (Validation)</div>
-          <div class="step-desc">Незалежна валідація: accuracy, fairness, robustness, explainability тести</div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>Виявлення дрейфу (Drift detection)</strong> — моніторинг зміни розподілу даних та продуктивності моделі</span>
         </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-title">Моніторинг (Monitoring)</div>
-          <div class="step-desc">Production моніторинг: виявлення дрейфу, деградація продуктивності, сповіщення про упередження</div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔒</span>
+          <span class="il-text"><strong>Обмеження запитів (Rate limiting)</strong> — обмеження запитів до API моделі проти вилучення</span>
         </div>
-        <div class="step">
-          <div class="step-num">5</div>
-          <div class="step-title">Журнал аудиту (Audit Trail)</div>
-          <div class="step-desc">Повний аудит: версії моделей, дані навчання, рішення, зміни для регулятора</div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔗</span>
+          <span class="il-text"><strong>Ансамблеві методи (Ensemble methods)</strong> — атака на одну модель не обходить весь ансамбль</span>
         </div>
       </div>
     </section>
 
+    <!-- === BLOCK 2: EXPLAINABILITY & FAIRNESS === -->
+
+    <!-- 6. XAI + GDPR Art. 22 -->
+    <section class="slide">
+      <h1>Пояснюваність (Explainability, XAI)</h1>
+      <h2>Чому модель прийняла це рішення?</h2>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-red" style="height: 100%;">
+            <span class="card-icon">⬛</span>
+            <div class="card-title">Чорна скринька (Black Box)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              «Транзакцію заблоковано»<br>
+              Чому? Невідомо<br>
+              Клієнт незадоволений<br>
+              Регулятор вимагає пояснення
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-green" style="height: 100%;">
+            <span class="card-icon">🔍</span>
+            <div class="card-title">Пояснюваний ШІ (Explainable AI)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              SHAP: внесок кожної ознаки<br>
+              LIME: локальне пояснення<br>
+              Важливість ознак (Feature importance)<br>
+              Зрозуміло для аудитора
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p><strong>Стаття 22 GDPR:</strong> особа має право не бути предметом автоматизованих рішень, що мають юридичні або аналогічно значущі наслідки (відмова у кредиті, блокування рахунку). XAI — не лише технічна, а й юридична вимога.</p>
+      </div>
+    </section>
+
+    <!-- 7. Bias + Apple Card -->
+    <section class="slide">
+      <h1>Упередження (Bias) та справедливість (Fairness)</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">⚖️</span>
+          <span class="il-text"><strong>4 джерела упередженості</strong> — Historical (історична дискримінація), Representation (недопредставлення), Measurement (різні виміри для груп), Proxy Variables (опосередковані ознаки)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🏦</span>
+          <span class="il-text"><strong>Кейс Apple Card (Goldman Sachs, 2019)</strong> — жінки отримували ліміти в 10-20х менші; стать не була вхідним параметром, але кодувалася через proxy-змінні (поштовий індекс, рід занять). Розслідування NYDFS</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📏</span>
+          <span class="il-text"><strong>Метрики справедливості</strong> — Demographic Parity (однаковий рівень позитивних рішень), Equalized Odds (однакова точність для різних груп)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🧰</span>
+          <span class="il-text"><strong>Інструменти аудиту</strong> — IBM AI Fairness 360, Google What-If Tool, Microsoft Fairlearn: тестування до продакшн</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- === BLOCK 3: AI GOVERNANCE === -->
+
+    <!-- 8. AI Governance SR 11-7 -->
+    <section class="slide">
+      <h1>AI Governance на базі SR 11-7 (Federal Reserve)</h1>
+      <h2>Міжнародний де-факто стандарт Model Risk Management</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Інвентаризація (Inventory)</div>
+          <div class="step-desc">Реєстр усіх ML-моделей: 8 полів — ціль, дані, ризик, власник, валідація, моніторинг, версія, статус</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Оцінка ризиків (Risk Assessment)</div>
+          <div class="step-desc">Класифікація: low / medium / high / critical. High-risk моделі — посилений контроль</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Незалежна валідація (Validation)</div>
+          <div class="step-desc">Команда, незалежна від розробників моделі: accuracy, fairness, robustness, explainability тести</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Моніторинг (Monitoring)</div>
+          <div class="step-desc">Production: виявлення дрейфу (drift), деградація метрик, сповіщення про упередженість</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Audit Trail</div>
+          <div class="step-desc">Повний аудит: версії, дані навчання, рішення, зміни — для регулятора та внутрішнього комплаєнсу</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>SR 11-7 Federal Reserve (2011) — основа Model Risk Management у банках усього світу. Застосовується нарівні з EU AI Act та NIST AI RMF.</p>
+      </div>
+    </section>
+
+    <!-- 9. Model Monitoring: Concept vs Data Drift -->
+    <section class="slide">
+      <h1>Model Monitoring: Concept Drift vs Data Drift</h1>
+      <div class="two-col">
+        <div class="col">
+          <div class="card accent-orange" style="height: 100%;">
+            <span class="card-icon">🔄</span>
+            <div class="card-title">Concept Drift (дрейф концепції)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Змінюється <strong>саме шахрайство</strong><br>
+              Зловмисники адаптують тактики<br>
+              Приклад: COVID-19 → онлайн-закупки медтоварів стали high-risk<br>
+              Модель 2024 пропускає атаки 2025
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card accent-blue" style="height: 100%;">
+            <span class="card-icon">📊</span>
+            <div class="card-title">Data Drift (дрейф даних)</div>
+            <div class="card-text" style="margin-top: 8px; font-size: 0.95rem; line-height: 1.7;">
+              Змінюється <strong>розподіл вхідних даних</strong><br>
+              Новий продукт → новий профіль клієнта<br>
+              Метрики: PSI (Population Stability Index), KS-test (Kolmogorov-Smirnov)<br>
+              Алерт при падінні метрик нижче порога
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>60% ML-моделей у продакшені деградують за перші 12 місяців (Gartner, 2025). MLOps-платформи (MLflow, W&amp;B, SageMaker Model Monitor) + continuous retraining з canary deployment — обов'язкові.</p>
+      </div>
+    </section>
+
+    <!-- === BLOCK 4: REGULATION & STANDARDS === -->
+
+    <!-- 10. EU AI Act: хронологія -->
+    <section class="slide">
+      <h1>EU AI Act: хронологія</h1>
+      <h2>Перший у світі комплексний закон про AI</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">01.08.2024</div>
+          <div class="step-desc">Набрання чинності EU AI Act</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">02.08.2025</div>
+          <div class="step-desc">Зобов'язання для GPAI (General Purpose AI) — моделей загального призначення</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">02.08.2026</div>
+          <div class="step-desc">Повні вимоги для високоризикових (high-risk) AI-систем</div>
+        </div>
+      </div>
+      <div class="highlight-box danger" style="margin-top: 1.2rem;">
+        <p>Штрафи: до 35 млн EUR або 7% глобального обороту за заборонені AI-системи; до 15 млн EUR / 3% за порушення вимог high-risk.</p>
+      </div>
+    </section>
+
+    <!-- 11. EU AI Act: рівні ризику -->
+    <section class="slide">
+      <h1>EU AI Act: рівні ризику</h1>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🚫</span>
+          <div class="card-title">Заборонені (Неприйнятний)</div>
+          <div class="card-text">Соціальний рейтинг, маніпулятивний AI, масове біометричне стеження. Штраф до €35M або 7% обороту</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">⚠️</span>
+          <div class="card-title">High-risk</div>
+          <div class="card-text">Credit scoring, fraud detection, AML. 8 обов'язків (див. наступний слайд). Штраф до €15M або 3%</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🟡</span>
+          <div class="card-title">Обмежений ризик</div>
+          <div class="card-text">AI-чатботи, deepfake-генератори. Прозорість: маркування AI-контенту</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🟢</span>
+          <div class="card-title">Мінімальний ризик</div>
+          <div class="card-text">Spam-фільтри, рекомендації. Без обов'язкових вимог</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. EU AI Act: 8 обов'язків -->
+    <section class="slide">
+      <h1>EU AI Act: 8 обов'язків для High-risk систем</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Risk Management System</strong> — ідентифікація та мітигація ризиків упродовж усього життєвого циклу AI-системи</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📊</span>
+          <span class="il-text"><strong>Data Governance</strong> — навчальні дані репрезентативні, релевантні, без помилок (модель для всієї України не може навчатися лише на даних Києва)</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🔍</span>
+          <span class="il-text"><strong>Transparency</strong> — зрозуміла інформація для користувачів про те, як AI приймає рішення, + пояснення за запитом</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">👁️</span>
+          <span class="il-text"><strong>Human Oversight</strong> — кваліфікований персонал контролює AI, може втрутитися або зупинити систему</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">💪</span>
+          <span class="il-text"><strong>Accuracy, Robustness, Cybersecurity</strong> — стійкість до помилок, збоїв та змагальних атак</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📄</span>
+          <span class="il-text"><strong>Technical Documentation</strong> — архітектура, навчальні дані, валідація, обмеження, інструкції</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📋</span>
+          <span class="il-text"><strong>Record-keeping</strong> — автоматичне логування для traceability рішень AI-системи</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">✅</span>
+          <span class="il-text"><strong>Conformity Assessment</strong> — оцінка відповідності перед введенням в експлуатацію та при суттєвих змінах</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. NIST AI RMF -->
     <section class="slide">
       <h1>NIST AI RMF</h1>
       <h2>AI Risk Management Framework (США, 2023)</h2>
@@ -309,25 +405,66 @@
       </div>
     </section>
 
+    <!-- 14. OWASP Top 10 for LLM -->
+    <section class="slide">
+      <h1>OWASP Top 10 for LLM Applications (2025)</h1>
+      <div class="card-grid cols-3">
+        <div class="card accent-red">
+          <span class="card-icon">💉</span>
+          <div class="card-title">LLM01 — Prompt Injection</div>
+          <div class="card-text">Маніпуляція моделлю через direct/indirect запити для обходу інструкцій</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">📤</span>
+          <div class="card-title">LLM02 — Insecure Output</div>
+          <div class="card-text">Відсутність валідації виводу LLM → XSS/SSRF у downstream</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">☠️</span>
+          <div class="card-title">LLM03 — Data Poisoning</div>
+          <div class="card-text">Маніпуляція навчальними даними → бекдори та упередженість</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🔗</span>
+          <div class="card-title">LLM05 — Supply Chain</div>
+          <div class="card-text">Сторонні моделі, плагіни, датасети без перевірки</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">🔒</span>
+          <div class="card-title">LLM06 — Info Disclosure</div>
+          <div class="card-text">Витік даних навчання або system prompt через відповіді</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">⚙️</span>
+          <div class="card-title">LLM08 — Excessive Agency</div>
+          <div class="card-text">Надмірні повноваження LLM для автономних дій без контролю</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Ще 4 вразливості: LLM04 Model DoS, LLM07 Insecure Plugin Design, LLM09 Overreliance, LLM10 Model Theft. Повний перелік — базовий чек-лист для AI red teaming банківських чатботів.</p>
+      </div>
+    </section>
+
+    <!-- 15. Ключові висновки -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>Змагальні атаки (Adversarial)</strong> — ухилення (evasion), отруєння (poisoning), вилучення (extraction) загрожують ML-моделям</span>
+          <span class="il-text"><strong>Змагальні атаки</strong> — Evasion, Poisoning, Extraction, Inversion; захист: adversarial training, rate limiting, ансамблі</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Пояснюваність (XAI)</strong> — SHAP/LIME для пояснення рішень, обов'язково для фінансів</span>
+          <span class="il-text"><strong>XAI + Fairness</strong> — SHAP/LIME, GDPR Art. 22, кейс Apple Card; метрики Demographic Parity та Equalized Odds</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>EU AI Act</strong> — набрав чинності 01.08.2024; штрафи до 35M EUR / 7%; high-risk з 02.08.2026</span>
+          <span class="il-text"><strong>AI Governance (SR 11-7)</strong> — інвентаризація, незалежна валідація, моніторинг drift (PSI, KS-test)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>NIST AI RMF + SR 11-7</strong> — Govern/Map/Measure/Manage; незалежна валідація моделей обов'язкова</span>
+          <span class="il-text"><strong>Регуляторка</strong> — EU AI Act (8 обов'язків для high-risk, €35M штрафи), NIST AI RMF, OWASP Top 10 for LLM</span>
         </div>
       </div>
     </section>
@@ -346,4 +483,3 @@
 
 </body>
 </html>
-

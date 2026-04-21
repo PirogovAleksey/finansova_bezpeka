@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
@@ -23,6 +23,7 @@
 
   <div class="slide-deck" data-next="slide-4.html" data-prev="slide-2.html">
 
+    <!-- 1. Title -->
     <section class="slide active">
       <span class="slide-icon">⚠️</span>
       <h1>Генеративний AI та нові загрози</h1>
@@ -30,6 +31,7 @@
       <span class="tag tag-blue" style="margin-top: 1rem;">AI-фішинг, дипфейк-атаки (deepfake), вразливості LLM, атаки на ланцюжок постачання моделей</span>
     </section>
 
+    <!-- 2. Статистика масштабу -->
     <section class="slide">
       <h1>Масштаб AI-загроз: статистика</h1>
       <div class="stat-row">
@@ -48,6 +50,9 @@
       </div>
     </section>
 
+    <!-- === AI-ФІШИНГ === -->
+
+    <!-- 3. AI-фішинг — intro -->
     <section class="slide">
       <h1>Фішинг на базі ШІ (AI-powered)</h1>
       <div class="two-col">
@@ -81,107 +86,7 @@
       </div>
     </section>
 
-    <section class="slide">
-      <h1>Дипфейк-атаки (Deepfake Attacks)</h1>
-      <div class="card-grid">
-        <div class="card accent-red">
-          <span class="card-icon">🎙️</span>
-          <div class="card-title">Клонування голосу (Voice Cloning)</div>
-          <div class="card-text">3-5 секунд зразка = переконливий клон. VALL-E, Tortoise-TTS</div>
-        </div>
-        <div class="card accent-orange">
-          <span class="card-icon">📹</span>
-          <div class="card-title">Відео-дипфейк (Video Deepfake)</div>
-          <div class="card-text">Real-time deepfake під час Zoom для обходу KYC-верифікації</div>
-        </div>
-        <div class="card accent-purple">
-          <span class="card-icon">🛒</span>
-          <div class="card-title">DaaS</div>
-          <div class="card-text">Deepfake-as-a-Service: створення дипфейків без технічних навичок</div>
-        </div>
-        <div class="card accent-blue">
-          <span class="card-icon">💸</span>
-          <div class="card-title">Arup, $25M (Гонконг, 2024)</div>
-          <div class="card-text">Deepfake-відеоконференція з CFO та «колегами» → авторизація переказу</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>LLM-вразливості</h1>
-      <div class="icon-list">
-        <div class="icon-list-item">
-          <span class="il-icon">💉</span>
-          <span class="il-text"><strong>Ін'єкція промптів (Prompt injection)</strong> — маніпуляція AI-асистентом для витоку конфіденційних даних</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🦠</span>
-          <span class="il-text"><strong>Генерація шкідливого ПЗ (Malware generation)</strong> — LLM допомагає писати exploit-код та обфускувати malware</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">☠️</span>
-          <span class="il-text"><strong>Отруєння даних (Data poisoning)</strong> — маніпуляція навчальними даними для бекдорів у моделях</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🔓</span>
-          <span class="il-text"><strong>Джейлбрейк (Jailbreaking)</strong> — обхід фільтрів безпеки LLM для отримання шкідливих інструкцій</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Автоматизація атак</h1>
-      <h2>AI знижує бар'єр входу</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-title">Розвідка (Recon)</div>
-          <div class="step-desc">AI аналізує LinkedIn, соцмережі, утечки даних</div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-title">Генерація (Generate)</div>
-          <div class="step-desc">LLM створює персоналізований фішинг для кожної цілі</div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-title">Адаптація (Adapt)</div>
-          <div class="step-desc">AI адаптує атаку на основі відповідей жертви</div>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-title">Масштабування (Scale)</div>
-          <div class="step-desc">Тисячі персоналізованих атак одночасно</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Захист від AI-загроз</h1>
-      <div class="card-grid">
-        <div class="card accent-green">
-          <span class="card-icon">🤖</span>
-          <div class="card-title">AI vs AI</div>
-          <div class="card-text">AI-детектори фішингу, deepfake detection, anomaly scoring</div>
-        </div>
-        <div class="card accent-blue">
-          <span class="card-icon">🔐</span>
-          <div class="card-title">FIDO2</div>
-          <div class="card-text">Phishing-resistant auth працює навіть проти AI-фішингу</div>
-        </div>
-        <div class="card accent-orange">
-          <span class="card-icon">📞</span>
-          <div class="card-title">Позаканальна верифікація (Out-of-band)</div>
-          <div class="card-text">Callback по іншому каналу для верифікації запитів</div>
-        </div>
-        <div class="card accent-purple">
-          <span class="card-icon">🎓</span>
-          <div class="card-title">Навчання 2.0 (Training 2.0)</div>
-          <div class="card-text">Нові тренінги: AI-фішинг виглядає ідеально, перевіряй канал</div>
-        </div>
-      </div>
-    </section>
-
+    <!-- 4. AI-фішинг — ефективність (detail) -->
     <section class="slide">
       <h1>Ефективність AI-фішингу</h1>
       <div class="stat-row">
@@ -210,6 +115,36 @@
       </div>
     </section>
 
+    <!-- === ДИПФЕЙК-АТАКИ === -->
+
+    <!-- 5. Deepfake — intro -->
+    <section class="slide">
+      <h1>Дипфейк-атаки (Deepfake Attacks)</h1>
+      <div class="card-grid">
+        <div class="card accent-red">
+          <span class="card-icon">🎙️</span>
+          <div class="card-title">Клонування голосу (Voice Cloning)</div>
+          <div class="card-text">3-5 секунд зразка = переконливий клон. VALL-E, Tortoise-TTS</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">📹</span>
+          <div class="card-title">Відео-дипфейк (Video Deepfake)</div>
+          <div class="card-text">Real-time deepfake під час Zoom для обходу KYC-верифікації</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🛒</span>
+          <div class="card-title">DaaS</div>
+          <div class="card-text">Deepfake-as-a-Service: створення дипфейків без технічних навичок</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">💸</span>
+          <div class="card-title">Еволюція кейсів</div>
+          <div class="card-text"><strong>2019:</strong> UK Energy — $243 тис., клонований голос CEO (перший кейс)<br><strong>2024:</strong> Arup (Гонконг) — $25 млн, deepfake-відеоконференція</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Deepfake Audio — потік атаки (detail) -->
     <section class="slide">
       <h1>Deepfake Audio: потік атаки</h1>
       <div class="steps">
@@ -241,6 +176,65 @@
       </div>
     </section>
 
+    <!-- 7. Захист від голосових Deepfake -->
+    <section class="slide">
+      <h1>Захист від голосових Deepfake</h1>
+      <div class="card-grid">
+        <div class="card accent-blue">
+          <span class="card-icon">📊</span>
+          <div class="card-title">Технічна детекція</div>
+          <div class="card-text">Аналіз спектрограми аудіо: нетипові частотні піки, відсутність природних мікропауз, неприродна рівномірність амплітуди</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🔖</span>
+          <div class="card-title">Voice Watermarking</div>
+          <div class="card-text">Вбудовування непомітного маркера у легітимні аудіозаписи для верифікації автентичності</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">❓</span>
+          <div class="card-title">Challenge-Response</div>
+          <div class="card-text">Випадкове запитання або згенерована фраза; затримка синтезу 0.5-2 сек помітна у діалозі real-time</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔑</span>
+          <div class="card-title">Кодові слова (Code Words)</div>
+          <div class="card-text">Секретні фрази для верифікації фінансових операцій, які знають лише учасники; змінюються щомісяця</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Жоден метод окремо не є 100% ефективним — захист будується як комбінація кількох рівнів плюс процедурні правила (правило СТОП, підтвердження критичних операцій через альтернативний канал).</p>
+      </div>
+    </section>
+
+    <!-- === LLM-ВРАЗЛИВОСТІ === -->
+
+    <!-- 8. LLM — intro OWASP -->
+    <section class="slide">
+      <h1>LLM-вразливості (OWASP Top 10 for LLM)</h1>
+      <div class="icon-list">
+        <div class="icon-list-item">
+          <span class="il-icon">💉</span>
+          <span class="il-text"><strong>LLM01 — Prompt Injection</strong> — маніпуляція AI-асистентом через спеціально сформовані запити для обходу інструкцій та витоку даних</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">☠️</span>
+          <span class="il-text"><strong>LLM03 — Training Data Poisoning</strong> — впровадження шкідливих даних у тренувальний датасет для створення бекдорів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📤</span>
+          <span class="il-text"><strong>LLM02 — Insecure Output Handling</strong> — необроблений вивід LLM виконується як код/SQL, створюючи XSS або SSRF у банківських додатках</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚙️</span>
+          <span class="il-text"><strong>LLM08 — Excessive Agency</strong> — LLM з надмірними правами виконує транзакції без підтвердження людиною</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>OWASP Top 10 for LLM Applications — базовий чек-лист для банківських AI-чатботів та основа AI red teaming. Детальний розбір усіх 10 вразливостей — у розділі 9.4.</p>
+      </div>
+    </section>
+
+    <!-- 9. Prompt Injection — приклади (detail) -->
     <section class="slide">
       <h1>Prompt Injection: приклади атак</h1>
       <div class="card-grid">
@@ -270,6 +264,37 @@
       </div>
     </section>
 
+    <!-- === АВТОМАТИЗАЦІЯ АТАК === -->
+
+    <!-- 10. Автоматизація атак — intro -->
+    <section class="slide">
+      <h1>Автоматизація атак</h1>
+      <h2>AI знижує бар'єр входу</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Розвідка (Recon)</div>
+          <div class="step-desc">AI аналізує LinkedIn, соцмережі, утечки даних</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Генерація (Generate)</div>
+          <div class="step-desc">LLM створює персоналізований фішинг для кожної цілі</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Адаптація (Adapt)</div>
+          <div class="step-desc">AI адаптує атаку на основі відповідей жертви</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Масштабування (Scale)</div>
+          <div class="step-desc">Тисячі персоналізованих атак одночасно</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Автоматизовані інструменти атак (detail) -->
     <section class="slide">
       <h1>Автоматизовані інструменти атак</h1>
       <div class="icon-list">
@@ -296,6 +321,7 @@
       </div>
     </section>
 
+    <!-- 12. Supply Chain Risk -->
     <section class="slide">
       <h1>Ризик ланцюжка постачання AI-моделей</h1>
       <h2>AI Model Supply Chain Risk</h2>
@@ -319,25 +345,53 @@
       </div>
     </section>
 
+    <!-- 13. Загальний захист від AI-загроз -->
+    <section class="slide">
+      <h1>Захист від AI-загроз: загальна рамка</h1>
+      <div class="card-grid">
+        <div class="card accent-green">
+          <span class="card-icon">🤖</span>
+          <div class="card-title">AI vs AI</div>
+          <div class="card-text">AI-детектори фішингу, deepfake detection, anomaly scoring</div>
+        </div>
+        <div class="card accent-blue">
+          <span class="card-icon">🔐</span>
+          <div class="card-title">FIDO2</div>
+          <div class="card-text">Phishing-resistant auth працює навіть проти AI-фішингу</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">📞</span>
+          <div class="card-title">Позаканальна верифікація (Out-of-band)</div>
+          <div class="card-text">Callback по іншому каналу для верифікації запитів</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🎓</span>
+          <div class="card-title">Навчання 2.0 (Training 2.0)</div>
+          <div class="card-text">Нові тренінги: AI-фішинг виглядає ідеально, перевіряй канал</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. Ключові висновки -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>GenAI фішинг</strong> — +1265% зростання; 78% open rate, 21% CTR (Harvard, 2024)</span>
+          <span class="il-text"><strong>GenAI фішинг</strong> — +1265% зростання; 78% open rate, 21% CTR (Harvard, 2024); BEC $2.9B у США</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>Дипфейк-атаки (Deepfake attacks)</strong> — DaaS-платформи, Arup $25M; +148% AI-шахрайства з імітацією</span>
+          <span class="il-text"><strong>Дипфейк-атаки</strong> — UK Energy $243K (2019), Arup $25M (2024); захист: challenge-response + кодові слова</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>LLM-вразливості</strong> — ін'єкція промптів (prompt injection), отруєння даних (data poisoning), джейлбрейк</span>
+          <span class="il-text"><strong>LLM-вразливості (OWASP)</strong> — Prompt Injection, Data Poisoning, Insecure Output, Excessive Agency</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Ланцюжок постачання (Supply chain)</strong> — сплячі бекдори в open-source моделях, неможливість code review ваг</span>
+          <span class="il-text"><strong>Supply Chain</strong> — сплячі бекдори в Hugging Face моделях, неможливість code review ваг, RLHF не видаляє</span>
         </div>
       </div>
     </section>
@@ -356,5 +410,3 @@
 
 </body>
 </html>
-
-

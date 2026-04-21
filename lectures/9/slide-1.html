@@ -23,6 +23,7 @@
 
   <div class="slide-deck" data-next="slide-2.html" data-prev="../8/slide-4.html">
 
+    <!-- 1. Title -->
     <section class="slide active">
       <span class="slide-icon">🤖</span>
       <h1>AI/ML для виявлення загроз</h1>
@@ -30,6 +31,7 @@
       <span class="tag tag-blue" style="margin-top: 1rem;">Виявлення аномалій (Anomaly Detection), аналітика поведінки (UEBA), автоматизований пошук загроз</span>
     </section>
 
+    <!-- 2. Чому AI? -->
     <section class="slide">
       <h1>Чому AI?</h1>
       <h2>Обмеження традиційних підходів</h2>
@@ -61,32 +63,94 @@
       </div>
     </section>
 
+    <!-- 3. Статистика -->
     <section class="slide">
-      <h1>Виявлення аномалій (Anomaly Detection)</h1>
-      <div class="card-grid">
-        <div class="card accent-blue">
-          <span class="card-icon">📊</span>
-          <div class="card-title">З учителем (Supervised)</div>
-          <div class="card-text">Random Forest, XGBoost, NN. Навчання на розмічених даних</div>
+      <h1>AI у кібербезпеці: статистика</h1>
+      <div class="stat-row">
+        <div class="stat-box green">
+          <div class="stat-value">+74%</div>
+          <div class="stat-label">швидкість виявлення загроз з AI (IBM)</div>
         </div>
-        <div class="card accent-orange">
-          <span class="card-icon">🔍</span>
-          <div class="card-title">Без учителя (Unsupervised)</div>
-          <div class="card-text">Isolation Forest, Autoencoders. Без міток, виявлення відхилень</div>
+        <div class="stat-box blue">
+          <div class="stat-value">+67%</div>
+          <div class="stat-label">приріст предиктивних можливостей (IBM)</div>
         </div>
-        <div class="card accent-green">
-          <span class="card-icon">🔄</span>
-          <div class="card-title">Напівкероване (Semi-supervised)</div>
-          <div class="card-text">Модель «нормального». Все інше = аномалія</div>
+        <div class="stat-box orange">
+          <div class="stat-value">-43%</div>
+          <div class="stat-label">зменшення вартості витоку: $4.44M → $2.54M</div>
         </div>
-        <div class="card accent-purple">
-          <span class="card-icon">⚡</span>
-          <div class="card-title">Глибоке навчання (Deep Learning)</div>
-          <div class="card-text">LSTM, Transformer для аналізу послідовностей у часових рядах</div>
-        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>AI-системи виявляють витоки на 108 днів швидше. До 2027 року 75% корпоративних SOC використовуватимуть AI як основний інструмент детекції (Gartner, 2025).</p>
       </div>
     </section>
 
+    <!-- 4. Порівняння ML-підходів (мапа території, замінює окремий слайд "Виявлення аномалій") -->
+    <section class="slide">
+      <h1>Порівняння ML-підходів для безпеки</h1>
+      <div class="card-grid cols-3">
+        <div class="card accent-blue">
+          <span class="card-icon">🌲</span>
+          <div class="card-title">Supervised: XGBoost, Random Forest</div>
+          <div class="card-text">Точність 95-97% на табличних даних. Лідер fraud detection. SHAP для інтерпретації рішень</div>
+        </div>
+        <div class="card accent-green">
+          <span class="card-icon">🔮</span>
+          <div class="card-title">Unsupervised: Isolation Forest</div>
+          <div class="card-text">Без учителя, без міток. Ізолює аномалії через випадкові розбиття. Zero-day детекція</div>
+        </div>
+        <div class="card accent-cyan">
+          <span class="card-icon">♻️</span>
+          <div class="card-title">Semi-sup: Autoencoders, VAE</div>
+          <div class="card-text">Реконструкція нормальних даних, помилка відновлення = аномалія. Основа UEBA</div>
+        </div>
+        <div class="card accent-orange">
+          <span class="card-icon">🔄</span>
+          <div class="card-title">Deep Learning: Transformers</div>
+          <div class="card-text">Self-attention на послідовностях подій. APT detection, аналіз логів. LSTM — legacy</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🕸️</span>
+          <div class="card-title">Graph Neural Networks (GNN)</div>
+          <div class="card-text">Граф рахунків і зв'язків. AML, lateral movement, виявлення шахрайських мереж</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">🤖</span>
+          <div class="card-title">LLM / Foundation Models</div>
+          <div class="card-text">Security Copilot, Gemini in Chronicle. Пріоритизація алертів (triage), KQL-запити, SIGMA-правила</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Сучасний SOC-стек комбінує XGBoost для відомих патернів, Isolation Forest для zero-day, GNN для мережевих атак і LLM-copilot для triage.</p>
+      </div>
+    </section>
+
+    <!-- 5. Deep Learning (deep dive) -->
+    <section class="slide">
+      <h1>Глибоке навчання у кібербезпеці (Deep Learning)</h1>
+      <div class="card-grid cols-3">
+        <div class="card accent-orange">
+          <span class="card-icon">🔄</span>
+          <div class="card-title">Transformers</div>
+          <div class="card-text">Self-attention на послідовностях подій. Виявляють APT-атаки через аналіз тижневих ланцюжків. Основа Google Chronicle, Microsoft Security Copilot, IBM watsonx</div>
+        </div>
+        <div class="card accent-purple">
+          <span class="card-icon">🖼️</span>
+          <div class="card-title">CNN</div>
+          <div class="card-text">Класифікація шкідливого ПЗ через візуалізацію бінарних файлів як зображень. Точність 98%+ (Microsoft Malware Challenge). Стійкість до обфускації коду</div>
+        </div>
+        <div class="card accent-red">
+          <span class="card-icon">📼</span>
+          <div class="card-title">LSTM / GRU (застарілі)</div>
+          <div class="card-text">Рекурентні архітектури для часових рядів. Витіснені трансформерами; зустрічаються у спадкових системах з обмеженими обчислювальними ресурсами</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>У 2025-2026 Transformers домінують для аналізу логів, детекції APT та SOC-асистентів. DL потребує великих обсягів даних та GPU — обмеження для менших фінансових установ.</p>
+      </div>
+    </section>
+
+    <!-- 6. UEBA — intro -->
     <section class="slide">
       <h1>Аналітика поведінки (UEBA)</h1>
       <h2>User and Entity Behavior Analytics</h2>
@@ -117,129 +181,7 @@
       </div>
     </section>
 
-    <section class="slide">
-      <h1>Аналіз мережевого трафіку</h1>
-      <div class="icon-list">
-        <div class="icon-list-item">
-          <span class="il-icon">🔍</span>
-          <span class="il-text"><strong>DPI + ML</strong> — виявлення C2-комунікацій через аналіз патернів трафіку</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🌐</span>
-          <span class="il-text"><strong>DNS Tunneling</strong> — ентропія DNS-запитів, незвичні розміри пакетів</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">📤</span>
-          <span class="il-text"><strong>Витік даних (Data Exfiltration)</strong> — аномальний обсяг вихідних даних, незвичні протоколи</span>
-        </div>
-        <div class="icon-list-item">
-          <span class="il-icon">🛡️</span>
-          <span class="il-text"><strong>NDR</strong> — Darktrace, Vectra AI: автоматичне виявлення та реагування</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>AI у кібербезпеці: статистика</h1>
-      <div class="stat-row">
-        <div class="stat-box green">
-          <div class="stat-value">74%</div>
-          <div class="stat-label">покращення швидкості виявлення загроз з AI (IBM)</div>
-        </div>
-        <div class="stat-box blue">
-          <div class="stat-value">108 днів</div>
-          <div class="stat-label">швидше виявлення витоку даних (breach detection)</div>
-        </div>
-        <div class="stat-box orange">
-          <div class="stat-value">-43%</div>
-          <div class="stat-label">зменшення вартості витоку: $4.44M → $2.54M</div>
-        </div>
-      </div>
-      <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>До 2027 року 75% корпоративних SOC використовуватимуть AI як основний інструмент детекції (Gartner, 2025).</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Автоматизований пошук загроз (Automated Threat Hunting)</h1>
-      <div class="stat-row">
-        <div class="stat-box red">
-          <div class="stat-value">10K+</div>
-          <div class="stat-label">сповіщень (alerts) на день у типовому SOC банку</div>
-        </div>
-        <div class="stat-box green">
-          <div class="stat-value">-53%</div>
-          <div class="stat-label">зменшення помилок у SOC завдяки AI</div>
-        </div>
-        <div class="stat-box blue">
-          <div class="stat-value">SIGMA</div>
-          <div class="stat-label">3000+ правил для SIEM (SigmaHQ)</div>
-        </div>
-      </div>
-      <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>AI генерує гіпотези про загрози з логів, трафіку та endpoint-телеметрії. Втома від сповіщень (alert fatigue) — ключова проблема SOC.</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>SOAR: автоматизоване реагування</h1>
-      <h2>Security Orchestration, Automation and Response</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-title">Виявлення (Detection)</div>
-          <div class="step-desc">AI визначає рівень загрози та класифікує інцидент</div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-title">Ізоляція (Isolation)</div>
-          <div class="step-desc">Автоматичне відключення скомпрометованого endpoint від мережі</div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-title">Блокування (Blocking)</div>
-          <div class="step-desc">Блокування шкідливих IP на firewall, відкликання сесій</div>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-title">Ескалація (Escalation)</div>
-          <div class="step-desc">Тікет в ITSM, сповіщення SOC-команди з повним контекстом</div>
-        </div>
-      </div>
-      <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>Платформи: Palo Alto XSOAR, IBM QRadar SOAR, Splunk SOAR. MTTR скорочується з годин до хвилин.</p>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h1>Порівняння ML-алгоритмів для безпеки</h1>
-      <div class="card-grid">
-        <div class="card accent-blue">
-          <span class="card-icon">🌲</span>
-          <div class="card-title">Random Forest</div>
-          <div class="card-text">Точність 92-95%, швидке передбачення, інтерпретабельний. Найкращий для табличних даних</div>
-        </div>
-        <div class="card accent-green">
-          <span class="card-icon">⚡</span>
-          <div class="card-title">XGBoost / LightGBM</div>
-          <div class="card-text">Точність 95-97%, градієнтний бустинг. Лідер Kaggle-змагань з виявлення шахрайства</div>
-        </div>
-        <div class="card accent-orange">
-          <span class="card-icon">🧠</span>
-          <div class="card-title">Глибоке навчання (LSTM)</div>
-          <div class="card-text">Точність 93-96% для послідовностей. Ідеальний для часових рядів та мережевого трафіку</div>
-        </div>
-        <div class="card accent-purple">
-          <span class="card-icon">🔮</span>
-          <div class="card-title">Isolation Forest</div>
-          <div class="card-text">Без учителя, не потребує міток. Виявляє нові типи атак без попереднього навчання</div>
-        </div>
-      </div>
-      <div class="highlight-box" style="margin-top: 1.2rem;">
-        <p>На практиці найкращий результат дає ensemble: XGBoost для відомих патернів + Isolation Forest для zero-day.</p>
-      </div>
-    </section>
-
+    <!-- 7. UEBA — detail (архітектура) -->
     <section class="slide">
       <h1>Архітектура UEBA-системи</h1>
       <div class="steps">
@@ -271,6 +213,40 @@
       </div>
     </section>
 
+    <!-- 8. NDR — intro -->
+    <section class="slide">
+      <h1>Аналіз мережевого трафіку (NDR)</h1>
+      <div class="stat-row">
+        <div class="stat-box orange">
+          <div class="stat-value">&gt;70%</div>
+          <div class="stat-label">мережевого трафіку зашифровано (TLS 1.3, QUIC) — і частка зростає</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">99%+</div>
+          <div class="stat-label">точність виявлення malware у зашифрованому трафіку за метаданими (Cisco ETA)</div>
+        </div>
+      </div>
+      <div class="icon-list" style="margin-top: 1.2rem;">
+        <div class="icon-list-item">
+          <span class="il-icon">🔐</span>
+          <span class="il-text"><strong>Аналіз метаданих без дешифрування</strong> — розмір пакетів, інтервали, ентропія payload, JA3/JA3S-фінгерпринти TLS-з'єднань</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">📡</span>
+          <span class="il-text"><strong>C2-маячки (beaconing)</strong> — регулярні «пульси» зв'язку з командним сервером, нетипові розміри пакетів</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🌐</span>
+          <span class="il-text"><strong>DNS Tunneling</strong> — висока ентропія DNS-запитів, незвично довгі піддомени</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🛡️</span>
+          <span class="il-text"><strong>Платформи NDR</strong> — Darktrace, Vectra AI, ExtraHop: автоматичне виявлення та реагування</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. NDR — detail -->
     <section class="slide">
       <h1>Виявлення аномалій мережевого трафіку</h1>
       <div class="two-col">
@@ -306,6 +282,29 @@
       </div>
     </section>
 
+    <!-- 10. Threat Hunting — intro -->
+    <section class="slide">
+      <h1>Автоматизований пошук загроз (Automated Threat Hunting)</h1>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">10K+</div>
+          <div class="stat-label">сповіщень (alerts) на день у типовому SOC банку</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">-53%</div>
+          <div class="stat-label">зменшення помилок у SOC завдяки AI</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="stat-value">SIGMA</div>
+          <div class="stat-label">3000+ правил для SIEM (SigmaHQ)</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>AI генерує гіпотези про загрози з логів, трафіку та endpoint-телеметрії. Втома від сповіщень (alert fatigue) — ключова проблема SOC.</p>
+      </div>
+    </section>
+
+    <!-- 11. Threat Hunting — detail pipeline -->
     <section class="slide">
       <h1>Автоматизований конвеєр пошуку загроз (Threat Hunting Pipeline)</h1>
       <div class="steps">
@@ -326,36 +325,113 @@
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-title">Збагачення контексту</div>
-          <div class="step-desc">Розвідка загроз (Threat Intelligence), MITRE ATT&CK mapping, оцінка ризику автоматично</div>
+          <div class="step-title">Збагачення + MITRE ATT&CK</div>
+          <div class="step-desc">Розвідка загроз (Threat Intelligence), мапінг техніки на MITRE ATT&CK, оцінка ризику</div>
         </div>
         <div class="step">
           <div class="step-num">5</div>
-          <div class="step-title">SOC Playbook</div>
-          <div class="step-desc">Аналітик отримує готовий кейс з контекстом, IoC та рекомендаціями дій</div>
+          <div class="step-title">SIGMA-правило + SOC Playbook</div>
+          <div class="step-desc">Формалізація знахідки у SIGMA (3000+ правил SigmaHQ), аналітик отримує кейс з IoC та рекомендаціями</div>
         </div>
       </div>
     </section>
 
+    <!-- 12. SOAR -->
+    <section class="slide">
+      <h1>SOAR: 5 етапів автоматизованого реагування</h1>
+      <h2>Security Orchestration, Automation and Response</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Детекція (Detection)</div>
+          <div class="step-desc">SIEM/NDR генерує алерт: підозрілий вихідний трафік, невдалі спроби входу</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Збагачення (Enrichment)</div>
+          <div class="step-desc">Запит контексту з VirusTotal, AlienVault OTX, MISP: репутація IP, зв'язки з APT</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Рішення (Decision)</div>
+          <div class="step-desc">AI обчислює risk score: auto-response при &gt;85 або ескалація аналітику</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Дія (Action)</div>
+          <div class="step-desc">Ізоляція endpoint, блокування IP на firewall, відкликання сесій, ITSM-тікет</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Документування (Documentation)</div>
+          <div class="step-desc">Автоматичний звіт з timeline, зібраними артефактами, вжитими заходами</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Платформи: Palo Alto XSOAR, IBM QRadar SOAR, Splunk SOAR. Playbooks для різних інцидентів (фішинг, витік даних, ransomware). MTTR скорочується з годин до хвилин (Palo Alto Networks, 2025).</p>
+      </div>
+    </section>
+
+    <!-- 13. SOC Copilots -->
+    <section class="slide">
+      <h1>AI-асистенти у SOC (Security Copilots)</h1>
+      <div class="stat-row">
+        <div class="stat-box red">
+          <div class="stat-value">11 000</div>
+          <div class="stat-label">алертів на день у середньому SOC (Ponemon Institute, 2024)</div>
+        </div>
+        <div class="stat-box orange">
+          <div class="stat-value">44%</div>
+          <div class="stat-label">алертів ніколи не розслідуються через брак ресурсів</div>
+        </div>
+        <div class="stat-box green">
+          <div class="stat-value">-65%</div>
+          <div class="stat-label">часу на розслідування з Security Copilot (Microsoft, 2025)</div>
+        </div>
+      </div>
+      <div class="icon-list" style="margin-top: 1.2rem;">
+        <div class="icon-list-item">
+          <span class="il-icon">💬</span>
+          <span class="il-text"><strong>Запити природною мовою</strong> — замість KQL: «покажи всі невдалі спроби входу з IP РФ за 24 години»</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🎯</span>
+          <span class="il-text"><strong>Пріоритизація алертів (triage)</strong> — об'єднання пов'язаних алертів в інциденти, фільтрація хибних спрацювань</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">⚙️</span>
+          <span class="il-text"><strong>Генерація запитів і правил</strong> — KQL/SPL-запити, SIGMA-правила з опису атаки природною мовою</span>
+        </div>
+        <div class="icon-list-item">
+          <span class="il-icon">🎓</span>
+          <span class="il-text"><strong>Наставник для Tier 1</strong> — AI пояснює контекст алерту, рекомендує кроки розслідування, +44% виявлених загроз</span>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 1.2rem;">
+        <p>Платформи: Microsoft Security Copilot (з Sentinel і Defender XDR), Google Gemini in Chronicle, IBM watsonx for Cybersecurity.</p>
+      </div>
+    </section>
+
+    <!-- 14. Ключові висновки -->
     <section class="slide">
       <span class="slide-icon">🛡️</span>
       <h1>Ключові висновки</h1>
       <div class="icon-list">
         <div class="icon-list-item">
           <span class="il-icon">1️⃣</span>
-          <span class="il-text"><strong>AI</strong> — виявляє zero-day та невідомі загрози через поведінковий аналіз</span>
+          <span class="il-text"><strong>6 ML-підходів</strong> — Supervised, Unsupervised, Semi-supervised, Deep Learning, GNN, LLM; сучасний SOC комбінує кілька одночасно</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">2️⃣</span>
-          <span class="il-text"><strong>UEBA</strong> — базовий профіль + оцінка ризику для внутрішніх загроз та скомпрометованих акаунтів</span>
+          <span class="il-text"><strong>UEBA + NDR</strong> — поведінкова аналітика для insider threats + аналіз метаданих зашифрованого трафіку (99% точності)</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">3️⃣</span>
-          <span class="il-text"><strong>NDR</strong> — ML для аналізу мережевого трафіку, виявлення C2 та ексфільтрації (exfiltration)</span>
+          <span class="il-text"><strong>SOAR 5 етапів</strong> — Detection → Enrichment → Decision → Action → Documentation; MTTR з годин до хвилин</span>
         </div>
         <div class="icon-list-item">
           <span class="il-icon">4️⃣</span>
-          <span class="il-text"><strong>Пошук загроз (Threat Hunting)</strong> — AI зменшує втому від сповіщень на 80%+</span>
+          <span class="il-text"><strong>SOC Copilots</strong> — LLM-асистенти (Security Copilot, Gemini) знижують час розслідування на 65%</span>
         </div>
       </div>
     </section>
